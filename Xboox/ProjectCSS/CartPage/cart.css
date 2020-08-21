@@ -1,4 +1,10 @@
-﻿.title {
+﻿input {
+  max-width: 100%; }
+
+.form-group {
+  width: 50%; }
+
+.title {
   height: 300px; }
 
 .container .row button {
