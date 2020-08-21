@@ -223,6 +223,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="ProjectCSS\HomePage\HomePage.scss" />
+    <Content Include="ProjectCSS\CartPage\cart.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
