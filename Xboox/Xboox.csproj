@@ -222,6 +222,7 @@
     <Content Include="ProjectCSS\CartPage\cart.min.css">
       <DependentUpon>cart.css</DependentUpon>
     </Content>
+    <Content Include="ProjectJS\CartPage\cart.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="compilerconfig.json" />

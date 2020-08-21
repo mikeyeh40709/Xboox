@@ -1,4 +1,33 @@
 ﻿@import "_bill.scss";
+@mixin word($font-size,$color){
+    font-size:$font-size;
+    color:$color;
+
+}
 .title {
     height: 300px;
+}
+
+.container {
+    .row {
+        button {
+            @include word(12px,#fff);
+            padding: 9px 27px 5px 32px;
+            background-color: #d14031;
+            border: 1px solid transparent;
+            cursor: pointer;
+            display:block;
+            margin:auto;
+        }
+
+        h3 {
+            @include word(25px,#000);
+            display: block;
+            padding: 20px 30px;
+            margin: 40px 0 30px;
+            text-align: center;
+            background-color: transparent;
+            border: 1px solid #e1e1e1;
+        }
+    }
 }
