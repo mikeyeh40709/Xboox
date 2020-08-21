@@ -2,5 +2,9 @@
   {
     "outputFile": "Content/StyleSheet1.css",
     "inputFile": "Content/StyleSheet1.scss"
+  },
+  {
+    "outputFile": "ProjectCSS/CartPage/cart.css",
+    "inputFile": "ProjectCSS/CartPage/cart.scss"
   }
 ]
