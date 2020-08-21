@@ -216,6 +216,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Pics\logo.png" />
+    <Content Include="ProjectCSS\HomePage\HomePage.css">
+      <DependentUpon>HomePage.scss</DependentUpon>
+    </Content>
+    <Content Include="ProjectCSS\HomePage\HomePage.min.css">
+      <DependentUpon>HomePage.css</DependentUpon>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="compilerconfig.json" />

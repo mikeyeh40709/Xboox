@@ -1,0 +1,27 @@
+﻿* {
+  font-family: 'Noto Sans TC', sans-serif; }
+
+.navbar {
+  background-color: white;
+  border-color: white; }
+
+.navbar-inverse .navbar-nav > li > a {
+  color: black; }
+
+.navbar-inverse .navbar-nav > li > a:hover {
+  color: brown; }
+
+.navbar-inverse .navbar-brand {
+  color: black; }
+
+.navbar-inverse .navbar-brand:hover {
+  color: brown; }
+
+.navbar-form .form-control {
+  width: 300px; }
+
+.dropdown {
+  display: inline-block; }
+
+.navbar-right .dropdown-menu {
+  left: 0; }
