@@ -2,32 +2,86 @@
 @mixin word($font-size,$color){
     font-size:$font-size;
     color:$color;
-
 }
-.title {
+@mixin cormorant_word($font-size,$color) {
+    font-size:$font-size;
+    color:$color;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.full-img {
     height: 300px;
+    display:flex;
+   justify-content:center;
+   align-items:center;
 }
 
 .container {
     .row {
+        .col-sm-12 {
+            .card-section {
+
+
+                .title {
+                    display: flex;
+                    @include cormorant_word(25px,#000);
+                    font-weight: 900;
+                }
+
+                .content {
+                    display: flex;
+                    margin: 25px 0 50px 0;
+
+                    span {
+                        @include cormorant_word(22px,#555);
+                    }
+
+                    a {
+                        @include cormorant_word(22px,#555);
+                        text-decoration: none;
+                    }
+
+                    div {
+                        display: flex;
+
+                        &:nth-of-type(3) {
+                                i{
+                                    cursor: pointer;
+                                }
+                            span {
+
+                                font-size: 25px;
+                                margin: 0px 30px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            h3 {
+                @include word(25px,#000);
+                display: block;
+                padding: 20px 30px;
+                margin: 40px 0 30px;
+                text-align: center;
+                background-color: transparent;
+                border: 1px solid #e1e1e1;
+            }
+        }
+
         button {
-            @include word(12px,#fff);
-            padding: 9px 27px 5px 32px;
+
+            @include word(15px,#fff);
+            padding: 15px 27px 15px 32px;
             background-color: #d14031;
             border: 1px solid transparent;
             cursor: pointer;
-            display:block;
-            margin:auto;
-        }
-
-        h3 {
-            @include word(25px,#000);
             display: block;
-            padding: 20px 30px;
-            margin: 40px 0 30px;
-            text-align: center;
-            background-color: transparent;
-            border: 1px solid #e1e1e1;
+            margin: auto;
+
+            &:hover {
+                background-color: #ad362a;
+            }
         }
     }
 }
