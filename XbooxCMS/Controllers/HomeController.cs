@@ -3,14 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using XbooxCMS.Models;
+using XbooxCMS.ViewModels;
 
 namespace XbooxCMS.Controllers
 {
     public class HomeController : Controller
     {
+        private XbooxCMSContext db = new XbooxCMSContext();
+
         public ActionResult Index()
         {
+
             return View();
+        }
+        //public CreateGuid()
+        //{
+        // 
+        //    return View();
+        //}
+
+        Guid productId = Guid.NewGuid();
+        Guid productId2 = Guid.NewGuid();
+        public ActionResult ProductIndex()
+        {
+            List<ProductListViewModel> products = new List<ProductListViewModel>
+            {
+               new ProductListViewModel{ProductId =  Guid.NewGuid() ,Name = "人間失格",Quantity = 236, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId = Guid.NewGuid() ,Name = "人間失格",Quantity = 236, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId =  Guid.NewGuid() ,Name = "人間失格",Quantity = 236, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId = Guid.NewGuid() ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId =  Guid.NewGuid() ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
+               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"}
+            };
+            return View(products);
         }
 
         public ActionResult About()
@@ -24,6 +55,32 @@ namespace XbooxCMS.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Create()
+        {
+            //var tag = db.ProductTags.ToList();
+            //var products = db.Product.Include(p => p.ProductTags).ToList();
+
+            //List<Product> products = new List<Product>()
+            //{
+
+            //};
+            db.SaveChanges();
+            return View();
+        }
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
+        public ActionResult Details()
+        {
+            return View();
+        } 
+        public ActionResult Delete()
+        {
             return View();
         }
     }

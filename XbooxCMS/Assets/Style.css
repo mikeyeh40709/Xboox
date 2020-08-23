@@ -1,0 +1,53 @@
+﻿html,body {
+    list-style:none;
+    text-decoration:none;
+    height:100%;
+    width:100%;
+    padding:0;
+    margin:0;
+}
+ul {
+    list-style: none;
+}
+.color-1{
+    color:#737373
+}
+aside {
+    width: 20%;
+    float: left;
+    background-color: aliceblue;
+    opacity: 70;
+    font-size: 17px;
+    height: 100%;
+    padding-top: 30px;
+}
+    aside > ul > li {
+        padding: 14px 17px;
+        
+    }
+    aside > ul{
+        padding:0;
+    }
+
+.aside {
+    height: 100%;
+   display:flex;
+}
+div.navbar {
+    box-shadow: 0 1px 10px 1px rgba(115, 108, 203, .1);
+    background-color: aliceblue;
+    border-color: aliceblue;
+}
+
+
+div .productinput {
+    background-color:aliceblue;
+    border: 0;
+    outline: 0;
+    padding: 1em;
+    margin-top: 1em;
+    font-family: 'Merriweather', sans-serif;
+    border-radius: 8px;
+    resize: none;
+    box-shadow: 0 1px 1px ;
+}
