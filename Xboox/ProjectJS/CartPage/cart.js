@@ -20,30 +20,32 @@ check.addEventListener('click', () => {
 
 //setting book price
 
-let price = document.querySelector('#price');
+let price = document.querySelector('.price');
 let price_num = parseInt(67.00);
 price.innerHTML = `$${price_num}`;
 
 let caretleft = document.querySelector('.fa-caret-left');
 let count = document.querySelector('#count');
-let total = document.querySelector('#total');
+let total_group = document.querySelectorAll('.total');
 let caretright=document.querySelector('.fa-caret-right');
 let changeCount = () => {
     caretleft.addEventListener('click', () => {
         if (count.innerText > 1) {
 
             count.innerText--;
-            
+            total_group.forEach((element, idx) => { total_group[idx].innerHTML = `$${price_num * count.innerText}`; })
+
         }
     })
-
+    
     caretright.addEventListener('click', () => {
         count.innerText++;
-        total.innerHTML = `${parseInt(price_num) * parseInt(count.inerText)
-    }`;
+        total_group.forEach((element, idx) => { total_group[idx].innerHTML = `$${price_num * count.innerText}`; })
+
     }
         )
-    }
+}
+total_group.forEach((element, idx) => { total_group[idx].innerHTML = `$${price_num * count.innerText}`; })
 changeCount();
 
 

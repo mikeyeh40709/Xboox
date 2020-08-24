@@ -17,56 +17,60 @@
 }
 
 .container {
+   
     .row {
+      
         .col-sm-12 {
-            .card-section {
+          
+                .card-section {
 
 
-                .title {
-                    display: flex;
-                    @include cormorant_word(25px,#000);
-                    font-weight: 900;
-                }
-
-                .content {
-                    display: flex;
-                    margin: 25px 0 50px 0;
-
-                    span {
-                        @include cormorant_word(22px,#555);
-                    }
-
-                    a {
-                        @include cormorant_word(22px,#555);
-                        text-decoration: none;
-                    }
-
-                    div {
+                    .title {
                         display: flex;
+                        @include cormorant_word(25px,#000);
+                        font-weight: 900;
+                    }
 
-                        &:nth-of-type(3) {
-                                i{
+                    .content {
+                        display: flex;
+                        margin: 25px 0 50px 0;
+                        span {
+                            @include cormorant_word(22px,#555);
+                        }
+
+                        a {
+                            @include cormorant_word(22px,#555);
+                            text-decoration: none;
+                        }
+
+                        div {
+                            display: flex;
+
+                            &:nth-of-type(3) {
+                                i {
                                     cursor: pointer;
                                 }
-                            span {
 
-                                font-size: 25px;
-                                margin: 0px 30px;
+                                span {
+                                    font-size: 25px;
+                                    margin: 0px 30px;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            h3 {
-                @include word(25px,#000);
-                display: block;
-                padding: 20px 30px;
-                margin: 40px 0 30px;
-                text-align: center;
-                background-color: transparent;
-                border: 1px solid #e1e1e1;
-            }
+                h3 {
+                    @include word(25px,#000);
+                    display: block;
+                    padding: 20px 30px;
+                    margin: 40px 0 30px;
+                    text-align: center;
+                    background-color: transparent;
+                    border: 1px solid #e1e1e1;
+                }
+            
+          
         }
 
         button {
@@ -76,11 +80,30 @@
             background-color: #d14031;
             border: 1px solid transparent;
             cursor: pointer;
-            display: block;
-            margin: auto;
+            margin:50px  0 0 30px;
 
             &:hover {
                 background-color: #ad362a;
+            }
+        }
+        .data{
+           
+            h2{@include word(30px,#000);
+                margin:80px 0 ;
+            }
+            span,a{@include word(25px,#555);
+                 font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+               
+            }
+            div{
+               &:last-of-type{
+                   display:flex;
+                   flex-direction:column;
+                   a{font-size:20px;
+                    text-decoration:underline;
+                  
+                   }
+               }
             }
         }
     }

@@ -217,12 +217,20 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Pics\logo.png" />
+    <Content Include="Pics\Wellness And Paradise.png" />
+    <Content Include="ProjectCSS\CartPage\cart.css">
+      <DependentUpon>cart.scss</DependentUpon>
+    </Content>
+    <Content Include="ProjectCSS\CartPage\cart.min.css">
+      <DependentUpon>cart.css</DependentUpon>
+    </Content>
     <Content Include="ProjectCSS\HomePage\HomePage.css">
       <DependentUpon>HomePage.scss</DependentUpon>
     </Content>
     <Content Include="ProjectCSS\HomePage\HomePage.min.css">
       <DependentUpon>HomePage.css</DependentUpon>
     </Content>
+    <Content Include="ProjectJS\CartPage\cart.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="compilerconfig.json" />
@@ -231,6 +239,7 @@
     </None>
     <Content Include="ProjectCSS\HomePage\HomePage.scss" />
     <Content Include="ProjectCSS\CartPage\cart.scss" />
+    <Content Include="ProjectCSS\CartPage\_bill.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -278,6 +287,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Cart\Product.cshtml" />
     <Content Include="Views\Cart\Bill.cshtml" />
+    <Content Include="Views\Cart\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_LayoutCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
