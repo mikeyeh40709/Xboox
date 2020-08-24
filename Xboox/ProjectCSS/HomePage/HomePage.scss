@@ -3,27 +3,33 @@
 }
 
 .navbar {
-    background-color: white;
+    background-color: #d66b00;
     border-color: white;
 }
 .navbar-inverse .navbar-nav > li > a{
     color: black;
+    transition: 0.25s;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
-    color: brown;
+    color: lightgray;
+    transition: 0.25s;
 }
 
 .navbar-inverse .navbar-brand{
     color: black;
+    transition: 0.25s;
 }
 
-.navbar-inverse .navbar-brand:hover{
-    color: brown;
+
+.navbar-inverse .navbar-brand:hover {
+    color: lightgray;
+    transition: 0.25s;
 }
 
 .navbar-form .form-control{
     width: 300px;
+    margin-right: -10px;
 }
 
 .dropdown{
@@ -32,3 +38,9 @@
 .navbar-right .dropdown-menu {
     left: 0;
 }
+
+.btn-default{
+    background-color: #ccc;
+    width: 75px;
+}
+
