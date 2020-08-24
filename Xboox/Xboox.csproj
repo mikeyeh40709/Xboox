@@ -220,10 +220,13 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Pics\logo.png" />
-    <Content Include="Pics\slider1.png" />
-    <Content Include="Pics\slider2.jpeg" />
-    <Content Include="ProjectCSS\CartPage\cart.css" />
-    <Content Include="ProjectCSS\CartPage\cart.min.css" />
+    <Content Include="Pics\Wellness And Paradise.png" />
+    <Content Include="ProjectCSS\CartPage\cart.css">
+      <DependentUpon>cart.scss</DependentUpon>
+    </Content>
+    <Content Include="ProjectCSS\CartPage\cart.min.css">
+      <DependentUpon>cart.css</DependentUpon>
+    </Content>
     <Content Include="ProjectCSS\HomePage\HomePage.css">
       <DependentUpon>HomePage.scss</DependentUpon>
     </Content>
