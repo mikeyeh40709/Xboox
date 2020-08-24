@@ -40,8 +40,8 @@ div.navbar {
 }
 
 
-div .productinput {
-    background-color:aliceblue;
+div .productinput, textarea {
+    background-color: aliceblue;
     border: 0;
     outline: 0;
     padding: 1em;
@@ -49,5 +49,15 @@ div .productinput {
     font-family: 'Merriweather', sans-serif;
     border-radius: 8px;
     resize: none;
-    box-shadow: 0 1px 1px ;
+    box-shadow: 0 1px 1px;
+}
+
+.cate_dropdown{
+
+}
+textarea{
+    max-width:350px;
+    width:150px;
+    height:150px;
+    overflow:hidden;
 }

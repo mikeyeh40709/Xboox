@@ -193,6 +193,7 @@
     <Compile Include="Models\XbooxCMS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CreateViewModel.cs" />
     <Compile Include="ViewModels\ProductListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

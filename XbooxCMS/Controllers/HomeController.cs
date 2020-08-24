@@ -61,7 +61,7 @@ namespace XbooxCMS.Controllers
         public ActionResult Create()
         {
             //var tag = db.ProductTags.ToList();
-            //var products = db.Product.Include(p => p.ProductTags).ToList();
+          //  var products = db.Product.Include(p => p.ProductTags);
 
             //List<Product> products = new List<Product>()
             //{
