@@ -7,7 +7,10 @@
     <title>@ViewBag.Title - Xboox</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/ProjectCSS/CartPage/cart.css")
+
+    @Styles.Render("~/ProjectCSS/CartPage/cart.min.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -30,14 +33,13 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="title row justify-conetnet-center align-items-center bg-success ">
+    
+        <div class="full-img bg-success">
             <p>Cart</p>
         </div>
-    </div>
-    <div class="container body-content">
+    <div class="container">
         @RenderBody()
-        <hr />
+      
         <footer>
             @*<p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>*@
         </footer>

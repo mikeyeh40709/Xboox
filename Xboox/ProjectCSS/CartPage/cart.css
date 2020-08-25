@@ -4,20 +4,40 @@
 .form-group {
   width: 50%; }
 
-.title {
-  height: 300px; }
+.full-img {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
-.container .row button {
-  font-size: 12px;
-  color: #fff;
-  padding: 9px 27px 5px 32px;
-  background-color: #d14031;
-  border: 1px solid transparent;
-  cursor: pointer;
-  display: block;
-  margin: auto; }
+.container .row .col-sm-12 .card-section .title {
+  display: flex;
+  font-size: 25px;
+  color: #000;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 900; }
 
-.container .row h3 {
+.container .row .col-sm-12 .card-section .content {
+  display: flex;
+  margin: 25px 0 50px 0; }
+  .container .row .col-sm-12 .card-section .content span {
+    font-size: 22px;
+    color: #555;
+    font-family: 'Cormorant Garamond', serif; }
+  .container .row .col-sm-12 .card-section .content a {
+    font-size: 22px;
+    color: #555;
+    font-family: 'Cormorant Garamond', serif;
+    text-decoration: none; }
+  .container .row .col-sm-12 .card-section .content div {
+    display: flex; }
+    .container .row .col-sm-12 .card-section .content div:nth-of-type(3) i {
+      cursor: pointer; }
+    .container .row .col-sm-12 .card-section .content div:nth-of-type(3) span {
+      font-size: 25px;
+      margin: 0px 30px; }
+
+.container .row .col-sm-12 h3 {
   font-size: 25px;
   color: #000;
   display: block;
@@ -26,3 +46,31 @@
   text-align: center;
   background-color: transparent;
   border: 1px solid #e1e1e1; }
+
+.container .row button {
+  font-size: 15px;
+  color: #fff;
+  padding: 15px 27px 15px 32px;
+  background-color: #d14031;
+  border: 1px solid transparent;
+  cursor: pointer;
+  margin: 50px  0 0 30px; }
+  .container .row button:hover {
+    background-color: #ad362a; }
+
+.container .row .data h2 {
+  font-size: 30px;
+  color: #000;
+  margin: 80px 0; }
+
+.container .row .data span, .container .row .data a {
+  font-size: 25px;
+  color: #555;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; }
+
+.container .row .data div:last-of-type {
+  display: flex;
+  flex-direction: column; }
+  .container .row .data div:last-of-type a {
+    font-size: 20px;
+    text-decoration: underline; }
