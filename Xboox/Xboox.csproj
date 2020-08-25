@@ -184,6 +184,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -210,142 +211,156 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.min.css" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap.css" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap.min.css" />
+    <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\Image\Origin\favicon.ico" />
+    <Content Include="Assets\Image\Pics\slider1.png" />
+    <Content Include="Assets\Image\Pics\slider2.jpeg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Pics\logo.png" />
-    <Content Include="Pics\Wellness And Paradise.png" />
-    <Content Include="ProjectCSS\CartPage\cart.css">
+    <Content Include="Assets\CSS\Origin\Content\Site.css" />
+    <Content Include="Assets\Image\Pics\logo.png" />
+    <Content Include="Assets\Image\Pics\Wellness And Paradise.png" />
+    <Content Include="Assets\CSS\Custom\CartPage\cart.css">
       <DependentUpon>cart.scss</DependentUpon>
     </Content>
-    <Content Include="ProjectCSS\CartPage\cart.min.css">
+    <Content Include="Assets\CSS\Custom\CartPage\cart.min.css">
       <DependentUpon>cart.css</DependentUpon>
     </Content>
-    <Content Include="ProjectCSS\HomePage\HomePage.css">
+    <Content Include="Assets\CSS\Custom\HomePage\HomePage.css">
       <DependentUpon>HomePage.scss</DependentUpon>
     </Content>
-    <Content Include="ProjectCSS\HomePage\HomePage.min.css">
+    <Content Include="Assets\CSS\Custom\HomePage\HomePage.min.css">
       <DependentUpon>HomePage.css</DependentUpon>
     </Content>
-    <Content Include="ProjectJS\CartPage\cart.js" />
+    <Content Include="Assets\CSS\Custom\meberPage\meberPage.css" />
+    <Content Include="Assets\CSS\Custom\meberPage\meberPage.min.css" />
+    <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.css" />
+    <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.min.css" />
+    <Content Include="Assets\JavaScript\Custom\CartPage\cart.js" />
+    <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="ProjectCSS\HomePage\HomePage.scss" />
-    <Content Include="ProjectCSS\CartPage\cart.scss" />
-    <Content Include="ProjectCSS\CartPage\_bill.scss" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\index.js.flow" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.min.js" />
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\src\index.js" />
-    <Content Include="Scripts\src\methods\defaults.js" />
-    <Content Include="Scripts\src\methods\destroy.js" />
-    <Content Include="Scripts\src\methods\disableEventListeners.js" />
-    <Content Include="Scripts\src\methods\enableEventListeners.js" />
-    <Content Include="Scripts\src\methods\placements.js" />
-    <Content Include="Scripts\src\methods\update.js" />
-    <Content Include="Scripts\src\modifiers\applyStyle.js" />
-    <Content Include="Scripts\src\modifiers\arrow.js" />
-    <Content Include="Scripts\src\modifiers\computeStyle.js" />
-    <Content Include="Scripts\src\modifiers\flip.js" />
-    <Content Include="Scripts\src\modifiers\hide.js" />
-    <Content Include="Scripts\src\modifiers\index.js" />
-    <Content Include="Scripts\src\modifiers\inner.js" />
-    <Content Include="Scripts\src\modifiers\keepTogether.js" />
-    <Content Include="Scripts\src\modifiers\offset.js" />
-    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
-    <Content Include="Scripts\src\modifiers\shift.js" />
-    <Content Include="Scripts\src\utils\clockwise.js" />
-    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
-    <Content Include="Scripts\src\utils\debounce.js" />
-    <Content Include="Scripts\src\utils\find.js" />
-    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
-    <Content Include="Scripts\src\utils\findIndex.js" />
-    <Content Include="Scripts\src\utils\getBordersSize.js" />
-    <Content Include="Scripts\src\utils\getBoundaries.js" />
-    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
-    <Content Include="Scripts\src\utils\getClientRect.js" />
-    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
-    <Content Include="Scripts\src\utils\getOffsetParent.js" />
-    <Content Include="Scripts\src\utils\getOffsetRect.js" />
-    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
-    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
-    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
-    <Content Include="Scripts\src\utils\getOuterSizes.js" />
-    <Content Include="Scripts\src\utils\getParentNode.js" />
-    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
-    <Content Include="Scripts\src\utils\getReferenceNode.js" />
-    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
-    <Content Include="Scripts\src\utils\getRoot.js" />
-    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
-    <Content Include="Scripts\src\utils\getScroll.js" />
-    <Content Include="Scripts\src\utils\getScrollParent.js" />
-    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
-    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
-    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
-    <Content Include="Scripts\src\utils\getWindow.js" />
-    <Content Include="Scripts\src\utils\getWindowSizes.js" />
-    <Content Include="Scripts\src\utils\includeScroll.js" />
-    <Content Include="Scripts\src\utils\index.js" />
-    <Content Include="Scripts\src\utils\isBrowser.js" />
-    <Content Include="Scripts\src\utils\isFixed.js" />
-    <Content Include="Scripts\src\utils\isFunction.js" />
-    <Content Include="Scripts\src\utils\isIE.js" />
-    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
-    <Content Include="Scripts\src\utils\isModifierRequired.js" />
-    <Content Include="Scripts\src\utils\isNumeric.js" />
-    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
-    <Content Include="Scripts\src\utils\removeEventListeners.js" />
-    <Content Include="Scripts\src\utils\runModifiers.js" />
-    <Content Include="Scripts\src\utils\setAttributes.js" />
-    <Content Include="Scripts\src\utils\setStyles.js" />
-    <Content Include="Scripts\src\utils\setupEventListeners.js" />
-    <Content Include="Scripts\umd\popper-utils.js" />
-    <Content Include="Scripts\umd\popper-utils.min.js" />
-    <Content Include="Scripts\umd\popper.js" />
-    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Assets\CSS\Custom\HomePage\HomePage.scss" />
+    <Content Include="Assets\CSS\Custom\CartPage\cart.scss" />
+    <Content Include="Assets\CSS\Custom\CartPage\_bill.scss" />
+    <Content Include="Assets\JavaScript\Custom\SignInPage\SignInPage.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\esm\popper-utils.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\esm\popper-utils.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\esm\popper.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\esm\popper.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\index.js.flow" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\esm\popper.min.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\esm\popper.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\esm\popper-utils.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.min.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap.min.css.map" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap.css.map" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css.map" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css.map" />
+    <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css.map" />
+    <Content Include="Assets\CSS\Custom\meberPage\meberPage.scss" />
+    <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.scss" />
+    <None Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Assets\JavaScript\Origin\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery.validate.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery.validate.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\modernizr-2.8.3.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\popper-utils.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\popper-utils.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\popper.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\popper.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\index.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\methods\defaults.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\methods\destroy.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\methods\placements.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\methods\update.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\arrow.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\flip.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\hide.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\index.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\inner.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\offset.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\modifiers\shift.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\clockwise.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\debounce.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\find.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\findIndex.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getClientRect.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getParentNode.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getRoot.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getScroll.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getWindow.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\includeScroll.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\index.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\isBrowser.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\isFixed.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\isFunction.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\isIE.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\isNumeric.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\runModifiers.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\setAttributes.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\setStyles.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper-utils.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper-utils.min.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -384,27 +399,31 @@
     <Content Include="Views\Cart\Bill.cshtml" />
     <Content Include="Views\Shared\_LayoutCart.cshtml" />
     <Content Include="Views\Cart\_ViewStart.cshtml" />
-    <Content Include="Scripts\umd\popper.min.js.map" />
-    <Content Include="Scripts\umd\popper.js.map" />
-    <Content Include="Scripts\umd\popper.js.flow" />
-    <Content Include="Scripts\umd\popper-utils.min.js.map" />
-    <Content Include="Scripts\umd\popper-utils.js.map" />
-    <Content Include="Scripts\README.md" />
-    <Content Include="Scripts\popper.min.js.map" />
-    <Content Include="Scripts\popper.js.map" />
-    <Content Include="Scripts\popper-utils.min.js.map" />
-    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js.flow" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper-utils.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\README.md" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\popper.min.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\popper.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\popper-utils.min.js.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\_LayoutSignIn.cshtml" />
+    <Content Include="Views\SignIn\ForgetPassword.cshtml" />
+    <Content Include="Views\SignIn\Index.cshtml" />
+    <Content Include="Views\SignIn\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <TypeScriptCompile Include="Assets\JavaScript\Origin\Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -412,6 +431,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Assets\Image\Origin\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
