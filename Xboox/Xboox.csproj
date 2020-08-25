@@ -233,6 +233,7 @@
     <Content Include="ProjectCSS\HomePage\HomePage.min.css">
       <DependentUpon>HomePage.css</DependentUpon>
     </Content>
+    <Content Include="ProjectJS\CartPage\bill.js" />
     <Content Include="ProjectJS\CartPage\cart.js" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
