@@ -13,13 +13,13 @@ namespace XbooxCMS.Controllers
     public class ProductController : Controller
     {
         // GET: Product
-        private XbooxCMSContext context;
+        private XbooxContext context;
 
         public ProductController()
         {
             if (context == null)
             {
-                context = new XbooxCMSContext();
+                context = new XbooxContext();
             }
         
         }
