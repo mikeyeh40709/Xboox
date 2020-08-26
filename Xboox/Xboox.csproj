@@ -205,6 +205,8 @@
     <Compile Include="Models\ProductImgs.cs" />
     <Compile Include="Models\ProductTags.cs" />
     <Compile Include="Models\Tags.cs" />
+    <Compile Include="Models\ViewModels\BillViewModel.cs" />
+    <Compile Include="Models\ViewModels\CartViewModel.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Models\XBooxContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
