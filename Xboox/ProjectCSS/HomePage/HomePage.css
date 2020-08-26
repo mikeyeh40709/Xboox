@@ -1,26 +1,37 @@
 ﻿* {
-  font-family: 'Noto Sans TC', sans-serif; }
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: 'Cormorant Garamond', serif; }
+
+body {
+  padding-top: 0; }
 
 .navbar {
-  background-color: #d66b00;
-  border-color: white; }
+  /*background-color: #a56029;*/
+  /*border-color: white;*/ }
 
-.navbar-inverse .navbar-nav > li > a {
-  color: black;
-  transition: 0.25s; }
+/*.navbar-inverse .navbar-nav > li > a{
+    color: black;
+    transition: 0.25s;
+}
 
 .navbar-inverse .navbar-nav > li > a:hover {
-  color: lightgray;
-  transition: 0.25s; }
+    color: lightgray;
+    transition: 0.25s;
+}
 
-.navbar-inverse .navbar-brand {
-  color: black;
-  transition: 0.25s; }
+.navbar-inverse .navbar-brand{
+    color: black;
+    transition: 0.25s;
+}
+
 
 .navbar-inverse .navbar-brand:hover {
-  color: lightgray;
-  transition: 0.25s; }
-
+    color: lightgray;
+    transition: 0.25s;
+}
+*/
 .navbar-form .form-control {
   width: 300px;
   margin-right: -10px; }
