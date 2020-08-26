@@ -6,24 +6,24 @@ namespace Xboox.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ProductImgs
+    [Table("Cart")]
+    public partial class Cart
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductImgs()
+        public Cart()
         {
-            Product = new HashSet<Product>();
+            CartItmes = new HashSet<CartItmes>();
         }
 
-        [Key]
-        [StringLength(20)]
-        public string ProductImgId { get; set; }
-
-        public Guid ProductId { get; set; }
+        public Guid CartId { get; set; }
 
         [Required]
-        public string imgLink { get; set; }
+        [StringLength(128)]
+        public string UserId { get; set; }
+
+        public virtual AspNetUsers AspNetUsers { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<CartItmes> CartItmes { get; set; }
     }
 }

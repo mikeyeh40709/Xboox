@@ -5,10 +5,10 @@ namespace Xboox.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class XBooxContext : DbContext
+    public partial class XbooxContext : DbContext
     {
-        public XBooxContext()
-            : base("name=XBooxContext")
+        public XbooxContext()
+            : base("name=XbooxContext")
         {
         }
 
@@ -17,6 +17,7 @@ namespace Xboox.Models
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<CartItmes> CartItmes { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Order> Order { get; set; }
@@ -46,6 +47,12 @@ namespace Xboox.Models
                 .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.Cart)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.Order)
                 .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.UserId)
@@ -55,6 +62,11 @@ namespace Xboox.Models
                 .HasMany(e => e.WishList)
                 .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.UserId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Cart>()
+                .HasMany(e => e.CartItmes)
+                .WithRequired(e => e.Cart)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Order>()
@@ -83,6 +95,10 @@ namespace Xboox.Models
                 .HasPrecision(18, 6);
 
             modelBuilder.Entity<Product>()
+                .Property(e => e.ProductImgId)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Product>()
                 .Property(e => e.PublishedDate)
                 .IsFixedLength();
 
@@ -107,6 +123,10 @@ namespace Xboox.Models
                 .WithRequired(e => e.Product1)
                 .HasForeignKey(e => e.ProductId)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ProductImgs>()
+                .Property(e => e.ProductImgId)
+                .IsFixedLength();
 
             modelBuilder.Entity<ProductImgs>()
                 .HasMany(e => e.Product)
