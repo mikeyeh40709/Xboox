@@ -29,9 +29,17 @@ aside {
         padding:0;
     }
 
+.sidebar{
+    position:fixed;
+    width:25%;
+    height:100vh;
+    background-color:#312450;
+
+}
+
 .aside {
     height: 100%;
-   display:flex;
+    /* display:flex;*/
 }
 div.navbar {
     box-shadow: 0 1px 10px 1px rgba(115, 108, 203, .1);

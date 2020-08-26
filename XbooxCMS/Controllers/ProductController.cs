@@ -26,6 +26,11 @@ namespace XbooxCMS.Controllers
 
         Guid productId = Guid.NewGuid();
         Guid productId2 = Guid.NewGuid();
+
+        /// <summary>
+        /// 顯示產品資料列表
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             var productList = context.Product.ToList();
@@ -62,19 +67,13 @@ namespace XbooxCMS.Controllers
             return View(products);
         }
 
+        /// <summary>
+        /// 建立產品資料 包含分類 標籤 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
-            List<TagViewModel> tags = new List<TagViewModel>
-            {
-                new TagViewModel{TagName = "奇幻"},
-                new TagViewModel{TagName = "愛情"},
-                new TagViewModel{TagName = "小說"},
-                new TagViewModel{TagName = "歷史"},
-                new TagViewModel{TagName = "財經"},
-
-            };
-
-
+       
             //var productsCategory = context.Category.ToList();
             //var Tag = context.Tags.ToList();
             var viewModel = new CreateViewModel()
@@ -85,25 +84,62 @@ namespace XbooxCMS.Controllers
                 
             };
 
-            //var tag = db.ProductTags.ToList();
-            // var products = context.Product.Include(p => p.CategoryId);
-
-            //List<Product> products = new List<Product>()
-            //{
-
-            //};
-    
-
-            context.SaveChanges();
+           // context.SaveChanges();
             return View(viewModel);
         }
 
-
-
-        public ActionResult Edit()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Product product)
         {
+            if (!ModelState.IsValid)
+            {
+               // var products = from p in product.Name join c in context.Category.ToList() on p equals c.CategoryId select new  ;
+                product.ProductId = Guid.NewGuid();
+
+                var viewModel = new CreateViewModel
+                {
+                    
+                    Products = product,
+                    Categories = context.Category.ToList(),
+                    Tags = context.Tags.ToList()
+                };
+               
+            }
+            context.Product.Add(product);
+            context.SaveChanges();
+            return RedirectToAction("Index","Product");
+        }
+
+
+
+
+        public ActionResult Edit(Guid id)
+        {
+            var product = context.Product.SingleOrDefault(x => x.ProductId == id);
+            if (product != null)
+            {
+                return HttpNotFound();
+
+            }
+            else
+            {
+
+            }
+
             return View();
         }
+
+
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+
+            return View();
+        }
+
+
+
         public ActionResult Details()
         {
             return View();
@@ -113,13 +149,25 @@ namespace XbooxCMS.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 圖片上傳
+        /// </summary>
+        /// <returns></returns>
 
-        public ActionResult Upload()
+        public ActionResult Upload(HttpContextBase file)
         {
+            if (file != null)
+            {
+
+            }
             return View();
         }
 
 
+        /// <summary>
+        /// 創造標籤
+        /// </summary>
+        /// <returns></returns>
         public ActionResult CreateTag()
         {
             return View();
@@ -128,8 +176,7 @@ namespace XbooxCMS.Controllers
         [HttpPost]
         public ActionResult CreateTag(Tags tags)
         {
-
-            
+      
             if (ModelState.IsValid)
             {
                 //var viewModel = new TagViewModel()
@@ -151,7 +198,6 @@ namespace XbooxCMS.Controllers
             }
 
           
-
         }
     }
 }

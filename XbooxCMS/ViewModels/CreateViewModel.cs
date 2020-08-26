@@ -20,10 +20,10 @@ namespace XbooxCMS.ViewModels
         //Category 
         public IEnumerable<Category> Categories { get; set; }
 
-        public IEnumerable<TagViewModel> TagViews { get; set; }
-        public IEnumerable<CategoryViewModel> categoryViews { get; set; }
+      //  public IEnumerable<TagViewModel> TagViews { get; set; }
+     //   public IEnumerable<CategoryViewModel> categoryViews { get; set; }
 
-        public string Name { get; set; }
+     //   public string Name { get; set; }
         public CreateViewModel()
         {
 

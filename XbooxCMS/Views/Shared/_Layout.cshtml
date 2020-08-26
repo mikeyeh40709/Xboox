@@ -12,39 +12,37 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-expand-lg fixed-top navbar-light">
         <div class="container">
-            <div class="navbar-header">
+            <div class="navbar-brand">
                 <span><img src="~/Assets/picture/logo-removebg-preview.png" /></span>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+             
                 @Html.ActionLink("Xboox", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="navbar-nav ml-auto">
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="aside">
-        <aside>
-            <ul>
-                <li>
-                    <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-dashboard"></i>
-                        <span class="color-1">Dashboard</span>
-                    </a>
+    
+        <aside class="sidebar">
+            
+                <ul>
+                    <li>
+                        <a class="aside-item color-1">
+                            <i class="glyphicon glyphicon-dashboard"></i>
+                            <span class="color-1">Dashboard</span>
+                        </a>
 
-                </li>
-                <li>
+                    </li>
+                    <li>
 
-                    <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-book"></i>
-                        <span class="color-1">@Html.ActionLink("Product Management","Index","Product")
+                        <a class="aside-item color-1">
+                            <i class="glyphicon glyphicon-book"></i>
+                            <span class="color-1">
+                                @Html.ActionLink("Product Management", "Index", "Product")
                         </span>
                     </a>
                 </li>
@@ -77,6 +75,7 @@
                     </a>
                 </li>
             </ul>
+           
         </aside>
         <div class="container body-content">
         @RenderBody()
@@ -85,8 +84,7 @@
                 <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
             </footer>*@
             </div>
-    </div>
-
+   
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
