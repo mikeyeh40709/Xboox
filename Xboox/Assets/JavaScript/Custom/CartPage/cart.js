@@ -1,4 +1,4 @@
-﻿
+﻿/////
 let check = document.querySelector("#check");
 let title = document.querySelector(".container .row .col-sm-12");
 let card_section = document.querySelector(".card-section");
@@ -27,7 +27,7 @@ check.addEventListener('click', () => {
         basket.setAttribute('style', 'display:none');
         proceed.setAttribute('style', 'display:none');
     }
-    
+
 })
 
 //setting book price
@@ -39,7 +39,7 @@ price.innerHTML = `$${price_num}`;
 let caretleft = document.querySelector('.fa-caret-left');
 let count = document.querySelector('#count');
 let total_group = document.querySelectorAll('.total');
-let caretright=document.querySelector('.fa-caret-right');
+let caretright = document.querySelector('.fa-caret-right');
 let changeCount = () => {
     caretleft.addEventListener('click', () => {
         if (count.innerText > 1) {
@@ -49,13 +49,13 @@ let changeCount = () => {
 
         }
     })
-    
+
     caretright.addEventListener('click', () => {
         count.innerText++;
         total_group.forEach((element, idx) => { total_group[idx].innerHTML = `$${price_num * count.innerText}`; })
 
     }
-        )
+    )
 }
 total_group.forEach((element, idx) => { total_group[idx].innerHTML = `$${price_num * count.innerText}`; })
 changeCount();
@@ -66,10 +66,42 @@ proceed.addEventListener('click', () => { location.href = 'Bill' });
 
 //coupon badge
 let coupon_price = document.querySelector('.coupon_price');
+coupon_price.innerText = `$${(Math.ceil(price_num * count.innerText))}`;
+coupon_price.setAttribute('style', 'display:none');
+
 badge.addEventListener('click', () => {
     total_group[1].style.textDecoration = "line-through";
+    coupon_price.setAttribute('style', 'display:inline-block');
     coupon_price.innerText = `$${(Math.ceil(price_num * count.innerText * 0.8))}`;
-
-
-
+    total_group[1].style.color = "#ff0000";
 });
+
+
+
+///// localstorage
+let data =
+    [{
+        "name": "Wellness And Paradise",
+        "img": "~/Assets/Image/Pics/Wellness And Paradise.png",
+        "total": `${total_group[1].innerText}`
+    },
+    {
+        "name": "Wellness And Paradise",
+        "img": "~/Assets/Image/Pics/Wellness And Paradise.png",
+        "total": `${total_group[1].innerText}`
+    }];
+
+var dataString = JSON.stringify(data);
+localStorage.setItem("first", dataString);
+
+
+///////
+let  tem_card= document.getElementById('card');
+
+  
+let tem_clone = tem_card.content.cloneNode(true);
+
+tem_clone.querySelector('img').setAttribute('src', `${data[0].img}`);
+tem_clone.querySelector('a').innerText = `${data[0].name}`;
+
+console.log(tem_clone);

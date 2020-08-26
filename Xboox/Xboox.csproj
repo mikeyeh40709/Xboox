@@ -221,6 +221,7 @@
     <Content Include="Assets\Image\Origin\favicon.ico" />
     <Content Include="Assets\Image\Pics\slider1.png" />
     <Content Include="Assets\Image\Pics\slider2.jpeg" />
+    <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
