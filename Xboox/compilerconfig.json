@@ -14,5 +14,9 @@
   {
     "outputFile": "ProjectCSS/SignInPage/SignInPage.css",
     "inputFile": "ProjectCSS/SignInPage/SignInPage.scss"
+  },
+  {
+    "outputFile": "Assets/CSS/Custom/CartPage/cart.css",
+    "inputFile": "Assets/CSS/Custom/CartPage/cart.scss"
   }
 ]

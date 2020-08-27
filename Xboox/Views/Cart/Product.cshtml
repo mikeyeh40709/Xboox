@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<XbooxCMS.Models.ViewModels.CartViewModel>
 @{
     ViewBag.Title = "Product";
 }
@@ -23,65 +23,30 @@
                     </div>
                 </div>
                 <hr />
-                <div class="content">
-                    <div class="col-sm-6">
-                        <img src="~/Assets/Image/Pics/Wellness And Paradise.png" width="50px" />
-                        <a href="#">Wellness And Paradise</a>
-                    </div>
-                    <div class="col-sm-2">
-                        <span class="price"></span>
-                    </div>
-                    <div class="col-sm-2">
-                        <i class="fas fa-caret-left fa-3x"></i>
-                        <span id="count"><b>1</b></span>
-                        <i class="fas fa-caret-right fa-3x"></i>
-
-                    </div>
-                    <div class="col-sm-2">
-                        <span class="total"></span>
-                    </div>
-                </div>
-                <template id="card">
-                    <div class="content">
-                        <div class="col-sm-6">
-                            <img width="50px" />
-                            <a href="#"></a>
-                        </div>
-                        <div class="col-sm-2">
-                            <span class="price"></span>
-                        </div>
-                        <div class="col-sm-2">
-                            <i class="fas fa-caret-left fa-3x"></i>
-                            <span id="count"><b>1</b></span>
-                            <i class="fas fa-caret-right fa-3x"></i>
-
-                        </div>
-                        <div class="col-sm-2">
-                            <span class="total"></span>
-                        </div>
-                        @*<div>
-                            <p >原價</p>
-                            <p>折扣</p>
-                        </div>*@
-                    </div>
-                </template>
+                @foreach (var data in Model)
+                {
+                    @Html.Partial("_CartPartialView", data);
+                }
             </div>
-
         </div>
         <div class="basket">
             <h2 class="ml-4 mb-3">Basket totals</h2>
-            <div class="col-12 d-flex data mb-2">
-                <div class="col-sm-3">
+            <div class="col-12 data d-flex mb-2">
+                <div class="col-5 col-sm-5">
                     <span>Total</span>
                 </div>
-                <div class="col-sm-6 ml-5">
+                <div class="col-7 col-sm-7">
                     <span class="total"></span>
-                    <span class="coupon_price"></span>
                 </div>
             </div>
-
-            <div class="col-sm-3 data ml-3">
-                <span>Coupon</span>
+            <hr/>
+            <div class="col-12 data d-flex mb-2">
+                <div class="col-5 col-sm-5">
+                    <span>Coupon</span>
+                </div>
+                <div class="col-7 col-sm-7">
+                    <span class="coupon_price"></span>
+                </div>
             </div>
             <div class="col-sm-12 d-flex mt-3 mb-4">
                 <div class="col-sm-8">
@@ -99,15 +64,6 @@
                 Proceed to checkout
             </button>
         </div>
-
-
-
-
-
-
-
-
-
     </div>
 </div>
 @Scripts.Render("~/Assets/JavaScript/Custom/CartPage/cart.js")

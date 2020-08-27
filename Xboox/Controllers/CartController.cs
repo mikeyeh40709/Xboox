@@ -10,19 +10,24 @@ namespace Xboox.Controllers
 {
     public class CartController : Controller
     {
-        private XBooxContext _context;
+        private XbooxContext _context;
         public CartController()
         {
             if (_context == null)
             {
-                _context = new XBooxContext();
+                _context = new XbooxContext();
             }
         }
         // GET: Cart
         public ActionResult Product()
         {
             var cartItems = _context.CartItmes.ToList();
-            List<CartViewModel> carts = new List<CartViewModel>();
+            List<CartViewModel> carts = new List<CartViewModel>()
+            {
+                new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67},
+                new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67}
+            };
+         
             //foreach(var item in cartItems)
             //{
             //    carts.Add(new CartViewModel()
@@ -30,7 +35,7 @@ namespace Xboox.Controllers
             //        Name 
             //    });
             //}
-            return View();
+            return View(carts);
         }
         public ActionResult Bill()
         {

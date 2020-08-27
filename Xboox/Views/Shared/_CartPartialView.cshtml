@@ -1,0 +1,19 @@
+﻿@model XbooxCMS.Models.ViewModels.CartViewModel
+    <div class="content">
+        <div class="col-sm-6">
+            <img src="~/Assets/Image/Pics/@Model.ProductImg" style="width:50px" />
+            <a href="#">@Model.Name</a>
+        </div>
+        <div class="col-sm-2">
+            <span class="price">@Model.Total</span>
+        </div>
+        <div class="col-sm-2">
+            <i class="fas fa-caret-left fa-3x"></i>
+            <span class="count"><b>1</b></span>
+            <i class="fas fa-caret-right fa-3x"></i>
+
+        </div>
+        <div class="col-sm-2">
+            <span class="total"></span>
+        </div>
+    </div>

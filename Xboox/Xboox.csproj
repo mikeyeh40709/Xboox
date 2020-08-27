@@ -228,7 +228,7 @@
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
-    <Content Include="Assets\Image\Pics\Wellness And Paradise.png" />
+    <Content Include="Assets\Image\Pics\Wellnes.png" />
     <Content Include="Assets\CSS\Custom\CartPage\cart.css">
       <DependentUpon>cart.scss</DependentUpon>
     </Content>
@@ -417,6 +417,7 @@
     <Content Include="Views\SignIn\ForgetPassword.cshtml" />
     <Content Include="Views\SignIn\Index.cshtml" />
     <Content Include="Views\SignIn\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_CartPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

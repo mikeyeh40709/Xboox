@@ -1,19 +1,21 @@
 ﻿@import "_bill.scss";
-@mixin word($font-size,$color){
-    font-size:$font-size;
-    color:$color;
+
+@mixin word($font-size,$color) {
+    font-size: $font-size;
+    color: $color;
 }
+
 @mixin cormorant_word($font-size,$color) {
-    font-size:$font-size;
-    color:$color;
+    font-size: $font-size;
+    color: $color;
     font-family: 'Cormorant Garamond', serif;
 }
 
 .full-img {
     height: 300px;
-    display:flex;
-   justify-content:center;
-   align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
@@ -36,6 +38,10 @@
                     margin: 25px 0 50px 0;
 
                     span {
+                        &:not(:nth-child(2))::before {
+                            content: '$';
+                        }
+
                         @include cormorant_word(22px,#555);
                     }
 
@@ -86,20 +92,26 @@
             }
         }
 
-        .data {
+        .basket {
+            .data {
 
-            h2 {
-                @include word(30px,#000);
+                h2 {
+                    @include word(30px,#000);
+                }
+
+                span {
+                    @include word(25px,#555);
+                    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+                }
             }
-
-            span {
-                @include word(25px,#555);
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+            .total{
+                &::before{
+                    content:'$';
+                }
             }
-        }
-
-        .badge {
-            cursor:pointer
+            .badge {
+                cursor: pointer
+            }
         }
     }
 }
