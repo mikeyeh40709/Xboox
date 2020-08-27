@@ -25,6 +25,8 @@ namespace Xboox
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Assets/CSS/Origin/Content/bootstrap.css",
                       "~/Assets/CSS/Origin/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Ashion/css").Include(
+                      "~/Assets/CSS/Custom/Common/Ashion.css"));
         }
     }
 }
