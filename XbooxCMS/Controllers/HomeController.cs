@@ -11,7 +11,7 @@ namespace XbooxCMS.Controllers
 {
     public class HomeController : Controller
     {
-        private XbooxCMSContext db = new XbooxCMSContext();
+        private XbooxContext db = new XbooxContext();
 
         public ActionResult Index()
         {

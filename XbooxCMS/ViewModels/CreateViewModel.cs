@@ -14,18 +14,26 @@ namespace XbooxCMS.ViewModels
         public Product Products { get; set; }
 
 
-        //foreach Tags 標籤
+        //CheckBoxList中的選項清單
         public IEnumerable<Tags> Tags { get; set; }
 
+        //CheckBoxList被選中的checkbox
+        public IEnumerable<Tags> SelectedTags { get; set; }
+
+        //CheckBoxList的名稱，也是被勾選資料Post回Server時Data binding之目標物件
+        public List<string> PostedTagIds { get; set; }
         //Category 
         public IEnumerable<Category> Categories { get; set; }
+       
 
-      //  public IEnumerable<TagViewModel> TagViews { get; set; }
-     //   public IEnumerable<CategoryViewModel> categoryViews { get; set; }
+        //  public IEnumerable<TagViewModel> TagViews { get; set; }
+        //   public IEnumerable<CategoryViewModel> categoryViews { get; set; }
 
-     //   public string Name { get; set; }
+        //   public string Name { get; set; }
         public CreateViewModel()
         {
+            Products = new Product();
+
 
         }
 

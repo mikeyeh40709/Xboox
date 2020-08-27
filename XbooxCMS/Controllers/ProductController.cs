@@ -15,6 +15,11 @@ namespace XbooxCMS.Controllers
         // GET: Product
         private XbooxContext context;
 
+
+        public IEnumerable<Tags> GetAllTags()
+        {
+            return context.Tags;
+        }
         public ProductController()
         {
             if (context == null)
@@ -90,8 +95,16 @@ namespace XbooxCMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, Guid[] tagArray,CreateViewModel createViewModel)
         {
+
+            var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId.ToString()));
+
+            createViewModel.Tags = GetAllTags();
+            createViewModel.SelectedTags = selectedTags;
+
+
+
             if (!ModelState.IsValid)
             {
                // var products = from p in product.Name join c in context.Category.ToList() on p equals c.CategoryId select new  ;
@@ -103,35 +116,87 @@ namespace XbooxCMS.Controllers
                     Products = product,
                     Categories = context.Category.ToList(),
                     Tags = context.Tags.ToList()
+                    
                 };
                
             }
+
+           // List<ProductTags> productTags = new List<ProductTags>
+           // {
+              
+                //new ProductTags{ProductId = product.ProductId ,TagId =tagId1 },
+                //new ProductTags{ProductId = product.ProductId ,TagId =tagId2},
+          
+
+           // };
+            //foreach(var item in productTags)
+            //{
+            //    context.ProductTags.Add(item);
+            //}
             context.Product.Add(product);
+            
             context.SaveChanges();
             return RedirectToAction("Index","Product");
         }
 
+       private void AddedTag(Tags tags, List<string> SelectedTags)
+        {
+            //if (SelectedTags == null)
+            //{
+            //    tags.TagId.Clear();
+            //    return;
+            //}
+          
+            {
+               // var currentTagIds = tags.TagId.ToString().Select(x=>x.);
 
+                //foreach (var role in GetAllTags())
+                //{
+                //    if (SelectedTags.Contains(tags.TagId.ToString())
+                //    {
+                //        // 此role有被勾選到
+                //        if (!currentRoleIds.Contains(role.RoleId))
+                //        {
+                //            // 如果原本member沒有這個角色 就要增加
+                //            user.Roles.Add(role);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        // 此role沒有被勾選到
+                //        if (currentRoleIds.Contains(role.RoleId))
+                //        {
+                //            // 如果原本member有這個角色 就要移除
+                //            user.Roles.Remove(role);
+                //        }
+                //    }
+                //}
+            }
+        }
+    
 
 
         public ActionResult Edit(Guid id)
         {
-            var product = context.Product.SingleOrDefault(x => x.ProductId == id);
+            var product = context.Product.Find(id);
             if (product != null)
             {
+
                 return HttpNotFound();
 
             }
             else
             {
-
+                //var productInDb = context.Product.ToList();
+                //productInDb.
             }
 
-            return View();
+            return View(product);
         }
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Product product)
         {
 

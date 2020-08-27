@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
     <link rel="stylesheet" href="~/Assets/Style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -29,51 +30,59 @@
     
         <aside class="sidebar">
             
-                <ul>
-                    <li>
-                        <a class="aside-item color-1">
-                            <i class="glyphicon glyphicon-dashboard"></i>
-                            <span class="color-1">Dashboard</span>
-                        </a>
+            <ul>
+                <li>
+                    <a class="aside-item color-1">
+                        <i class="fa fa-dashboard"></i>
+                        <span class="color-1">Dashboard</span>
+                    </a>
 
-                    </li>
-                    <li>
+                </li>
+                <li>
 
-                        <a class="aside-item color-1">
-                            <i class="glyphicon glyphicon-book"></i>
-                            <span class="color-1">
-                                @Html.ActionLink("Product Management", "Index", "Product")
+                    <a class="aside-item color-1">
+                        <i class="fa fa-book"></i>
+                        <span class="color-1">
+                            @Html.ActionLink("Product Management", "Index", "Product")
                         </span>
                     </a>
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-user"></i>
+                        <i class="fa fa-user"></i>
                         <span class="color-1">User Management</span>
                     </a>
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-list"></i>
+                        <i class="fa fa-list"></i>
                         <span class="color-1">Order Management</span>
                     </a>
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-grain"></i>
+                        <i class="fa fa-barcode"></i>
                         <span class="color-1">Coupon Management</span>
                     </a>
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-stats"></i>
+                        <i class="fa fa-barcode"></i>
+                        <span class="color-1"> @Html.ActionLink("Tag Management", "CreateTag", "Product")</span>
+                    </a>
+                </li>
+                <li>
+
+                    <a class="aside-item color-1">
+                        <i class="fa fa-bar-chart"></i>
                         <span class="color-1">Report</span>
                     </a>
                 </li>
+
             </ul>
            
         </aside>
