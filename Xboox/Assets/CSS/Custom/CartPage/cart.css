@@ -64,13 +64,13 @@
   font-size: 30px;
   color: #000; }
 
+.container .row .basket .data:first-of-type .col-7 span::before {
+  content: '$'; }
+
 .container .row .basket .data span {
   font-size: 25px;
   color: #555;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; }
-
-.container .row .basket .total::before {
-  content: '$'; }
 
 .container .row .basket .badge {
   cursor: pointer; }

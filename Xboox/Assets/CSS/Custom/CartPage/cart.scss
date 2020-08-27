@@ -99,16 +99,24 @@
                     @include word(30px,#000);
                 }
 
+                &:first-of-type {
+                    .col-7 {
+                        span {
+                            &::before {
+                                content: '$';
+                            }
+                        }
+                    }
+                }
+
                 span {
                     @include word(25px,#555);
                     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
                 }
             }
-            .total{
-                &::before{
-                    content:'$';
-                }
-            }
+
+
+
             .badge {
                 cursor: pointer
             }
