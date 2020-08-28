@@ -64,10 +64,16 @@ namespace Xboox.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required]  //必填欄位
         [EmailAddress]
         [Display(Name = "電子郵件")]
         public string Email { get; set; }
+
+        //註冊欄新增電話號碼
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "電話")]
+        public string Phone { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} 的長度至少必須為 {2} 個字元。", MinimumLength = 6)]
@@ -108,5 +114,10 @@ namespace Xboox.Models
         [EmailAddress]
         [Display(Name = "電子郵件")]
         public string Email { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "電話")]
+        public string Phone { get; set; }
     }
 }

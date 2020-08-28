@@ -144,6 +144,7 @@ namespace Xboox.Controllers
 
         //
         // POST: /Account/Register
+        // 註冊 填入的資料會在這裡回傳至 SSMS 存入Data
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -151,7 +152,7 @@ namespace Xboox.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email , PhoneNumber = model.Phone };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
