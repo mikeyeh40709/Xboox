@@ -8,7 +8,7 @@ namespace XbooxCMS.Models
     public partial class XbooxContext : DbContext
     {
         public XbooxContext()
-            : base("name=XbooxContext")
+            : base("name=XbooxContext1")
         {
         }
 
@@ -20,6 +20,7 @@ namespace XbooxCMS.Models
         public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<CartItmes> CartItmes { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Coupons> Coupons { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Product> Product { get; set; }
@@ -27,7 +28,6 @@ namespace XbooxCMS.Models
         public virtual DbSet<ProductTags> ProductTags { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<WishList> WishList { get; set; }
-        public virtual DbSet<Coupons> Coupons { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -69,6 +69,10 @@ namespace XbooxCMS.Models
                 .WithRequired(e => e.Cart)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Coupons>()
+                .Property(e => e.Discount)
+                .HasPrecision(18, 6);
+
             modelBuilder.Entity<Order>()
                 .Property(e => e.PurchaserName)
                 .IsFixedLength();
@@ -99,10 +103,6 @@ namespace XbooxCMS.Models
                 .IsFixedLength();
 
             modelBuilder.Entity<Product>()
-                .Property(e => e.PublishedDate)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Product>()
                 .HasMany(e => e.CartItmes)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
@@ -127,15 +127,6 @@ namespace XbooxCMS.Models
             modelBuilder.Entity<ProductImgs>()
                 .Property(e => e.ProductImgId)
                 .IsFixedLength();
-
-            modelBuilder.Entity<ProductImgs>()
-                .HasMany(e => e.Product)
-                .WithRequired(e => e.ProductImgs)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Coupons>()
-                .Property(e => e.Discount)
-                .HasPrecision(18, 6);
         }
     }
 }
