@@ -7,7 +7,9 @@
 }
 
 .shop__cart__table {
-    margin-bottom: 30px;
+    margin-bottom: 31px;
+
+
 
     table {
         width: 100%;
@@ -18,7 +20,7 @@
 
         th {
             font-size: 18px;
-            color: $heading-color;
+            color: #111;
             font-weight: 600;
             text-transform: uppercase;
             padding-bottom: 20px;
@@ -48,7 +50,7 @@
                     padding-top: 23px;
 
                     h6 {
-                        color: $heading-color;
+                        color: #111;
                         font-weight: 600;
                     }
 
@@ -65,7 +67,7 @@
 
             .cart__price {
                 font-size: 16px;
-                color: $primary-color;
+                color: #ca1515;
                 font-weight: 600;
                 width: 190px;
             }
@@ -76,15 +78,19 @@
                 .pro-qty {
                     border: none;
                     padding: 0;
-                    width: 110px;
+                    display: flex;
+                    flex-direction: row;
                     border-radius: 0;
 
-                    input {
-                        color: #444444;
+                    span {
+                        &:nth-of-type(2) {
+                            color: #444444;
+                            margin: 10px 30px 0 30px;
+                        }
                     }
 
                     .qtybtn {
-                        font-size: 16px;
+                        font-size: 20px;
                         color: #444444;
                     }
                 }
@@ -92,7 +98,7 @@
 
             .cart__total {
                 font-size: 16px;
-                color: $primary-color;
+                color: #ca1515;
                 font-weight: 600;
                 width: 150px;
             }
@@ -106,7 +112,7 @@
                     background: #f2f2f2;
                     border-radius: 50%;
                     font-size: 18px;
-                    color: $heading-color;
+                    color: #111;
                     line-height: 44px;
                     text-align: center;
                     display: inline-block;
@@ -127,7 +133,7 @@
 
     a {
         font-size: 14px;
-        color: $heading-color;
+        color: #111;
         font-weight: 600;
         text-transform: uppercase;
         display: inline-block;
@@ -135,7 +141,7 @@
         background: #f5f5f5;
 
         span {
-            color: $primary-color;
+            color: #ca1515;
             font-size: 14px;
             margin-right: 5px;
         }
@@ -145,7 +151,7 @@
 .discount__content {
 
     h6 {
-        color: $heading-color;
+        color: #111;
         font-weight: 600;
         text-transform: uppercase;
         display: inline-block;
@@ -167,7 +173,7 @@
             font-size: 14px;
             color: #444444;
 
-            &::placeholder {
+            &::-webkit-input-placeholder {
                 color: #444444;
             }
         }
@@ -185,7 +191,7 @@
     padding: 40px;
 
     h6 {
-        color: $heading-color;
+        color: #111;
         font-weight: 600;
         text-transform: uppercase;
         margin-bottom: 10px;
@@ -197,13 +203,13 @@
         li {
             list-style: none;
             font-size: 16px;
-            color: $heading-color;
+            color: #111;
             font-weight: 600;
             overflow: hidden;
             line-height: 40px;
 
             span {
-                color: $primary-color;
+                color: #ca1515;
                 float: right;
             }
         }

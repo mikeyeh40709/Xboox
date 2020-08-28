@@ -1,119 +1,84 @@
-﻿/////
-let check = document.querySelector("#check");
-let title = document.querySelector(".container .row .col-sm-12");
-let card_section = document.querySelector(".card-section");
-let h3 = document.createElement('h3');
-let basket = document.querySelector('.basket');
-let proceed = document.querySelector('.proceed');
-//coupon badge
-let badge = document.querySelector('.badge');
+﻿
+//get html dom
+let cart_total = document.querySelectorAll('.cart__total');
+let cart_price = document.querySelectorAll('.cart__price');
+let cart_count = document.querySelectorAll('.cart__count');
+let discounted_price = document.querySelector('.discounted_price');
+let site_btn = document.querySelector('.site-btn');
+let dec_group = document.querySelectorAll('.dec');
+let inc_group = document.querySelectorAll('.inc');
 
-
-
-//
-card_section.setAttribute('style', 'display:none');
-basket.setAttribute('style', 'display:none');
-proceed.setAttribute('style', 'display:none');
-h3.innerText = "Your basket is currently empty.";
-title.appendChild(h3);
-check.addEventListener('click', () => {
-    if (check.checked) {
-        h3.setAttribute('style', 'display:none');
-        card_section.setAttribute('style', 'display:block');
-        basket.setAttribute('style', 'display:block');
-        proceed.setAttribute('style', 'display:block');
-    }
-    else {
-        h3.setAttribute('style', 'display:block');
-        card_section.setAttribute('style', 'display:none');
-        basket.setAttribute('style', 'display:none');
-        proceed.setAttribute('style', 'display:none');
-    }
-
-})
-
-//setting book price
-
-let price_group = document.querySelectorAll('.price');
-//let price_num = parseFloat(67.00);
-//price.innerHTML = `$${price_num}`;
-
-let caretleft_group = document.querySelectorAll('.fa-caret-left');
-let count_group = document.querySelectorAll('.count');
-let total_group = document.querySelectorAll('.total');
-let caretright_group = document.querySelectorAll('.fa-caret-right');
-let changeCount = () => {
-    for (let i = 0; i < caretleft_group.length; i++) {
-        caretleft_group[i].addEventListener('click', () => {
-            if (count_group[i].innerText > 1) {
-                count_group[i].innerText--;
-                total_group[i].innerHTML = `$${parseFloat(price_group[i].innerText) * parseFloat(count_group[i].innerText)}`;
-                total_function();
-               
-            }
-        })
-
-        caretright_group[i].addEventListener('click', () => {
-            count_group[i].innerText++;
-            total_group[i].innerHTML = `${parseFloat(price_group[i].innerText) * parseFloat(count_group[i].innerText)}`;
-            total_function();
-          
-        }
-        )
-        total_group[i].innerHTML = `${parseFloat(price_group[i].innerText) * parseFloat(count_group[i].innerText)}`;
-    }
+//decrease or increase button event!
+let dec_inc_func = (dec_group, inc_group, num) => {
+    dec_group[num].addEventListener('click', () => { if (cart_count[num].innerText > 1) { cart_count[num].innerText-- }; item_func(num);total_function(); });
+    inc_group[num].addEventListener('click', () => { cart_count[num].innerText++; item_func(num); total_function(); });
 }
-//coupon badge
-let coupon_price = document.querySelector('.coupon_price');
-coupon_price.setAttribute('style', 'display:none');
-////全部的總金額
+//every item price function!
+let item_func = (num) => { cart_total[num].innerHTML = `${parseFloat(cart_price[num].innerText) * parseFloat(cart_count[num].innerText)}` };
+//total item price function!
 let total_function = () => {
     let price_array = [];
     let usingMath = 0;
-    for (var i = 0; i < total_group.length - 1; i++) {
-        var unit_item_price = parseFloat(total_group[i].innerHTML);
-        price_array.push(parseFloat(total_group[i].innerHTML));
+    for (var i = 0; i < cart_total.length - 1; i++) {
+        var unit_item_price = parseFloat(cart_total[i].innerText);
+        price_array.push(unit_item_price);
     }
     price_array.forEach(ele => {
         usingMath = usingMath + ele;
     });
-    total_group[total_group.length - 1].innerText = usingMath;
+    cart_total[cart_total.length - 1].innerText = usingMath;
+    coupon_function();
+}
+let = cart_count_fun = () => {
+    cart_count.forEach((ele, idx) => cart_count[idx].innerText = 1);
+}
+//Cauculate count func
+let changeCount = () => {
+    for (let i = 0; i < cart_count.length; i++) {
+        item_func(i);
+        total_function();
+        dec_inc_func(dec_group, inc_group, i);
+    }
+}
+////coupon price fun
+//using btn_open_close to control discounted's price . 
+let btn_poen_close = false;
+let coupon_function = () => {
+    if (btn_poen_close) {
+        discounted_price.innerText = `${Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * 0.9)}`;    
+    }
+    else {
+        discounted_price.innerText = cart_total[cart_total.length - 1].innerText;
+    }
+    site_btn.addEventListener('click', (e) => {
+        btn_poen_close = true;
+        e.preventDefault();
+        discounted_price.innerText = `${Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * 0.9)}`;    
+        cart_total[cart_total.length - 1].setAttribute("style", "color:rgba(0,0,0,0.3);text-decoration:line-through;") ;    
+    });
+ };
+if (cart_count.length > 0) {
+    cart_count_fun();
+    changeCount();
     coupon_function();
 }
 
+//////proceed  button click to next page
+//proceed.addEventListener('click', () => { location.href = 'Bill' });
 
+/////// localstorage
+//let data =
+//    [{
+//        "name": "Wellness And Paradise",
+//        "img": "~/Assets/Image/Pics/Wellness And Paradise.png",
+//        "total": `${total_group[1].innerText}`
+//    },
+//    {
+//        "name": "Wellness And Paradise",
+//        "img": "~/Assets/Image/Pics/Wellness And Paradise.png",
+//        "total": `${total_group[1].innerText}`
+//    }];
 
-let coupon_function = () => {
-
-    coupon_price.innerText = `$${(Math.ceil(parseFloat(total_group[total_group.length - 1].innerText) * 0.8))}`;
-    badge.addEventListener('click', () => {
-        coupon_price.setAttribute('style', 'display:block');
-        //total_group[total_group.length - 1].style. = "line-through";
-        total_group[total_group.length - 1].setAttribute("style", "color:rgba(0,0,0,0.3);text-decoration:line-through;") ;    
-    });
- };
-
-///Function Group
-changeCount();
-total_function();
-coupon_function();
-////////////////
-////proceed  button click to next page
-proceed.addEventListener('click', () => { location.href = 'Bill' });
-
-///// localstorage
-let data =
-    [{
-        "name": "Wellness And Paradise",
-        "img": "~/Assets/Image/Pics/Wellness And Paradise.png",
-        "total": `${total_group[1].innerText}`
-    },
-    {
-        "name": "Wellness And Paradise",
-        "img": "~/Assets/Image/Pics/Wellness And Paradise.png",
-        "total": `${total_group[1].innerText}`
-    }];
-
-var dataString = JSON.stringify(data);
-localStorage.setItem("first", dataString);
+//var dataString = JSON.stringify(data);
+//localStorage.setItem("first", dataString);
 

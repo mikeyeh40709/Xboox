@@ -216,6 +216,12 @@
     <Compile Include="ViewModels\ProductDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.css">
+      <DependentUpon>shop-cart.scss</DependentUpon>
+    </Content>
+    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.min.css">
+      <DependentUpon>shop-cart.css</DependentUpon>
+    </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
@@ -259,13 +265,6 @@
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
-    <Content Include="Assets\Image\Pics\Wellnes.png" />
-    <Content Include="Assets\CSS\Custom\CartPage\cart.css">
-      <DependentUpon>cart.scss</DependentUpon>
-    </Content>
-    <Content Include="Assets\CSS\Custom\CartPage\cart.min.css">
-      <DependentUpon>cart.css</DependentUpon>
-    </Content>
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.css">
       <DependentUpon>HomePage.scss</DependentUpon>
     </Content>
@@ -282,7 +281,6 @@
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Assets\CSS\Custom\OrderPage\Order.scss" />
-    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.scss" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.eot" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.ttf" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.woff" />
@@ -291,13 +289,12 @@
     <Content Include="Assets\TemplateFonts\fontawesome-webfont.woff" />
     <Content Include="Assets\TemplateFonts\fontawesome-webfont.woff2" />
     <Content Include="Assets\TemplateFonts\FontAwesome.otf" />
+    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.scss" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.scss" />
-    <Content Include="Assets\CSS\Custom\CartPage\cart.scss" />
-    <Content Include="Assets\CSS\Custom\CartPage\_bill.scss" />
     <Content Include="Assets\JavaScript\Custom\SignInPage\SignInPage.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.min.js" />
@@ -406,7 +403,6 @@
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper-utils.min.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js" />
-    <Content Include="Views\Cart\HtmlPage1.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -441,7 +437,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Cart\Product.cshtml" />
     <Content Include="Views\Cart\Bill.cshtml" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js.map" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js.map" />
@@ -465,8 +460,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\ShopCart\" />
-    <Folder Include="Views\ShopCart\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

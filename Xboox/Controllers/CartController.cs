@@ -19,24 +19,6 @@ namespace Xboox.Controllers
             }
         }
         // GET: Carts
-        public ActionResult Product()
-        {
-            //var cartItems = _context.CartItmes.ToList();
-            List<CartViewModel> carts = new List<CartViewModel>()
-            {
-                new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67},
-                new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67}
-            };
-         
-            //foreach(var item in cartItems)
-            //{
-            //    carts.Add(new CartViewModel()
-            //    {
-            //        Name 
-            //    });
-            //}
-            return View(carts);
-        }
 
         public ActionResult ShopCart()
         {
