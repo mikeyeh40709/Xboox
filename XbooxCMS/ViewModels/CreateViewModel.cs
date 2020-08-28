@@ -33,7 +33,8 @@ namespace XbooxCMS.ViewModels
         public CreateViewModel()
         {
             Products = new Product();
-
+            SelectedTags = new List<Tags>();
+            PostedTagIds = new List<string>();
 
         }
 
