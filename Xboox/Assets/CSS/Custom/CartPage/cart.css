@@ -24,6 +24,8 @@
     font-size: 22px;
     color: #555;
     font-family: 'Cormorant Garamond', serif; }
+    .container .row .col-sm-12 .card-section .content span:not(:nth-child(2))::before {
+      content: '$'; }
   .container .row .col-sm-12 .card-section .content a {
     font-size: 22px;
     color: #555;
@@ -54,23 +56,21 @@
   background-color: #d14031;
   border: 1px solid transparent;
   cursor: pointer;
-  margin: 50px  0 0 30px; }
+  border-radius: 5px; }
   .container .row button:hover {
     background-color: #ad362a; }
 
-.container .row .data h2 {
+.container .row .basket .data h2 {
   font-size: 30px;
-  color: #000;
-  margin: 80px 0; }
+  color: #000; }
 
-.container .row .data span, .container .row .data a {
+.container .row .basket .data:first-of-type .col-7 span::before {
+  content: '$'; }
+
+.container .row .basket .data span {
   font-size: 25px;
   color: #555;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; }
 
-.container .row .data div:last-of-type {
-  display: flex;
-  flex-direction: column; }
-  .container .row .data div:last-of-type a {
-    font-size: 20px;
-    text-decoration: underline; }
+.container .row .basket .badge {
+  cursor: pointer; }

@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Xboox.Models.ViewModels.CartViewModel>
 @{
     ViewBag.Title = "Product";
 }
@@ -42,48 +42,30 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="col-7 col-sm-7">
+                    <span class="coupon_price"></span>
+                </div>
             </div>
-
-            <button>RETURN TO SHOP</button>
-            <div class="col-sm-12 data">
-                <div class="title"><h2>Basket totals</h2></div>
+            <div class="col-sm-12 d-flex mt-3 mb-4">
+                <div class="col-sm-8">
+                    <input type="text" placeholder="Enter your coupon code" />
+                </div>
                 <div class="col-sm-3">
-                    <span>Total</span>
+                    <p class="badge rounded-circle  bg-secondary p-2">Apply</p>
                 </div>
-                <div class="col-sm-9">
-                    <span class="total"></span>
-                </div>
+
             </div>
-            <div class="col-sm-12 data">
-                <div class="col-sm-3">
-                    <span>Shipping</span>
-                </div>
-                <div class="col-sm-9">
-                    <span>Shipping to <b>Taiwan</b>.</span>
-                    <a href="#">
-                        Change Address
-                    </a>
-                    <select><option>a</option></select>
-                    <input type="text" placeholder="State/Country" />
-                    <input type="text" placeholder="Town/City" />
-                    <input type="text" placeholder="PostCode/Zip" />
-
-                </div>
-                <button>
-                    Proceed to checkout
-                </button>
-            </div>
-
-          
-          
-
-
-
         </div>
-            </div>
+        <div class="col-sm-12 mt-2  d-flex ">
+            <button>RETURN TO SHOP</button>
+            <button class="proceed ml-2">
+                Proceed to checkout
+            </button>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Assets/JavaScript/Custom/CartPage/cart.js")
 
-  
 
 
 

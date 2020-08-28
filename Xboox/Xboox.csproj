@@ -200,12 +200,15 @@
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImgs.cs" />
     <Compile Include="Models\ProductTags.cs" />
     <Compile Include="Models\Tags.cs" />
+    <Compile Include="Models\ViewModels\BillViewModel.cs" />
+    <Compile Include="Models\ViewModels\CartViewModel.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Models\XbooxContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -213,6 +216,7 @@
     <Compile Include="ViewModels\ProductDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css" />
@@ -221,6 +225,9 @@
     <Content Include="Assets\CSS\Origin\Content\bootstrap.min.css" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
+    <Content Include="Assets\Image\Pics\slider1.png" />
+    <Content Include="Assets\Image\Pics\slider2.jpeg" />
+    <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\cn01.jpg" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
@@ -252,6 +259,7 @@
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
+    <Content Include="Assets\Image\Pics\Wellnes.png" />
     <Content Include="Assets\CSS\Custom\CartPage\cart.css">
       <DependentUpon>cart.scss</DependentUpon>
     </Content>
@@ -273,6 +281,8 @@
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Assets\CSS\Custom\OrderPage\Order.scss" />
+    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.scss" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.eot" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.ttf" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.woff" />
@@ -396,6 +406,7 @@
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper-utils.min.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js" />
+    <Content Include="Views\Cart\HtmlPage1.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -447,9 +458,15 @@
     <Content Include="Views\SignIn\Index.cshtml" />
     <Content Include="Views\Shared\_ProductPartial.cshtml" />
     <Content Include="Views\Home\ProductDetail.cshtml" />
+    <Content Include="Views\SignIn\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_CartPartialView.cshtml" />
+    <Content Include="Views\Cart\ShopCart.cshtml" />
+    <Content Include="Views\Shared\_ShopCartPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\ShopCart\" />
+    <Folder Include="Views\ShopCart\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
