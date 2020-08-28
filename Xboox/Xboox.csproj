@@ -193,6 +193,7 @@
     <Compile Include="Models\AspNetUserClaims.cs" />
     <Compile Include="Models\AspNetUserLogins.cs" />
     <Compile Include="Models\AspNetUsers.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItmes.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Coupons.cs" />
@@ -206,7 +207,7 @@
     <Compile Include="Models\ProductTags.cs" />
     <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\WishList.cs" />
-    <Compile Include="Models\XBooxContext.cs" />
+    <Compile Include="Models\XbooxContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
