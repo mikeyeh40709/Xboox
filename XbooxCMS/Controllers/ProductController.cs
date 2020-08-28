@@ -7,6 +7,7 @@ using XbooxCMS.Models;
 using XbooxCMS.ViewModels;
 using System.Data.Entity;
 using System.Diagnostics;
+using System.Data.Entity.Validation;
 
 namespace XbooxCMS.Controllers
 {
@@ -85,39 +86,54 @@ namespace XbooxCMS.Controllers
             {
                 Products = new Product(),
                 Categories = context.Category.ToList(),
-                Tags = context.Tags.ToList()
-                
-            };
+                Tags = context.Tags.ToList(),
+                SelectedTags = null,
+             
 
+            };
+            context.SaveChanges();
            // context.SaveChanges();
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product product, Guid[] tagArray,CreateViewModel createViewModel)
+        public ActionResult Create(CreateViewModel createViewModel)
         {
 
             var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId.ToString()));
 
             createViewModel.Tags = GetAllTags();
             createViewModel.SelectedTags = selectedTags;
-
-
-
+   
             if (!ModelState.IsValid)
             {
-               // var products = from p in product.Name join c in context.Category.ToList() on p equals c.CategoryId select new  ;
-                product.ProductId = Guid.NewGuid();
+                AddedTag(createViewModel.Products, createViewModel.PostedTagIds);
 
-                var viewModel = new CreateViewModel
+              //  product.ProductId = Guid.NewGuid();
+                createViewModel.Products.ProductId = Guid.NewGuid();
+                createViewModel.Products.ProductImgId = "1";
+                
+                //var viewModel = new CreateViewModel
+                //{
+                    
+                    
+                //    Products = product,
+                //    Categories = context.Category.ToList(),
+                //    Tags = context.Tags.ToList()
+                    
+                //};
+                try { 
+                context.Product.Add(createViewModel.Products);
+                    context.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
                 {
-                    
-                    Products = product,
-                    Categories = context.Category.ToList(),
-                    Tags = context.Tags.ToList()
-                    
-                };
+                    var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+                    var getFullMessage = string.Join("; ", entityError);
+                    var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+                }
+
                
             }
 
@@ -133,22 +149,32 @@ namespace XbooxCMS.Controllers
             //{
             //    context.ProductTags.Add(item);
             //}
-            context.Product.Add(product);
-            
-            context.SaveChanges();
-            return RedirectToAction("Index","Product");
+        
+            return RedirectToAction("Create","Product");
         }
 
-       private void AddedTag(Tags tags, List<string> SelectedTags)
+       private void AddedTag(Product product, List<string> SelectedTags)
         {
+            List<ProductTags> productTags = new List<ProductTags>();
+            if (SelectedTags == null)
+            {
+                return;
+            }
             //if (SelectedTags == null)
             //{
             //    tags.TagId.Clear();
             //    return;
             //}
-          
+        
             {
-               // var currentTagIds = tags.TagId.ToString().Select(x=>x.);
+                
+             
+                foreach (var t in SelectedTags)
+                {
+                   // if (productTags.Select(x => x.ProductId).Contains(product.ProductId) && productTags.Select(x => x.TagId).Contains(new Guid(t)))
+                        productTags.Add(new ProductTags() {ProductId = product.ProductId,TagId = new Guid(t) });
+                }
+                //var currentTagIds = context.Product.;
 
                 //foreach (var role in GetAllTags())
                 //{
@@ -253,7 +279,7 @@ namespace XbooxCMS.Controllers
                 tags.TagId = Guid.NewGuid();
                 context.Tags.Add(tags);
                 context.SaveChanges();
-                return View();
+                return RedirectToAction("Index","Home");
             }
             else
             {
