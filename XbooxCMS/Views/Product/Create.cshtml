@@ -3,6 +3,11 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+</head>
+
 
 <h2>Create</h2>
 
@@ -60,6 +65,23 @@
                         </div>
                     </div>
                     <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">出版時間</label>
+                        <div class="col-sm-5">
+                            <input type="date" />
+                            @Html.TextBoxFor(m => m.Products.PublishedDate, new  { htmlAttributes = new { @class = "time" } })
+                            @Html.ValidationMessageFor(m => m.Products.PublishedDate)
+
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" />
+                            <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">ISBN</label>
                         <div class="col-sm-5">
                             @Html.TextBoxFor(m => m.Products.ISBN, new { @class = "form-control", placeholder = "placeholder" })
@@ -86,13 +108,7 @@
                         <label class="col-sm-3 control-label">分類</label>
                         <div class="col-sm-5">
                             @Html.DropDownListFor(m => m.Products.CategoryId, new SelectList(Model.Categories, "CategoryId", "Name"), new { @class = "form-control" })
-                            @*<select class="form-control">
-                                    <option>中文書</option>
-                                    <option>Option 2</option>
-                                    <option>Option 3</option>
-                                    <option>Option 4</option>
-                                    <option>Option 5</option>
-                                </select>*@
+
                         </div>
                     </div>
                     <div class="form-group form-display">
@@ -115,16 +131,7 @@
 
                                     </div>
                                 }*@
-                            @*<div class="checkbox">
-                                    <label>
-                                        <input type="checkbox">奇幻
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox">愛情
-                                    </label>
-                                </div>*@
+
                         </div>
                     </div>
 
@@ -144,6 +151,16 @@
         </div>
     </div>
 }
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@*@Scripts.Render("~/bundles/jqueryval")*@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    //$(document).ready(function () {
+
+    //    $('.datepicker').datepicker();
+
+    //});
+</script>
