@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Xboox.Models;
-using XbooxCMS.Models.ViewModels;
+using Xboox.Models.ViewModels;
 
 namespace Xboox.Controllers
 {
@@ -18,10 +18,10 @@ namespace Xboox.Controllers
                 _context = new XbooxContext();
             }
         }
-        // GET: Cart
+        // GET: Carts
         public ActionResult Product()
         {
-            var cartItems = _context.CartItmes.ToList();
+            //var cartItems = _context.CartItmes.ToList();
             List<CartViewModel> carts = new List<CartViewModel>()
             {
                 new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67},
@@ -37,6 +37,29 @@ namespace Xboox.Controllers
             //}
             return View(carts);
         }
+
+        public ActionResult ShopCart()
+        {
+            //var cartItems = _context.CartItmes.ToList();
+            List<CartViewModel> carts = new List<CartViewModel>()
+            {
+                new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67},
+                new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67}
+            };
+
+            //foreach(var item in cartItems)
+            //{
+            //    carts.Add(new CartViewModel()
+            //    {
+            //        Name 
+            //    });
+            //}
+            return View(carts);
+        }
+
+
+
+
         public ActionResult Bill()
         {
             return View();

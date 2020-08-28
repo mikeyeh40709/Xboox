@@ -200,6 +200,7 @@
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Product.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css" />
@@ -250,6 +252,8 @@
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Assets\CSS\Custom\OrderPage\Order.scss" />
+    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.scss" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -365,6 +369,7 @@
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper-utils.min.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js" />
+    <Content Include="Views\Cart\HtmlPage1.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -418,9 +423,12 @@
     <Content Include="Views\SignIn\Index.cshtml" />
     <Content Include="Views\SignIn\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_CartPartialView.cshtml" />
+    <Content Include="Views\Cart\ShopCart.cshtml" />
+    <Content Include="Views\Shared\_ShopCartPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\ShopCart\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
