@@ -210,6 +210,7 @@
     <Compile Include="Models\XbooxContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ProductDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
@@ -220,6 +221,7 @@
     <Content Include="Assets\CSS\Origin\Content\bootstrap.min.css" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
+    <Content Include="Assets\Image\Pics\cn01.jpg" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />
@@ -279,25 +281,6 @@
     <Content Include="Assets\TemplateFonts\fontawesome-webfont.woff" />
     <Content Include="Assets\TemplateFonts\fontawesome-webfont.woff2" />
     <Content Include="Assets\TemplateFonts\FontAwesome.otf" />
-    <Content Include="Assets\TemplateScss\style.scss" />
-    <Content Include="Assets\TemplateScss\_base.scss" />
-    <Content Include="Assets\TemplateScss\_blog-details.scss" />
-    <Content Include="Assets\TemplateScss\_blog-sidebar.scss" />
-    <Content Include="Assets\TemplateScss\_blog.scss" />
-    <Content Include="Assets\TemplateScss\_breadcrumb.scss" />
-    <Content Include="Assets\TemplateScss\_categories.scss" />
-    <Content Include="Assets\TemplateScss\_checkout.scss" />
-    <Content Include="Assets\TemplateScss\_contact.scss" />
-    <Content Include="Assets\TemplateScss\_footer.scss" />
-    <Content Include="Assets\TemplateScss\_header.scss" />
-    <Content Include="Assets\TemplateScss\_home-page.scss" />
-    <Content Include="Assets\TemplateScss\_mixins.scss" />
-    <Content Include="Assets\TemplateScss\_product-details.scss" />
-    <Content Include="Assets\TemplateScss\_product.scss" />
-    <Content Include="Assets\TemplateScss\_responsive.scss" />
-    <Content Include="Assets\TemplateScss\_shop-cart.scss" />
-    <Content Include="Assets\TemplateScss\_shop.scss" />
-    <Content Include="Assets\TemplateScss\_variable.scss" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -449,8 +432,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Cart\Product.cshtml" />
     <Content Include="Views\Cart\Bill.cshtml" />
-    <Content Include="Views\Shared\_LayoutCart.cshtml" />
-    <Content Include="Views\Cart\_ViewStart.cshtml" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js.map" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js.map" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js.flow" />
@@ -464,7 +445,8 @@
     <Content Include="Views\Shared\_LayoutSignIn.cshtml" />
     <Content Include="Views\SignIn\ForgetPassword.cshtml" />
     <Content Include="Views\SignIn\Index.cshtml" />
-    <Content Include="Views\SignIn\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_ProductPartial.cshtml" />
+    <Content Include="Views\Home\ProductDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Xboox.ViewModels.ProductDetailViewModel>
+@{
+    ViewBag.Title = "ProductDetail";
+}
+
+
+@foreach (var product in Model)
+{
+    @Html.Partial("_ProductPartial", product)
+}
+
