@@ -16,11 +16,7 @@
     "inputFile": "ProjectCSS/SignInPage/SignInPage.scss"
   },
   {
-    "outputFile": "Assets/CSS/Custom/CartPage/cart.css",
-    "inputFile": "Assets/CSS/Custom/CartPage/cart.scss"
-  },
-  {
-    "outputFile": "Assets/CSS/Custom/CartPage/shop-cart.css",
-    "inputFile": "Assets/CSS/Custom/CartPage/shop-cart.scss"
+    "outputFile": "Assets/CSS/Custom/HomePage/HomePage.css",
+    "inputFile": "Assets/CSS/Custom/HomePage/HomePage.scss"
   }
 ]
