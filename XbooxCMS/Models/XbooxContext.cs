@@ -8,7 +8,7 @@ namespace XbooxCMS.Models
     public partial class XbooxContext : DbContext
     {
         public XbooxContext()
-            : base("name=XbooxContext1")
+            : base("name=XbooxContext")
         {
         }
 
@@ -104,6 +104,11 @@ namespace XbooxCMS.Models
 
             modelBuilder.Entity<Product>()
                 .HasMany(e => e.CartItmes)
+                .WithRequired(e => e.Product)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(e => e.OrderDetails)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
 

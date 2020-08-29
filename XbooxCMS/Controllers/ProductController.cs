@@ -171,8 +171,9 @@ namespace XbooxCMS.Controllers
              
                 foreach (var t in SelectedTags)
                 {
+
                    // if (productTags.Select(x => x.ProductId).Contains(product.ProductId) && productTags.Select(x => x.TagId).Contains(new Guid(t)))
-                        productTags.Add(new ProductTags() {ProductId = product.ProductId,TagId = new Guid(t) });
+                        productTags.Add(new ProductTags() {ProductId = product.ProductId,TagId = new Guid(t) ,Id= Guid.NewGuid() });
                 }
                 //var currentTagIds = context.Product.;
 
