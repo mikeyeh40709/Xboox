@@ -50,7 +50,7 @@ namespace XbooxCMS.Controllers
                     Quantity = item.Quantity,
                     Price = item.Price,
                     Author = item.Author,
-                    PublishedDate = item.PublishedDate,
+                  //  PublishedDate = item.PublishedDate,
                     
                     
                     //欄位
@@ -124,7 +124,7 @@ namespace XbooxCMS.Controllers
                     
                 //};
                 try { 
-                context.Product.Add(createViewModel.Products);
+                    context.Product.Add(createViewModel.Products);
                     context.SaveChanges();
                 }
                 catch (DbEntityValidationException ex)
@@ -245,11 +245,21 @@ namespace XbooxCMS.Controllers
         /// </summary>
         /// <returns></returns>
 
+        [HttpPost]
         public ActionResult Upload(HttpContextBase file)
         {
             if (file != null)
             {
 
+            }
+            else
+            {
+                //檔案上傳
+                //處理路徑
+                //ProductImg table .add(link)
+                //加上productid
+                //product欄位加上id字串(string join)
+                
             }
             return View();
         }
