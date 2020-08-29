@@ -70,6 +70,10 @@
                 color: #ca1515;
                 font-weight: 600;
                 width: 190px;
+
+                &::before {
+                    content: "$";
+                }
             }
 
             .cart__quantity {
@@ -101,6 +105,10 @@
                 color: #ca1515;
                 font-weight: 600;
                 width: 150px;
+
+                &::before {
+                    content: "$";
+                }
             }
 
             .cart__close {
@@ -211,6 +219,9 @@
             span {
                 color: #ca1515;
                 float: right;
+                &::before{
+                    content:"$";
+                }
             }
         }
     }

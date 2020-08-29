@@ -42,6 +42,8 @@
       color: #ca1515;
       font-weight: 600;
       width: 190px; }
+      .shop__cart__table tbody tr .cart__price::before {
+        content: "$"; }
     .shop__cart__table tbody tr .cart__quantity {
       width: 190px; }
       .shop__cart__table tbody tr .cart__quantity .pro-qty {
@@ -61,6 +63,8 @@
       color: #ca1515;
       font-weight: 600;
       width: 150px; }
+      .shop__cart__table tbody tr .cart__total::before {
+        content: "$"; }
     .shop__cart__table tbody tr .cart__close {
       text-align: right; }
       .shop__cart__table tbody tr .cart__close span {
@@ -140,6 +144,8 @@
       .cart__total__procced ul li span {
         color: #ca1515;
         float: right; }
+        .cart__total__procced ul li span::before {
+          content: "$"; }
   .cart__total__procced .primary-btn {
     display: block;
     border-radius: 50px;

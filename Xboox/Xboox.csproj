@@ -206,6 +206,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImgs.cs" />
     <Compile Include="Models\ProductTags.cs" />
+    <Compile Include="Models\ShoppingCartManage .cs" />
     <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\ViewModels\BillViewModel.cs" />
     <Compile Include="Models\ViewModels\CartViewModel.cs" />
@@ -275,7 +276,7 @@
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.min.css" />
     <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.css" />
     <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.min.css" />
-    <Content Include="Assets\JavaScript\Custom\CartPage\cart.js" />
+    <Content Include="Assets\JavaScript\Custom\CartPage\shop-cart.js" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff" />
@@ -454,7 +455,6 @@
     <Content Include="Views\Shared\_ProductPartial.cshtml" />
     <Content Include="Views\Home\ProductDetail.cshtml" />
     <Content Include="Views\SignIn\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_CartPartialView.cshtml" />
     <Content Include="Views\Cart\ShopCart.cshtml" />
     <Content Include="Views\Shared\_ShopCartPartialView.cshtml" />
   </ItemGroup>
