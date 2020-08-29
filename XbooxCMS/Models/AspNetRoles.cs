@@ -6,24 +6,21 @@ namespace XbooxCMS.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ProductImgs
+    public partial class AspNetRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductImgs()
+        public AspNetRoles()
         {
-            Product = new HashSet<Product>();
+            AspNetUsers = new HashSet<AspNetUsers>();
         }
 
-        [Key]
-        [StringLength(20)]
-        public string ProductImgId { get; set; }
-
-        public Guid ProductId { get; set; }
+        public string Id { get; set; }
 
         [Required]
-        public string imgLink { get; set; }
+        [StringLength(256)]
+        public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
     }
 }

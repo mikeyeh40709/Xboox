@@ -8,7 +8,6 @@ namespace XbooxCMS.Models
 
     public partial class CartItmes
     {
-        [Key]
         public Guid CartId { get; set; }
 
         public Guid ProductId { get; set; }
@@ -17,8 +16,8 @@ namespace XbooxCMS.Models
 
         public Guid Id { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual Cart Cart { get; set; }
 
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

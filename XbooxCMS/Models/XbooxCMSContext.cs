@@ -8,15 +8,19 @@ namespace XbooxCMS.Models
     public partial class XbooxCMSContext : DbContext
     {
         public XbooxCMSContext()
-            : base("name=XbooxCMS")
+            : base("name=XbooxCMS1")
         {
-
         }
 
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<CartItmes> CartItmes { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Coupons> Coupons { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Product> Product { get; set; }
@@ -24,10 +28,30 @@ namespace XbooxCMS.Models
         public virtual DbSet<ProductTags> ProductTags { get; set; }
         public virtual DbSet<Tags> Tags { get; set; }
         public virtual DbSet<WishList> WishList { get; set; }
-        public virtual DbSet<Coupons> Coupons { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AspNetRoles>()
+                .HasMany(e => e.AspNetUsers)
+                .WithMany(e => e.AspNetRoles)
+                .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
+
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserClaims)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserLogins)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.Cart)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.Order)
                 .WithRequired(e => e.AspNetUsers)
@@ -39,6 +63,15 @@ namespace XbooxCMS.Models
                 .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.UserId)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Cart>()
+                .HasMany(e => e.CartItmes)
+                .WithRequired(e => e.Cart)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Coupons>()
+                .Property(e => e.Discount)
+                .HasPrecision(18, 6);
 
             modelBuilder.Entity<Order>()
                 .Property(e => e.PurchaserName)
@@ -66,7 +99,7 @@ namespace XbooxCMS.Models
                 .HasPrecision(18, 6);
 
             modelBuilder.Entity<Product>()
-                .Property(e => e.PublishedDate)
+                .Property(e => e.ProductImgId)
                 .IsFixedLength();
 
             modelBuilder.Entity<Product>()
@@ -92,13 +125,8 @@ namespace XbooxCMS.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProductImgs>()
-                .HasMany(e => e.Product)
-                .WithRequired(e => e.ProductImgs)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Coupons>()
-                .Property(e => e.Discount)
-                .HasPrecision(18, 6);
+                .Property(e => e.ProductImgId)
+                .IsFixedLength();
         }
     }
 }
