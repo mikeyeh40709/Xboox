@@ -206,7 +206,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImgs.cs" />
     <Compile Include="Models\ProductTags.cs" />
-    <Compile Include="Models\ShoppingCartManage .cs" />
+    <Compile Include="Models\Services\ShoppingCartManage .cs" />
     <Compile Include="Models\Tags.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
@@ -458,7 +458,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
