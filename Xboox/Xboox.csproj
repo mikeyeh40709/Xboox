@@ -208,8 +208,8 @@
     <Compile Include="Models\ProductTags.cs" />
     <Compile Include="Models\ShoppingCartManage .cs" />
     <Compile Include="Models\Tags.cs" />
-    <Compile Include="Models\ViewModels\BillViewModel.cs" />
-    <Compile Include="Models\ViewModels\CartViewModel.cs" />
+    <Compile Include="ViewModels\BillViewModel.cs" />
+    <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Models\XbooxContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,8 +232,6 @@
     <Content Include="Assets\CSS\Origin\Content\bootstrap.min.css" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
-    <Content Include="Assets\Image\Pics\slider1.png" />
-    <Content Include="Assets\Image\Pics\slider2.jpeg" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\cn01.jpg" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
@@ -460,6 +458,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
