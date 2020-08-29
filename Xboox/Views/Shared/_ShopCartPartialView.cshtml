@@ -1,25 +1,21 @@
-﻿@model Xboox.Models.ViewModels.CartViewModel;
+﻿@model Xboox.ViewModels.ProductDetailViewModel
 
 <tr>
     <td class="cart__product__item">
-        <img src="~/Assets/Image/Pics/@Model.ProductImg"  style="width:50px" alt="圖片壞掉拉">
+        <img src="~/Assets/Image/Pics/@(Model.imgLink).jpg"  style="width:50px" alt="圖片壞掉拉">
         <div class="cart__product__item__title">
             <h6>@Model.Name</h6>
-            <div class="rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-            </div>
+           
         </div>
     </td>
-    <td class="cart__price">@Model.Total</td>
+    <td class="cart__price">@Convert.ToInt32(Model.Price)</td>
     <td class="cart__quantity">
         <div class="pro-qty">
-            <input type="text" value="1">
+            <span class="cart__count"></span>
         </div>
     </td>
     <td class="cart__total"></td>
-    <td class="cart__close"><span class="icon_close"></span></td>
+    <td class="cart__close"><button type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+</button></td>
 </tr>

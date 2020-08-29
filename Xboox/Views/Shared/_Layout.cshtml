@@ -1,79 +1,4 @@
-﻿@*<!DOCTYPE html>
-    <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title - Xboox</title>
-
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-
-        @RenderSection("topCSS", required: false)
-        @RenderSection("topJS", required: false)
-        <link href="~/Assets/CSS/Custom/HomePage/HomePage.min.css" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="#"><img src="~/Assets/Image/Pics/logo.png" alt="XbooxLogo" /></a>
-                @Html.ActionLink("Xboox", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#xbooxnavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="xbooxnavbar">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item text-light">
-                            @Html.ActionLink("中文書", "About", "Home", new { @class = "nav-link" })
-                            <span class="sr-only">(current)</span>
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("外文書", "About", "Home", new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("電子書", "Contact", "Home", new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("小說", "About", "Home", new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("雜誌", "About", "Home", new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("漫畫", "About", "Home", new { @class = "nav-link" })
-                        </li>
-                    </ul>
-                    <div class="input-group" id="searchBox">
-                        <input type="text" class="form-control" placeholder="Search for..." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary rounded-0 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">全部</button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">全部</a>
-                                <a class="dropdown-item" href="#">中文書</a>
-                                <a class="dropdown-item" href="#">外文書</a>
-                                <a class="dropdown-item" href="#">電子書</a>
-                                <a class="dropdown-item" href="#">雜誌</a>
-                                <a class="dropdown-item" href="#">漫畫</a>
-                            </div>
-                            <button class="btn btn-outline-secondary" type="button">搜尋</button>
-                        </div>
-                    </div>
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </nav>
-        </div>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-
-        @RenderSection("endCSS", required: false)
-        @RenderSection("endJS", required: false)
-    </body>
-    </html>*@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -113,16 +38,16 @@
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
-            <li><span class="icon_search search-switch"></span></li>
+            <li><span class="fas fa-search"></span></li>
             <li>
                 <a href="#">
-                    <span class="icon_heart_alt"></span>
+                    <span class="fas fa-heart"></span>
                     <div class="tip">2</div>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="icon_bag_alt"></span>
+                    <span class="fas fa-shopping-cart"></span>
                     <div class="tip">2</div>
                 </a>
             </li>
@@ -144,7 +69,8 @@
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
                         <div class="row">
-                            <a href="./index.html">
+                            @*@Html.ActionLink("Xboox", "Index", "Home", new { }, new { @class="ml-5"})*@
+                            <a href="/">
                                 <h3 class="ml-5">Xboox</h3>
                             </a>
                         </div>
@@ -176,8 +102,9 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="#" class="btn btn-outline-secondary text-dark">Login</a>
-                            <a href="#" class="btn btn-outline-secondary text-dark">Register</a>
+                            @*<a href="#" class="btn btn-outline-secondary text-dark">Login</a>*@
+                            @Html.ActionLink("Login", "Index", "SignIn", new { },new { @class = "btn btn-outline-secondary text-dark" })
+                            @Html.ActionLink("Register", "Index", "Register", new { },new { @class = "btn btn-outline-secondary text-dark"})
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="fas fa-search"></span></li>

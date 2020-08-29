@@ -1,4 +1,4 @@
-namespace XbooxCMS.Models
+namespace Xboox.Models.DataTable
 {
     using System;
     using System.Collections.Generic;
@@ -8,12 +8,6 @@ namespace XbooxCMS.Models
 
     public partial class ProductImgs
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductImgs()
-        {
-            Product = new HashSet<Product>();
-        }
-
         [Key]
         [StringLength(20)]
         public string ProductImgId { get; set; }
@@ -22,8 +16,5 @@ namespace XbooxCMS.Models
 
         [Required]
         public string imgLink { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product { get; set; }
     }
 }

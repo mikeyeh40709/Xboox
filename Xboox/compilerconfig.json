@@ -18,5 +18,13 @@
   {
     "outputFile": "Assets/CSS/Custom/HomePage/HomePage.css",
     "inputFile": "Assets/CSS/Custom/HomePage/HomePage.scss"
+  },
+  {
+    "outputFile": "Assets/TemplateScss/style.css",
+    "inputFile": "Assets/TemplateScss/style.scss"
+  },
+  {
+    "outputFile": "Assets/CSS/Custom/CartPage/shop-cart.css",
+    "inputFile": "Assets/CSS/Custom/CartPage/shop-cart.scss"
   }
 ]

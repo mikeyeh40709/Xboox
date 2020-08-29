@@ -188,33 +188,38 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRoles.cs" />
-    <Compile Include="Models\AspNetUserClaims.cs" />
-    <Compile Include="Models\AspNetUserLogins.cs" />
-    <Compile Include="Models\AspNetUsers.cs" />
-    <Compile Include="Models\Cart.cs" />
-    <Compile Include="Models\CartItmes.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Coupons.cs" />
-    <Compile Include="Models\C__MigrationHistory.cs" />
+    <Compile Include="Models\DataTable\AspNetRoles.cs" />
+    <Compile Include="Models\DataTable\AspNetUserClaims.cs" />
+    <Compile Include="Models\DataTable\AspNetUserLogins.cs" />
+    <Compile Include="Models\DataTable\AspNetUsers.cs" />
+    <Compile Include="Models\DataTable\Cart.cs" />
+    <Compile Include="Models\DataTable\CartItmes.cs" />
+    <Compile Include="Models\DataTable\Category.cs" />
+    <Compile Include="Models\DataTable\Coupons.cs" />
+    <Compile Include="Models\DataTable\Order.cs" />
+    <Compile Include="Models\DataTable\OrderDetails.cs" />
+    <Compile Include="Models\DataTable\Product.cs" />
+    <Compile Include="Models\DataTable\ProductImgs.cs" />
+    <Compile Include="Models\DataTable\ProductTags.cs" />
+    <Compile Include="Models\DataTable\Tags.cs" />
+    <Compile Include="Models\DataTable\WishList.cs" />
+    <Compile Include="Models\DataTable\XbooxContext.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Member.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderDetails.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductImgs.cs" />
-    <Compile Include="Models\ProductTags.cs" />
-    <Compile Include="Models\Tags.cs" />
-    <Compile Include="Models\ViewModels\BillViewModel.cs" />
-    <Compile Include="Models\ViewModels\CartViewModel.cs" />
-    <Compile Include="Models\WishList.cs" />
-    <Compile Include="Models\XbooxContext.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\BillViewModel.cs" />
+    <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ProductDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.css">
+      <DependentUpon>shop-cart.scss</DependentUpon>
+    </Content>
+    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.min.css">
+      <DependentUpon>shop-cart.css</DependentUpon>
+    </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
@@ -224,9 +229,10 @@
     <Content Include="Assets\CSS\Origin\Content\bootstrap.min.css" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
-    <Content Include="Assets\Image\Pics\slider1.png" />
-    <Content Include="Assets\Image\Pics\slider2.jpeg" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
+    <Content Include="Assets\Image\Pics\cn01.jpg" />
+    <Content Include="Assets\Image\Pics\slider1.jpeg" />
+    <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />
     <Content Include="Assets\TemplateCSS\elegant-icons.css" />
     <Content Include="Assets\TemplateCSS\font-awesome.min.css" />
@@ -255,13 +261,6 @@
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
-    <Content Include="Assets\Image\Pics\Wellnes.png" />
-    <Content Include="Assets\CSS\Custom\CartPage\cart.css">
-      <DependentUpon>cart.scss</DependentUpon>
-    </Content>
-    <Content Include="Assets\CSS\Custom\CartPage\cart.min.css">
-      <DependentUpon>cart.css</DependentUpon>
-    </Content>
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.css">
       <DependentUpon>HomePage.scss</DependentUpon>
     </Content>
@@ -272,13 +271,12 @@
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.min.css" />
     <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.css" />
     <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.min.css" />
-    <Content Include="Assets\JavaScript\Custom\CartPage\cart.js" />
+    <Content Include="Assets\JavaScript\Custom\CartPage\shop-cart.js" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Assets\CSS\Custom\OrderPage\Order.scss" />
-    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.scss" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.eot" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.ttf" />
     <Content Include="Assets\TemplateFonts\ElegantIcons.woff" />
@@ -287,32 +285,12 @@
     <Content Include="Assets\TemplateFonts\fontawesome-webfont.woff" />
     <Content Include="Assets\TemplateFonts\fontawesome-webfont.woff2" />
     <Content Include="Assets\TemplateFonts\FontAwesome.otf" />
-    <Content Include="Assets\TemplateScss\style.scss" />
-    <Content Include="Assets\TemplateScss\_base.scss" />
-    <Content Include="Assets\TemplateScss\_blog-details.scss" />
-    <Content Include="Assets\TemplateScss\_blog-sidebar.scss" />
-    <Content Include="Assets\TemplateScss\_blog.scss" />
-    <Content Include="Assets\TemplateScss\_breadcrumb.scss" />
-    <Content Include="Assets\TemplateScss\_categories.scss" />
-    <Content Include="Assets\TemplateScss\_checkout.scss" />
-    <Content Include="Assets\TemplateScss\_contact.scss" />
-    <Content Include="Assets\TemplateScss\_footer.scss" />
-    <Content Include="Assets\TemplateScss\_header.scss" />
-    <Content Include="Assets\TemplateScss\_home-page.scss" />
-    <Content Include="Assets\TemplateScss\_mixins.scss" />
-    <Content Include="Assets\TemplateScss\_product-details.scss" />
-    <Content Include="Assets\TemplateScss\_product.scss" />
-    <Content Include="Assets\TemplateScss\_responsive.scss" />
-    <Content Include="Assets\TemplateScss\_shop-cart.scss" />
-    <Content Include="Assets\TemplateScss\_shop.scss" />
-    <Content Include="Assets\TemplateScss\_variable.scss" />
+    <Content Include="Assets\CSS\Custom\CartPage\shop-cart.scss" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.scss" />
-    <Content Include="Assets\CSS\Custom\CartPage\cart.scss" />
-    <Content Include="Assets\CSS\Custom\CartPage\_bill.scss" />
     <Content Include="Assets\JavaScript\Custom\SignInPage\SignInPage.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.min.js" />
@@ -421,7 +399,6 @@
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper-utils.min.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js" />
-    <Content Include="Views\Cart\HtmlPage1.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -456,10 +433,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Cart\Product.cshtml" />
     <Content Include="Views\Cart\Bill.cshtml" />
-    <Content Include="Views\Shared\_LayoutCart.cshtml" />
-    <Content Include="Views\Cart\_ViewStart.cshtml" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.min.js.map" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js.map" />
     <Content Include="Assets\JavaScript\Origin\Scripts\umd\popper.js.flow" />
@@ -473,15 +447,15 @@
     <Content Include="Views\Shared\_LayoutSignIn.cshtml" />
     <Content Include="Views\SignIn\ForgetPassword.cshtml" />
     <Content Include="Views\SignIn\Index.cshtml" />
+    <Content Include="Views\Shared\_ProductPartial.cshtml" />
+    <Content Include="Views\Home\ProductDetail.cshtml" />
     <Content Include="Views\SignIn\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_CartPartialView.cshtml" />
     <Content Include="Views\Cart\ShopCart.cshtml" />
     <Content Include="Views\Shared\_ShopCartPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\ShopCart\" />
-    <Folder Include="Views\ShopCart\" />
+    <Folder Include="Models\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

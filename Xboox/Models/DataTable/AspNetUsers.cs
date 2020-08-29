@@ -1,4 +1,4 @@
-namespace XbooxCMS.Models
+namespace Xboox.Models.DataTable
 {
     using System;
     using System.Collections.Generic;

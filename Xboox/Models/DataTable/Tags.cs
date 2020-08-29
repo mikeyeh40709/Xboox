@@ -1,4 +1,4 @@
-namespace XbooxCMS.Models
+namespace Xboox.Models.DataTable
 {
     using System;
     using System.Collections.Generic;
@@ -6,24 +6,22 @@ namespace XbooxCMS.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ProductImgs
+    public partial class Tags
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductImgs()
+        public Tags()
         {
-            Product = new HashSet<Product>();
+            ProductTags = new HashSet<ProductTags>();
         }
 
-        [Key]
-        [StringLength(20)]
-        public string ProductImgId { get; set; }
-
-        public Guid ProductId { get; set; }
-
         [Required]
-        public string imgLink { get; set; }
+        [StringLength(50)]
+        public string TagName { get; set; }
+
+        [Key]
+        public Guid TagId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<ProductTags> ProductTags { get; set; }
     }
 }
