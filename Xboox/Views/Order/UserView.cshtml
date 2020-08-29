@@ -1,0 +1,171 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+@{
+    ViewBag.Title = "Order";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-9 my-3">
+            <h2 class="mb-3">我的訂單</h2>
+            <hr />
+            <section class="shop-cart spad pt-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 p-0">
+                            <div class="shop__cart__table">
+                                <table class="text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>訂單編號</th>
+                                            <th>建立日期</th>
+                                            <th>收件人姓名</th>
+                                            <th>收件人信箱</th>
+                                            <th>收件人地址</th>
+                                            <th>訂單明細</th>
+                                            <th>付款狀態</th>
+                                            <th>取消訂單</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Guid</th>
+                                            <td>2020-08-27</td>
+                                            <td>王曉明</td>
+                                            <td>aa@aaa.aa</td>
+                                            <td>台北市忠孝東路</td>
+                                            <td>
+                                                <button type="submit" class="site-btn bg-info" data-toggle="modal" data-target="#orderDetails">查看</button>
+
+                                            </td>
+                                            <td>
+                                                <div class="text-success">未付款</div>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="site-btn" data-toggle="modal" data-target="#deleteOrder">取消訂單</button>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="orderDetails" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="details" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="details">訂單明細</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">圖片</th>
+                            <th scope="col">名稱</th>
+                            <th scope="col">數量</th>
+                            <th scope="col">單價</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                        <tr>
+                            <td><img src="#" alt="Alternate Text" /></td>
+                            <td>書名</td>
+                            <td>10</td>
+                            <td>250</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<script>
+    let deleteBtn = document.querySelector("button[data-target='#deleteOrder']");
+    deleteBtn.addEventListener("click", deleteOrder);
+    function deleteOrder() {
+        Swal.fire({
+            title: '取消訂單',
+            text: "取消訂單後就無法返回",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '刪除!'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire(
+                    'Deleted!',
+                    '已成功刪除.',
+                    'success'
+                )
+            }
+        })
+    }
+</script>
