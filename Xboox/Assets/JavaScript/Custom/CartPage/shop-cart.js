@@ -10,11 +10,11 @@ let inc_group = document.querySelectorAll('.inc');
 
 //decrease or increase button event!
 let dec_inc_func = (dec_group, inc_group, num) => {
-    dec_group[num].addEventListener('click', () => { if (cart_count[num].innerText > 1) { cart_count[num].innerText-- }; item_func(num);total_function(); });
-    inc_group[num].addEventListener('click', () => { cart_count[num].innerText++; item_func(num); total_function(); });
+    dec_group[num].addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation();  if (cart_count[num].value > 1) { cart_count[num].value-- }; item_func(num); total_function(); });
+    inc_group[num].addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation();  cart_count[num].value++; item_func(num); total_function(); });
 }
 //every item price function!
-let item_func = (num) => { cart_total[num].innerHTML = `${parseFloat(cart_price[num].innerText) * parseFloat(cart_count[num].innerText)}` };
+let item_func = (num) => { cart_total[num].innerHTML = `${parseFloat(cart_price[num].innerText) * parseFloat(cart_count[num].value)}` };
 //total item price function!
 let total_function = () => {
     let price_array = [];
@@ -30,7 +30,7 @@ let total_function = () => {
     coupon_function();
 }
 let = cart_count_fun = () => {
-    cart_count.forEach((ele, idx) => cart_count[idx].innerText = 1);
+    cart_count.forEach((ele, idx) => cart_count[idx].value = 1);
 }
 //Cauculate count func
 let changeCount = () => {
