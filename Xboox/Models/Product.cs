@@ -31,7 +31,6 @@ namespace Xboox.Models
         [StringLength(50)]
         public string ISBN { get; set; }
 
-        [Required]
         [StringLength(20)]
         public string ProductImgId { get; set; }
 
@@ -41,13 +40,16 @@ namespace Xboox.Models
         [StringLength(50)]
         public string Publisher { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string PublishedDate { get; set; }
+        public DateTime? PublishedDate { get; set; }
 
         public string Intro { get; set; }
 
         public Guid CategoryId { get; set; }
+
+        public string Description { get; set; }
+
+        [StringLength(50)]
+        public string Specification { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItmes> CartItmes { get; set; }

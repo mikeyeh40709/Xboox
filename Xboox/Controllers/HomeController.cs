@@ -32,7 +32,7 @@ namespace Xboox.Controllers
                             Price = p.Price,
                             Publisher = p.Publisher,
                             Intro = p.Intro,
-                            PublishedDate = p.PublishedDate,
+                            PublishedDate = p.PublishedDate.ToString(),
                             imgLink = pi.imgLink
                         };
             foreach(var product in query)
