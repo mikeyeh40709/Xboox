@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Xboox.Models;
+using Xboox.Models.DataTable;
 using Xboox.ViewModels;
 
 namespace Xboox.Controllers

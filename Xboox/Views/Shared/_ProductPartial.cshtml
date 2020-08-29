@@ -31,7 +31,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="product__details__text">
-                    <h3>@Model.Name <span>@Model.Publisher</span></h3>
+                    <h3>@Model.Name <span>@Model.Publisher 出版社</span></h3>
                     <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -40,7 +40,7 @@
                         <i class="fa fa-star"></i>
                         <span>( 138 reviews )</span>
                     </div>
-                    <div class="product__details__price">$ @Convert.ToInt32(Model.Price) <span>$ 83.0</span></div>
+                    <div class="product__details__price">$ @Convert.ToInt32(Model.Price * 0.79m) <span>$ @Convert.ToInt32(Model.Price)</span></div>
                     <p>
                         @Model.Intro
                     </p>
@@ -59,60 +59,24 @@
                     <div class="product__details__widget">
                         <ul>
                             <li>
-                                <span>Availability:</span>
-                                <div class="stock__checkbox">
-                                    <label for="stockin">
-                                        @Model.Quantity
-                                        <input type="checkbox" id="stockin">
-                                        @*<span class="checkmark"></span>*@
-                                    </label>
-                                </div>
+                                <span>庫存:</span>
+                                <p>@Model.Quantity</p>
                             </li>
                             <li>
-                                <span>Published Date:</span>
-                                <div class="color__checkbox">
-                                    <label for="red">
-                                        <input type="radio" name="color__radio" id="red" checked>@Model.PublishedDate
-                                        @*<span class="checkmark"></span>*@
-                                    </label>
-                                    @*<label for="black">
-                                            <input type="radio" name="color__radio" id="black">
-                                            <span class="checkmark black-bg"></span>
-                                        </label>
-                                        <label for="grey">
-                                            <input type="radio" name="color__radio" id="grey">
-                                            <span class="checkmark grey-bg"></span>
-                                        </label>*@
-                                </div>
-                            </li>
-                            @*<li>
-                                <span>Available size:</span>
-                                <div class="size__btn">
-                                    <label for="xs-btn" class="active">
-                                        <input type="radio" id="xs-btn">
-                                        xs
-                                    </label>
-                                    <label for="s-btn">
-                                        <input type="radio" id="s-btn">
-                                        s
-                                    </label>
-                                    <label for="m-btn">
-                                        <input type="radio" id="m-btn">
-                                        m
-                                    </label>
-                                    <label for="l-btn">
-                                        <input type="radio" id="l-btn">
-                                        l
-                                    </label>
-                                </div>
-                            </li>*@
-                            <li>
-                                <span>Promotions:</span>
-                                <p>Free shipping</p>
+                                <span>作者:</span>
+                                <p>@Model.Author</p>
                             </li>
                             <li>
-                                <span>ISBN:</span>
-                                <p>@Model.ISBN</p>
+                                <span>出版社:</span>
+                                <p>@Model.Publisher</p>
+                            </li>
+                            <li>
+                                <span>出版日期:</span>
+                                <p>@Model.PublishedDate</p>
+                            </li>
+                            <li>
+                                <span>語言:</span>
+                                <p>@Model.Language</p>
                             </li>
                         </ul>
                     </div>
@@ -133,41 +97,22 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                            <h6>Description</h6>
+                            <h6>內容介紹</h6>
                             <p>
-                                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.
+                                @Model.Description
                             </p>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
-                            <h6>Specification</h6>
+                            <h6>詳細產品資料</h6>
                             <p>
-                                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.
+                                ISBN： @Model.ISBN
                             </p>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.
+                                規格：@Model.Specification
                             </p>
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
-                            <h6>Reviews ( 2 )</h6>
+                            <h6>Reviews</h6>
                             <p>
                                 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
                                 quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
@@ -175,12 +120,6 @@
                                 voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
                                 consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
                                 consequat massa quis enim.
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.
                             </p>
                         </div>
                     </div>
