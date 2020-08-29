@@ -1,4 +1,4 @@
-namespace Xboox.Models
+namespace Xboox.Models.DataTable
 {
     using System;
     using System.Collections.Generic;
@@ -28,5 +28,7 @@ namespace Xboox.Models
         public string Quantity { get; set; }
 
         public virtual Order Order { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }

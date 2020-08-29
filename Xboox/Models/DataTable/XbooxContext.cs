@@ -1,4 +1,4 @@
-namespace Xboox.Models
+namespace Xboox.Models.DataTable
 {
     using System;
     using System.Data.Entity;
@@ -8,11 +8,10 @@ namespace Xboox.Models
     public partial class XbooxContext : DbContext
     {
         public XbooxContext()
-            : base("name=XbooxContext1")
+            : base("name=DefaultConnection")
         {
         }
 
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -104,6 +103,11 @@ namespace Xboox.Models
 
             modelBuilder.Entity<Product>()
                 .HasMany(e => e.CartItmes)
+                .WithRequired(e => e.Product)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(e => e.OrderDetails)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
 

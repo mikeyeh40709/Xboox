@@ -1,4 +1,4 @@
-namespace Xboox.Model
+namespace Xboox.Models.DataTable
 {
     using System;
     using System.Collections.Generic;
@@ -6,18 +6,16 @@ namespace Xboox.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class CartItme
+    public partial class ProductTags
     {
-        public Guid CartId { get; set; }
-
         public Guid ProductId { get; set; }
-
-        public int Quantity { get; set; }
 
         public Guid Id { get; set; }
 
-        public virtual Cart Cart { get; set; }
+        public Guid? TagId { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public virtual Tags Tags { get; set; }
     }
 }

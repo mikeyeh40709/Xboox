@@ -1,4 +1,4 @@
-namespace Xboox.Model
+namespace Xboox.Models.DataTable
 {
     using System;
     using System.Collections.Generic;
@@ -12,16 +12,16 @@ namespace Xboox.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            CartItmes = new HashSet<CartItme>();
-            ProductTags = new HashSet<ProductTag>();
-            WishLists = new HashSet<WishList>();
-            WishLists1 = new HashSet<WishList>();
+            CartItmes = new HashSet<CartItmes>();
+            OrderDetails = new HashSet<OrderDetails>();
+            ProductTags = new HashSet<ProductTags>();
+            WishList = new HashSet<WishList>();
+            WishList1 = new HashSet<WishList>();
         }
 
         public Guid ProductId { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string Name { get; set; }
 
         public int Quantity { get; set; }
@@ -31,6 +31,7 @@ namespace Xboox.Model
         [StringLength(50)]
         public string ISBN { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string ProductImgId { get; set; }
 
@@ -39,8 +40,6 @@ namespace Xboox.Model
 
         [StringLength(50)]
         public string Publisher { get; set; }
-
-        public DateTime? PublishedDate { get; set; }
 
         public string Intro { get; set; }
 
@@ -51,18 +50,24 @@ namespace Xboox.Model
         [StringLength(50)]
         public string Specification { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItme> CartItmes { get; set; }
+        public DateTime? PublishedDate { get; set; }
 
-        public virtual ProductImg ProductImg { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductTag> ProductTags { get; set; }
+        [StringLength(50)]
+        public string Language { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WishList> WishLists { get; set; }
+        public virtual ICollection<CartItmes> CartItmes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WishList> WishLists1 { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductTags> ProductTags { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishList> WishList { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishList> WishList1 { get; set; }
     }
 }

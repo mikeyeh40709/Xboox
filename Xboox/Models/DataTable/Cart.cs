@@ -1,4 +1,4 @@
-namespace Xboox.Models
+namespace Xboox.Models.DataTable
 {
     using System;
     using System.Collections.Generic;
@@ -6,22 +6,24 @@ namespace Xboox.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Tags
+    [Table("Cart")]
+    public partial class Cart
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tags()
+        public Cart()
         {
-            ProductTags = new HashSet<ProductTags>();
+            CartItmes = new HashSet<CartItmes>();
         }
 
-        [Required]
-        [StringLength(50)]
-        public string TagName { get; set; }
+        public Guid CartId { get; set; }
 
-        [Key]
-        public Guid TagId { get; set; }
+        [Required]
+        [StringLength(128)]
+        public string UserId { get; set; }
+
+        public virtual AspNetUsers AspNetUsers { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductTags> ProductTags { get; set; }
+        public virtual ICollection<CartItmes> CartItmes { get; set; }
     }
 }
