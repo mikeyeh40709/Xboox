@@ -132,5 +132,7 @@ namespace Xboox.Models.DataTable
                 .Property(e => e.ProductImgId)
                 .IsFixedLength();
         }
+
+        public System.Data.Entity.DbSet<Xboox.Models.ViewModels.CartViewModel> CartViewModels { get; set; }
     }
 }
