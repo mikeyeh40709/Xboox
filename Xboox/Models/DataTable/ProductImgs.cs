@@ -9,8 +9,7 @@ namespace Xboox.Models.DataTable
     public partial class ProductImgs
     {
         [Key]
-        [StringLength(20)]
-        public string ProductImgId { get; set; }
+        public long ProductImgId { get; set; }
 
         public Guid ProductId { get; set; }
 
