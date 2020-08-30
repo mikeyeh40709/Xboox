@@ -227,8 +227,20 @@
     <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.min.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap.min.css" />
+    <Content Include="Assets\fonts\ElegantIcons.svg" />
+    <Content Include="Assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
+    <Content Include="Assets\Image\Pics\ad.jpg" />
+    <Content Include="Assets\Image\Pics\cn01-invest01-comic01.jpg" />
+    <Content Include="Assets\Image\Pics\cn02-invest02.jpg" />
+    <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01.jpg" />
+    <Content Include="Assets\Image\Pics\cn04-fin02.jpg" />
+    <Content Include="Assets\Image\Pics\cn05-human01-novel01.jpg" />
+    <Content Include="Assets\Image\Pics\cn06-human02.jpg" />
+    <Content Include="Assets\Image\Pics\en01-invest03-mic02.jpg" />
+    <Content Include="Assets\Image\Pics\en02-fin03-mag02-ebook02.jpg" />
+    <Content Include="Assets\Image\Pics\en03-human03-novel02.jpg" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\cn01.jpg" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
@@ -286,6 +298,14 @@
     <Content Include="Assets\TemplateFonts\fontawesome-webfont.woff2" />
     <Content Include="Assets\TemplateFonts\FontAwesome.otf" />
     <Content Include="Assets\CSS\Custom\CartPage\shop-cart.scss" />
+    <Content Include="Assets\fonts\ElegantIcons.eot" />
+    <Content Include="Assets\fonts\ElegantIcons.ttf" />
+    <Content Include="Assets\fonts\ElegantIcons.woff" />
+    <Content Include="Assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\fonts\FontAwesome.otf" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -452,6 +472,7 @@
     <Content Include="Views\SignIn\_ViewStart.cshtml" />
     <Content Include="Views\Cart\ShopCart.cshtml" />
     <Content Include="Views\Shared\_ShopCartPartialView.cshtml" />
+    <Content Include="Views\Shared\_HomePageProductPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

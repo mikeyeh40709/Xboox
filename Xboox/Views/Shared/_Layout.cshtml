@@ -22,7 +22,8 @@
     <link href="~/Assets/TemplateCSS/owl.carousel.min.css" rel="stylesheet" />
     <link href="~/Assets/TemplateCSS/slicknav.min.css" rel="stylesheet" />
     <link href="~/Assets/TemplateCSS/style.css" rel="stylesheet" />
-
+    <link href="~/Assets/TemplateCSS/elegant-icons.css" rel="stylesheet" />
+    <link href="~/Assets/TemplateCSS/font-awesome.min.css" rel="stylesheet" />
     @RenderSection("topCSS", required: false)
     @RenderSection("topJS", required: false)
 </head>
@@ -38,16 +39,16 @@
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__close">+</div>
         <ul class="offcanvas__widget">
-            <li><span class="fas fa-search"></span></li>
+            <li><span class="icon_search search-switch"></span></li>
             <li>
                 <a href="#">
-                    <span class="fas fa-heart"></span>
+                    <span class="icon_heart_alt"></span>
                     <div class="tip">2</div>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="fas fa-shopping-cart"></span>
+                    <span class="icon_bag_alt"></span>
                     <div class="tip">2</div>
                 </a>
             </li>
@@ -68,12 +69,10 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <div class="row">
-                            @*@Html.ActionLink("Xboox", "Index", "Home", new { }, new { @class="ml-5"})*@
-                            <a href="/">
-                                <h3 class="ml-5">Xboox</h3>
-                            </a>
-                        </div>
+                        @*@Html.ActionLink("Xboox", "Index", "Home", new { }, new { @class="ml-5"})*@
+                        <a href="/Home/Index">
+                            <h3 class="ml-5">Xboox</h3>
+                        </a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
@@ -86,16 +85,6 @@
                             <li><a href="#">小說</a></li>
                             <li><a href="#">雜誌</a></li>
                             <li><a href="#">漫畫</a></li>
-                            <!-- <li><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="./product-details.html">Product Details</a></li>
-                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                    <li><a href="./checkout.html">Checkout</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li> -->
-                            <!-- <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li> -->
                         </ul>
                     </nav>
                 </div>
@@ -103,20 +92,20 @@
                     <div class="header__right">
                         <div class="header__right__auth">
                             @*<a href="#" class="btn btn-outline-secondary text-dark">Login</a>*@
-                            @Html.ActionLink("Login", "Index", "SignIn", new { },new { @class = "btn btn-outline-secondary text-dark" })
-                            @Html.ActionLink("Register", "Index", "Register", new { },new { @class = "btn btn-outline-secondary text-dark"})
+                            @Html.ActionLink("Login", "Index", "SignIn", new { }, new { @class = "btn btn-outline-secondary text-dark" })
+                            @Html.ActionLink("Register", "Index", "Register", new { }, new { @class = "btn btn-outline-secondary text-dark" })
                         </div>
                         <ul class="header__right__widget">
-                            <li><span class="fas fa-search"></span></li>
+                            <li><span class="icon_search search-switch"></span></li>
                             <li>
                                 <a href="#">
-                                    <span class="fas fa-heart"></span>
+                                    <span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="fas fa-shopping-cart"></span>
+                                    <span class="icon_bag_alt"></span>
                                     <div class="tip">2</div>
                                 </a>
                             </li>
@@ -208,7 +197,7 @@
                             Copyright &copy;
                             <script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart"
+                            </script> All rights reserved | This website with <i class="fa fa-heart"
                                                                                           aria-hidden="true"></i> by Xboox
                         </p>
                     </div>
@@ -229,7 +218,7 @@
     <script src="~/Assets/TemplateJavaScript/owl.carousel.min.js"></script>
     <script src="~/Assets/TemplateJavaScript/jquery.nicescroll.min.js"></script>
     <script src="~/Assets/TemplateJavaScript/main.js"></script>
-    <script src="https://kit.fontawesome.com/cd487e856f.js" crossorigin="anonymous"></script>
+    @*<script src="https://kit.fontawesome.com/cd487e856f.js" crossorigin="anonymous"></script>*@
 
     @RenderSection("endCSS", required: false)
     @RenderSection("endJS", required: false)
