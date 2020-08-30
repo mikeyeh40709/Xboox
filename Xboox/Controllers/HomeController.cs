@@ -43,7 +43,7 @@ namespace Xboox.Controllers
             }
             return View(item);
         }
-        public ActionResult ProductDetail()
+        public ActionResult ProductDetail(string id)
         {
             List<ProductDetailViewModel> item = new List<ProductDetailViewModel>();
             var query = (from p in context.Product
@@ -65,12 +65,12 @@ namespace Xboox.Controllers
                              PublishedDate = p.PublishedDate.ToString().Remove(11),
                              imgLink = pi.imgLink
                          }).ToList();
-            foreach (var product in query)
-            {
-                item.Add(product);
-            }
-            //var productID = query.Find(x => x.ProductId == id);
-            return View(item);
+            //foreach (var product in query)
+            //{
+            //    item.Add(product);
+            //}
+            var productID = query.Find(x => x.ProductId == id);
+            return View(productID);
         }
 
         public ActionResult About()
