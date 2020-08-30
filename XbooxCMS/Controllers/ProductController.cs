@@ -113,8 +113,8 @@ namespace XbooxCMS.Controllers
 
               //  product.ProductId = Guid.NewGuid();
                 createViewModel.Products.ProductId = Guid.NewGuid();
-                createViewModel.Products.ProductImgId = 1;
-
+               // createViewModel.Products.ProductImgId = "1";
+                PutImgs(createViewModel.Products);
                 
                 //var viewModel = new CreateViewModel
                 //{
@@ -238,7 +238,10 @@ namespace XbooxCMS.Controllers
             productInDb.PublishedDate = product.PublishedDate;
             productInDb.Quantity = product.Quantity;
             productInDb.Specification = product.Specification;
+
+            //待確定//
             productInDb.ProductTags = product.ProductTags;
+            
             productInDb.Language = product.Language;
             productInDb.Intro = product.Intro;
 
@@ -270,7 +273,7 @@ namespace XbooxCMS.Controllers
             var imgs = productImgs.Where(x => x.ProductId == product.ProductId).ToList();
             foreach (var i in imgs)
             {
-                //product.ProductImgId = i.Id + ",";
+                product.ProductImgId = i.ProductImgId + ",";
                 //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
             }
             // context.SaveChanges();
@@ -297,7 +300,7 @@ namespace XbooxCMS.Controllers
                 }
             }
 
-            PutImgs(product);
+         //   PutImgs(product);
             //找出該product的productImgId
             //應該分出另一個方法
             var imgs = productImgs.Where(x => x.ProductId == product.ProductId).ToList();
