@@ -4,8 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 </head>
 
 
@@ -74,7 +75,7 @@
 
                         </div>
                     </div>
-          
+
                     <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">ISBN</label>
                         <div class="col-sm-5">
@@ -94,8 +95,15 @@
                     <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">圖片</label>
                         <div class="col-sm-5">
-                            <input type="file" class="form-control" id="field-7" placeholder="圖片上傳">
-                            <input type='file' multiple id='fileUpload' name="files[]" />
+                            @*<input type="file" class="form-control" id="field-7" placeholder="圖片上傳">*@
+                            <input type="file"
+                                   id="filepond"
+                                   class="filepond"
+                                   name="filepond"
+                                   multiple
+                                   data-allow-reorder="true"
+                                   data-max-file-size="3MB"
+                                   data-max-files="3">
                         </div>
                     </div>
 
@@ -147,15 +155,34 @@
     </div>
 }
 @*@Scripts.Render("~/bundles/jqueryval")*@
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+@*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-
-
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
 <script type="text/javascript">
-    //$(document).ready(function () {
 
-    //    $('.datepicker').datepicker();
 
-    //});
+        FilePond.registerPlugin(
+
+        // encodes the file as base64 data
+        FilePondPluginFileEncode,
+
+        // validates the size of the file
+        //FilePondPluginFileValidateSize,
+
+        // corrects mobile image orientation
+        FilePondPluginImageExifOrientation,
+
+        // previews dropped images
+        FilePondPluginImagePreview
+        );
+
+        // Select the file input and use create() to turn it into a pond
+        FilePond.create(
+            document.querySelector('#filepond')
+        );
+
 </script>

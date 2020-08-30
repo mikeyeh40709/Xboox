@@ -8,6 +8,7 @@ using XbooxCMS.ViewModels;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Data.Entity.Validation;
+using System.IO;
 
 namespace XbooxCMS.Controllers
 {
@@ -123,32 +124,20 @@ namespace XbooxCMS.Controllers
                 //    Tags = context.Tags.ToList()
                     
                 //};
-                try { 
+              //  try { 
                     context.Product.Add(createViewModel.Products);
+                   
                     context.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
-                    var getFullMessage = string.Join("; ", entityError);
-                    var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
-                }
+              //  }
+               // catch (DbEntityValidationException ex)
+               // {
+             //       var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+              //      var getFullMessage = string.Join("; ", entityError);
+              //      var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+               // }
 
                
             }
-
-           // List<ProductTags> productTags = new List<ProductTags>
-           // {
-              
-                //new ProductTags{ProductId = product.ProductId ,TagId =tagId1 },
-                //new ProductTags{ProductId = product.ProductId ,TagId =tagId2},
-          
-
-           // };
-            //foreach(var item in productTags)
-            //{
-            //    context.ProductTags.Add(item);
-            //}
         
             return RedirectToAction("Create","Product");
         }
@@ -202,7 +191,11 @@ namespace XbooxCMS.Controllers
         }
     
 
-
+        /// <summary>
+        /// 編輯產品
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
             var product = context.Product.Find(id);
@@ -214,11 +207,19 @@ namespace XbooxCMS.Controllers
             }
             else
             {
-                //var productInDb = context.Product.ToList();
-                //productInDb.
+
+                var viewModel = new CreateViewModel()
+                {
+                    Products = product,
+                    Tags = context.Tags.ToList(),
+                    Categories = context.Category.ToList(),
+                   // SelectedTags = 
+                };
+              
+                return View("Create", viewModel);
             }
 
-            return View(product);
+            
         }
 
 
@@ -226,8 +227,22 @@ namespace XbooxCMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Product product)
         {
+           var  productInDb = context.Product.Single(c => c.ProductId == product.ProductId);
+            productInDb.Name = product.Name;
+            productInDb.Price = product.Price;
+            productInDb.Description = product.Description;
+            productInDb.ProductImgId = product.ProductImgId;
+            productInDb.CategoryId = product.CategoryId;
+            productInDb.Publisher = product.Publisher;
+            productInDb.PublishedDate = product.PublishedDate;
+            productInDb.Quantity = product.Quantity;
+            productInDb.Specification = product.Specification;
+            productInDb.ProductTags = product.ProductTags;
+            productInDb.Language = product.Language;
+            productInDb.Intro = product.Intro;
 
-            return View();
+            context.SaveChanges();
+            return RedirectToAction("Index", "Product"); ;
         }
 
 
@@ -241,29 +256,66 @@ namespace XbooxCMS.Controllers
             return View();
         }
 
+
         /// <summary>
         /// 圖片上傳
         /// </summary>
         /// <returns></returns>
 
-        [HttpPost]
-        public ActionResult Upload(HttpContextBase file)
+        //把imgid以字串[1,2,3...]的方式加進Product表格
+        private void PutImgs(Product product)
         {
-            if (file != null)
+            List<ProductImgs> productImgs = new List<ProductImgs>();
+            var imgs = productImgs.Where(x => x.ProductId == product.ProductId).ToList();
+            foreach (var i in imgs)
             {
-
+                product.ProductImgId = product.ProductImgId + ",";
             }
-            else
-            {
-                //檔案上傳
-                //處理路徑
-                //ProductImg table .add(link)
-                //加上productid
-                //product欄位加上id字串(string join)
-                
-            }
-            return View();
+           // context.SaveChanges();
         }
+
+
+
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFile[] files ,Product product)
+        {
+            List<ProductImgs> productImgs = new List<ProductImgs>();
+          foreach(var file in files)
+            {
+                if(file !=null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~Assets/ProductImg"),fileName);
+                    //要設定傳入product或 productId
+                    //要把Imglink改成可以自動生成id
+                    productImgs.Add(new ProductImgs() { imgLink = path, ProductId = product.ProductId });
+                    file.SaveAs(path);
+
+                }
+            }
+
+            PutImgs(product);
+            //找出該product的productImgId
+            //應該分出另一個方法
+            var imgs = productImgs.Where(x => x.ProductId == product.ProductId).ToList();
+            foreach (var i in imgs)
+            {
+                product.ProductImgId = product.ProductImgId + ",";
+            }
+            context.SaveChanges();
+            //檔案上傳
+            //處理路徑
+            //ProductImg table .add(link)
+            //加上productid
+            //product欄位加上id字串(string join)
+
+            return RedirectToAction("Upload");
+            //return View();
+        }
+
+     
+
 
 
         /// <summary>
