@@ -1251,6 +1251,9 @@ ol {
 	-o-transition: all 0.4s ease 0.2s;
 	transition: all 0.4s ease 0.2s;
 }
+.product__hover li:nth-child(4) {
+	transition: all 0.4s ease 0.25s;
+}
 
 .product__hover li:last-child {
 	margin-right: 0;
