@@ -7,6 +7,7 @@ using Xboox.Models;
 using Xboox.Models.DataTable;
 using Xboox.ViewModels;
 
+
 namespace Xboox.Controllers
 {
     public class CartController : Controller
@@ -23,15 +24,6 @@ namespace Xboox.Controllers
 
         public ActionResult ShopCart()
         {
-            ////var cartItems = _context.CartItmes.ToList();
-            //List<CartViewModel> carts = new List<CartViewModel>()
-            //{
-            //    new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67},
-            //    new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67}
-            //};
-
-            //return View(carts);
-
 
 
             var result = context.Product;
