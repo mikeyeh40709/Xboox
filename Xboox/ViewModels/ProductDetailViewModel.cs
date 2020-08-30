@@ -19,5 +19,7 @@ namespace Xboox.ViewModels
         public string Specification { get; set; }
         public string Author { get; set; }
         public string Language { get; set; }
+        public string ProductId { get; set; }
+        public string Tag { get; set; }
     }
 }
