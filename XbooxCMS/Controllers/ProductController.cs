@@ -113,7 +113,8 @@ namespace XbooxCMS.Controllers
 
               //  product.ProductId = Guid.NewGuid();
                 createViewModel.Products.ProductId = Guid.NewGuid();
-                createViewModel.Products.ProductImgId = "1";
+                createViewModel.Products.ProductImgId = 1;
+
                 
                 //var viewModel = new CreateViewModel
                 //{
@@ -269,9 +270,10 @@ namespace XbooxCMS.Controllers
             var imgs = productImgs.Where(x => x.ProductId == product.ProductId).ToList();
             foreach (var i in imgs)
             {
-                product.ProductImgId = product.ProductImgId + ",";
+                //product.ProductImgId = i.Id + ",";
+                //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
             }
-           // context.SaveChanges();
+            // context.SaveChanges();
         }
 
 
@@ -301,7 +303,7 @@ namespace XbooxCMS.Controllers
             var imgs = productImgs.Where(x => x.ProductId == product.ProductId).ToList();
             foreach (var i in imgs)
             {
-                product.ProductImgId = product.ProductImgId + ",";
+                //product.ProductImgId = product.ProductImgId + ",";
             }
             context.SaveChanges();
             //檔案上傳

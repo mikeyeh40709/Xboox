@@ -99,10 +99,6 @@ namespace XbooxCMS.Models
                 .HasPrecision(18, 6);
 
             modelBuilder.Entity<Product>()
-                .Property(e => e.ProductImgId)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Product>()
                 .HasMany(e => e.CartItmes)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
@@ -128,10 +124,6 @@ namespace XbooxCMS.Models
                 .WithRequired(e => e.Product1)
                 .HasForeignKey(e => e.ProductId)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ProductImgs>()
-                .Property(e => e.ProductImgId)
-                .IsFixedLength();
         }
     }
 }

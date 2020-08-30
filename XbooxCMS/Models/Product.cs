@@ -31,8 +31,8 @@ namespace XbooxCMS.Models
         [StringLength(50)]
         public string ISBN { get; set; }
 
-        [StringLength(50)]
-        public string ProductImgId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long ProductImgId { get; set; }
 
         [StringLength(50)]
         public string Author { get; set; }
