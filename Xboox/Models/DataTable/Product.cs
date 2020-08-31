@@ -31,8 +31,7 @@ namespace Xboox.Models.DataTable
         [StringLength(50)]
         public string ISBN { get; set; }
 
-        [Required]
-        [StringLength(20)]
+        [StringLength(50)]
         public string ProductImgId { get; set; }
 
         [StringLength(50)]

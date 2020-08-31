@@ -12,6 +12,7 @@ namespace Xboox.Models.DataTable
         {
         }
 
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -98,10 +99,6 @@ namespace Xboox.Models.DataTable
                 .HasPrecision(18, 6);
 
             modelBuilder.Entity<Product>()
-                .Property(e => e.ProductImgId)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Product>()
                 .HasMany(e => e.CartItmes)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
@@ -127,10 +124,6 @@ namespace Xboox.Models.DataTable
                 .WithRequired(e => e.Product1)
                 .HasForeignKey(e => e.ProductId)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ProductImgs>()
-                .Property(e => e.ProductImgId)
-                .IsFixedLength();
         }
 
         public System.Data.Entity.DbSet<Xboox.Models.ViewModels.CartViewModel> CartViewModels { get; set; }
