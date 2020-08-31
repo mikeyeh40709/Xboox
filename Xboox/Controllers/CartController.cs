@@ -39,7 +39,7 @@ namespace Xboox.Controllers
                         select new ProductDetailViewModel
                         {
                             Name = p.Name,
-                            Quantity = p.Quantity,
+                            Quantity = p.UnitInStock,
                             Price = p.Price,
                             imgLink = pi.imgLink
                         };
