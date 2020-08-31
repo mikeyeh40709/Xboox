@@ -48,7 +48,7 @@ namespace XbooxCMS.Controllers
                 {
                    // ProductId = Guid.NewGuid(),
                     Name = item.Name,
-                    Quantity = item.Quantity,
+                    Quantity = item.UnitInStock,
                     Price = item.Price,
                     Author = item.Author,
                   //  PublishedDate = item.PublishedDate,
@@ -245,7 +245,7 @@ namespace XbooxCMS.Controllers
             productInDb.CategoryId = product.CategoryId;
             productInDb.Publisher = product.Publisher;
             productInDb.PublishedDate = product.PublishedDate;
-            productInDb.Quantity = product.Quantity;
+            productInDb.UnitInStock = product.UnitInStock;
             productInDb.Specification = product.Specification;
 
             //待確定//

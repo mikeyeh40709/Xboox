@@ -8,11 +8,10 @@ namespace XbooxCMS.Models
     public partial class XbooxContext : DbContext
     {
         public XbooxContext()
-            : base("name=XbooxContext")
+            : base("name=Model1")
         {
         }
 
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -89,10 +88,6 @@ namespace XbooxCMS.Models
             modelBuilder.Entity<OrderDetails>()
                 .Property(e => e.UnitPrice)
                 .HasPrecision(18, 6);
-
-            modelBuilder.Entity<OrderDetails>()
-                .Property(e => e.Quantity)
-                .IsFixedLength();
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)
