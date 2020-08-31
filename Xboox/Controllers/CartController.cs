@@ -32,14 +32,10 @@ namespace Xboox.Controllers
 
             //return View(carts);
 
-
-
-            var result = context.Product;
-            var productimgs = context.ProductImgs;
             List<ProductDetailViewModel> item = new List<ProductDetailViewModel>();
-            var query = from p in result
-                        join pi in productimgs
-                        on p.ProductImgId equals pi.ProductImgId
+            var query = from p in context.Product
+                        join pi in context.ProductImgs
+                        on p.ProductId equals pi.ProductId
                         select new ProductDetailViewModel
                         {
                             Name = p.Name,
@@ -52,12 +48,7 @@ namespace Xboox.Controllers
                 item.Add(product);
             }
             return View(item);
-
-
         }
-
-
-
 
         public ActionResult Bill()
         {
