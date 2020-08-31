@@ -471,7 +471,6 @@
     <Content Include="Views\Cart\ShopCart.cshtml" />
     <Content Include="Views\Shared\_ShopCartPartialView.cshtml" />
     <Content Include="Views\Shared\_HomePageProductPartial.cshtml" />
-    <Content Include="Views\Cart\GetCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

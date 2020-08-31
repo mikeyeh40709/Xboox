@@ -15,38 +15,15 @@ namespace Xboox.Models.Services
         //ViewModels.CartViewModel CartView = new ViewModels.CartViewModel();
         string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
-        /// <summary>
-        /// 靜態方法，可讓我們的控制器取得購物車物件。 
-        /// 它會使用GetCartId方法來處理從使用者的會話讀取 CartId。 
-        /// GetCartId 方法需要 HttpCoNtextBase，
-        /// 讓它可以從使用者的會話讀取使用者的 CartId。
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        /// ////////////////////////////////////////////
-        //HttpContextBase:
-        //摘要:
-        //     取得關於個別 HTTP 要求的 HTTP 特定資訊。
-        //
-        // 傳回:
-        //     HTTP 內容。
         public static ShoppingCartManage GetCart(HttpContextBase context)
         {
             var cart = new ShoppingCartManage();
             cart.ShoppingCartId = cart.GetCartId(context);
             return cart;
         }
-        // Helper method to simplify shopping cart calls
-        //     提供方法，這些方法回應對 ASP.NET MVC 網站提出的 HTTP 要求。
         public static ShoppingCartManage GetCart(Controller controller)
         {
-            // public HttpContextBase HttpContext { get; }
-            // 摘要:
-            //     取得關於個別 HTTP 要求的 HTTP 特定資訊。
-            // 
-            // 傳回:
-            //     HTTP 內容。
-
+         
             return GetCart(controller.HttpContext);
         }
 
@@ -54,15 +31,8 @@ namespace Xboox.Models.Services
         //GetCartId 方法需要 HttpCoNtextBase，讓它可以從使用者的會話讀取使用者的 CartId。
         public string GetCartId(HttpContextBase context)
         {
-
-            //如果今天Session["CartSessionKey"]為空的話,代表會員未登入
-            //Session變數是伺服器端用來記錄用戶端個別資訊
-            //常用來記錄使用者是否登入的狀態
-            /////在HttpContextBase這個抽象類別包含Session這個屬性
-            if (context.Session[CartSessionKey] == null)
-            {   //User的定義:在衍生類別中覆寫時，取得或設定目前 HTTP 要求的安全性資訊。
-                //IPrincipal 介面中有屬性Identity:取得目前主要物件的識別。
-                //.Name去取得使用者名稱
+            if (!context.User.Identity.IsAuthenticated)
+            {   
                 if (!string.IsNullOrWhiteSpace(context.User.Identity.Name))
                 {
                     context.Session[CartSessionKey] =
@@ -76,13 +46,32 @@ namespace Xboox.Models.Services
                     context.Session[CartSessionKey] = tempCartId.ToString();
                 }
             }
-
-
+            else
+            {
+                context.Session[CartSessionKey] =
+                       context.User.Identity.Name;
+            }
             return context.Session[CartSessionKey].ToString();
+            //最後會傳回去給ShoppingCartId
         }
 
+        public void AddToCart(Product p)
+        {
+            var cartItem = xbooxDb.CartItmes.SingleOrDefault(
+                c => c.CartId.ToString() == ShoppingCartId
+                && c.ProductId == p.ProductId);
+            if (cartItem==null)
+            {
 
-    
+            }
+            else
+            {
+
+            }
+
+
+        }
+
 
         //public void AddToCart(Product book)
         //{
