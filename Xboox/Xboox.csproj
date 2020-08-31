@@ -217,7 +217,7 @@
     <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Models\Services\OrderService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />

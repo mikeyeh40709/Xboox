@@ -3,7 +3,7 @@
     ViewBag.Title = "Order";
 }
 
-<h2 class="mb-3">所有訂單</h2>
+<h2 class="my-3 text-center">所有訂單</h2>
 <section class="shop-cart spad">
     <div class="container">
         <div class="row">
@@ -93,23 +93,14 @@
     let detailsBtn = document.querySelector("button[data-target='#orderDetails']");
     let detailsModal = document.querySelector("#orderDetails tbody");
     detailsBtn.addEventListener("click", function () {
-        @foreach(var item in Model)
-        {
-        <text>
-        if(this.id == "@item.OrderId")
-        {
-            let htmlString = "";
-            @foreach (var detail in item.OrderDetailsList)
-            {
-                <text>
-                    htmlString += "<tr><td>@detail.Imagelink</td><td>@detail.ProductName</td><td>@detail.Quantity</td><td>@detail.UnitPrice</td></tr>";
-                </text>
-            }
-            detailsModal.innerHTML = htmlString;
-        }
-        </text>
-        }
-    })
+        $.ajax({
+            url: `GetOrderDetails/${this.id}`,
+            method:"get",
+            dataType:"json",
+            success: function (res) { console.log(res) },
+            error: function (err) { console.log(err) },
+        });
+    });
 
     let deleteBtn = document.querySelector("button[data-target='#deleteOrder']");
     deleteBtn.addEventListener("click", deleteOrder);
@@ -135,4 +126,4 @@
 </script>
 @section OrderCSS {
     <link type="text/css" rel="stylesheet" href="~/Assets/CSS/Custom/OrderPage/CustomOrder.css" />
-}
+}m

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Xboox.Models;
+using Xboox.Models.DataTable;
 using Xboox.Models.ViewModels;
 using Xboox.Services;
 
@@ -11,20 +13,12 @@ namespace Xboox.Controllers
 {
     public class OrderController : Controller
     {
-        private XbooxContext context;
         OrderService service = new OrderService();
-        public OrderController()
-        {
-            if(context == null)
-            {
-                context = new XbooxContext();
-            }
-        }
         // GET: Order
         public ActionResult UserView(string userName)
         {
-            
-            return View();
+            var result = service.GetOrder(userName);
+            return View(result);
         }
         public ActionResult ManagerView()
         {
@@ -37,21 +31,17 @@ namespace Xboox.Controllers
         {
             return View();
         }
-        // 後臺會拿到所有使用者訂單
-        public ActionResult GetAllOrder()
+        [HttpGet]
+        public ActionResult GetOrderDetails(string id)
         {
-            return View();
-        }
-        // 使用者拿到自己的訂單
-        public ActionResult GetOrder(Guid? id)
-        {
-            return View();
+            var result = service.GetOrderDetails(id);
+            return Json(result,JsonRequestBehavior.AllowGet);
         }
 
         // 編輯付款狀態(後台)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeState(Guid? id)
+        public ActionResult ChangeState(string id)
         {
             return View();
         }
