@@ -8,7 +8,7 @@ namespace XbooxCMS.Models
     public partial class XbooxContext : DbContext
     {
         public XbooxContext()
-            : base("name=Model1")
+            : base("name=XbooxContext")
         {
         }
 

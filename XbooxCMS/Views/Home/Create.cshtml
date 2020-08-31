@@ -78,10 +78,10 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label" })
+            @Html.LabelFor(model => model.UnitInStock, htmlAttributes: new { @class = "control-label" })
             <div class="">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = " productinput form-control" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.UnitInStock, new { htmlAttributes = new { @class = " productinput form-control" } })
+                @Html.ValidationMessageFor(model => model.UnitInStock, "", new { @class = "text-danger" })
             </div>
         </div>
         @*<div class="form-group">

@@ -14,10 +14,11 @@ namespace XbooxCMS.Controllers
 {
     public class ProductController : Controller
     {
+        
         // GET: Product
         private XbooxContext context;
 
-
+      
         public IEnumerable<Tags> GetAllTags()
         {
             return context.Tags;
@@ -113,14 +114,29 @@ namespace XbooxCMS.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-        
+            createViewModel.Products.ProductId = Guid.NewGuid();
             AddedTag(createViewModel.Products, createViewModel.PostedTagIds);
-            
+       
          
-           foreach(var i in ViewBag.List)
-            {
-                productImgs.Add(new ProductImgs() { imgLink = i, ProductId = createViewModel.Products.ProductId });
-            }
+            //for (var i =0;i <fileNameList.Count();i++ )
+            //{
+            //    productImgs.Add(new ProductImgs() { imgLink = fileNameList[i], ProductId = createViewModel.Products.ProductId });
+            //}
+            //try
+            //{
+            //    foreach (var i in ViewBag.List)
+            //    {
+            //        productImgs.Add(new ProductImgs() { imgLink = i, ProductId = createViewModel.Products.ProductId });
+            //    }
+            //}
+            //catch  (DbEntityValidationException ex)
+            //    {
+            //          var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+            //         var getFullMessage = string.Join("; ", entityError);
+            //         var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+            //    }
+
+
             //將session name取出來 放進productImg
             //將session name取出來 然後一整串放進product
 
@@ -139,19 +155,12 @@ namespace XbooxCMS.Controllers
             //    }
             //}
 
-            createViewModel.Products.ProductId = Guid.NewGuid();
-    
+        
+         
             PutImgs(createViewModel.Products);
-              //  try { 
+            
              context.Product.Add(createViewModel.Products);
   
-              //  }
-               // catch (DbEntityValidationException ex)
-               // {
-             //       var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
-              //      var getFullMessage = string.Join("; ", entityError);
-              //      var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
-               // }
 
 
             context.SaveChanges();
@@ -279,6 +288,10 @@ namespace XbooxCMS.Controllers
         private void PutImgs(Product product)
         {
             List<ProductImgs> productImgs = new List<ProductImgs>();
+            foreach (var i in (List<string>)Session["fileName"])
+            {
+                productImgs.Add(new ProductImgs() { imgLink = i, ProductId = product.ProductId });
+            }
             var imgs = productImgs.Where(x => x.ProductId == product.ProductId);
             foreach (var i in imgs)
             {
@@ -294,9 +307,9 @@ namespace XbooxCMS.Controllers
         [HttpPost]
         public ActionResult Upload( )
         {
-            var sessiontest = "";
+            
             //var Files = Request.Files;
-            List<ProductImgs> productImgs = new List<ProductImgs>();
+           
             if (Request.Files.Count > 0)
             {
                 var files = Request.Files;
@@ -312,7 +325,7 @@ namespace XbooxCMS.Controllers
                 //   // productImgs.Add(new ProductImgs())
                 //    file.SaveAs(path);
                 //}
-                List<string> fileNameCollection = new List<string>();
+                List<string>fileNameList = new List<string>();
                 if (Request.Files.Count > 0)
                 { }
                 for (var i = 0; i < files.Count; i++)
@@ -321,15 +334,19 @@ namespace XbooxCMS.Controllers
                     {
                         var fileName = files[i].FileName;
                         var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
-                        fileNameCollection.Add(fileName);
+
+                        //Session[$"fileName{i}"] = fileName;
+                        fileNameList.Add(fileName);
+                        
                         //productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
                         files[i].SaveAs(path);
                     }
                 }
-                ViewBag.List = fileNameCollection;
+                Session["fileName"] = fileNameList;
+                //ViewBag.List = fileNameCollection;
             }
             //;
-            return Json(sessiontest);
+            return Json("fileUpload");
             //foreach(var file in files)
             //  {
             //      if(file !=null && file.ContentLength > 0)
