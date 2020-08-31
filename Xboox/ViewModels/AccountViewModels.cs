@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Xboox.Models
 {
-    public class ExternalLoginConfirmationViewModel
+    public class ExternalLoginConfirmationViewModel  //傳入確認外部登入的view
     {
         [Required]
         [Display(Name = "電子郵件")]
@@ -64,10 +64,22 @@ namespace Xboox.Models
 
     public class RegisterViewModel
     {
+        //註冊欄新增電話號碼
         [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "暱稱")]
+        public string UserName { get; set; }
+
+        [Required]  //必填欄位
         [EmailAddress]
         [Display(Name = "電子郵件")]
         public string Email { get; set; }
+
+        //註冊欄新增電話號碼
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "電話")]
+        public string Phone { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} 的長度至少必須為 {2} 個字元。", MinimumLength = 6)]
@@ -108,5 +120,10 @@ namespace Xboox.Models
         [EmailAddress]
         [Display(Name = "電子郵件")]
         public string Email { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "電話")]
+        public string Phone { get; set; }
     }
 }

@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort>44370</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -184,7 +184,6 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\SignInController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -281,8 +280,6 @@
     </Content>
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.css" />
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.min.css" />
-    <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.css" />
-    <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.min.css" />
     <Content Include="Assets\JavaScript\Custom\CartPage\shop-cart.js" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.ttf" />
@@ -311,7 +308,6 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.scss" />
-    <Content Include="Assets\JavaScript\Custom\SignInPage\SignInPage.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.min.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.js" />
@@ -336,7 +332,6 @@
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css.map" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css.map" />
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.scss" />
-    <Content Include="Assets\CSS\Custom\SignInPage\SignInPage.scss" />
     <None Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\jquery-3.4.1.min.js" />
@@ -476,6 +471,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\CSS\Custom\LogInPage\" />
+    <Folder Include="Assets\JavaScript\Custom\LogInPage\" />
     <Folder Include="Models\Services\" />
   </ItemGroup>
   <ItemGroup>
@@ -511,7 +508,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62663</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44370/</IISUrl>
+          <IISUrl>http://localhost:62663/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
