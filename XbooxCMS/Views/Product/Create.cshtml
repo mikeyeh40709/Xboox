@@ -57,14 +57,14 @@
                             @Html.ValidationMessageFor(m => m.Products.Publisher)
                         </div>
                     </div>
-                    <div class="form-group form-display">
-                        <label for="field-1" class="col-sm-3 control-label">出版時間</label>
-                        <div class="col-sm-5">
-                            @Html.TextBoxFor(m => m.Products.PublishedDate, new { @class = "form-control", placeholder = "placeholder" })
-                            @Html.ValidationMessageFor(m => m.Products.PublishedDate)
+                    @*<div class="form-group form-display">
+                            <label for="field-1" class="col-sm-3 control-label">出版時間</label>
+                            <div class="col-sm-5">
+                                @Html.TextBoxFor(m => m.Products.PublishedDate, new { @class = "form-control", placeholder = "placeholder" })
+                                @Html.ValidationMessageFor(m => m.Products.PublishedDate)
 
-                        </div>
-                    </div>
+                            </div>
+                        </div>*@
                     <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">出版時間</label>
                         <div class="col-sm-5">
@@ -94,7 +94,7 @@
                     @*partialview*@
                     <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">圖片</label>
-                        <div class="col-sm-5">
+                        <div class="col-sm-5 ">
                             @*<input type="file" class="form-control" id="field-7" placeholder="圖片上傳">*@
                             <input type="file"
                                    id="filepond"
@@ -165,7 +165,7 @@
 <script type="text/javascript">
 
 
-        FilePond.registerPlugin(
+    FilePond.registerPlugin(
 
         // encodes the file as base64 data
         FilePondPluginFileEncode,
@@ -178,11 +178,16 @@
 
         // previews dropped images
         FilePondPluginImagePreview
-        );
+    );
 
-        // Select the file input and use create() to turn it into a pond
-        FilePond.create(
-            document.querySelector('#filepond')
-        );
+    // Select the file input and use create() to turn it into a pond
+    FilePond.create(
+        document.querySelector('#filepond')
+    );
 
+</script>
+<script>
+        FilePond.setOptions({
+            server: '@Url.Action("Upload", "Product")'
+        });
 </script>

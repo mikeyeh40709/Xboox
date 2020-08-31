@@ -101,34 +101,50 @@ namespace XbooxCMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateViewModel createViewModel)
         {
-
+            List<ProductImgs> productImgs = new List<ProductImgs>();
+            HttpFileCollectionBase files = Request.Files;
             var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId.ToString()));
+    
 
             createViewModel.Tags = GetAllTags();
             createViewModel.SelectedTags = selectedTags;
-   
+
             if (!ModelState.IsValid)
             {
-                AddedTag(createViewModel.Products, createViewModel.PostedTagIds);
+                return RedirectToAction("Index", "Home");
+            }
+        
+            AddedTag(createViewModel.Products, createViewModel.PostedTagIds);
+            
+         
+           foreach(var i in ViewBag.List)
+            {
+                productImgs.Add(new ProductImgs() { imgLink = i, ProductId = createViewModel.Products.ProductId });
+            }
+            //將session name取出來 放進productImg
+            //將session name取出來 然後一整串放進product
 
-              //  product.ProductId = Guid.NewGuid();
-                createViewModel.Products.ProductId = Guid.NewGuid();
-               // createViewModel.Products.ProductImgId = "1";
-                PutImgs(createViewModel.Products);
-                
-                //var viewModel = new CreateViewModel
-                //{
-                    
-                    
-                //    Products = product,
-                //    Categories = context.Category.ToList(),
-                //    Tags = context.Tags.ToList()
-                    
-                //};
+
+            //foreach (HttpPostedFileBase file in files)
+            //{
+            //    if (file != null && files.Count > 0)
+            //    {
+            //        var fileName = Path.GetFileName(file.FileName);
+            //        var path = Path.Combine(Server.MapPath("~Assets/Pics"), fileName);
+            //        //要設定傳入product或 productId
+            //        //要把Imglink改成可以自動生成id
+            //        productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
+            //        file.SaveAs(path);
+
+            //    }
+            //}
+
+            createViewModel.Products.ProductId = Guid.NewGuid();
+    
+            PutImgs(createViewModel.Products);
               //  try { 
-                    context.Product.Add(createViewModel.Products);
-                   
-                    context.SaveChanges();
+             context.Product.Add(createViewModel.Products);
+  
               //  }
                // catch (DbEntityValidationException ex)
                // {
@@ -137,9 +153,8 @@ namespace XbooxCMS.Controllers
               //      var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
                // }
 
-               
-            }
-        
+
+            context.SaveChanges();
             return RedirectToAction("Create","Product");
         }
 
@@ -150,15 +165,9 @@ namespace XbooxCMS.Controllers
             {
                 return;
             }
-            //if (SelectedTags == null)
-            //{
-            //    tags.TagId.Clear();
-            //    return;
-            //}
-        
+
             {
-                
-             
+ 
                 foreach (var t in SelectedTags)
                 {
 
@@ -270,7 +279,7 @@ namespace XbooxCMS.Controllers
         private void PutImgs(Product product)
         {
             List<ProductImgs> productImgs = new List<ProductImgs>();
-            var imgs = productImgs.Where(x => x.ProductId == product.ProductId).ToList();
+            var imgs = productImgs.Where(x => x.ProductId == product.ProductId);
             foreach (var i in imgs)
             {
                 product.ProductImgId = i.ProductImgId + ",";
@@ -283,39 +292,78 @@ namespace XbooxCMS.Controllers
 
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFile[] files ,Product product)
+        public ActionResult Upload( )
         {
+            var sessiontest = "";
+            //var Files = Request.Files;
             List<ProductImgs> productImgs = new List<ProductImgs>();
-          foreach(var file in files)
+            if (Request.Files.Count > 0)
             {
-                if(file !=null && file.ContentLength > 0)
+                var files = Request.Files;
+
+                //if (file != null && file.ContentLength > 0)
+                //{
+
+                //    var path = Path.Combine(Server.MapPath("../Assets/Pics"), file.FileName);
+                //    //放進session
+                //    Session["fileName"] = Request.Files[0].FileName;
+
+                //    sessiontest = (string)Session[$"{Request.Files[0].FileName }"];
+                //   // productImgs.Add(new ProductImgs())
+                //    file.SaveAs(path);
+                //}
+                List<string> fileNameCollection = new List<string>();
+                if (Request.Files.Count > 0)
+                { }
+                for (var i = 0; i < files.Count; i++)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~Assets/ProductImg"),fileName);
-                    //要設定傳入product或 productId
-                    //要把Imglink改成可以自動生成id
-                    productImgs.Add(new ProductImgs() { imgLink = path, ProductId = product.ProductId });
-                    file.SaveAs(path);
-
+                    if (files[i] != null && files[i].ContentLength != 0)
+                    {
+                        var fileName = files[i].FileName;
+                        var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
+                        fileNameCollection.Add(fileName);
+                        //productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
+                        files[i].SaveAs(path);
+                    }
                 }
+                ViewBag.List = fileNameCollection;
             }
+            //;
+            return Json(sessiontest);
+            //foreach(var file in files)
+            //  {
+            //      if(file !=null && file.ContentLength > 0)
+            //      {
+            //          var fileName = Path.GetFileName(file.FileName);
+            //          var path = Path.Combine(Server.MapPath("~Assets/Pics"),fileName);
+            //          //要設定傳入product或 productId
+            //          //要把Imglink改成可以自動生成id
+            //          productImgs.Add(new ProductImgs() { imgLink = path, ProductId = product.ProductId });
+            //          file.SaveAs(path);
 
-         //   PutImgs(product);
-            //找出該product的productImgId
-            //應該分出另一個方法
-            var imgs = productImgs.Where(x => x.ProductId == product.ProductId).ToList();
-            foreach (var i in imgs)
-            {
-                //product.ProductImgId = product.ProductImgId + ",";
-            }
-            context.SaveChanges();
+            //      }
+            //  }
+
+            //if (Request.Files.Count > 0)
+            //{ }
+            //for (var i = 0; i < files.Count; i++)
+            //{
+            //    if (files[i] != null && files[i].ContentLength != 0)
+            //    {
+            //        var fileName = files[i].FileName;
+            //        var path = Path.Combine(Server.MapPath("~Assets/Pics"), fileName);
+            //        productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
+            //        files[i].SaveAs(path);
+            //    }
+            //}
+
             //檔案上傳
             //處理路徑
             //ProductImg table .add(link)
             //加上productid
             //product欄位加上id字串(string join)
 
-            return RedirectToAction("Upload");
+            // return RedirectToAction("Upload");
             //return View();
         }
 

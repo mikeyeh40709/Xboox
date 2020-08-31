@@ -391,7 +391,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\picture\" />
+    <Folder Include="Assets\Pics\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
