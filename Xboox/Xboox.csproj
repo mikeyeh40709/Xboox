@@ -221,7 +221,6 @@
       <DependentUpon>shop-cart.css</DependentUpon>
     </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
-    <Content Include="Assets\CSS\Custom\LogInPage\LogIn_Css.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css" />
@@ -246,7 +245,6 @@
     <Content Include="Assets\Image\Pics\cn01.jpg" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
-    <Content Include="Assets\JavaScript\Custom\LogInPage\LogIn_json.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />
     <Content Include="Assets\TemplateCSS\elegant-icons.css" />
     <Content Include="Assets\TemplateCSS\font-awesome.min.css" />
@@ -474,6 +472,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\CSS\Custom\LogInPage\" />
+    <Folder Include="Assets\JavaScript\Custom\LogInPage\" />
     <Folder Include="Models\Services\" />
   </ItemGroup>
   <ItemGroup>
