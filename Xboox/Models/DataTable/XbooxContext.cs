@@ -121,5 +121,7 @@ namespace Xboox.Models.DataTable
                 .HasForeignKey(e => e.ProductId)
                 .WillCascadeOnDelete(false);
         }
+
+        public System.Data.Entity.DbSet<Xboox.Models.ViewModels.CartViewModel> CartViewModels { get; set; }
     }
 }
