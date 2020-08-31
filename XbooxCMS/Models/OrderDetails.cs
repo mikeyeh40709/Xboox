@@ -23,10 +23,10 @@ namespace XbooxCMS.Models
 
         public int? ImageId { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
 
         public virtual Order Order { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }

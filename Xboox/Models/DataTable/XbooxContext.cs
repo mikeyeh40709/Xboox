@@ -90,10 +90,6 @@ namespace Xboox.Models.DataTable
                 .Property(e => e.UnitPrice)
                 .HasPrecision(18, 6);
 
-            modelBuilder.Entity<OrderDetails>()
-                .Property(e => e.Quantity)
-                .IsFixedLength();
-
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)
                 .HasPrecision(18, 6);

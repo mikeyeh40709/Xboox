@@ -197,6 +197,7 @@
     <Compile Include="Models\DataTable\Category.cs" />
     <Compile Include="Models\DataTable\Coupons.cs" />
     <Compile Include="Models\DataTable\C__MigrationHistory.cs" />
+    <Compile Include="Models\DataTable\XbooxContext.cs" />
     <Compile Include="Models\DataTable\Order.cs" />
     <Compile Include="Models\DataTable\OrderDetails.cs" />
     <Compile Include="Models\DataTable\Product.cs" />
@@ -204,9 +205,7 @@
     <Compile Include="Models\DataTable\ProductTags.cs" />
     <Compile Include="Models\DataTable\Tags.cs" />
     <Compile Include="Models\DataTable\WishList.cs" />
-    <Compile Include="Models\DataTable\XbooxContext.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
