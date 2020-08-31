@@ -1,10 +1,10 @@
 ﻿@using Xboox.Models
 @model LoginViewModel
-@{
+@*@{
     ViewBag.Title = "會員登入";
-}
+}*@
 
-<h4 class="text-center">@ViewBag.Title</h4>
+<h4 class="text-center my-5">會員登入</h4>
 <hr />
 <div class="d-flex">
     <div class="mx-auto">
@@ -12,7 +12,6 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                @*<h4>使用本機帳戶進行登入。</h4>*@                
                 <div class="d-inline-block">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
@@ -43,7 +42,8 @@
                         </div>
                     </div>
                     <div>
-                        <p>無法登入嗎? 試試看
+                        <p>
+                            無法登入嗎? 試試看
                             @*只要您的密碼重設功能能夠進行帳戶確認，就啟用此項*@
                             <span>
                                 @Html.ActionLink("忘記密碼", "ForgotPassword")
@@ -53,19 +53,23 @@
                             </span>
                         </p>
                     </div>
-                    @*<div>
-                        <button class="btn btn-danger">用Google 帳號 登入</button>
-                    </div>*@
+                    
                 </div>
             }
-        </section>
-    </div>
+        </section>        
+    </div>    
+</div>
+<hr />
+<div class="d-flex">
     @*外部登入的渲染code*@
-    <div class="col-md-4">
+    <div class="d-inline-block mx-auto mb-3">
+        <p class="text-center">使用其他社群帳號登入</p>
+        
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
     </div>
+
 </div>
 
 @section Scripts {

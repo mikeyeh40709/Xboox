@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Xboox.Models
 {
-    public class ExternalLoginConfirmationViewModel
+    public class ExternalLoginConfirmationViewModel  //傳入確認外部登入的view
     {
         [Required]
         [Display(Name = "電子郵件")]
@@ -64,6 +64,12 @@ namespace Xboox.Models
 
     public class RegisterViewModel
     {
+        //註冊欄新增電話號碼
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "暱稱")]
+        public string UserName { get; set; }
+
         [Required]  //必填欄位
         [EmailAddress]
         [Display(Name = "電子郵件")]

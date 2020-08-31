@@ -55,6 +55,15 @@ namespace Xboox.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        public ActionResult Template_Login(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -152,7 +161,7 @@ namespace Xboox.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email , PhoneNumber = model.Phone };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email , PhoneNumber = model.Phone };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
