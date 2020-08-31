@@ -9,7 +9,6 @@ using Xboox.ViewModels;
 
 namespace Xboox.Controllers
 {
-    [RequireHttps]
     public class HomeController : Controller
     {
         private XbooxContext context = new XbooxContext();
@@ -24,7 +23,7 @@ namespace Xboox.Controllers
                          select new ProductDetailViewModel
                          {
                              Name = p.Name,
-                             Quantity = p.Quantity,
+                             Quantity = p.UnitInStock,
                              ISBN = p.ISBN,
                              Price = p.Price,
                              Publisher = p.Publisher,
@@ -53,7 +52,7 @@ namespace Xboox.Controllers
                          select new ProductDetailViewModel
                          {
                              Name = p.Name,
-                             Quantity = p.Quantity,
+                             Quantity = p.UnitInStock,
                              ISBN = p.ISBN,
                              Price = p.Price,
                              Publisher = p.Publisher,
