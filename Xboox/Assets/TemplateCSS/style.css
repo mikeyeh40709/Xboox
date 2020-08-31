@@ -867,7 +867,7 @@ ol {
 
 .footer {
 	padding-top: 55px;
-	background-color: #753b10;
+	background-color: #8e5e3a;
 }
 
 .footer__about {
@@ -1250,6 +1250,9 @@ ol {
 	-webkit-transition: all 0.4s ease 0.2s;
 	-o-transition: all 0.4s ease 0.2s;
 	transition: all 0.4s ease 0.2s;
+}
+.product__hover li:nth-child(4) {
+	transition: all 0.4s ease 0.25s;
 }
 
 .product__hover li:last-child {

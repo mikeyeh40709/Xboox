@@ -15,15 +15,12 @@ namespace Xboox.Controllers
         private XbooxContext context = new XbooxContext();
         public ActionResult Index()
         {
-            
-            return View();
-        }
-        public ActionResult ProductDetail()
-        {
             List<ProductDetailViewModel> item = new List<ProductDetailViewModel>();
             var query = (from p in context.Product
                          join pi in context.ProductImgs
-                        on p.ProductImgId equals pi.ProductImgId
+                        on p.ProductId equals pi.ProductId
+                        join t in context.ProductTags
+                        on p.ProductId equals t.ProductId
                          select new ProductDetailViewModel
                          {
                              Name = p.Name,
@@ -36,16 +33,47 @@ namespace Xboox.Controllers
                              Intro = p.Intro,
                              Author = p.Author,
                              Language = p.Language,
-                             PublishedDate = p.PublishedDate.ToString().Remove(12),
+                             Tag = t.TagId.ToString(),
+                             ProductId = p.ProductId.ToString(),
+                             PublishedDate = p.PublishedDate.ToString().Remove(11),
                              imgLink = pi.imgLink
                          }).ToList();
-            foreach(var product in query)
+            foreach (var product in query)
             {
                 item.Add(product);
             }
             return View(item);
         }
-       
+        public ActionResult ProductDetail(string id)
+        {
+            List<ProductDetailViewModel> item = new List<ProductDetailViewModel>();
+            var query = (from p in context.Product
+                         join pi in context.ProductImgs
+                        on p.ProductId equals pi.ProductId
+                         select new ProductDetailViewModel
+                         {
+                             Name = p.Name,
+                             Quantity = p.Quantity,
+                             ISBN = p.ISBN,
+                             Price = p.Price,
+                             Publisher = p.Publisher,
+                             Description = p.Description,
+                             Specification = p.Specification,
+                             Intro = p.Intro,
+                             Author = p.Author,
+                             Language = p.Language,
+                             ProductId = p.ProductId.ToString(),
+                             PublishedDate = p.PublishedDate.ToString().Remove(11),
+                             imgLink = pi.imgLink
+                         }).ToList();
+            //foreach (var product in query)
+            //{
+            //    item.Add(product);
+            //}
+            var productID = query.Find(x => x.ProductId == id);
+            return View(productID);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
