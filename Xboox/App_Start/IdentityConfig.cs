@@ -53,11 +53,11 @@ namespace Xboox
             // 設定密碼的驗證邏輯
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequiredLength = 6,  //密碼長度
+                RequireNonLetterOrDigit = false,  //是否一定要非數字英文的符號
+                RequireDigit = true,  //數字
+                RequireLowercase = true,  //限制一定有小寫
+                RequireUppercase = false,  //限制一定有大寫
             };
 
             // 設定使用者鎖定詳細資料

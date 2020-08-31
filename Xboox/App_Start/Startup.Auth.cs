@@ -54,9 +54,9 @@ namespace Xboox
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(  //阿傑帳號申請的 APP 金鑰
+               appId: "630204421215423",
+               appSecret: "2bf3b3395d653fe9f6864b0f2eac825f");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
