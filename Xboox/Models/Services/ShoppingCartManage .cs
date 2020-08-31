@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -54,77 +55,50 @@ namespace Xboox.Models.Services
             return context.Session[CartSessionKey].ToString();
             //最後會傳回去給ShoppingCartId
         }
+        public void MigrateCart(string userName)
+        {
+            var shoppingCart = xbooxDb.CartItmes.Where(
+                c => c.CartId ==Guid.Parse(ShoppingCartId));
 
+            foreach (CartItmes item in shoppingCart)
+            {
+                item.CartId = Guid.Parse(userName);
+            }
+            xbooxDb.SaveChanges();
+        }
         public void AddToCart(Product p)
         {
             var cartItem = xbooxDb.CartItmes.SingleOrDefault(
-                c => c.CartId.ToString() == ShoppingCartId
+                c => c.CartId == Guid.Parse(ShoppingCartId)
                 && c.ProductId == p.ProductId);
             if (cartItem==null)
             {
-
+                Guid randomId = Guid.NewGuid();
+               new CartItmes
+                {
+                    //這邊要考慮一下
+                    CartId = Guid.Parse(ShoppingCartId),
+                    ProductId = p.ProductId,
+                    Quantity = 1,
+                    Id= randomId
+                };
+                xbooxDb.CartItmes.Add(cartItem);
             }
             else
             {
-
+                cartItem.Quantity++;
             }
+            xbooxDb.SaveChanges();
+        }
 
-
+        public List<CartItmes> GetCartItems()
+        {
+            return xbooxDb.CartItmes.Where(
+                cart => cart.CartId == Guid.Parse(ShoppingCartId)).ToList();
         }
 
 
-        //public void AddToCart(Product book)
-        //{
-        //    var cartDb = xbooxDb.Cart;
-        //    var productDb = xbooxDb.Product;
-        //    var cartItemDb = xbooxDb.CartItmes;
-        //    List<CartItmes> CartItemList = new List<CartItmes>();
-        //    var query = from ci in cartItemDb
-        //                join p in productDb
-        //                on ci.ProductId equals p.ProductId
-        //                select new CartItmes
-        //                {
-        //                    ProductId = p.ProductId
-        //                };
-        //    foreach (var id in query)
-        //    {
-        //        CartItemList.Add(id);
-        //    }
-        //    //從Model裡面的Cart.cs裡面抓取CartId並給予ViewModel裡面的
-        //    //CartViewModel裡面的CartId
-        //    //並且跟上述的ShoppingCartId做比對
-        //    List<CartViewModel> CartViewList = new List<CartViewModel>();
-        //    {
-        //        foreach (var c in cartDb)
-        //        {
-        //            new CartViewModel { Id = c.CartId };
-        //        }
-        //    }
 
-        //    var FindcartId = CartViewList.SingleOrDefault(
-        //    c => c.Id.ToString() == ShoppingCartId);
-        //    var FindProductId = CartItemList.SingleOrDefault(ci => ci.ProductId == book.ProductId);
-
-
-        //    if (FindcartId == null && FindProductId == null)
-        //    {
-        //        // Create a new cart item if no cart item exists
-        //        newCartItem = new CartViewModel
-        //        {
-
-
-        //        };
-        //        xbooxDb.Carts.Add(newCartItem);
-        //    }
-        //    else
-        //    {
-        //        // If the item does exist in the cart, 
-        //        // then add one to the quantity
-        //        cartItem.Count++;
-        //    }
-        //    // Save changes
-        //    xbooxDb.SaveChanges();
-        //}
 
 
 
