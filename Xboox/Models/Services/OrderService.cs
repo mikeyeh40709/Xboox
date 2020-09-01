@@ -54,10 +54,12 @@ namespace Xboox.Services
             var orderDetailsList = context.OrderDetails
                 .Where(item => item.OrderId.ToString() == id)
                 .Join(context.Product, od => od.ProductId, pd => pd.ProductId, (od, pd) => new OrderDetailsViewModel
-                {   
+                {
+                    Imagelink = "空圖片",
                     ProductName = pd.Name,
                     UnitPrice = pd.Price,
-                    Quantity = od.Quantity
+                    Quantity = od.Quantity,
+                    Total = Math.Round(pd.Price * od.Quantity)
                 }).ToList();
             return orderDetailsList;
         }
@@ -88,9 +90,15 @@ namespace Xboox.Services
         {
             using (var db = new XbooxContext())
             {
-                var order = db.Order.FirstOrDefault(x => x.OrderId.ToString() == id);
-                if(order != null)
+
+                var OrderDetails = db.OrderDetails.Where(item => item.OrderId.ToString() == id);
+                var order = db.Order.FirstOrDefault(item => item.OrderId.ToString() == id);
+                if(order != null && OrderDetails != null)
                 {
+                    foreach(var item in OrderDetails)
+                    {
+                        db.OrderDetails.Remove(item);
+                    }
                     db.Order.Remove(order);
                     db.SaveChanges();
                     return true;

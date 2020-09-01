@@ -5,3 +5,9 @@ table th,table td {
     width: 200px;
     word-wrap:normal;
 }
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 800px;
+        margin: 1.75rem auto;
+    }
+}

@@ -86,35 +86,9 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-<script>
-    let detailsBtn = document.querySelector("button[data-target='#orderDetails']");
-    let detailsModal = document.querySelector("#orderDetails tbody");
-    detailsBtn.addEventListener("click", function () {
-        
-    })
-
-    let deleteBtn = document.querySelector("button[data-target='#deleteOrder']");
-    deleteBtn.addEventListener("click", deleteOrder);
-    function deleteOrder() {
-        Swal.fire({
-            title: '取消訂單',
-            text: "取消訂單後就無法返回",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '刪除!'
-        }).then((result) => {
-            if (result.value) {
-                Swal.fire(
-                    'Deleted!',
-                    '已成功刪除.',
-                    'success'
-                )
-            }
-        })
-    }
-</script>
 @section OrderCSS {
     <link type="text/css" rel="stylesheet" href="~/Assets/CSS/Custom/OrderPage/CustomOrder.css" />
+}
+@section OrderJS {
+    <script src="~/Assets/JavaScript/Custom/OrderPage/modal.js"></script>
 }

@@ -74,10 +74,11 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">圖片</th>
-                            <th scope="col">名稱</th>
-                            <th scope="col">數量</th>
-                            <th scope="col">單價</th>
+                            <td>圖片</td>
+                            <td>名稱</td>
+                            <td>單價</td>
+                            <td>數量</td>
+                            <td>總價</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,41 +90,9 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-<script>
-    let detailsBtn = document.querySelector("button[data-target='#orderDetails']");
-    let detailsModal = document.querySelector("#orderDetails tbody");
-    detailsBtn.addEventListener("click", function () {
-        $.ajax({
-            url: `GetOrderDetails/${this.id}`,
-            method:"get",
-            dataType:"json",
-            success: function (res) { console.log(res) },
-            error: function (err) { console.log(err) },
-        });
-    });
-
-    let deleteBtn = document.querySelector("button[data-target='#deleteOrder']");
-    deleteBtn.addEventListener("click", deleteOrder);
-    function deleteOrder() {
-        Swal.fire({
-            title: '取消訂單',
-            text: "取消訂單後就無法返回",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '刪除!'
-        }).then((result) => {
-            if (result.value) {
-                Swal.fire(
-                    'Deleted!',
-                    '已成功刪除.',
-                    'success'
-                )
-            }
-        })
-    }
-</script>
 @section OrderCSS {
     <link type="text/css" rel="stylesheet" href="~/Assets/CSS/Custom/OrderPage/CustomOrder.css" />
 }m
+@section OrderJS {
+    <script src="~/Assets/JavaScript/Custom/OrderPage/modal.js"></script>
+}

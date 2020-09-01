@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using Xboox.Models;
 using Xboox.Models.DataTable;
 using Xboox.Models.ViewModels;
 using Xboox.Services;
+using Xboox.ViewModels;
 
 namespace Xboox.Controllers
 {
@@ -15,10 +17,19 @@ namespace Xboox.Controllers
     {
         OrderService service = new OrderService();
         // GET: Order
-        public ActionResult UserView(string userName)
+        public ActionResult UserView()
         {
-            var result = service.GetOrder(userName);
-            return View(result);
+            if(User.Identity.IsAuthenticated == true)
+            {
+                var UserId = User.Identity.GetUserId();
+                var result = service.GetOrder(UserId);
+                return View(result);
+            }
+            else
+            {
+                return RedirectToAction("Login","Account");
+            }
+
         }
         public ActionResult ManagerView()
         {

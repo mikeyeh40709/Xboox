@@ -199,6 +199,7 @@
     <Compile Include="Models\DataTable\CartItems.cs" />
     <Compile Include="Models\DataTable\Category.cs" />
     <Compile Include="Models\DataTable\Coupons.cs" />
+    <Compile Include="Models\DataTable\C__MigrationHistory.cs" />
     <Compile Include="Models\DataTable\XbooxContext.cs" />
     <Compile Include="Models\DataTable\Order.cs" />
     <Compile Include="Models\DataTable\OrderDetails.cs" />
@@ -299,6 +300,7 @@
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
+    <Content Include="Assets\JavaScript\Custom\OrderPage\modal.js" />
     <Content Include="Assets\JavaScript\Custom\LogInPage\main.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />
     <Content Include="Assets\TemplateCSS\elegant-icons.css" />
@@ -621,6 +623,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Services\" />
+    <Folder Include="Assets\CSS\Custom\LogInPage\" />
+    <Folder Include="Assets\JavaScript\Custom\LogInPage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
