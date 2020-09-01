@@ -18,6 +18,7 @@ namespace XbooxCMS.Controllers
         // GET: Product
         private XbooxContext context;
 
+
       
         public IEnumerable<Tags> GetAllTags()
         {
