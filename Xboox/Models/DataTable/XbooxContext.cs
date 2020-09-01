@@ -107,5 +107,6 @@ namespace Xboox.Models.DataTable
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
         }
+
     }
 }

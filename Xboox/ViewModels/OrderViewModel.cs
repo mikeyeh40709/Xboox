@@ -16,6 +16,5 @@ namespace Xboox.ViewModels
         public string PurchaserPhone { get; set; }
         // Details
         public int StateId { get; set; }
-        public List<OrderDetailsViewModel> OrderDetailsList { get; set; }
     }
 }
