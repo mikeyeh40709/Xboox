@@ -99,7 +99,7 @@
                             <input type="file"
                                    id="filepond"
                                    class="filepond"
-                                   name="filepond"
+                                   name="filepond[]"
                                    multiple
                                    data-allow-reorder="true"
                                    data-max-file-size="3MB"
@@ -187,6 +187,7 @@
 
 </script>
 <script>
+  //  const formData = new formData();
         FilePond.setOptions({
             server: '@Url.Action("Upload", "Product")'
         });

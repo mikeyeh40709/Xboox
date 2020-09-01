@@ -102,8 +102,7 @@ namespace XbooxCMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateViewModel createViewModel)
         {
-            List<ProductImgs> productImgs = new List<ProductImgs>();
-            HttpFileCollectionBase files = Request.Files;
+          
             var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId.ToString()));
     
 
@@ -115,7 +114,7 @@ namespace XbooxCMS.Controllers
                 return RedirectToAction("Index", "Home");
             }
             createViewModel.Products.ProductId = Guid.NewGuid();
-            AddedTag(createViewModel.Products, createViewModel.PostedTagIds);
+        
        
          
             //for (var i =0;i <fileNameList.Count();i++ )
@@ -129,59 +128,46 @@ namespace XbooxCMS.Controllers
             //        productImgs.Add(new ProductImgs() { imgLink = i, ProductId = createViewModel.Products.ProductId });
             //    }
             //}
-            //catch  (DbEntityValidationException ex)
-            //    {
-            //          var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
-            //         var getFullMessage = string.Join("; ", entityError);
-            //         var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
-            //    }
-
-
-            //將session name取出來 放進productImg
-            //將session name取出來 然後一整串放進product
-
-
-            //foreach (HttpPostedFileBase file in files)
-            //{
-            //    if (file != null && files.Count > 0)
-            //    {
-            //        var fileName = Path.GetFileName(file.FileName);
-            //        var path = Path.Combine(Server.MapPath("~Assets/Pics"), fileName);
-            //        //要設定傳入product或 productId
-            //        //要把Imglink改成可以自動生成id
-            //        productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
-            //        file.SaveAs(path);
-
-            //    }
-            //}
-
-        
-         
+  
             PutImgs(createViewModel.Products);
             
              context.Product.Add(createViewModel.Products);
-  
+          
+            AddedTag(createViewModel.Products, createViewModel.PostedTagIds, createViewModel.ProductTags);
+            
 
+            context.SaveChanges(); 
+            //catch (DbEntityValidationException ex)
+            //{
+            //    var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+            //    var getFullMessage = string.Join("; ", entityError);
+            //    var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+            //}
 
-            context.SaveChanges();
             return RedirectToAction("Create","Product");
         }
 
-       private void AddedTag(Product product, List<string> SelectedTags)
+       private ProductTags AddedTag(Product product, List<string> SelectedTags,ProductTags tags)
         {
-            List<ProductTags> productTags = new List<ProductTags>();
+           
             if (SelectedTags == null)
             {
-                return;
+                return null;
             }
 
             {
  
                 foreach (var t in SelectedTags)
                 {
+                    tags = new ProductTags()
+                    {
+                        ProductId = product.ProductId,
+                        TagId = new Guid(t),
+                        Id = Guid.NewGuid()
+                    };
 
-                   // if (productTags.Select(x => x.ProductId).Contains(product.ProductId) && productTags.Select(x => x.TagId).Contains(new Guid(t)))
-                        productTags.Add(new ProductTags() {ProductId = product.ProductId,TagId = new Guid(t) ,Id= Guid.NewGuid() });
+                    // if (productTags.Select(x => x.ProductId).Contains(product.ProductId) && productTags.Select(x => x.TagId).Contains(new Guid(t)))
+                    //productsTags.Add(new ProductTags() {ProductId = product.ProductId,TagId = new Guid(t) ,Id= Guid.NewGuid() });
                 }
                 //var currentTagIds = context.Product.;
 
@@ -207,6 +193,13 @@ namespace XbooxCMS.Controllers
                 //    }
                 //}
             }
+
+            context.ProductTags.Add(tags);
+
+            context.SaveChanges();
+            // context.ProductTags.Add(tags);
+            return tags;
+           // context.SaveChanges();
         }
     
 
@@ -298,18 +291,30 @@ namespace XbooxCMS.Controllers
                 product.ProductImgId = i.ProductImgId + ",";
                 //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
             }
-            // context.SaveChanges();
+             context.SaveChanges();
         }
 
 
 
 
         [HttpPost]
-        public ActionResult Upload( )
+        public ActionResult Upload(IEnumerable<HttpPostedFileBase> filepond)
         {
-            
+            foreach (var file in filepond)
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    //var fileName = Path.GetFileName(file.);
+                  //  var path = Path.Combine(Server.MapPath("~Assets/Pics"), fileName);
+                    //要設定傳入product或 productId
+                    //要把Imglink改成可以自動生成id
+                   // productImgs.Add(new ProductImgs() { imgLink = path, ProductId = product.ProductId });
+                   // file.SaveAs(path);
+
+                }
+            }
             //var Files = Request.Files;
-           
+
             if (Request.Files.Count > 0)
             {
                 var files = Request.Files;
@@ -326,40 +331,29 @@ namespace XbooxCMS.Controllers
                 //    file.SaveAs(path);
                 //}
                 List<string>fileNameList = new List<string>();
-                if (Request.Files.Count > 0)
-                { }
-                for (var i = 0; i < files.Count; i++)
-                {
-                    if (files[i] != null && files[i].ContentLength != 0)
-                    {
-                        var fileName = files[i].FileName;
+               // if (Request.Files.Count > 0)
+               // { }
+              //  for (var i = 0; i < files.Count; i++)
+               // {
+                   // if (files[i] != null && files[i].ContentLength != 0)
+                   // {
+                        var fileName = files[0].FileName;
                         var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
 
                         //Session[$"fileName{i}"] = fileName;
-                        fileNameList.Add(fileName);
+                       
                         
                         //productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
-                        files[i].SaveAs(path);
-                    }
-                }
+                        files[0].SaveAs(path);
+                   // }
+               // }
+                fileNameList.Add(fileName);
                 Session["fileName"] = fileNameList;
                 //ViewBag.List = fileNameCollection;
             }
             //;
             return Json("fileUpload");
-            //foreach(var file in files)
-            //  {
-            //      if(file !=null && file.ContentLength > 0)
-            //      {
-            //          var fileName = Path.GetFileName(file.FileName);
-            //          var path = Path.Combine(Server.MapPath("~Assets/Pics"),fileName);
-            //          //要設定傳入product或 productId
-            //          //要把Imglink改成可以自動生成id
-            //          productImgs.Add(new ProductImgs() { imgLink = path, ProductId = product.ProductId });
-            //          file.SaveAs(path);
-
-            //      }
-            //  }
+         
 
             //if (Request.Files.Count > 0)
             //{ }

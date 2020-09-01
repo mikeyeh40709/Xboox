@@ -24,7 +24,9 @@ namespace XbooxCMS.ViewModels
         public List<string> PostedTagIds { get; set; }
         //Category 
         public IEnumerable<Category> Categories { get; set; }
-       
+
+        public ProductTags ProductTags { get; set; }
+
 
         //  public IEnumerable<TagViewModel> TagViews { get; set; }
         //   public IEnumerable<CategoryViewModel> categoryViews { get; set; }
@@ -35,7 +37,8 @@ namespace XbooxCMS.ViewModels
             Products = new Product();
             SelectedTags = new List<Tags>();
             PostedTagIds = new List<string>();
-
+            ProductTags = new ProductTags();
+            
         }
 
 
