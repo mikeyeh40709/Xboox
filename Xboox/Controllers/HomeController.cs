@@ -9,7 +9,6 @@ using Xboox.ViewModels;
 
 namespace Xboox.Controllers
 {
-    [RequireHttps]
     public class HomeController : Controller
     {
         private XbooxContext context = new XbooxContext();

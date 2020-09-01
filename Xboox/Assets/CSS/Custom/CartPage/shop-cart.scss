@@ -86,11 +86,8 @@
                     flex-direction: row;
                     border-radius: 0;
 
-                    span {
-                        &:nth-of-type(2) {
+                    input {
                             color: #444444;
-                            margin: 10px 30px 0 30px;
-                        }
                     }
 
                     .qtybtn {

@@ -52,9 +52,8 @@
         display: flex;
         flex-direction: row;
         border-radius: 0; }
-        .shop__cart__table tbody tr .cart__quantity .pro-qty span:nth-of-type(2) {
-          color: #444444;
-          margin: 10px 30px 0 30px; }
+        .shop__cart__table tbody tr .cart__quantity .pro-qty input {
+          color: #444444; }
         .shop__cart__table tbody tr .cart__quantity .pro-qty .qtybtn {
           font-size: 20px;
           color: #444444; }
