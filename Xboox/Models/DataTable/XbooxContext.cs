@@ -122,6 +122,5 @@ namespace Xboox.Models.DataTable
                 .WillCascadeOnDelete(false);
         }
 
-        public System.Data.Entity.DbSet<Xboox.Models.ViewModels.CartViewModel> CartViewModels { get; set; }
     }
 }

@@ -32,6 +32,7 @@ namespace Xboox.Models.Services
         //GetCartId 方法需要 HttpCoNtextBase，讓它可以從使用者的會話讀取使用者的 CartId。
         public string GetCartId(HttpContextBase context)
         {
+            //這邊判斷是否有無授權
             if (!context.User.Identity.IsAuthenticated)
             {   
                 if (!string.IsNullOrWhiteSpace(context.User.Identity.Name))
@@ -58,7 +59,7 @@ namespace Xboox.Models.Services
         public void MigrateCart(string userName)
         {
             var shoppingCart = xbooxDb.CartItmes.Where(
-                c => c.CartId ==Guid.Parse(ShoppingCartId));
+                c => c.CartId.ToString() == ShoppingCartId);
 
             foreach (CartItmes item in shoppingCart)
             {
@@ -69,7 +70,7 @@ namespace Xboox.Models.Services
         public void AddToCart(Product p)
         {
             var cartItem = xbooxDb.CartItmes.SingleOrDefault(
-                c => c.CartId == Guid.Parse(ShoppingCartId)
+                c => c.CartId.ToString() == ShoppingCartId
                 && c.ProductId == p.ProductId);
             if (cartItem==null)
             {
@@ -94,8 +95,34 @@ namespace Xboox.Models.Services
         public List<CartItmes> GetCartItems()
         {
             return xbooxDb.CartItmes.Where(
-                cart => cart.CartId == Guid.Parse(ShoppingCartId)).ToList();
+                cart => cart.CartId ==Guid.Parse(ShoppingCartId)).ToList();
         }
+
+        //public int RemoveFromCart(Guid id)
+        //{
+        //    // Get the cart
+        //    var cartItem = xbooxDb.CartItmes.Single(
+        //        cart => cart.CartId == Guid.Parse(ShoppingCartId)
+        //        && cart.Id == id);
+
+        //    int itemCount = 0;
+
+        //    if (cartItem != null)
+        //    {
+        //        if (cartItem > 1)
+        //        {
+        //            cartItem.Count--;
+        //            itemCount = cartItem.Count;
+        //        }
+        //        else
+        //        {
+        //            storeDB.Carts.Remove(cartItem);
+        //        }
+        //        // Save changes
+        //        storeDB.SaveChanges();
+        //    }
+        //    return itemCount;
+        //}
 
 
 

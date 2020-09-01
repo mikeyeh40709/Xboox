@@ -206,7 +206,6 @@
     <Compile Include="Models\DataTable\Tags.cs" />
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\DataTable\XbooxContext.cs" />
     <Compile Include="Models\Services\CartOperator.cs" />
     <Compile Include="Models\Services\ShoppingCartManage .cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />

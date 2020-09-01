@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Xboox.ViewModels.ProductDetailViewModel>
+﻿@model Xboox.Models.ViewModels.CartViewModel
 @{
     ViewBag.Title = "ShopCart";
 }
@@ -34,10 +34,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var data in Model)
+                            @*@foreach (var data in Model)
                             {
                                 @Html.Partial("_ShopCartPartialView", data);
-                            }                           
+                            }*@                    
+                            
+
+
+
                         </tbody>
                     </table>
                 </div>

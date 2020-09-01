@@ -8,7 +8,7 @@ namespace Xboox.Models.ViewModels
 {
     public class CartViewModel
     {
-        //public Guid Id { get; set; }
+        public Guid Id { get; set; }
         public List<CartItmes> CartItems { get; set; }
         public string ProductImgLink { get; set; }
         public string Name { get; set; }

@@ -25,41 +25,64 @@ namespace Xboox.Controllers
 
         public ActionResult ShopCart()
         {
-
-            //List<ProductDetailViewModel> item = new List<ProductDetailViewModel>();
-            //var query = from p in context.Product
-            //            join pi in context.ProductImgs
-            //            on p.ProductId equals pi.ProductId
-            //            select new ProductDetailViewModel
-            //            {
-            //                Name = p.Name,
-            //                Quantity = p.Quantity,
-            //                Price = p.Price,
-            //                imgLink = pi.imgLink
-            //            };
-            //foreach (var product in query)
-            //{
-            //    item.Add(product);
-            //}
-            //return View(item);
-
-
-           var cart= ShoppingCartManage.GetCart(this.HttpContext);
+            var cart = ShoppingCartManage.GetCart(this.HttpContext);
 
             // Set up our ViewModel
 
             var viewModel = new CartViewModel()
             {
                 CartItems = cart.GetCartItems(),
-               
+
             };
             return View(viewModel);
-
-
-
-
-
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddToCart(string id)
+        {
+            // Retrieve the album from the database
+            var addItem = context.Product
+                .Single(p => p.ProductId.ToString() == id);
+
+            // Add it to the shopping cart
+            var cart =  ShoppingCartManage.GetCart(this.HttpContext);
+
+            cart.AddToCart(addItem);
+
+            // Go back to the main store page for more shopping
+            return RedirectToAction("Index");
+        }
+        // AJAX: /ShoppingCart/RemoveFromCart/5
+
+        // AJAX: /ShoppingCart/RemoveFromCart/5
+        [HttpPost]
+        //public ActionResult RemoveFromCart(int id)
+        //{
+        //    // Remove the item from the cart
+        //    var cart = ShoppingCartManage.GetCart(this.HttpContext);
+
+        //    // Get the name of the album to display confirmation
+        //    string bookName = context.Carts
+        //        .Single(item => item.RecordId == id).Album.Title;
+
+        //    // Remove from cart
+        //    int itemCount = cart.RemoveFromCart(id);
+
+        //    // Display the confirmation message
+        //    var results = new ShoppingCartRemoveViewModel
+        //    {
+        //        Message = Server.HtmlEncode(albumName) +
+        //            " has been removed from your shopping cart.",
+        //        CartTotal = cart.GetTotal(),
+        //        CartCount = cart.GetCount(),
+        //        ItemCount = itemCount,
+        //        DeleteId = id
+        //    };
+        //    return Json(results);
+        //}
+
+
 
         public ActionResult Bill()
         {
