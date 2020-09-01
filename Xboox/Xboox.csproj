@@ -17,8 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44370</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -193,6 +192,7 @@
     <Compile Include="Models\DataTable\AspNetUserLogins.cs" />
     <Compile Include="Models\DataTable\AspNetUsers.cs" />
     <Compile Include="Models\DataTable\Cart.cs" />
+    <Compile Include="Models\DataTable\CartItems.cs" />
     <Compile Include="Models\DataTable\CartItmes.cs" />
     <Compile Include="Models\DataTable\Category.cs" />
     <Compile Include="Models\DataTable\Coupons.cs" />
@@ -477,7 +477,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Assets\CSS\Custom\LogInPage\" />
     <Folder Include="Assets\JavaScript\Custom\LogInPage\" />
-    <Folder Include="Models\Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

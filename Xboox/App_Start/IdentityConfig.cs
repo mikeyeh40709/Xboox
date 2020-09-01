@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Xboox.Models;
 
+
 namespace Xboox
 {
     public class EmailService : IIdentityMessageService

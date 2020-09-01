@@ -69,7 +69,7 @@ namespace Xboox.Models.Services
         }
         public void AddToCart(Product p)
         {
-            var cartItem = xbooxDb.CartItmes.SingleOrDefault(
+            var cartItem = xbooxDb.CartItems.SingleOrDefault(
                 c => c.CartId.ToString() == ShoppingCartId
                 && c.ProductId == p.ProductId);
             if (cartItem==null)
