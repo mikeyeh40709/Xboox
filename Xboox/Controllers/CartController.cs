@@ -26,68 +26,33 @@ namespace Xboox.Controllers
 
         public ActionResult ShopCart()
         {
-            //var carts = new ShoppingCartManage();
-
+           
             var cart = ShoppingCartManage.GetCart(this.HttpContext);
 
-            //List<CartViewModel> item = new List<CartViewModel>();
-            // Set up our ViewModel
-
-            //public List<CartItems> GetCartItems()
-            //{
-            //    return xbooxDb.CartItems.Where(item => item.CartId.ToString() == ShoppingCartId).ToList();
-            //}
-            ////////////
-            ////////////
-            ///Mike
-            //List<CartViewModel> item = new List<CartViewModel>();
-
-            //var query = context.Product.Select(x => new CartViewModel
-            //{
-            //    Price = x.Price,
-            //    Name = x.Name,
-            //    ProductImgLink = context.ProductImgs.FirstOrDefault(y => y.ProductId == x.ProductId).imgLink,
-            //    Count = context.CartItems.FirstOrDefault(k => k.ProductId == x.ProductId).Quantity
-            //}).ToList();
-            //foreach (var product in query)
-            //{
-            //    item.Add(product);
-            //}
-            ////////Mike
-            //var viewModel = new CartViewModel
-            //{
-            //   CartList = cart.GetCartItems(),       
-            //};
+       
             return View(cart.GetCartItems());
 
-            //var  viewM = cart.GetCartItems();
-
-            //foreach (var item in viewM)
+            //var query = from p in context.Product.ToList()
+            //            join pi in context.ProductImgs.ToList()
+            //            on p.ProductId equals pi.ProductId
+            //            select new ProductDetailViewModel
+            //            {
+            //                Name = p.Name,
+            //                UnitInStock = p.UnitInStock,
+            //                Price = p.Price,
+            //                //imgLink = pi.imgLink.FirstOrDefault()
+            //            };
+            //var cartproduct = context.Product.ToList().Select(x => new ProductDetailViewModel
             //{
-            //    item.
-            //}
-
-
-            // Return the view
-
+            //    Name = x.Name,
+            //    UnitInStock = x.UnitInStock,
+            //    Price = x.Price,
+            //    imgLink = context.ProductImgs.FirstOrDefault(y => y.ProductId == x.ProductId).imgLink
+            //});
+            //return View(cartproduct);
         }
-        //List<CartViewModel> item = new List<CartViewModel>();
-        //var query = (from p in context.Product
-        //             join pi in context.ProductImgs
-        //             on p.ProductId equals pi.ProductId
-        //             select new CartViewModel
-        //             {
-        //                 Name = p.Name,
-        //                 Price=p.Price,
-        //                 ProductImgLink=pi.imgLink
-
-        //             }).ToList();
-        //foreach (var product in query)
-        //{
-        //    item.Add(product);
-        //}
-        //return View(item);
-
+    
+ 
 
         public ActionResult AddToCart(string id)
         {
