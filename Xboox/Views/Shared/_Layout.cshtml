@@ -90,13 +90,7 @@
                     </nav>
                 </div>
                 <div class="col-lg-3">
-                    <div class="header__right">
-                        <div class="header__right__auth">
-                            @*<a href="#" class="btn btn-outline-secondary text-dark">Login</a>*@                         
-                            @*@Html.ActionLink("登入", "Login", "Account", new { }, new { @class = "btn btn-outline-secondary text-dark" })                          
-                            @Html.ActionLink("註冊", "Register", "Account", new { }, new { @class = "btn btn-outline-secondary text-dark" })*@
-                            @Html.Partial("_LoginPartial")
-                        </div>
+                    <div class="header__right d-flex justify-content-center">                       
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li>
@@ -118,13 +112,22 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#"></a>
+                                @*<div class="header__right__auth">
+                                <a href="#" class="btn btn-outline-secondary text-dark">Login</a>
+                                @Html.ActionLink("登入", "Login", "Account", new { }, new { @class = "btn btn-outline-secondary text-dark" })
+                                @Html.ActionLink("註冊", "Register", "Account", new { }, new { @class = "btn btn-outline-secondary text-dark" })
+                                @Html.Partial("_LoginPartial")
+                                </div>*@
+                                @Html.Partial("_LoginPartial")
+                                
+                                @*<a href="#"></a>
                                 <i class="far fa-user"></i>
                                 <ul class="headerdropdown">
+
                                     <li>@Html.ActionLink("登入會員", "Login", "Account")</li>
                                     <li>@Html.ActionLink("註冊會員", "Register", "Account")</li>
                                     <li>@Html.ActionLink("登出", "LogOff", "Account")</li>
-                                </ul>
+                                </ul>*@
                             </li>
                         </ul>
                     </div>
