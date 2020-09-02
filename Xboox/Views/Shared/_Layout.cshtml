@@ -24,6 +24,7 @@
     <link href="~/Assets/TemplateCSS/style.css" rel="stylesheet" />
     <link href="~/Assets/TemplateCSS/elegant-icons.css" rel="stylesheet" />
     <link href="~/Assets/TemplateCSS/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/Custom/HomePage/HomePage.css" rel="stylesheet" />
     @RenderSection("topCSS", required: false)
     @RenderSection("topJS", required: false)
 </head>
@@ -90,24 +91,34 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
-                        <div class="header__right__auth">
-                            @*<a href="#" class="btn btn-outline-secondary text-dark">Login</a>*@
-                            @Html.ActionLink("Login", "Index", "SignIn", new { }, new { @class = "btn btn-outline-secondary text-dark" })
-                            @Html.ActionLink("Register", "Index", "Register", new { }, new { @class = "btn btn-outline-secondary text-dark" })
-                        </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li>
                                 <a href="#">
                                     <span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
+                                    <ul class="headerdropdown">
+
+                                    </ul>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="@Url.Action("ShopCart","Cart")">
                                     <span class="icon_bag_alt"></span>
                                     <div class="tip">2</div>
+                                    <ul class="headerdropdown">
+                                        
+                                    </ul>
                                 </a>
+                            </li>
+                            <li>
+                                <a href="#"></a>
+                                <i class="far fa-user"></i>
+                                <ul class="headerdropdown">
+                                    <li>@Html.ActionLink("登入會員", "Login", "Account")</li>
+                                    <li>@Html.ActionLink("註冊會員", "Register", "Account")</li>
+                                    <li>@Html.ActionLink("登出", "LogOff", "Account")</li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -198,7 +209,7 @@
                             <script>
                                 document.write(new Date().getFullYear());
                             </script> All rights reserved | This website with <i class="fa fa-heart"
-                                                                                          aria-hidden="true"></i> by Xboox
+                                                                                 aria-hidden="true"></i> by Xboox
                         </p>
                     </div>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

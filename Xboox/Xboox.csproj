@@ -224,6 +224,7 @@
       <DependentUpon>shop-cart.css</DependentUpon>
     </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
+    <Content Include="Assets\CSS\Custom\HomePage\HomePage.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css" />
@@ -234,18 +235,52 @@
     <Content Include="Assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
-    <Content Include="Assets\Image\Pics\ad.jpg" />
+    <Content Include="Assets\Image\Pics\adpic01.jpg" />
+    <Content Include="Assets\Image\Pics\cn01-invest01-comic01-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn01-invest01-comic01-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn01-invest01-comic01-04.jpg" />
     <Content Include="Assets\Image\Pics\cn01-invest01-comic01.jpg" />
+    <Content Include="Assets\Image\Pics\cn02-invest02-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn02-invest02-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn02-invest02-04.jpg" />
     <Content Include="Assets\Image\Pics\cn02-invest02.jpg" />
+    <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01-04.jpg" />
     <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01.jpg" />
+    <Content Include="Assets\Image\Pics\cn04-fin02-02.jpg" />
     <Content Include="Assets\Image\Pics\cn04-fin02.jpg" />
+    <Content Include="Assets\Image\Pics\cn05-human01-novel01-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn05-human01-novel01-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn05-human01-novel01-04.jpg" />
     <Content Include="Assets\Image\Pics\cn05-human01-novel01.jpg" />
+    <Content Include="Assets\Image\Pics\cn06-human02-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn06-human02-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn06-human02-04.jpg" />
     <Content Include="Assets\Image\Pics\cn06-human02.jpg" />
+    <Content Include="Assets\Image\Pics\cn07-human03-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn07-human03-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn07-human03-04.jpg" />
+    <Content Include="Assets\Image\Pics\cn07-human03.jpg" />
+    <Content Include="Assets\Image\Pics\cn08-fantasy01-novel03-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn08-fantasy01-novel03-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn08-fantasy01-novel03.jpg" />
+    <Content Include="Assets\Image\Pics\cn09-program01-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn09-program01-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn09-program01-04.jpg" />
+    <Content Include="Assets\Image\Pics\cn09-program01.jpg" />
+    <Content Include="Assets\Image\Pics\cn10-health01-ebook03-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn10-health01-ebook03-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn10-health01-ebook03-04.jpg" />
+    <Content Include="Assets\Image\Pics\cn10-health01-ebook03.jpg" />
+    <Content Include="Assets\Image\Pics\en01-invest03-mic02-02.jpg" />
+    <Content Include="Assets\Image\Pics\en01-invest03-mic02-03.jpg" />
+    <Content Include="Assets\Image\Pics\en01-invest03-mic02-04.jpg" />
     <Content Include="Assets\Image\Pics\en01-invest03-mic02.jpg" />
     <Content Include="Assets\Image\Pics\en02-fin03-mag02-ebook02.jpg" />
+    <Content Include="Assets\Image\Pics\en03-human03-novel02-02.jpg" />
     <Content Include="Assets\Image\Pics\en03-human03-novel02.jpg" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
-    <Content Include="Assets\Image\Pics\cn01.jpg" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />
@@ -276,12 +311,6 @@
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
-    <Content Include="Assets\CSS\Custom\HomePage\HomePage.css">
-      <DependentUpon>HomePage.scss</DependentUpon>
-    </Content>
-    <Content Include="Assets\CSS\Custom\HomePage\HomePage.min.css">
-      <DependentUpon>HomePage.css</DependentUpon>
-    </Content>
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.css" />
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.min.css" />
     <Content Include="Assets\JavaScript\Custom\CartPage\shop-cart.js" />
@@ -311,7 +340,6 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Assets\CSS\Custom\HomePage\HomePage.scss" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.min.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.js" />
