@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
 using Xboox.Models;
@@ -11,7 +12,7 @@ namespace Xboox.Controllers
 {
     public class CartController : Controller
     {
-        private XbooxContext context;
+        private XbooxContext context = new XbooxContext();
         public CartController()
         {
             if (context == null)
@@ -23,23 +24,24 @@ namespace Xboox.Controllers
 
         public ActionResult ShopCart()
         {
-
-            List<ProductDetailViewModel> item = new List<ProductDetailViewModel>();
-            var query = from p in context.Product
-                        join pi in context.ProductImgs
-                        on p.ProductId equals pi.ProductId
-                        select new ProductDetailViewModel
-                        {
-                            Name = p.Name,
-                            UnitInStock = p.UnitInStock,
-                            Price = p.Price,
-                            imgLink = pi.imgLink
-                        };
-            foreach (var product in query)
+            //var query = from p in context.Product.ToList()
+            //            join pi in context.ProductImgs.ToList()
+            //            on p.ProductId equals pi.ProductId
+            //            select new ProductDetailViewModel
+            //            {
+            //                Name = p.Name,
+            //                UnitInStock = p.UnitInStock,
+            //                Price = p.Price,
+            //                //imgLink = pi.imgLink.FirstOrDefault()
+            //            };
+            var cartproduct = context.Product.ToList().Select(x => new ProductDetailViewModel
             {
-                item.Add(product);
-            }
-            return View(item);
+                Name = x.Name,
+                UnitInStock = x.UnitInStock,
+                Price = x.Price,
+                imgLink = context.ProductImgs.FirstOrDefault(y=>y.ProductId == x.ProductId).imgLink
+            });
+            return View(cartproduct);
         }
 
         public ActionResult Bill()

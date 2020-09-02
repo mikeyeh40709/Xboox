@@ -225,6 +225,7 @@
       <DependentUpon>shop-cart.css</DependentUpon>
     </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
+    <Content Include="Assets\CSS\Custom\HomePage\HomePage.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css" />
@@ -311,12 +312,6 @@
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
-    <Content Include="Assets\CSS\Custom\HomePage\HomePage.css">
-      <DependentUpon>HomePage.scss</DependentUpon>
-    </Content>
-    <Content Include="Assets\CSS\Custom\HomePage\HomePage.min.css">
-      <DependentUpon>HomePage.css</DependentUpon>
-    </Content>
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.css" />
     <Content Include="Assets\CSS\Custom\meberPage\meberPage.min.css" />
     <Content Include="Assets\JavaScript\Custom\CartPage\shop-cart.js" />
@@ -346,7 +341,6 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Assets\CSS\Custom\HomePage\HomePage.scss" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.bundle.min.js" />
     <Content Include="Assets\JavaScript\Origin\Scripts\bootstrap.js" />
