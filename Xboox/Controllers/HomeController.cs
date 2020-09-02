@@ -13,8 +13,11 @@ namespace Xboox.Controllers
     public class HomeController : Controller
     {
         private XbooxContext context = new XbooxContext();
+        
         public ActionResult Index()
         {
+            //ViewBag.UserState = User.Identity.IsAuthenticated;
+            //ViewBag.UserName = User.Identity.Name;
             var products = context.Product.ToList().Select(y => new ProductDetailViewModel
             {
                 Name = y.Name,

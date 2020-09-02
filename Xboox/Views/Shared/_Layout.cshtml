@@ -91,9 +91,10 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            @*<a href="#" class="btn btn-outline-secondary text-dark">Login</a>*@
-                            @Html.ActionLink("登入", "Login", "Account", new { }, new { @class = "btn btn-outline-secondary text-dark" })
-                            @Html.ActionLink("註冊", "Register", "Account", new { }, new { @class = "btn btn-outline-secondary text-dark" })
+                            @*<a href="#" class="btn btn-outline-secondary text-dark">Login</a>*@                         
+                            @*@Html.ActionLink("登入", "Login", "Account", new { }, new { @class = "btn btn-outline-secondary text-dark" })                          
+                            @Html.ActionLink("註冊", "Register", "Account", new { }, new { @class = "btn btn-outline-secondary text-dark" })*@
+                            @Html.Partial("_LoginPartial")
                         </div>
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
