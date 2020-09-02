@@ -369,7 +369,7 @@ namespace XbooxCMS.Controllers
              //   product.ProductImgId = i.ProductImgId + ",";
                 //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
          //   }
-            imgString = null;
+             imgString = null;
              context.SaveChanges();
         }
 

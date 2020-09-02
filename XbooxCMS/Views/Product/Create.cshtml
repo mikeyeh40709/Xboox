@@ -154,14 +154,16 @@
                     <div class="form-group form-display">
                         <label for="field-ta" class="col-sm-3 control-label">簡述</label>
                         <div class="col-sm-5">
-                            <textarea class="form-control" id="field-ta" placeholder="Textarea"></textarea>
+                            @Html.TextAreaFor(m => m.Products.Intro, new { @class = "form-control" })
+                            @*<textarea class="form-control" id="field-ta" placeholder="Textarea"></textarea>*@
                         </div>
                     </div>
 
                     <div class="form-group form-display">
                         <label for="field-ta" class="col-sm-3 control-label">內文</label>
                         <div class="col-sm-5">
-                            <textarea class="form-control" id="field-ta" placeholder="Textarea"></textarea>
+                            @Html.TextAreaFor(m => m.Products.Description, new { @class = "form-control" })
+                            @*<textarea class="form-control" id="field-ta" placeholder="Textarea"></textarea>*@
                         </div>
                     </div>
                     <div class="form-group">
