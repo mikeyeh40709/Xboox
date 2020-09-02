@@ -48,10 +48,16 @@ namespace Xboox.Models
 
     public class LoginViewModel
     {
+        //[Required]
+        //[Display(Name = "電子郵件")]
+        //[EmailAddress]
+        //public string Email { get; set; }
+
         [Required]
-        [Display(Name = "電子郵件")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [DataType(DataType.Text)]
+        [Display(Name = "帳號")]
+        public string UserName { get; set; }
+
 
         [Required]
         [DataType(DataType.Password)]
