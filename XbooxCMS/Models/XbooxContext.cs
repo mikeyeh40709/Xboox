@@ -17,7 +17,7 @@ namespace XbooxCMS.Models
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Cart> Cart { get; set; }
-        public virtual DbSet<CartItmes> CartItmes { get; set; }
+        public virtual DbSet<CartItems> CartItems { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Coupons> Coupons { get; set; }
         public virtual DbSet<Order> Order { get; set; }
@@ -64,7 +64,7 @@ namespace XbooxCMS.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Cart>()
-                .HasMany(e => e.CartItmes)
+                .HasMany(e => e.CartItems)
                 .WithRequired(e => e.Cart)
                 .WillCascadeOnDelete(false);
 
@@ -94,7 +94,7 @@ namespace XbooxCMS.Models
                 .HasPrecision(18, 6);
 
             modelBuilder.Entity<Product>()
-                .HasMany(e => e.CartItmes)
+                .HasMany(e => e.CartItems)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
 
@@ -111,13 +111,6 @@ namespace XbooxCMS.Models
             modelBuilder.Entity<Product>()
                 .HasMany(e => e.WishList)
                 .WithRequired(e => e.Product)
-                .HasForeignKey(e => e.ProductId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Product>()
-                .HasMany(e => e.WishList1)
-                .WithRequired(e => e.Product1)
-                .HasForeignKey(e => e.ProductId)
                 .WillCascadeOnDelete(false);
         }
     }

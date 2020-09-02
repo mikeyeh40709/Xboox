@@ -200,10 +200,9 @@
     <Compile Include="Models\AspNetUserLogins.cs" />
     <Compile Include="Models\AspNetUsers.cs" />
     <Compile Include="Models\Cart.cs" />
-    <Compile Include="Models\CartItmes.cs" />
+    <Compile Include="Models\CartItems.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Coupons.cs" />
-    <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\XbooxContext.cs" />

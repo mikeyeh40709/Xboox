@@ -6,7 +6,7 @@ namespace XbooxCMS.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class CartItmes
+    public partial class CartItems
     {
         public Guid CartId { get; set; }
 
@@ -15,6 +15,9 @@ namespace XbooxCMS.Models
         public int Quantity { get; set; }
 
         public Guid Id { get; set; }
+
+        [StringLength(50)]
+        public string UserNameCheckId { get; set; }
 
         public virtual Cart Cart { get; set; }
 
