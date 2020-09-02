@@ -19,8 +19,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort>44370</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -221,6 +221,8 @@
       <DependentUpon>shop-cart.css</DependentUpon>
     </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
+    <Content Include="Assets\CSS\Custom\LogInPage\main.css" />
+    <Content Include="Assets\CSS\Custom\LogInPage\util.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css" />
@@ -229,6 +231,11 @@
     <Content Include="Assets\CSS\Origin\Content\bootstrap.min.css" />
     <Content Include="Assets\fonts\ElegantIcons.svg" />
     <Content Include="Assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\OFL.txt" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
     <Content Include="Assets\Image\Pics\ad.jpg" />
@@ -241,10 +248,12 @@
     <Content Include="Assets\Image\Pics\en01-invest03-mic02.jpg" />
     <Content Include="Assets\Image\Pics\en02-fin03-mag02-ebook02.jpg" />
     <Content Include="Assets\Image\Pics\en03-human03-novel02.jpg" />
+    <Content Include="Assets\Image\Pics\LogInPageLogo.png" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\cn01.jpg" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
+    <Content Include="Assets\JavaScript\Custom\LogInPage\main.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />
     <Content Include="Assets\TemplateCSS\elegant-icons.css" />
     <Content Include="Assets\TemplateCSS\font-awesome.min.css" />
@@ -270,6 +279,26 @@
     <Content Include="Assets\TemplateJavaScript\main.js" />
     <Content Include="Assets\TemplateJavaScript\mixitup.min.js" />
     <Content Include="Assets\TemplateJavaScript\owl.carousel.min.js" />
+    <Content Include="Assets\Vendor\LogInPage\animate\animate.css" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap.css" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\js\bootstrap.js" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\js\popper.js" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\js\popper.min.js" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\js\tooltip.js" />
+    <Content Include="Assets\Vendor\LogInPage\css-hamburgers\hamburgers.css" />
+    <Content Include="Assets\Vendor\LogInPage\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Assets\Vendor\LogInPage\jquery\jquery-3.2.1.min.js" />
+    <Content Include="Assets\Vendor\LogInPage\select2\select2.css" />
+    <Content Include="Assets\Vendor\LogInPage\select2\select2.js" />
+    <Content Include="Assets\Vendor\LogInPage\select2\select2.min.css" />
+    <Content Include="Assets\Vendor\LogInPage\select2\select2.min.js" />
+    <Content Include="Assets\Vendor\LogInPage\tilt\tilt.jquery.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
@@ -304,6 +333,81 @@
     <Content Include="Assets\fonts\fontawesome-webfont.woff" />
     <Content Include="Assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="Assets\fonts\FontAwesome.otf" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-Black.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-Light.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="Assets\fonts\LogInPage\montserrat\Montserrat-ThinItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-Black.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-Bold.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-Italic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-Light.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-Medium.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-Regular.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-Thin.ttf" />
+    <Content Include="Assets\fonts\LogInPage\poppins\Poppins-ThinItalic.ttf" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -472,8 +576,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\CSS\Custom\LogInPage\" />
-    <Folder Include="Assets\JavaScript\Custom\LogInPage\" />
     <Folder Include="Models\Services\" />
   </ItemGroup>
   <ItemGroup>
@@ -509,7 +611,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62663</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62663/</IISUrl>
+          <IISUrl>https://localhost:44310/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

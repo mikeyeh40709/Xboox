@@ -64,7 +64,7 @@ namespace Xboox.Models
 
     public class RegisterViewModel
     {
-        //註冊欄新增電話號碼
+        //註冊欄新增 暱稱
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "暱稱")]
@@ -75,7 +75,7 @@ namespace Xboox.Models
         [Display(Name = "電子郵件")]
         public string Email { get; set; }
 
-        //註冊欄新增電話號碼
+        //註冊欄新增 電話號碼
         [Required]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "電話")]

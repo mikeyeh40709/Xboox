@@ -1,77 +1,172 @@
 ﻿@using Xboox.Models
 @model LoginViewModel
-@*@{
-    ViewBag.Title = "會員登入";
-}*@
 
-<h4 class="text-center my-5">會員登入</h4>
-<hr />
-<div class="d-flex">
-    <div class="mx-auto">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <div class="d-inline-block">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-                        <div>
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-                        <div>
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
+
+@*<h4 class="text-center my-5">會員登入</h4>
+    <hr />
+    <div class="d-flex">
+        <div class="mx-auto">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="d-inline-block">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                            <div>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2">
-                            <input type="submit" value="登入" class="btn btn-primary" />
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            <div>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2">
+                                <input type="submit" value="登入" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                無法登入嗎? 試試看
+                                只要您的密碼重設功能能夠進行帳戶確認，就啟用此項
+                                <span>
+                                    @Html.ActionLink("忘記密碼", "ForgotPassword")
+                                </span>/
+                                <span>
+                                    @Html.ActionLink("註冊", "Register")
+                                </span>
+                            </p>
+                        </div>
+
                     </div>
-                    <div>
-                        <p>
-                            無法登入嗎? 試試看
-                            @*只要您的密碼重設功能能夠進行帳戶確認，就啟用此項*@
-                            <span>
-                                @Html.ActionLink("忘記密碼", "ForgotPassword")
-                            </span>/
-                            <span>
-                                @Html.ActionLink("註冊", "Register")
-                            </span>
-                        </p>
-                    </div>
-                    
+                }
+            </section>
+        </div>
+    </div>
+    <hr />
+    <div class="d-flex">
+        外部登入的渲染code
+        <div class="d-inline-block mx-auto mb-3">
+            <p class="text-center">使用其他社群帳號登入</p>
+
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+
+    </div>*@
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+@section topCSS{
+    <link href="~/Assets/fonts/LogInPage/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/Vendor/LogInPage/animate/animate.css" rel="stylesheet" />
+    <link href="~/Assets/Vendor/LogInPage/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
+    <link href="~/Assets/Vendor/LogInPage/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/Custom/LogInPage/main.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/Custom/LogInPage/util.css" rel="stylesheet" />
+}
+
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="~/Assets/Image/Pics/LogInPageLogo.png" alt="IMG" style="width:300px; height:300px;">
                 </div>
-            }
-        </section>        
-    </div>    
-</div>
-<hr />
-<div class="d-flex">
-    @*外部登入的渲染code*@
-    <div class="d-inline-block mx-auto mb-3">
-        <p class="text-center">使用其他社群帳號登入</p>
-        
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                 {
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title">
+                            會 員 登 入
+                        </span>
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label d-block" })
+                        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                            @*<input class="input100" type="text" name="email" placeholder="Email">*@
+
+                            @Html.TextBoxFor(m => m.Email, new { @class = "input100" })
+
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                        @Html.LabelFor(m => m.Password, new { @class = "control-label d-block" })
+                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                            @*<input class="input100" type="password" name="pass" placeholder="Password">*@
+
+                            @Html.PasswordFor(m => m.Password, new { @class = "input100" })
+
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    <div class="container-login100-form-btn">
+
+                        <input type="submit" value="登入" class="login100-form-btn" />
+                        @*<button class="login100-form-btn">
+                            Login
+                        </button>*@
+                    </div>
+
+                        <div class="text-center p-t-12">
+                            <span class="txt1">
+                                Forgot
+                            </span>
+                            <a class="txt2" href="#">
+                                Username / Password?
+                            </a>
+                        </div>
+
+                        <div class="text-center p-t-136">
+                            <a class="txt2" href="#">
+                                Create your Account
+                                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </form>
+                 }
+                </div>                
+        </div>
     </div>
 
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+    @section endJS{
+        <script src="~/Assets/Vendor/LogInPage/jquery/jquery-3.2.1.min.js"></script>
+        <script src="~/Assets/Vendor/LogInPage/select2/select2.min.js"></script>
+        <script src="~/Assets/Vendor/LogInPage/tilt/tilt.jquery.min.js"></script>
+        <script>
+            $('.js-tilt').tilt({
+                scale: 1.1
+            })
+        </script>
+        <script src="~/Assets/JavaScript/Custom/LogInPage/main.js"></script>
+    }
