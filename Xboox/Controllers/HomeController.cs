@@ -15,34 +15,15 @@ namespace Xboox.Controllers
         private XbooxContext context = new XbooxContext();
         public ActionResult Index()
         {
-            List<ProductDetailViewModel> item = new List<ProductDetailViewModel>();
-            var query = (from p in context.Product
-                         join pi in context.ProductImgs
-                        on p.ProductId equals pi.ProductId
-                        join t in context.ProductTags
-                        on p.ProductId equals t.ProductId
-                         select new ProductDetailViewModel
-                         {
-                             Name = p.Name,
-                             Quantity = p.Quantity,
-                             ISBN = p.ISBN,
-                             Price = p.Price,
-                             Publisher = p.Publisher,
-                             Description = p.Description,
-                             Specification = p.Specification,
-                             Intro = p.Intro,
-                             Author = p.Author,
-                             Language = p.Language,
-                             Tag = t.TagId.ToString(),
-                             ProductId = p.ProductId.ToString(),
-                             PublishedDate = p.PublishedDate.ToString().Remove(11),
-                             imgLink = pi.imgLink
-                         }).ToList();
-            foreach (var product in query)
+            var products = context.Product.ToList().Select(y => new ProductDetailViewModel
             {
-                item.Add(product);
-            }
-            return View(item);
+                Name = y.Name,
+                Price = y.Price,
+                Tag = context.ProductTags.FirstOrDefault(z => z.ProductId == y.ProductId).TagId.ToString(),
+                imgLink = context.ProductImgs.FirstOrDefault(k => k.ProductId == y.ProductId).imgLink,
+                ProductId = y.ProductId.ToString()
+            });
+            return View(products);
         }
         public ActionResult ProductDetail(string id)
         {

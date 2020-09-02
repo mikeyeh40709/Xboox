@@ -17,7 +17,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort>44370</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -236,17 +237,50 @@
     <Content Include="Assets\Image\Origin\favicon.ico" />
     <Content Include="Assets\Image\Pics\adpic01.jpg" />
     <Content Include="Assets\Image\Pics\cn01-invest01-comic01-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn01-invest01-comic01-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn01-invest01-comic01-04.jpg" />
     <Content Include="Assets\Image\Pics\cn01-invest01-comic01.jpg" />
+    <Content Include="Assets\Image\Pics\cn02-invest02-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn02-invest02-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn02-invest02-04.jpg" />
     <Content Include="Assets\Image\Pics\cn02-invest02.jpg" />
+    <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01-04.jpg" />
     <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01.jpg" />
+    <Content Include="Assets\Image\Pics\cn04-fin02-02.jpg" />
     <Content Include="Assets\Image\Pics\cn04-fin02.jpg" />
+    <Content Include="Assets\Image\Pics\cn05-human01-novel01-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn05-human01-novel01-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn05-human01-novel01-04.jpg" />
     <Content Include="Assets\Image\Pics\cn05-human01-novel01.jpg" />
+    <Content Include="Assets\Image\Pics\cn06-human02-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn06-human02-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn06-human02-04.jpg" />
     <Content Include="Assets\Image\Pics\cn06-human02.jpg" />
+    <Content Include="Assets\Image\Pics\cn07-human03-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn07-human03-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn07-human03-04.jpg" />
+    <Content Include="Assets\Image\Pics\cn07-human03.jpg" />
+    <Content Include="Assets\Image\Pics\cn08-fantasy01-novel03-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn08-fantasy01-novel03-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn08-fantasy01-novel03.jpg" />
+    <Content Include="Assets\Image\Pics\cn09-program01-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn09-program01-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn09-program01-04.jpg" />
+    <Content Include="Assets\Image\Pics\cn09-program01.jpg" />
+    <Content Include="Assets\Image\Pics\cn10-health01-ebook03-02.jpg" />
+    <Content Include="Assets\Image\Pics\cn10-health01-ebook03-03.jpg" />
+    <Content Include="Assets\Image\Pics\cn10-health01-ebook03-04.jpg" />
+    <Content Include="Assets\Image\Pics\cn10-health01-ebook03.jpg" />
+    <Content Include="Assets\Image\Pics\en01-invest03-mic02-02.jpg" />
+    <Content Include="Assets\Image\Pics\en01-invest03-mic02-03.jpg" />
+    <Content Include="Assets\Image\Pics\en01-invest03-mic02-04.jpg" />
     <Content Include="Assets\Image\Pics\en01-invest03-mic02.jpg" />
     <Content Include="Assets\Image\Pics\en02-fin03-mag02-ebook02.jpg" />
+    <Content Include="Assets\Image\Pics\en03-human03-novel02-02.jpg" />
     <Content Include="Assets\Image\Pics\en03-human03-novel02.jpg" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
-    <Content Include="Assets\Image\Pics\cn01.jpg" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />
