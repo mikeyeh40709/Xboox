@@ -46,12 +46,6 @@ namespace Xboox.Models.DataTable
                 .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<AspNetUsers>()
-                .HasMany(e => e.Cart)
-                .WithRequired(e => e.AspNetUsers)
-                .HasForeignKey(e => e.UserId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.Order)
                 .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.UserId)

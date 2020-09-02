@@ -24,23 +24,23 @@ namespace Xboox.Models.Services
             cart.ShoppingCartId = cart.GetCartId(context);
             return cart;
         }
-        public static  ShoppingCartManage GetCart(Controller controller)
+        public static ShoppingCartManage GetCart(Controller controller)
         {
-         
+
             return GetCart(controller.HttpContext);
         }
 
-        public void AddToCart(Product p , HttpContextBase context)
+        public void AddToCart(Product p, HttpContextBase context)
         {
             var cart = xbooxDb.Cart.SingleOrDefault(
                 ca => ca.CartId.ToString() == ShoppingCartId);
 
-            if (cart==null)
+            if (cart == null)
             {
                 cart = new Cart
                 {
-                    CartId=Guid.Parse(ShoppingCartId),
-                    UserId= context.User.Identity.GetUserId(),
+                    CartId = Guid.Parse(ShoppingCartId),
+                    UserId = ShoppingCartId
                 };
                 xbooxDb.Cart.Add(cart);
                 xbooxDb.SaveChanges();
@@ -54,7 +54,7 @@ namespace Xboox.Models.Services
                 cartItem = new CartItems
                 {
                     //這邊要考慮一下
-                    CartId= Guid.Parse(ShoppingCartId),           
+                    CartId = Guid.Parse(ShoppingCartId),
                     ProductId = p.ProductId,
                     Quantity = 1,
                     Id = randomId
@@ -79,22 +79,28 @@ namespace Xboox.Models.Services
             //   {
 
             //   }
+            using (var db = new XbooxContext())
+            {
+                List<CartViewModel> cartList = new List<CartViewModel>();
+                var getFirstItem = (from p in db.Product
+                                join cart in db.CartItems
+                                on p.ProductId equals cart.ProductId
+                                join i in db.ProductImgs
+                                on p.ProductId equals i.ProductId
 
-            var cartList = (from p in xbooxDb.Product
-                            join cart in xbooxDb.CartItems
-                            on p.ProductId equals cart.ProductId
-                            join i in xbooxDb.ProductImgs
-                            on p.ProductId equals i.ProductId
-                           
-                            select new CartViewModel
-                            {
-                                ProductImgLink = i.imgLink,
-                                Name = p.Name,
-                                Price = p.Price,
-                                Count = cart.Quantity
-                                //TotalPrice = cart.Quantity * p.Price
-                            }).ToList();
-            return cartList;//xbooxDb.CartItems.Where(item => item.CartId.ToString() == ShoppingCartId).ToList();
+                                select new CartViewModel
+                                {
+                                    ProductImgLink = i.imgLink,
+                                    Name = p.Name,
+                                    Price = p.Price,
+                                    Count = cart.Quantity
+                                    //TotalPrice = cart.Quantity * p.Price
+                                }).FirstOrDefault();
+                cartList.Add(getFirstItem);
+                return cartList;
+            }
+
+            //xbooxDb.CartItems.Where(item => item.CartId.ToString() == ShoppingCartId).ToList();
 
         }
 
@@ -129,19 +135,14 @@ namespace Xboox.Models.Services
         public void MigrateCart(string userName)
         {
             var shoppingCart = xbooxDb.CartItems.Where(
-                c => c.CartId.ToString() ==  ShoppingCartId);
+                c => c.CartId.ToString() == ShoppingCartId);
 
             foreach (CartItems item in shoppingCart)
             {
-              item.CartId = Guid.Parse( userName);
+                item.CartId = Guid.Parse(userName);
             }
             xbooxDb.SaveChanges();
         }
-        
-      
-
-  
-
         //public int RemoveFromCart(Guid id)
         //{
         //    // Get the cart
@@ -167,11 +168,5 @@ namespace Xboox.Models.Services
         //    }
         //    return itemCount;
         //}
-
-
-
-
-
-
     }
 }

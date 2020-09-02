@@ -17,11 +17,8 @@ namespace Xboox.Models.DataTable
 
         public Guid CartId { get; set; }
 
-        [Required]
         [StringLength(128)]
         public string UserId { get; set; }
-
-        public virtual AspNetUsers AspNetUsers { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CartItems> CartItems { get; set; }
