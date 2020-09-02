@@ -7,7 +7,7 @@ namespace Xboox.ViewModels
 {
     public class ProductDetailViewModel
     {
-        public int Quantity { get; set; }
+        public int UnitInStock { get; set; }
         public string Name { get; set; }
         public string ISBN { get; set; }
         public decimal Price { get; set; }
@@ -21,5 +21,6 @@ namespace Xboox.ViewModels
         public string Language { get; set; }
         public string ProductId { get; set; }
         public string Tag { get; set; }
+        public List<string> imgLinks { get; set; }
     }
 }

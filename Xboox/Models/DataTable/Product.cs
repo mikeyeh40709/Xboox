@@ -24,7 +24,7 @@ namespace Xboox.Models.DataTable
         [Required]
         public string Name { get; set; }
 
-        public int Quantity { get; set; }
+        public int UnitInStock { get; set; }
 
         public decimal Price { get; set; }
 
@@ -49,7 +49,7 @@ namespace Xboox.Models.DataTable
         [StringLength(50)]
         public string Specification { get; set; }
 
-        public DateTime? PublishedDate { get; set; }
+        public DateTime PublishedDate { get; set; }
 
         [StringLength(50)]
         public string Language { get; set; }
