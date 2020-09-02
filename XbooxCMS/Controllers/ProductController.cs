@@ -9,6 +9,8 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Data.Entity.Validation;
 using System.IO;
+using System.Web.SessionState;
+
 
 namespace XbooxCMS.Controllers
 {
@@ -17,15 +19,47 @@ namespace XbooxCMS.Controllers
         
         // GET: Product
         private XbooxContext context;
+        //private static string GetImg(HttpSessionStateBase httpContext)
+        //{
+        //   //HttpSessionState session = HttpContext.Current.Session;
+        //    var session = httpContext.SessionID;
+         
+        //    if (session["fileName"] == null)
+        //    {
+        //        session["fileName"] = "";
+        //    }
+            
+        //    return (string)session["fileName"];
+        //}
+
+        private static string imgString = null;
+        
+        private static string getImg()
+        {
 
 
-      
+            if (imgString == null)
+            {
+                //lock (padlock) //lock此區段程式碼，讓其它thread無法進入。
+                //{
+                //    if (abc == null)
+                //    {
+                //        abc = "";
+                //    }
+                //}
+                imgString = "";
+            }
+            return imgString;
+        }
+
+
         public IEnumerable<Tags> GetAllTags()
         {
             return context.Tags;
         }
         public ProductController()
         {
+
             if (context == null)
             {
                 context = new XbooxContext();
@@ -44,36 +78,41 @@ namespace XbooxCMS.Controllers
         {
             var productList = context.Product.ToList();
             List<ProductListViewModel> result = new List<ProductListViewModel>();
+            var list = from p in context.Product
+                       join c in context.Category
+                       on p.CategoryId equals c.CategoryId
+                       select new ProductListViewModel()
+                       {
+                           ProductId = Guid.NewGuid(),
+                           Name = p.Name,
+                           UnitInStock = p.UnitInStock,
+                           Price = p.Price,
+                           Author = p.Author,
+                           PublishedDate = p.PublishedDate.ToString(),
+                           CategorName = c.Name
+                       };
+                        
             foreach(var item in productList)
             {
                 result.Add(new ProductListViewModel()
                 {
                    // ProductId = Guid.NewGuid(),
                     Name = item.Name,
-                    Quantity = item.UnitInStock,
+                    UnitInStock = item.UnitInStock,
                     Price = item.Price,
                     Author = item.Author,
-                  //  PublishedDate = item.PublishedDate,
-                    
-                    
+                    PublishedDate = item.PublishedDate.ToString(),
+                    //CategorName = from i in item.CategoryId
+                    //              join c in context.Category.ToList()
+                    //              on item.CategoryId equals c.CategoryId select item.Name +
+   
+
                     //欄位
                 });
                 
             }
-            List<ProductListViewModel> products = new List<ProductListViewModel>
-            {
-               new ProductListViewModel{ProductId = Guid.NewGuid() ,Name = "人間失格",Quantity = 236, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = Guid.NewGuid() ,Name = "人間失格",Quantity = 236, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = Guid.NewGuid() ,Name = "人間失格",Quantity = 236, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = Guid.NewGuid() ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = Guid.NewGuid() ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"},
-               new ProductListViewModel{ProductId = productId ,Name = "人間失格",Quantity = 200, Price = 150,Author = "太宰治",PublishedDate = "11-15-2019"}
-            };
-            return View(products);
+         
+            return View(list);
         }
 
         /// <summary>
@@ -144,16 +183,16 @@ namespace XbooxCMS.Controllers
             //    var getFullMessage = string.Join("; ", entityError);
             //    var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
             //}
-
+            
             return RedirectToAction("Create","Product");
         }
 
-       private ProductTags AddedTag(Product product, List<string> SelectedTags,ProductTags tags)
+       private void AddedTag(Product product, List<string> SelectedTags,ProductTags tags)
         {
            
-            if (SelectedTags == null)
+            if (SelectedTags.Count==0)
             {
-                return null;
+                return ;
             }
 
             {
@@ -199,7 +238,7 @@ namespace XbooxCMS.Controllers
 
             context.SaveChanges();
             // context.ProductTags.Add(tags);
-            return tags;
+          
            // context.SaveChanges();
         }
     
@@ -281,17 +320,38 @@ namespace XbooxCMS.Controllers
         //把imgid以字串[1,2,3...]的方式加進Product表格
         private void PutImgs(Product product)
         {
-            List<ProductImgs> productImgs = new List<ProductImgs>();
-            foreach (var i in (List<string>)Session["fileName"])
+           var productImgs = new ProductImgs();
+            var imgList = imgString.Split(',').Where(x=>x!="").ToList();
+            
+
+
+
+
+
+            foreach (var i in imgList)
             {
-                productImgs.Add(new ProductImgs() { imgLink = i, ProductId = product.ProductId });
+                 productImgs = new ProductImgs()
+                {
+                    // ProductImgId = 0,
+                     imgLink = i,
+                    ProductId = product.ProductId,
+                };
+                context.ProductImgs.Add(productImgs);
+                //productImgs.Add(new ProductImgs() { imgLink = i.ToString(), ProductId = product.ProductId });
             }
-            var imgs = productImgs.Where(x => x.ProductId == product.ProductId);
-            foreach (var i in imgs)
-            {
-                product.ProductImgId = i.ProductImgId + ",";
+       
+
+           // context.SaveChanges();
+
+          //  var PiList = new List<ProductImgs>();
+           // var img = productImgs
+        ///    var productImgs = productImgs.Where(x => x.ProductId == product.ProductId);
+        //    freach (var i in productImgs)
+        //   {
+             //   product.ProductImgId = i.ProductImgId + ",";
                 //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
-            }
+         //   }
+            imgString = null;
              context.SaveChanges();
         }
 
@@ -301,10 +361,10 @@ namespace XbooxCMS.Controllers
         [HttpPost]
         public ActionResult Upload(IEnumerable<HttpPostedFileBase> filepond)
         {
-            foreach (var file in filepond)
-            {
-                if (file != null && file.ContentLength > 0)
-                {
+            //foreach (var file in filepond)
+           // {
+               // if (file != null && file.ContentLength > 0)
+                //{
                     //var fileName = Path.GetFileName(file.);
                   //  var path = Path.Combine(Server.MapPath("~Assets/Pics"), fileName);
                     //要設定傳入product或 productId
@@ -312,49 +372,66 @@ namespace XbooxCMS.Controllers
                    // productImgs.Add(new ProductImgs() { imgLink = path, ProductId = product.ProductId });
                    // file.SaveAs(path);
 
-                }
-            }
+                //}
+           // }
             //var Files = Request.Files;
 
             if (Request.Files.Count > 0)
             {
                 var files = Request.Files;
 
-                //if (file != null && file.ContentLength > 0)
-                //{
+                           //if (file != null && file.ContentLength > 0)
+                           //{
 
-                //    var path = Path.Combine(Server.MapPath("../Assets/Pics"), file.FileName);
-                //    //放進session
-                //    Session["fileName"] = Request.Files[0].FileName;
+                           //    var path = Path.Combine(Server.MapPath("../Assets/Pics"), file.FileName);
+                           //    //放進session
+                           //    Session["fileName"] = Request.Files[0].FileName;
 
-                //    sessiontest = (string)Session[$"{Request.Files[0].FileName }"];
-                //   // productImgs.Add(new ProductImgs())
-                //    file.SaveAs(path);
-                //}
-                List<string>fileNameList = new List<string>();
-               // if (Request.Files.Count > 0)
-               // { }
-              //  for (var i = 0; i < files.Count; i++)
-               // {
-                   // if (files[i] != null && files[i].ContentLength != 0)
-                   // {
-                        var fileName = files[0].FileName;
+                           //    sessiontest = (string)Session[$"{Request.Files[0].FileName }"];
+                           //   // productImgs.Add(new ProductImgs())
+                           //    file.SaveAs(path);
+                           //}
+
+                           // if (Request.Files.Count > 0)
+                           // { }
+                           //  for (var i = 0; i < files.Count; i++)
+                           // {
+                           // if (files[i] != null && files[i].ContentLength != 0)
+                           // {
+                           var fileName = files[0].FileName;
+                       
                         var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
 
                         //Session[$"fileName{i}"] = fileName;
-                       
-                        
                         //productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
                         files[0].SaveAs(path);
-                   // }
-               // }
-                fileNameList.Add(fileName);
-                Session["fileName"] = fileNameList;
+                // }
+                // }
+
+                //if (Session["fileName"] == null)
+                //{
+                //    Session["fileName"] = fileName;
+                //    Debug.WriteLine("getsssion");
+                //}
+                //else
+                //{
+                //    Session["fileName"] = Session["fileName"] + "," +fileName;
+                //    Debug.WriteLine("getsssion2");
+                //}
+
+
+
+                imgString = getImg()  + fileName + ",";
+
+                // List<string> fileNameList = (List<string>)Session["fileName"];
+                //  fileNameList.Add(fileName);
+                //  Session["fileName"] = fileNameList;
+
                 //ViewBag.List = fileNameCollection;
             }
             //;
-            return Json("fileUpload");
-         
+            //return Json($"fileUpload {Session["fileName"]}");
+            return Json($"fileUpload {imgString}");
 
             //if (Request.Files.Count > 0)
             //{ }
@@ -380,7 +457,11 @@ namespace XbooxCMS.Controllers
         }
 
      
-
+        [HttpDelete]
+        public ActionResult Upload(string imgId)
+        {
+            return View();
+        }
 
 
         /// <summary>
@@ -392,31 +473,6 @@ namespace XbooxCMS.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult CreateTag(Tags tags)
-        {
-      
-            if (ModelState.IsValid)
-            {
-                //var viewModel = new TagViewModel()
-                //{
-                //    TagId = Guid.NewGuid(),
-                //    TagName 
-                //}
-
-                tags.TagId = Guid.NewGuid();
-                context.Tags.Add(tags);
-                context.SaveChanges();
-                return RedirectToAction("Index","Home");
-            }
-            else
-            {
-                Debug.WriteLine("新增失敗");
-                    return View();
-                
-            }
-
-          
-        }
+   
     }
 }

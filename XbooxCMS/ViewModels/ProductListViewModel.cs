@@ -16,7 +16,7 @@ namespace XbooxCMS.ViewModels
         [StringLength(50)]
         public string Name { get; set; }
 
-        public int Quantity { get; set; }
+        public int UnitInStock { get; set; }
 
         public decimal Price { get; set; }
 
