@@ -23,14 +23,6 @@ namespace Xboox.Controllers
 
         public ActionResult ShopCart()
         {
-            ////var cartItems = _context.CartItmes.ToList();
-            //List<CartViewModel> carts = new List<CartViewModel>()
-            //{
-            //    new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67},
-            //    new CartViewModel{Name="Wellness And Paradise",ProductImg="Wellnes.png",Total=67}
-            //};
-
-            //return View(carts);
 
             List<ProductDetailViewModel> item = new List<ProductDetailViewModel>();
             var query = from p in context.Product
@@ -39,7 +31,7 @@ namespace Xboox.Controllers
                         select new ProductDetailViewModel
                         {
                             Name = p.Name,
-                            Quantity = p.Quantity,
+                            UnitInStock = p.UnitInStock,
                             Price = p.Price,
                             imgLink = pi.imgLink
                         };

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Xboox.Models;
 
+
 namespace Xboox.Controllers
 {
     [Authorize]

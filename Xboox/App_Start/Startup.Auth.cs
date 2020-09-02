@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using Xboox.Models;
 
+
 namespace Xboox
 {
     public partial class Startup

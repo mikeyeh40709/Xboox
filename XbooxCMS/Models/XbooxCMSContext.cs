@@ -8,7 +8,7 @@ namespace XbooxCMS.Models
     public partial class XbooxCMSContext : DbContext
     {
         public XbooxCMSContext()
-            : base("name=XbooxCMS1")
+            : base("name=ModelContext")
         {
         }
 
@@ -90,20 +90,17 @@ namespace XbooxCMS.Models
                 .Property(e => e.UnitPrice)
                 .HasPrecision(18, 6);
 
-            modelBuilder.Entity<OrderDetails>()
-                .Property(e => e.Quantity)
-                .IsFixedLength();
-
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)
                 .HasPrecision(18, 6);
 
             modelBuilder.Entity<Product>()
-                .Property(e => e.ProductImgId)
-                .IsFixedLength();
+                .HasMany(e => e.CartItmes)
+                .WithRequired(e => e.Product)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Product>()
-                .HasMany(e => e.CartItmes)
+                .HasMany(e => e.OrderDetails)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
 
@@ -123,10 +120,6 @@ namespace XbooxCMS.Models
                 .WithRequired(e => e.Product1)
                 .HasForeignKey(e => e.ProductId)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ProductImgs>()
-                .Property(e => e.ProductImgId)
-                .IsFixedLength();
         }
     }
 }

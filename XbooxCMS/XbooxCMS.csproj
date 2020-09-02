@@ -187,6 +187,7 @@
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\XbooxCMSContext.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Product.cs" />
@@ -194,7 +195,6 @@
     <Compile Include="Models\ProductTags.cs" />
     <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\WishList.cs" />
-    <Compile Include="Models\XbooxCMSContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateViewModel.cs" />
