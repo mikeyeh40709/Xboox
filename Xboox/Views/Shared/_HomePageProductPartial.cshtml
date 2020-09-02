@@ -1,19 +1,18 @@
 ﻿@model Xboox.ViewModels.ProductDetailViewModel
-
 <div class="col-lg-3 col-md-4 col-sm-6 mix @Model.Tag">
     <div class="product__item">
         @*<div class="product__item__pic set-bg" data-setbg="@(Model.imgLink).jpg" onclick="showDetail(@Model.ProductId)">*@
-        <div class="product__item__pic set-bg" data-setbg="Assets/Image/Pics/@(Model.imgLink).jpg">
+        <div class="product__item__pic set-bg" data-setbg="../Assets/Image/Pics/@(Model.imgLink).jpg">
             @*<div class="label new">New</div>*@
             <ul class="product__hover">
                 <li>
-                    <a href="Assets/Image/Pics/@(Model.imgLink).jpg" class="image-popup">
+                    <a href="../Assets/Image/Pics/@(Model.imgLink).jpg" class="image-popup">
                         <span class="arrow_expand"></span>
                     </a>
                 </li>
                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                 <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                <li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>
+                <li><a href="@Url.Action("ProductDetail","Home",new { id = Model.ProductId })"><span class="fas fa-question"></span></a></li>
             </ul>
         </div>
         <div class="product__item__text">

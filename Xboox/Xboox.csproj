@@ -234,7 +234,8 @@
     <Content Include="Assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
-    <Content Include="Assets\Image\Pics\ad.jpg" />
+    <Content Include="Assets\Image\Pics\adpic01.jpg" />
+    <Content Include="Assets\Image\Pics\cn01-invest01-comic01-02.jpg" />
     <Content Include="Assets\Image\Pics\cn01-invest01-comic01.jpg" />
     <Content Include="Assets\Image\Pics\cn02-invest02.jpg" />
     <Content Include="Assets\Image\Pics\cn03-fin01-mag01-ebook01.jpg" />
