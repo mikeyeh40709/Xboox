@@ -32,7 +32,7 @@ namespace XbooxCMS.ViewModels
         public string Publisher { get; set; }
 
         [StringLength(10)]
-        public string PublishedDate { get; set; }
+        public DateTime PublishedDate { get; set; }
 
         public string Intro { get; set; }
 

@@ -5,13 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/css/uikit.min.css" />
+@*//<link href="~/Assets/Css/datatablestyle.css" rel="stylesheet" />*@
 <h2>ProductManagement</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<table class="table" id="Producytable">
+<table class="table uk-table uk-table-striped uk-table uk-table-hover" id="Producytable">
     <thead>
         <tr>
             <th>
@@ -84,9 +86,13 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <input type="button" class="uk-button uk-button-default" value="Edit" onclick="location.href='@Url.Action("Edit", "Product",new{id=item.ProductId })'" />
+                    <input type="button" class="uk-button uk-button-default" value="Details" onclick="location.href='@Url.Action("Details", "Product",new{id=item.ProductId })'" />
+                    <input type="button" class="uk-button uk-button-default" value="Delete" onclick="location.href='@Url.Action("Delete", "Product",new{id=item.ProductId })'" />
+                    @*<button class="uk-button uk-button-default" onclick=location.href ='@Url.Action("Edit","Product",null, new{id=item.ProductId })'></button>*@
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductId, @class = "uk-button uk-button-default" })*@
+                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                 </td>
             </tr>
 
@@ -94,6 +100,11 @@
     </tbody>
 
 </table>
+
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit-icons.min.js"></script>
+
 @section scripts{
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script type="text/javascript">

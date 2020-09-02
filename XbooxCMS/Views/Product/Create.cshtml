@@ -51,6 +51,13 @@
                         </div>
                     </div>
                     <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">語言</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.Language, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.Language)
+                        </div>
+                    </div>
+                    <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">出版社</label>
                         <div class="col-sm-5">
                             @Html.TextBoxFor(m => m.Products.Publisher, new { @class = "form-control", placeholder = "placeholder" })
@@ -58,24 +65,30 @@
                         </div>
                     </div>
                     @*<div class="form-group form-display">
-                            <label for="field-1" class="col-sm-3 control-label">出版時間</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Products.PublishedDate, new { @class = "form-control", placeholder = "placeholder" })
-                                @Html.ValidationMessageFor(m => m.Products.PublishedDate)
+            <label for="field-1" class="col-sm-3 control-label">出版時間</label>
+            <div class="col-sm-5">
+                @Html.TextBoxFor(m => m.Products.PublishedDate, new { @class = "form-control", placeholder = "placeholder" })
+                @Html.ValidationMessageFor(m => m.Products.PublishedDate)
 
-                            </div>
-                        </div>*@
+            </div>
+        </div>*@
                     <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">出版時間</label>
                         <div class="col-sm-5">
                             @*<input type="date" />*@
                             @*@Html.TextBoxFor(model => model.CreationDate, "{0:yyyy-MM-dd}", new { type = "date" })*@
-                            @Html.TextBoxFor(m => m.Products.PublishedDate, "{0:yyyy-MM-dd}", new { type = "date" })
+                            @Html.TextBoxFor(m => m.Products.PublishedDate, "{0:2020-MM-dd}", new { type = "date" })
                             @Html.ValidationMessageFor(m => m.Products.PublishedDate)
 
                         </div>
                     </div>
-
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">規格</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.Specification, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.Specification)
+                        </div>
+                    </div>
                     <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">ISBN</label>
                         <div class="col-sm-5">
@@ -126,20 +139,27 @@
                      model => model.SelectedTags
                    )
                             @*@foreach(var box in Model.Tags)
-                                {
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="selectedBox" value="@box.TagId" @if (Model.PostedTagIds.Contains(box.TagId.ToString())) { @Html.Raw("checked = 'checked'")}/>@box.TagName
-                                        </label>
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="selectedBox" value="@box.TagId" @if (Model.PostedTagIds.Contains(box.TagId.ToString())) { @Html.Raw("checked = 'checked'")}/>@box.TagName
+                        </label>
 
-                                    </div>
-                                }*@
+                    </div>
+                }*@
 
                         </div>
                     </div>
 
                     <div class="form-group form-display">
                         <label for="field-ta" class="col-sm-3 control-label">簡述</label>
+                        <div class="col-sm-5">
+                            <textarea class="form-control" id="field-ta" placeholder="Textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-display">
+                        <label for="field-ta" class="col-sm-3 control-label">內文</label>
                         <div class="col-sm-5">
                             <textarea class="form-control" id="field-ta" placeholder="Textarea"></textarea>
                         </div>

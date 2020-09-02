@@ -83,12 +83,13 @@ namespace XbooxCMS.Controllers
                        on p.CategoryId equals c.CategoryId
                        select new ProductListViewModel()
                        {
-                           ProductId = Guid.NewGuid(),
+                           ProductId = p.ProductId,
                            Name = p.Name,
                            UnitInStock = p.UnitInStock,
                            Price = p.Price,
+                           Publisher = p.Publisher,
                            Author = p.Author,
-                           PublishedDate = p.PublishedDate.ToString(),
+                           PublishedDate = p.PublishedDate,
                            CategorName = c.Name
                        };
                         
@@ -101,7 +102,7 @@ namespace XbooxCMS.Controllers
                     UnitInStock = item.UnitInStock,
                     Price = item.Price,
                     Author = item.Author,
-                    PublishedDate = item.PublishedDate.ToString(),
+                    PublishedDate = item.PublishedDate,
                     //CategorName = from i in item.CategoryId
                     //              join c in context.Category.ToList()
                     //              on item.CategoryId equals c.CategoryId select item.Name +
@@ -250,8 +251,8 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
-            var product = context.Product.Find(id);
-            if (product != null)
+            var product = context.Product.FirstOrDefault(p => p.ProductId == id);
+            if (product == null)
             {
 
                 return HttpNotFound();
@@ -262,6 +263,8 @@ namespace XbooxCMS.Controllers
 
                 var viewModel = new CreateViewModel()
                 {
+                    
+                    
                     Products = product,
                     Tags = context.Tags.ToList(),
                     Categories = context.Category.ToList(),
@@ -275,7 +278,7 @@ namespace XbooxCMS.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Product product)
         {
@@ -306,9 +309,24 @@ namespace XbooxCMS.Controllers
         {
             return View();
         }
-        public ActionResult Delete()
+
+
+        [ActionName("Delete")]
+        [HttpPost]
+        public ActionResult ComfirmDelete(Guid? id)
         {
-            return View();
+            Product product = context.Product.SingleOrDefault(p => p.ProductId == id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                context.Product.Remove(product);
+                context.SaveChanges();
+                return RedirectToAction("Index","Product");
+            }
+           
         }
 
 
@@ -464,6 +482,7 @@ namespace XbooxCMS.Controllers
         }
 
 
+
         /// <summary>
         /// 創造標籤
         /// </summary>
@@ -473,6 +492,36 @@ namespace XbooxCMS.Controllers
             return View();
         }
 
-   
+        [HttpPost]
+        public ActionResult CreateTag(Tags tags)
+        {
+
+            if (ModelState.IsValid)
+            {
+                //var viewModel = new TagViewModel()
+                //{
+                //    TagId = Guid.NewGuid(),
+                //    TagName 
+                //}
+
+                tags.TagId = Guid.NewGuid();
+                context.Tags.Add(tags);
+                context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+
+                return View();
+
+            }
+
+
+        }
+        protected override void Dispose(bool disposing)
+        {
+            context.Dispose();
+        }
+
     }
 }
