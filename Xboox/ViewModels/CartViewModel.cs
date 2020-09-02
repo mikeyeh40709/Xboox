@@ -4,16 +4,18 @@ using System.Linq;
 using System.Web;
 using Xboox.Models.DataTable;
 
-namespace Xboox.Models.ViewModels
+namespace Xboox.ViewModels
 {
     public class CartViewModel
     {
-        public Guid Id { get; set; }
-        public List<CartItmes> CartItems { get; set; }
+        //public Guid Id { get; set; }
+     //   public List<CartItems> CartList { get; set; }
         public string ProductImgLink { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
-        //public string MyProperty { get; set; }
+        ////public string MyProperty { get; set; }
         public decimal Price { get; set; }
+        //public decimal TotalPrice{get;set;}
+
     }
 }

@@ -1,4 +1,5 @@
-﻿@model Xboox.Models.ViewModels.CartViewModel
+﻿@model IEnumerable<Xboox.ViewModels.CartViewModel>
+
 @{
     ViewBag.Title = "ShopCart";
 }
@@ -26,7 +27,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Product</th>
+                                <th>Product </th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
@@ -34,12 +35,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @*@foreach (var data in Model)
+                            @foreach (var item in Model)
                             {
-                                @Html.Partial("_ShopCartPartialView", data);
-                            }*@                    
-                            
+                                <tr>
+                                    <td class="cart__product__item">
+                                       <img src="~/Assets/Image/Pics/@(item.ProductImgLink).jpg" style="width:50px" alt="圖片壞掉拉">
+                                        <div class="cart__product__item__title">
+                                            <h6>@item.Name</h6>
 
+                                        </div>
+                                    </td>
+                                    <td class="cart__price"></td>
+                                    <td class="cart__quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="@item.Count" class="cart__count">
+                                        </div>
+                                    </td>
+                                    <td class="cart__total">@item.Price</td>
+                                    <td class="cart__close">
+                                        <button type="button" class="close" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            }
 
 
                         </tbody>
@@ -66,7 +86,7 @@
                     <h6>Discount codes</h6>
                     <form action="#">
                         <input type="text" placeholder="Enter your coupon code">
-                        <button class="site-btn" type="submit" >Apply</button>
+                        <button class="site-btn" type="submit">Apply</button>
                     </form>
                 </div>
             </div>

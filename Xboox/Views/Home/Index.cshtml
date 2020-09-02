@@ -141,3 +141,22 @@
     </div>
 </section>
 <!-- Services Section End -->
+@*<script>
+    window.addEventListener("load", function () {
+        let addCartBtn = $(".icon_bag_alt");
+        addCartBtn.click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Cart/AddToCart",
+                data: { "id": `${this.id}`},
+                success: function (result) {
+                    console.log(result);
+                }
+            }).done(function () {
+                console.log("成功");
+            }).fail(function () {
+                console.log("失敗");
+            })
+        })
+    })
+</script>*@

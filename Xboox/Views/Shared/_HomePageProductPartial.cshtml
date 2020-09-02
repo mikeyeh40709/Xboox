@@ -12,8 +12,10 @@
                     </a>
                 </li>
                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                <li><a href="/Cart/AddToCart/@Model.ProductId"><span class="icon_bag_alt"></span></a></li>
-               
+                <li>
+                    <a href="@Url.Action("AddToCart", "Cart", new { id = @Model.ProductId })"><span class="icon_bag_alt" id="@Model.ProductId"></span></a>
+                </li>
+
                 <li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>
             </ul>
         </div>
