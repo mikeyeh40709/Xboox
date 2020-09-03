@@ -45,13 +45,13 @@
 
                                         </div>
                                     </td>
-                                    <td class="cart__price">@item.Price</td>
+                                    <td class="cart__price">@Convert.ToInt32(item.Price)</td>
                                     <td class="cart__quantity">
                                         <div class="pro-qty">
-                                            <input type="text" value="@item.Count" class="cart__count">
+                                            <input type="text" value="@item.Quantity" class="cart__count">
                                         </div>
                                     </td>
-                                    <td class="cart__total"></td>
+                                    <td class="cart__total">@Convert.ToInt32(item.TotalPrice) </td>
                                     <td class="cart__close">
                                         <button type="button" class="close" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -70,8 +70,8 @@
         @* 從這裡開始是兩個button *@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="cart__btn">
-                    <a href="#">Continue Shopping</a>
+                <div class="cart__btn">@(Html.ActionLink("Continue Shopping", "Index","Home"))
+                   
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -95,7 +95,7 @@
                     <h6>Cart total</h6>
                     <ul>
                         <li>Total <span class="cart__total"></span></li>
-                        <li>Discounted Price<span class="discounted_price">$ 750.0</span></li>
+                        <li>Discounted Price<span class="discounted_price"></span></li>
                     </ul>
                     <a href="#" class="primary-btn">Proceed to checkout</a>
                 </div>
@@ -112,5 +112,5 @@
 }
 
 @section EndJS{
-    <script src="~/Assets/JavaScript/Custom/CartPage/shop-cart.js"></script>
+    @*<script src="~/Assets/JavaScript/Custom/CartPage/shop-cart.js"></script>*@
 }

@@ -63,22 +63,5 @@ if (cart_count.length > 0) {
     coupon_function();
 }
 
-//////proceed  button click to next page
-//proceed.addEventListener('click', () => { location.href = 'Bill' });
 
-/////// localstorage
-//let data =
-//    [{
-//        "name": "Wellness And Paradise",
-//        "img": "~/Assets/Image/Pics/Wellness And Paradise.png",
-//        "total": `${total_group[1].innerText}`
-//    },
-//    {
-//        "name": "Wellness And Paradise",
-//        "img": "~/Assets/Image/Pics/Wellness And Paradise.png",
-//        "total": `${total_group[1].innerText}`
-//    }];
-
-//var dataString = JSON.stringify(data);
-//localStorage.setItem("first", dataString);
 
