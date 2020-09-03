@@ -73,7 +73,7 @@ namespace Xboox.Models
         //註冊欄新增 暱稱
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "暱稱")]
+        [Display(Name = "帳號")]
         public string UserName { get; set; }
 
         [Required]  //必填欄位
