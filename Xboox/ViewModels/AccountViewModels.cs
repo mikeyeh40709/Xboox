@@ -70,7 +70,7 @@ namespace Xboox.Models
 
     public class RegisterViewModel
     {
-        //註冊欄新增 暱稱
+        //註冊欄新增 帳號
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "帳號")]
@@ -131,5 +131,13 @@ namespace Xboox.Models
         [EmailAddress]
         [Display(Name = "電話")]
         public string Phone { get; set; }
+    }
+
+    public class UserDetails
+    {
+        public string Account { set; get;}
+        public string Email { set; get; }
+        public string Phone { set; get; }
+        
     }
 }

@@ -16,7 +16,7 @@
         <i class="far fa-user"> @User.Identity.GetUserName() </i>
         <ul class="headerdropdown">
             <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
-            <li><a>會員專區</a></li>
+            <li>@Html.ActionLink("會員專區", "UserDataDetails","Account")</li>
         </ul>
 
     }

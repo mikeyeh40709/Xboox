@@ -81,7 +81,7 @@
     <link href="~/Assets/Vendor/LogInPage/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
     <link href="~/Assets/Vendor/LogInPage/select2/select2.min.css" rel="stylesheet" />
     <link href="~/Assets/CSS/Custom/LogInPage/main.css" rel="stylesheet" />
-    <link href="~/Assets/CSS/Custom/LogInPage/util.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/Custom/LogInPage/util.css" rel="stylesheet" />    
 }
 
 
@@ -89,7 +89,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="~/Assets/Image/Pics/LogInPageLogo.png" alt="IMG" style="width:300px; height:300px;">
+                    <img src="~/Assets/Image/Pics/LogInPageLogo.png" alt="IMG" style="width:375px; height:375px;">
                 </div>
 
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -135,16 +135,20 @@
                         <input type="submit" value="登入" class="login100-form-btn" />
                     </div>
 
-                    @*<div class="text-center p-t-12">
-                <span class="txt1">
-                    Forgot
-                </span>
-                <a class="txt2" href="#">
-                    Username / Password?
-                </a>
-            </div>
+                    <div class="text-center p-t-12">
+                            <p>
+                                無法登入嗎? 試試看
+                                @*只要您的密碼重設功能能夠進行帳戶確認，就啟用此項*@
+                                <span class="border-bottom border-secondary">
+                                    @Html.ActionLink("忘記密碼", "ForgotPassword")
+                                </span>/
+                                <span class="border-bottom border-secondary">
+                                    @Html.ActionLink("註冊", "Register")
+                                </span>
+                            </p>
+                    </div>
 
-            <div class="text-center p-t-136">
+            @*<div class="text-center p-t-136">
                 <a class="txt2" href="#">
                     Create your Account
                     <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
