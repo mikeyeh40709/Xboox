@@ -8,13 +8,12 @@ namespace Xboox.Models.DataTable
 
     public partial class OrderDetails
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public Guid OrderId { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(80)]
         public string ProductName { get; set; }
 
         public Guid ProductId { get; set; }

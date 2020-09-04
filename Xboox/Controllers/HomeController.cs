@@ -13,6 +13,7 @@ using Xboox.ViewModels;
 
 namespace Xboox.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private XbooxContext context = new XbooxContext();
@@ -72,7 +73,8 @@ namespace Xboox.Controllers
                 ProductId = x.ProductId.ToString(),
                 PublishedDate = x.PublishedDate.ToString("yyyy/MM/dd"),
                 imgLinks = context.ProductImgs.Where(z => z.ProductId == x.ProductId).Select(k => k.imgLink).ToList(),
-                imgLink = context.ProductImgs.FirstOrDefault(y => y.ProductId == x.ProductId).imgLink
+                imgLink = context.ProductImgs.FirstOrDefault(y => y.ProductId == x.ProductId).imgLink,
+                Category = context.Category.FirstOrDefault(j=> j.CategoryId == x.CategoryId).Name.ToString()
             });
             var productID = products.FirstOrDefault(x => x.ProductId == id);
             return View(productID);

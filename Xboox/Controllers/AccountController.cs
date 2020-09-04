@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Xboox.Models;
+using Xboox.Models.Services;
+using Xboox.Models.DataTable;
 
 
 namespace Xboox.Controllers
@@ -424,6 +426,21 @@ namespace Xboox.Controllers
 
             base.Dispose(disposing);
         }
+
+        public ActionResult UserDataDetails()
+        {
+            var userdetails = AspNetUserManage.GetUserDetails(this.HttpContext);
+
+            return View(userdetails);
+        }
+
+  
+        //[HttpPut]
+        //public ActionResult UserDataEdit(AspNetUsers users)
+        //{
+        //    var getUser = con
+        //    retun View();
+        //}
 
         #region Helper
         // 新增外部登入時用來當做 XSRF 保護

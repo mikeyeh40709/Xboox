@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Xboox.ViewModels.OrderViewModel>
+@{
+    ViewBag.Title = "Order";
+}
+
+<h2 class="my-3 text-center">所有訂單</h2>
+<section class="shop-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shop__cart__table">
+                    <table class="text-center">
+                        <thead>
+                            <tr>
+                                <th>訂單編號</th>
+                                <th>建立人</th>
+                                <th>建立日期</th>
+                                <th>收件人姓名</th>
+                                <th>收件人信箱</th>
+                                <th>收件人地址</th>
+                                <th>訂單明細</th>
+                                <th>付款狀態</th>
+                                <th>編輯與刪除</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.OrderId</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.OrderDate</td>
+                                    <td>@item.PurchaserName</td>
+                                    <td>@item.PurchaserEmail</td>
+                                    <td>@item.PurchaserAddress</td>
+                                    <td>
+                                        <button class="site-btn bg-info" id="@item.OrderId" data-toggle="modal" data-target="#orderDetails">查看</button>
+                                    </td>
+                                    <td>
+                                        @if (item.StateId == 0)
+                                        {
+                                            <div class="text-danger">未付款</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="text-success">已付款</div>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <input type="button" value="編輯" class="site-btn bg-secondary" data-toggle="modal" data-target="#editOrder">
+                                        <input type="button" value="刪除" id="@item.OrderId" class="site-btn" data-toggle="modal" data-target="#deleteOrder">
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="orderDetails" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="details" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="details">訂單明細</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="text-center">圖片</td>
+                            <td class="text-center">名稱</td>
+                            <td class="text-center">單價</td>
+                            <td class="text-center">數量</td>
+                            <td class="text-center">總價</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="OrderDetailsList">
+    <td><img src="#" alt="productmg" /></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</template>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+@section OrderCSS {
+    <link type="text/css" rel="stylesheet" href="~/Assets/CSS/Custom/OrderPage/CustomOrder.css" />
+}
+@section OrderJS {
+    <script src="~/Assets/JavaScript/Custom/OrderPage/modal.js"></script>
+}

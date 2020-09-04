@@ -1,0 +1,15 @@
+﻿.site-btn {
+    padding: 5px 15px;
+}
+table th,table td {
+    width: 250px;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+@media (min-width: 576px) {
+    .modal-dialog {
+        width: 80%;
+        max-width: 600px;
+        margin: 1.75rem auto;
+    }
+}

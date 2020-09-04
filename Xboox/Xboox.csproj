@@ -185,8 +185,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\BookCategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,14 +209,19 @@
     <Compile Include="Models\DataTable\Tags.cs" />
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Services\GetKey.cs" />
+    <Compile Include="Models\Services\AspNetUserManage.cs" />
+    <Compile Include="Models\Services\OperationResult.cs" />
     <Compile Include="Models\Services\ShoppingCartManage .cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\BookCategoryViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\Services\OrderService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ProductDetailViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartRemoveViewModel.cs" />
   </ItemGroup>
@@ -229,6 +236,7 @@
     <Content Include="Assets\CSS\Custom\LogInPage\main.css" />
     <Content Include="Assets\CSS\Custom\LogInPage\util.css" />
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.css" />
+    <Content Include="Assets\CSS\Custom\OrderPage\CustomOrder.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-grid.min.css" />
     <Content Include="Assets\CSS\Origin\Content\bootstrap-reboot.css" />
@@ -293,6 +301,7 @@
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
+    <Content Include="Assets\JavaScript\Custom\OrderPage\modal.js" />
     <Content Include="Assets\JavaScript\Custom\LogInPage\main.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />
     <Content Include="Assets\TemplateCSS\elegant-icons.css" />
@@ -605,7 +614,14 @@
     <Content Include="Views\SignIn\_ViewStart.cshtml" />
     <Content Include="Views\Cart\ShopCart.cshtml" />
     <Content Include="Views\Shared\_ShopCartPartialView.cshtml" />
+    <Content Include="Views\Order\ManagerView.cshtml" />
+    <Content Include="Views\Order\UserView.cshtml" />
+    <Content Include="Views\Shared\_CartPartialView.cshtml" />
     <Content Include="Views\Shared\_HomePageProductPartial.cshtml" />
+    <Content Include="Views\Shared\_BookCategoryPartialView.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllCnBooks.cshtml" />
+    <Content Include="Views\Account\UserDataDetails.cshtml" />
+    <Content Include="Views\Order\CreateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

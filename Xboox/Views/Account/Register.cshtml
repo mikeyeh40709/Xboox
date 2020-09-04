@@ -3,52 +3,125 @@
     ViewBag.Title = "註冊成會員";
 }
 
-<h3 class="text-center my-3">@ViewBag.Title</h3>
-<hr />
-<div class="d-flex">
-    <div class="mx-auto col-6">
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@*<h3 class="text-center my-3">@ViewBag.Title</h3>
+    <hr />
+    <div class="d-flex">
+        <div class="mx-auto col-6">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-primary" value="註冊" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+@section topCSS{
+    <link href="~/Assets/fonts/LogInPage/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/Custom/LogInPage/main.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/Custom/LogInPage/util.css" rel="stylesheet" />
+}
+
+<div class="limiter">
+    <div class="container-login100 mx-auto">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal col-12 d-flex flex-wrap", role = "form" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="form-group">
+            <span class="login100-form-title flex-wrap"> 會 員 註 冊 </span>
+            <div class=" col-md-6 col-12">
                 @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                <div class="wrap-input100 validate-input">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "input100" })
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
                 </div>
             </div>
-            <div class="form-group">
+            <div class=" col-md-6 col-12">
                 @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                <div class="wrap-input100 validate-input">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "input100" })
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
                 </div>
             </div>
-            <div class="form-group">
+            <div class=" col-md-6 col-12">
                 @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                <div class="wrap-input100 validate-input">
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "input100" })
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-phone-alt" aria-hidden="true"></i>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                <div class=" col-md-6 col-12">
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                    <div class="wrap-input100 validate-input">
+                        @Html.PasswordFor(m => m.Password, new { @class = "input100" })
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                <div class=" col-md-6 col-12">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                    <div class="wrap-input100 validate-input">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input100" })
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-primary" value="註冊" />
+                        <div class="container-login100-form-btn mt-3">
+                            <input type="submit" class="login100-form-btn col-3" value="註   冊" />
+                        </div>
+                        }
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
-</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+
+@section endJS{
+    <script src="~/Assets/JavaScript/Custom/LogInPage/main.js"></script>
 }
