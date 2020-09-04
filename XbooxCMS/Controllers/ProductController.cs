@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Web.SessionState;
-
+using Newtonsoft.Json;
 
 namespace XbooxCMS.Controllers
 {
@@ -33,7 +33,8 @@ namespace XbooxCMS.Controllers
         //}
 
         private static string imgString = null;
-        
+        private static List<string> ImgstringList = null;
+       
         private static string getImg()
         {
 
@@ -52,6 +53,14 @@ namespace XbooxCMS.Controllers
             return imgString;
         }
 
+        private static List<string> GetImg()
+        {
+            if (ImgstringList == null)
+            {
+                ImgstringList = new List<string>();
+            }
+            return ImgstringList;
+        }
 
         public IEnumerable<Tags> GetAllTags()
         {
@@ -76,9 +85,10 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var productList = context.Product.ToList();
+        
+              var productList = context.Product.ToList();
             List<ProductListViewModel> result = new List<ProductListViewModel>();
-            var list = from p in context.Product
+            var list = (from p in context.Product
                        join c in context.Category
                        on p.CategoryId equals c.CategoryId
                        select new ProductListViewModel()
@@ -91,7 +101,7 @@ namespace XbooxCMS.Controllers
                            Author = p.Author,
                            PublishedDate = p.PublishedDate,
                            CategorName = c.Name
-                       };
+                       }).ToList();
                         
             foreach(var item in productList)
             {
@@ -112,7 +122,7 @@ namespace XbooxCMS.Controllers
                 });
                 
             }
-         
+        
             return View(list);
         }
 
@@ -339,13 +349,24 @@ namespace XbooxCMS.Controllers
         private void PutImgs(Product product)
         {
            var productImgs = new ProductImgs();
-            var imgList = imgString.Split(',').Where(x=>x!="").ToList();
+         var imgList = getImg().Split(',').Where(x=>x!="").ToList();
             
 
+            //用list傳的
+            foreach(var i in GetImg())
+            {
+                productImgs = new ProductImgs()
+                {
+                    // ProductImgId = 0,
+                    imgLink = i,
+                    ProductId = product.ProductId,
+                };
+                context.ProductImgs.Add(productImgs);
+            }
 
 
 
-
+            //用string 傳的
             foreach (var i in imgList)
             {
                  productImgs = new ProductImgs()
@@ -370,6 +391,7 @@ namespace XbooxCMS.Controllers
                 //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
          //   }
              imgString = null;
+            //imgList = mull;
              context.SaveChanges();
         }
 
@@ -377,7 +399,7 @@ namespace XbooxCMS.Controllers
 
 
         [HttpPost]
-        public ActionResult Upload(IEnumerable<HttpPostedFileBase> filepond)
+        public ActionResult Upload()
         {
             //foreach (var file in filepond)
            // {
@@ -396,6 +418,8 @@ namespace XbooxCMS.Controllers
 
             if (Request.Files.Count > 0)
             {
+
+               // ImgstringList = new List<string>();
                 var files = Request.Files;
 
                            //if (file != null && file.ContentLength > 0)
@@ -410,19 +434,14 @@ namespace XbooxCMS.Controllers
                            //    file.SaveAs(path);
                            //}
 
-                           // if (Request.Files.Count > 0)
-                           // { }
-                           //  for (var i = 0; i < files.Count; i++)
-                           // {
-                           // if (files[i] != null && files[i].ContentLength != 0)
-                           // {
-                           var fileName = files[0].FileName;
+             var fileName = files[0].FileName;
                        
-                        var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
+             var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
+
 
                         //Session[$"fileName{i}"] = fileName;
                         //productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
-                        files[0].SaveAs(path);
+             files[0].SaveAs(path);
                 // }
                 // }
 
@@ -436,10 +455,10 @@ namespace XbooxCMS.Controllers
                 //    Session["fileName"] = Session["fileName"] + "," +fileName;
                 //    Debug.WriteLine("getsssion2");
                 //}
-
-
-
-                imgString = getImg()  + fileName + ",";
+                GetImg().Add(fileName);
+                
+                
+               // imgString = getImg()  + fileName + ",";
 
                 // List<string> fileNameList = (List<string>)Session["fileName"];
                 //  fileNameList.Add(fileName);
@@ -448,37 +467,41 @@ namespace XbooxCMS.Controllers
                 //ViewBag.List = fileNameCollection;
             }
             //;
+          
             //return Json($"fileUpload {Session["fileName"]}");
-            return Json($"fileUpload {imgString}");
+            
+            return Json(GetImg());
 
-            //if (Request.Files.Count > 0)
-            //{ }
-            //for (var i = 0; i < files.Count; i++)
-            //{
-            //    if (files[i] != null && files[i].ContentLength != 0)
-            //    {
-            //        var fileName = files[i].FileName;
-            //        var path = Path.Combine(Server.MapPath("~Assets/Pics"), fileName);
-            //        productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
-            //        files[i].SaveAs(path);
-            //    }
-            //}
 
-            //檔案上傳
-            //處理路徑
-            //ProductImg table .add(link)
-            //加上productid
-            //product欄位加上id字串(string join)
-
-            // return RedirectToAction("Upload");
-            //return View();
+      
         }
 
      
-        [HttpDelete]
-        public ActionResult Upload(string imgId)
+        [HttpPost]
+        public ActionResult Remove(string ccc)
         {
-            return View();
+            //var session = httpContext.Session;
+            List<Object> abc = new List<Object>();
+            
+            abc.Add(Request.Form["ccc"]);
+            //abc.Add(Request.Files);
+          //  abc.Add(JsonConvert.DeserializeObject<string>(Request.Form["ccc"]));
+            abc.Add(Request.Params["abc"]);
+            //abc.Add(Request.Params["QUERY_STRING"]);
+            
+            
+           
+            //abc.Add(Request.);
+            //abc.Add(Request.);
+            var files = Request.Files;
+
+
+            //從file移除資料
+            //接Id 然後再抓Id
+            //再處理字串(陣列) 在裡面找該圖的filename然後將其從字串移除
+            //  ImgstringList
+            //string json = JsonConvert.SerializeObject(files);
+            return Json(abc);
         }
 
 

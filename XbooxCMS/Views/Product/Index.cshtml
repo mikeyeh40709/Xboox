@@ -5,105 +5,112 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/css/uikit.min.css" />
+@*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/css/uikit.min.css" />*@
 @*//<link href="~/Assets/Css/datatablestyle.css" rel="stylesheet" />*@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 <h2>ProductManagement</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<table class="table uk-table uk-table-striped uk-table uk-table-hover" id="Producytable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitInStock)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-
-
-            <th>
-                @Html.DisplayNameFor(model => model.Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PublishedDate)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.CategorName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagName)
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="col-md-6">
+    <table class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--4dp"  id="Producytable">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UnitInStock)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Publisher)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublishedDate)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitInStock)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
 
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategorName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TagName)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Publisher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PublishedDate)
+                </th>
 
-                <td>
-                    <input type="button" class="uk-button uk-button-default" value="Edit" onclick="location.href='@Url.Action("Edit", "Product",new{id=item.ProductId })'" />
-                    <input type="button" class="uk-button uk-button-default" value="Details" onclick="location.href='@Url.Action("Details", "Product",new{id=item.ProductId })'" />
-                    <input type="button" class="uk-button uk-button-default" value="Delete" onclick="location.href='@Url.Action("Delete", "Product",new{id=item.ProductId })'" />
-                    @*<button class="uk-button uk-button-default" onclick=location.href ='@Url.Action("Edit","Product",null, new{id=item.ProductId })'></button>*@
-                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductId, @class = "uk-button uk-button-default" })*@
-                    @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TagName)
+                </th>
+
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitInStock)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
 
-        }
-    </tbody>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PublishedDate)
+                    </td>
 
-</table>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TagName)
+                    </td>
+
+                    <td>
+                        <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" value="Edit" onclick="location.href='@Url.Action("Edit", "Product",new{id=item.ProductId })'" />
+                        <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--gold" value="Details" onclick="location.href='@Url.Action("Details", "Product",new{id=item.ProductId })'" />
+                        <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Delete" onclick="location.href='@Url.Action("Delete", "Product",new{id=item.ProductId })'" />
+                        @*<button class="uk-button uk-button-default" onclick=location.href ='@Url.Action("Edit","Product",null, new{id=item.ProductId })'></button>*@
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductId, @class = "uk-button uk-button-default" })*@
+                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+</div>
+
 
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit-icons.min.js"></script>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+@*<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit-icons.min.js"></script>*@
 
 @section scripts{
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>

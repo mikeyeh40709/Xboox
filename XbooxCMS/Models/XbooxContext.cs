@@ -113,5 +113,7 @@ namespace XbooxCMS.Models
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
         }
+
+        public System.Data.Entity.DbSet<XbooxCMS.ViewModels.UserListViewModel> UserListViewModels { get; set; }
     }
 }

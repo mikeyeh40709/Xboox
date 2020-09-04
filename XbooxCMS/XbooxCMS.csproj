@@ -406,6 +406,7 @@
     <Content Include="Views\ProductImgs\Details.cshtml" />
     <Content Include="Views\ProductImgs\Edit.cshtml" />
     <Content Include="Views\ProductImgs\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -413,7 +414,6 @@
     <Folder Include="Views\Order\" />
     <Folder Include="Views\Tags\" />
     <Folder Include="Views\Tag\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
