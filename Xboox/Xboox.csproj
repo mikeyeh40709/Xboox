@@ -627,7 +627,7 @@
     <Content Include="Views\BookCategory\ShowAllComicsBooks.cshtml" />
     <Content Include="Views\BookCategory\ShowAllMagazineBooks.cshtml" />
     <Content Include="Views\BookCategory\ShowAllEBookBooks.cshtml" />
-    <Content Include="Views\BookCategory\ShowAllForeignDocsBooks.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllForeignLanguageBooks.cshtml" />
     <Content Include="Views\BookCategory\ShowAllAllBooks.cshtml" />
   </ItemGroup>
   <ItemGroup>

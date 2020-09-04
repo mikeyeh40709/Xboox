@@ -35,7 +35,7 @@ namespace Xboox.Controllers
         }
         public ActionResult ShowAllNovelBooks()
         {
-            var Novel = findBook.FindBookCategory();
+            var Novel = findBook.FindBookCategory("a26d7886-3439-409a-adf9-45b47734bfae");
             return View(Novel);
         }
         public ActionResult ShowAllChineseBooks()
@@ -58,7 +58,7 @@ namespace Xboox.Controllers
             var EBook = findBook.FindBookCategory("21f3a449-0781-4d0c-bd1c-c9bb9d59c83c");
             return View(EBook);
         }
-        public ActionResult ShowAllForeignDocsBooks()
+        public ActionResult ShowAllForeignLanguageBooks()
         {
             var ForeignDocs = findBook.FindBookCategory("1c39dc1e-525a-43ec-91bb-cb113c208dd3");
             return View(ForeignDocs);
