@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Runtime.InteropServices;
 using System.Web;
+using System.Net;
+using Microsoft.AspNet.Identity;
 using Xboox.Models;
 using System.Data.Entity;
 using System.Web.Mvc;
 using Xboox.ViewModels;
 using Xboox.Models.DataTable;
+using System.Web.UI;
+using Xboox.Models.Services;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Web.WebSockets;
+using Microsoft.Ajax.Utilities;
+using System.Diagnostics;
 
 namespace Xboox.Services
 {
@@ -92,121 +101,154 @@ namespace Xboox.Services
             }
 
         }
-        //public bool Create(CartItems, OrderDetails orderDetails)
-        //{
-        //    XbooxContext context = new XbooxContext()
-        //    using (var transaction = context.Database.BeginTransaction())
-        //    {
-        //        try
-        //        {
-        //            var sellingCount = orderDetails.Quantity;
-        //            Selling entity = new Selling()
-        //            {
-        //                PartNo = input.PartNo,
-        //                Quantity = input.Quantity,
-        //                SalesJobNumber = input.SalesJobNumber,
-        //                SellingDay = input.SellingDay,
-        //                UnitPrice = input.UnitPrice
-        //            };
-        //            sellingRepo.Create(entity);
-        //            context.SaveChanges();
-
-        //            var products = procurementRepo.GetAll()
-        //                .Where(x => x.PartNo == input.PartNo)
-        //                .OrderBy(x => x.PurchasingDay);
-        //            foreach (var p in products)
-        //            {
-        //                if (sellingCount <= 0)
-        //                {
-        //                    break;
-        //                }
-        //                else
-        //                {
-        //                    if (p.InvetoryQuantity >= sellingCount)
-        //                    {
-        //                        p.InvetoryQuantity = p.InvetoryQuantity - sellingCount;
-        //                        CreateSellingSource(sellingSourceRepo, entity.SellingId, p.ProcurementId, sellingCount);
-        //                        sellingCount = 0;
-        //                    }
-        //                }
-        //            }
-        //            context.SaveChanges();
-        //            result.isSuccessful = true;
-        //            transaction.Commit();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            result.isSuccessful = false;
-        //            result.exception = ex;
-        //            transaction.Rollback();
-        //        }
-        //    }
-        //    return result;
-        //}
-        public bool EditState(string id)
+        public OperationResult CreateOrder(HttpContextBase httpcontext, Order order)
         {
-            XbooxContext contexy = new XbooxContext();
-            using (var transaction = contexy.Database.BeginTransaction())
+            OperationResult operationResult = new OperationResult();
+            XbooxContext context = new XbooxContext();
+            using (var transaction = context.Database.BeginTransaction())
             {
-                var order = contexy.Order.FirstOrDefault(x => x.OrderId.ToString() == id);
-                if (order != null)
+                try
                 {
-                    if (order.StateId == (int)payment.Unpaid)
+                    Guid newOrderID = Guid.NewGuid();
+                    var userId = httpcontext.User.Identity.GetUserId();
+                    // 建立一筆新訂單
+                    Order newOrder = new Order()
                     {
-                        order.StateId = (int)payment.Paid;
-                    }
-                    else
+                        OrderId = newOrderID,
+                        UserId = userId,
+                        OrderDate = DateTime.Now,
+                        PurchaserName = order.PurchaserName,
+                        PurchaserAddress = order.PurchaserAddress,
+                        PurchaserEmail = order.PurchaserEmail,
+                        PurchaserPhone = order.PurchaserPhone,
+                        StateId = order.StateId
+                    };
+                    context.Order.Add(newOrder);
+                    context.SaveChanges();
+                    // 先拿會員CartItems 裡資料
+                    var cartItems = context.CartItems.Where(item => item.CartId.ToString() == userId).ToList();
+                    foreach (var item in cartItems)
                     {
-                        order.StateId = (int)payment.Unpaid;
-                    }
-                    contexy.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        public bool Delete(string id)
-        {
-            XbooxContext contexy = new XbooxContext();
-            using (var transaction = contexy.Database.BeginTransaction())
-            {
-                var OrderDetails = contexy.OrderDetails.Where(item => item.OrderId.ToString() == id);
-                var order = contexy.Order.FirstOrDefault(item => item.OrderId.ToString() == id);
-                if (order != null && OrderDetails != null)
-                {
-                    if (order.StateId == (int)payment.Unpaid)
-                    {
-                        foreach (var item in OrderDetails)
+                        var products = context.Product.Where(pd => pd.ProductId == item.ProductId);
+                        foreach (var p in products)
                         {
-                            var products = contexy.Product.Where(pd => pd.ProductId == item.ProductId).OrderBy(pd => pd.PublishedDate);
-                            foreach (var pd in products)
+                            if (p.UnitInStock >= item.Quantity)
                             {
-                                if (item.Quantity <= 0)
+                                p.UnitInStock = p.UnitInStock - item.Quantity;
+                                OrderDetails orderDetails = new OrderDetails()
                                 {
-                                    break;
-                                }
-                                else
-                                {
-                                    pd.UnitInStock = pd.UnitInStock - item.Quantity;
-                                    item.Quantity = 0;
-                                }
+                                    OrderId = newOrderID,
+                                    ProductId = p.ProductId,
+                                    ProductName = p.Name,
+                                    UnitPrice = p.Price,
+                                    Quantity = item.Quantity
+                                };
+                                context.OrderDetails.Add(orderDetails);
+                                item.Quantity = 0;
+                                Debug.WriteLine(context.Entry(p).State);
+                                
                             }
-                            contexy.OrderDetails.Remove(item);
+                            else
+                            {
+                                break;
+                            }
                         }
-                        contexy.Order.Remove(order);
-                        contexy.SaveChanges();
-                    }
 
-                    return true;
+                    }
+                    context.SaveChanges();
+                    operationResult.isSuccessful = true;
+                    transaction.Commit();
                 }
-                else
+                catch(Exception ex)
                 {
-                    return false;
+                    operationResult.isSuccessful = false;
+                    operationResult.exception = ex;
+                    transaction.Rollback();
+                }
+                return operationResult;
+            }
+
+        }
+        public OperationResult EditState(string id)
+        {
+            OperationResult operationResult = new OperationResult();
+            XbooxContext contexy = new XbooxContext();
+            using (var transaction = contexy.Database.BeginTransaction())
+            {
+                try 
+                {
+                    var order = contexy.Order.FirstOrDefault(x => x.OrderId.ToString() == id);
+                    if (order != null)
+                    {
+                        if (order.StateId == (int)payment.Unpaid)
+                        {
+                            order.StateId = (int)payment.Paid;
+                        }
+                        else
+                        {
+                            order.StateId = (int)payment.Unpaid;
+                        }
+                        contexy.SaveChanges();
+                        operationResult.isSuccessful = true;
+                        transaction.Commit();
+                    }
+                }
+                catch(Exception ex)
+                {
+                    operationResult.isSuccessful = false;
+                    operationResult.exception = ex;
+                    transaction.Rollback();
+                }
+                return operationResult;
+            }
+                
+        }
+        public OperationResult Delete(string id)
+        {
+            OperationResult operationResult = new OperationResult();
+            XbooxContext contexy = new XbooxContext();
+            using (var transaction = contexy.Database.BeginTransaction())
+            {
+                try
+                {
+                    var OrderDetails = contexy.OrderDetails.Where(item => item.OrderId.ToString() == id);
+                    var order = contexy.Order.FirstOrDefault(item => item.OrderId.ToString() == id);
+                    if (order != null && OrderDetails != null)
+                    {
+                        if (order.StateId == (int)payment.Unpaid)
+                        {
+                            foreach (var item in OrderDetails)
+                            {
+                                var products = contexy.Product.Where(pd => pd.ProductId == item.ProductId).OrderBy(pd => pd.PublishedDate);
+                                foreach (var pd in products)
+                                {
+                                    if (item.Quantity <= 0)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        pd.UnitInStock = pd.UnitInStock - item.Quantity;
+                                        item.Quantity = 0;
+                                    }
+                                }
+                                contexy.OrderDetails.Remove(item);
+                            }
+                            contexy.Order.Remove(order);
+                            contexy.SaveChanges();
+                            operationResult.isSuccessful = true;
+                            transaction.Commit();
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    operationResult.isSuccessful = false;
+                    operationResult.exception = ex;
+                    transaction.Rollback();
                 }
             }
+            return operationResult;
         }
     }
 }

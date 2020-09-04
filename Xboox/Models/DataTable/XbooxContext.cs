@@ -76,10 +76,6 @@ namespace Xboox.Models.DataTable
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<OrderDetails>()
-                .Property(e => e.ProductName)
-                .IsFixedLength();
-
-            modelBuilder.Entity<OrderDetails>()
                 .Property(e => e.UnitPrice)
                 .HasPrecision(18, 6);
 
@@ -107,6 +103,5 @@ namespace Xboox.Models.DataTable
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
         }
-
     }
 }

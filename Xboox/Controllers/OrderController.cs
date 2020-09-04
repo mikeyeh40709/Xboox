@@ -55,7 +55,7 @@ namespace Xboox.Controllers
         [HttpPost]
         public ActionResult ChangeState(string stateId)
         {
-            if (service.EditState(stateId))
+            if (service.EditState(stateId).isSuccessful)
             {
                 return RedirectToAction("ManagerView");
             }
@@ -68,7 +68,7 @@ namespace Xboox.Controllers
         [HttpPost]
         public ActionResult DeleteOrder(string orderId)
         {
-            if (service.Delete(orderId))
+            if (service.Delete(orderId).isSuccessful)
             {
                 if(User.Identity.IsAuthenticated == true)
                 {
@@ -78,6 +78,24 @@ namespace Xboox.Controllers
                 {
                     return RedirectToAction("ManagerView");
                 }
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+        }
+
+        public ActionResult CreateOrder()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateOrder(Order order)
+        {
+           if(service.CreateOrder(this.HttpContext, order).isSuccessful)
+           {
+
+                return Content("訂單建立成功");
             }
             else
             {
