@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using Xboox.Models;
 using Xboox.Models.DataTable;
+using Xboox.Models.Services;
 using Xboox.ViewModels;
 
 namespace Xboox.Controllers
@@ -13,11 +16,14 @@ namespace Xboox.Controllers
     public class HomeController : Controller
     {
         private XbooxContext context = new XbooxContext();
-        
+       
         public ActionResult Index()
         {
-            //ViewBag.UserState = User.Identity.IsAuthenticated;
-            //ViewBag.UserName = User.Identity.Name;
+            GetKey getKey = new GetKey();
+            var allKey = getKey.GetAllKey(this.HttpContext);
+            ViewBag.XbooxKey = allKey;
+
+
             var products = context.Product.ToList().Select(y => new ProductDetailViewModel
             {
                 Name = y.Name,
@@ -27,6 +33,7 @@ namespace Xboox.Controllers
                 ProductId = y.ProductId.ToString()
             });
             return View(products);
+            
         }
         public ActionResult ProductDetail(string id)
         {
@@ -84,5 +91,27 @@ namespace Xboox.Controllers
 
             return View();
         }
+
+        //Visitor Key and Member UserId
+        //private static HttpContextBase ;
+        //public ActionResult GetAllKey(HttpContextBase context_base)
+        //{
+            
+        //    if (!context_base.User.Identity.IsAuthenticated)
+        //    {
+        //        Guid VisitorKey = Guid.NewGuid();
+        //        ViewBag.XbooxKey = VisitorKey;
+                
+        //    }
+        //    else
+        //    {
+        //       var MemberKey = context_base.User.Identity.GetUserId();
+        //        ViewBag.XbooxKey = MemberKey;
+        //    }
+
+        //    //return RedirectToAction()
+        //    return View("Index");
+        //    //return View(ViewBag.Key);
+        //}
     }
 }

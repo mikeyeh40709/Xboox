@@ -141,23 +141,18 @@
         </div>
     </div>
 </section>
-<!-- Services Section End -->
-@*<script>
-    window.addEventListener("load", function () {
-        let addCartBtn = $(".icon_bag_alt");
-        addCartBtn.click(function () {
-            $.ajax({
-                type: "POST",
-                url: "/Cart/AddToCart",
-                data: { "id": `${this.id}`},
-                success: function (result) {
-                    console.log(result);
-                }
-            }).done(function () {
-                console.log("成功");
-            }).fail(function () {
-                console.log("失敗");
-            })
-        })
-    })
-</script>*@
+
+<script>
+   
+
+    doCookieSetup("VisitorKey","@ViewBag.XbooxKey");
+
+
+    function doCookieSetup(name, value) {
+        var expires = new Date();
+        //有效時間保存 2 天 2*24*60*60*1000
+        //expires.setTime(expires.getTime() + 3600);
+        document.cookie = document.cookie = name + "=" + escape(value) + ";max-age=" + 1000;
+    }
+
+</script>

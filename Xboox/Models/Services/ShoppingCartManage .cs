@@ -17,17 +17,17 @@ namespace Xboox.Models.Services
         XbooxContext xbooxDb = new XbooxContext();
         //ViewModels.CartViewModel CartView = new ViewModels.CartViewModel();
         string ShoppingCartId { get; set; }
-        public const string CartSessionKey = "CartId";
-        public static ShoppingCartManage GetCart(HttpContextBase context)
-        {
-            var cart = new ShoppingCartManage();
-            //這裡為問題發生點
-            //if (cart.ShoppingCartId==null)
-            //{
-                cart.ShoppingCartId = cart.GetCartId(context);
-            //}     
-            return cart;
-        }
+        //public const string CartSessionKey = "CartId";
+        //public static ShoppingCartManage GetCart(HttpContextBase context)
+        //{
+        //    var cart = new ShoppingCartManage();
+        //    //這裡為問題發生點
+        //    //if (cart.ShoppingCartId==null)
+        //    //{
+        //        cart.ShoppingCartId = cart.GetCartId(context);
+        //    //}     
+        //    return cart;
+        //}
         //public static ShoppingCartManage GetCart(Controller controller)
         //{
 
@@ -36,27 +36,31 @@ namespace Xboox.Models.Services
 
         public void AddToCart(Product p, HttpContextBase context)
         {
-            var cart = xbooxDb.Cart.SingleOrDefault(
-                ca => ca.CartId.ToString() == ShoppingCartId);
+
+
+            var GetUserKey = context.Request.Cookies["VisitorKey"].Value;
+       
+            var cart = xbooxDb.Cart.SingleOrDefault(ca => ca.CartId.ToString() == GetUserKey);
 
             if (cart == null)
             {
 
                 cart = new Cart
                 {
-                    CartId = Guid.Parse(ShoppingCartId),
+                    CartId = Guid.Parse(GetUserKey),
                     //因為UserId欄位允許null , 今天若是會員未登入會取拿名字
                     //如是訪客即為null
                     UserId = context.User.Identity.Name
                 };
                 xbooxDb.Cart.Add(cart);
                 xbooxDb.SaveChanges();
+                
             }
 
 
 
             var cartItem = xbooxDb.CartItems.SingleOrDefault(
-                c => c.CartId.ToString() == ShoppingCartId
+                c => c.CartId.ToString() == GetUserKey
                 && c.ProductId == p.ProductId);
             if (cartItem == null)
             {
@@ -64,7 +68,7 @@ namespace Xboox.Models.Services
                 cartItem = new CartItems
                 {
                     //這邊要考慮一下
-                    CartId = Guid.Parse(ShoppingCartId),
+                    CartId = Guid.Parse(GetUserKey),
                     ProductId = p.ProductId,
                     Quantity = 1,
                     Id = randomId
@@ -77,23 +81,22 @@ namespace Xboox.Models.Services
             }
             xbooxDb.SaveChanges();
         }
-        public List<CartViewModel> GetCartItems()
-           
+        public List<CartViewModel> GetCartItems(HttpContextBase context)
         {
+            var GetUserKey = context.Request.Cookies["VisitorKey"].Value;
             using (var db = new XbooxContext())
             {
-                var personId = HttpContext.Current.Session[CartSessionKey].ToString();
+                //var personId = HttpContext.Current.Session[CartSessionKey].ToString();
                 List<CartViewModel> CartItemList = new List<CartViewModel>();
-                
 
-
-                var personalCartList = db.CartItems.Where(item => item.CartId.ToString() == personId).ToList();
-                var tempList = (from c in personalCartList
+                //var personalCartList = db.CartItems.Where(item => item.CartId.ToString() == ShoppingCartId).ToList();
+                var tempList = (from c in db.CartItems
                                 join p in db.Product
                                 on c.ProductId equals p.ProductId
                                 join i in db.ProductImgs
                                 on p.ProductId equals i.ProductId
                                 where p.ProductId == i.ProductId
+                                where c.CartId.ToString() == GetUserKey
                                 select new CartViewModel
                                 {
                                     ProductImgLink = i.imgLink,
@@ -167,77 +170,70 @@ namespace Xboox.Models.Services
         }
 
 
-        public string GetCartId(HttpContextBase context)
-        {
-            //這邊判斷是否有無授權
-            if (!context.User.Identity.IsAuthenticated)
-            {
-                if (!string.IsNullOrWhiteSpace(context.User.Identity.GetUserId()))
-                {
-                    context.Session[CartSessionKey] =
-                        context.User.Identity.GetUserId();
-                }
-                else
-                {
-                    // Generate a new random GUID using System.Guid class
-                    Guid tempCartId = Guid.NewGuid();
-                    // Send tempCartId back to client as a cookie
-                    context.Session[CartSessionKey] = tempCartId.ToString();
-                }
-            }
-            else
-            {
-                context.Session[CartSessionKey] =
-                       context.User.Identity.GetUserId();
-            }
-            return context.Session[CartSessionKey].ToString();
-            //最後會傳回去給ShoppingCartId
-        }
-
-
-
-        //public int GetCount()
+        //public string GetCartId(HttpContextBase context)
         //{
-        //    // Get the count of each item in the cart and sum them up
-        //    int? count = (from cartItems in xbooxDb.CartItems
-        //                  where cartItems.CartId.ToString() == ShoppingCartId
-        //                  select (int?)cartItems.Quantity).Sum();
-        //    // Return 0 if all entries are null
-        //    return count ?? 0;
-        //}
-        //public decimal GetTotal(Product p)
-        //{
-        //    // Multiply album price by count of that album to get 
-        //    // the current price for each of those albums in the cart
-        //    // sum all album price totals to get the cart total
-        //    decimal? total = (from cartItems in xbooxDb.CartItems
-        //                      where cartItems.CartId.ToString() == ShoppingCartId
-        //                      select (int?)cartItems.Quantity *
-        //                      p.Price).Sum();
-
-        //    return total ?? decimal.Zero;
-        //}
-
-
-
-
-
-
-        public void MigrateCart(string userName)
-        {
-            var shoppingCart = xbooxDb.CartItems.Where(
-                c => c.CartId.ToString() == ShoppingCartId);
-
-            foreach (CartItems item in shoppingCart)
-            {
-                item.CartId = Guid.Parse(userName);
-            }
-            xbooxDb.SaveChanges();
-        }
-
-
-
-
-
+        //    //這邊判斷是否有無授權
+        //    if (!context.User.Identity.IsAuthenticated)
+        //    {
+        //        if (!string.IsNullOrWhiteSpace(context.User.Identity.GetUserId()))
+        //        {
+        //            context.Session[CartSessionKey] =
+        //                context.User.Identity.GetUserId();
+        //        }
+        //        else
+        //        {
+        //            // Generate a new random GUID using System.Guid class
+        //            Guid tempCartId = Guid.NewGuid();
+        //            // Send tempCartId back to client as a cookie
+        //            context.Session[CartSessionKey] = tempCartId.ToString();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        context.Session[CartSessionKey] =
+        //               context.User.Identity.GetUserId();
+        //    }
+        //    return context.Session[CartSessionKey].ToString();
+        //最後會傳回去給ShoppingCartId
     }
+
+
+
+
+    //public bool RemoveProduct(Guid productid)
+    //{
+    //    var findItem = xbooxDb.CartItems.Where
+    //        (ca => ca.ProductId == productid).Select(ca => ca).FirstOrDefault();
+
+    //    if (findItem==default(Xboox.Models.DataTable.CartItems))
+    //    {
+
+    //    }
+    //    else
+    //    {
+    //        xbooxDb.CartItems.Remove(findItem);
+    //    }
+    //    return true;
+    //}
+
+
+
+
+
+    //public void MigrateCart(string userName)
+    //{
+    //    var shoppingCart = xbooxDb.CartItems.Where(
+    //        c => c.CartId.ToString() == ShoppingCartId);
+
+    //    foreach (CartItems item in shoppingCart)
+    //    {
+    //        item.CartId = Guid.Parse(userName);
+    //    }
+    //    xbooxDb.SaveChanges();
+    //}
+
+
+
+
+
 }
