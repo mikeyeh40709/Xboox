@@ -136,12 +136,11 @@
                         <div class="col-sm-offset-3 col-sm-5">
                             <!-- 使用CheckBoxListFor擴充方法產生Role的CheckBoxList -->
                             @Html.CheckBoxListFor(model => model.PostedTagIds,
-                     model => model.Tags,
-                      entity => entity.TagId,
-                     entity => entity.TagName,
-
-                     model => model.SelectedTags
-                   )
+                                                   model => model.Tags,
+                                                   entity => entity.TagId,
+                                                   entity => entity.TagName,
+                                                   model => model.SelectedTags
+                                )
                             @*@foreach(var box in Model.Tags)
                                 {
                                     <div class="checkbox">

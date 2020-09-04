@@ -407,12 +407,14 @@
     <Content Include="Views\ProductImgs\Edit.cshtml" />
     <Content Include="Views\ProductImgs\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Tags\Create.cshtml" />
+    <Content Include="Views\Tags\Index.cshtml" />
+    <Content Include="Views\Tags\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Pics\" />
     <Folder Include="Views\Order\" />
-    <Folder Include="Views\Tags\" />
     <Folder Include="Views\Tag\" />
   </ItemGroup>
   <ItemGroup>

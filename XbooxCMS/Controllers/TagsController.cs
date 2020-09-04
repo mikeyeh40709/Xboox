@@ -46,17 +46,27 @@ namespace XbooxCMS.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TagId,TagName")] Tags tags)
+        public ActionResult Create( Tags tags)
         {
             if (ModelState.IsValid)
             {
+                //var viewModel = new TagViewModel()
+                //{
+                //    TagId = Guid.NewGuid(),
+                //    TagName 
+                //}
+
                 tags.TagId = Guid.NewGuid();
                 context.Tags.Add(tags);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
+            else
+            {
 
-            return View(tags);
+                return View();
+
+            }
         }
 
         // GET: Tags/Edit/5
@@ -74,12 +84,10 @@ namespace XbooxCMS.Controllers
             return View(tags);
         }
 
-        // POST: Tags/Edit/5
-        // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
-        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TagId,TagName")] Tags tags)
+        public ActionResult Edit(Tags tags)
         {
             if (ModelState.IsValid)
             {
@@ -91,30 +99,30 @@ namespace XbooxCMS.Controllers
         }
 
         // GET: Tags/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tags tags = context.Tags.Find(id);
-            if (tags == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tags);
-        }
+        //public ActionResult Delete(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Tags tags = context.Tags.Find(id);
+        //    if (tags == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(tags);
+        //}
 
-        // POST: Tags/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
-        {
-            Tags tags = context.Tags.Find(id);
-            context.Tags.Remove(tags);
-            context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: Tags/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(Guid id)
+        //{
+        //    Tags tags = context.Tags.Find(id);
+        //    context.Tags.Remove(tags);
+        //    context.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
