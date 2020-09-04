@@ -80,15 +80,21 @@
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./shop.html">全部書籍</a></li>
-                            @*<li><a href="#">中文書</a></li>*@
-                            <li>@Html.ActionLink("中文書", "ShowAllCnBooks", "BookCategory")</li>
-                            @*<li><a href="#">中文書</a></li>*@
-                            <li><a href="#">外文書</a></li>
-                            <li><a href="#">電子書</a></li>
-                            <li><a href="#">小說</a></li>
-                            <li><a href="#">雜誌</a></li>
-                            <li><a href="#">漫畫</a></li>
+                            @*<li class="active"><a href="./shop.html">全部書籍</a></li>*@
+                            <li>@Html.ActionLink("AlL", "ShowAllAllBooks", "BookCategory")</li>
+                            <li>@Html.ActionLink("Chinese", "ShowAllChineseBooks", "BookCategory")</li>
+                            <li>@Html.ActionLink("Foreign", "ShowAllForeignDocsBooks", "BookCategory")</li>
+                            <li>@Html.ActionLink("Ebooks", "ShowAllEBookBooks", "BookCategory")</li>
+                            <li>@Html.ActionLink("Novel", "ShowAllNovelBooks", "BookCategory")</li>
+                            <li>@Html.ActionLink("Magazine", "ShowAllMagazineBooks", "BookCategory")</li>
+                            <li>@Html.ActionLink("Comics", "ShowAllComicsBooks", "BookCategory")</li>
+                            @*<li>@Html.ActionLink("All", "ShowAllAllBooks", "BookCategory")</li>
+                            <li>@Html.ActionLink("Chinese", "ShowAllAllBooks", "BookCategory", new { id = "761e6b0f-b8fd-45d2-bf35-9f09c7cc25b8" })</li>
+                            <li>@Html.ActionLink("Foreign", "ShowAllAllBooks", "BookCategory", new { id = "1c39dc1e-525a-43ec-91bb-cb113c208dd3" })</li>
+                            <li>@Html.ActionLink("Ebooks", "ShowAllAllBooks", "BookCategory", new { id = "21f3a449-0781-4d0c-bd1c-c9bb9d59c83c" })</li>
+                            <li>@Html.ActionLink("Novel", "ShowAllAllBooks", "BookCategory", new { id = "a26d7886-3439-409a-adf9-45b47734bfae" })</li>
+                            <li>@Html.ActionLink("Magazine", "ShowAllAllBooks", "BookCategory", new { id = "8443c1ae-ab29-49df-854b-b04d44a65237" })</li>
+                            <li>@Html.ActionLink("Comics", "ShowAllAllBooks", "BookCategory", new { id = "66ab9b96-6d3e-457f-b487-77ce7ab35d1c" })</li>*@
                         </ul>
                     </nav>
                 </div>

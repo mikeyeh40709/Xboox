@@ -31,26 +31,6 @@ namespace Xboox.Controllers
         }
         public ActionResult ProductDetail(string id)
         {
-
-            //var products = (from p in context.Product
-            //                join pi in context.ProductImgs
-            //               on p.ProductId equals pi.ProductId
-            //                select new ProductDetailViewModel
-            //                {
-            //                    Name = p.Name,
-            //                    UnitInStock = p.UnitInStock,
-            //                    ISBN = p.ISBN,
-            //                    Price = p.Price,
-            //                    Publisher = p.Publisher,
-            //                    Description = p.Description,
-            //                    Specification = p.Specification,
-            //                    Intro = p.Intro,
-            //                    Author = p.Author,
-            //                    Language = p.Language,
-            //                    ProductId = p.ProductId.ToString(),
-            //                    PublishedDate = p.PublishedDate.ToString("yyyy/MM/dd"),
-            //                    imgLink = pi.imgLink
-            //                }).ToList();
             var products = context.Product.ToList().Select(x => new ProductDetailViewModel
             {
                 Name = x.Name,
@@ -67,7 +47,7 @@ namespace Xboox.Controllers
                 PublishedDate = x.PublishedDate.ToString("yyyy/MM/dd"),
                 imgLinks = context.ProductImgs.Where(z => z.ProductId == x.ProductId).Select(k => k.imgLink).ToList(),
                 imgLink = context.ProductImgs.FirstOrDefault(y => y.ProductId == x.ProductId).imgLink,
-                Category = context.Category.FirstOrDefault(j=> j.CategoryId == x.CategoryId).Name.ToString()
+                Category = context.Category.FirstOrDefault(j=> j.CategoryId == x.CategoryId).Name.ToString(),
             });
             var productID = products.FirstOrDefault(x => x.ProductId == id);
             return View(productID);

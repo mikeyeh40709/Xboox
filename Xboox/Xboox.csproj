@@ -212,6 +212,7 @@
     <Compile Include="Models\Services\AspNetUserManage.cs" />
     <Compile Include="Models\Services\OperationResult.cs" />
     <Compile Include="Models\Services\ShoppingCartManage .cs" />
+    <Compile Include="Repositories\FindBookCategoryRepository.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\BookCategoryViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
@@ -619,9 +620,15 @@
     <Content Include="Views\Shared\_CartPartialView.cshtml" />
     <Content Include="Views\Shared\_HomePageProductPartial.cshtml" />
     <Content Include="Views\Shared\_BookCategoryPartialView.cshtml" />
-    <Content Include="Views\BookCategory\ShowAllCnBooks.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllNovelBooks.cshtml" />
     <Content Include="Views\Account\UserDataDetails.cshtml" />
     <Content Include="Views\Order\CreateOrder.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllChineseBooks.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllComicsBooks.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllMagazineBooks.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllEBookBooks.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllForeignDocsBooks.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllAllBooks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

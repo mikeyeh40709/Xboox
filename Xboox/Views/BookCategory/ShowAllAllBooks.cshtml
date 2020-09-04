@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "ShowAllCnBooks";
+    ViewBag.Title = "ShowAllAllBooks";
 }
 
 <!-- Breadcrumb Begin -->
@@ -14,7 +14,7 @@
                     <a href="/"><i class="fa fa-home"></i> Home</a>
                     @*<span>中文書</span>*@
                     @*@Html.ActionLink("中文書", "ShowAllCnBooks", "CnBookPage",null, new { hidefocus="hidefocus"})*@
-                    <a href="@Url.Action("ShowAllCnBooks","BookCategory")"><span>中文書</span></a>
+                    <a href="@Url.Action("ShowAllAllBooks","BookCategory")"><span>All Books</span></a>
                 </div>
             </div>
         </div>
@@ -31,13 +31,13 @@
                         <div class="section-title">
                             <h4>Categories</h4>
                         </div>
-                        <div class="categories__accordion">
+                        <div class="categories__accordion active">
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
-                                    <div class="card-heading active">
+                                    <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseOne">中文書</a>
                                     </div>
-                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div id="collapseOne" class="collapse" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul>
                                                 <li><a href="#">全部</a></li>
@@ -237,7 +237,7 @@
             </div>
             <div class="col-lg-9 col-md-9">
                 <div class="row">
-                    @foreach(var cnBook in Model)
+                    @foreach (var cnBook in Model)
                     {
                         @Html.Partial("_BookCategoryPartialView", cnBook);
                     }
