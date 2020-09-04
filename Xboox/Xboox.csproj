@@ -184,6 +184,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\BookCategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -209,6 +210,7 @@
     <Compile Include="Models\Services\AspNetUserManage.cs" />
     <Compile Include="Models\Services\ShoppingCartManage .cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\BookCategoryViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
@@ -605,6 +607,8 @@
     <Content Include="Views\Cart\ShopCart.cshtml" />
     <Content Include="Views\Shared\_ShopCartPartialView.cshtml" />
     <Content Include="Views\Shared\_HomePageProductPartial.cshtml" />
+    <Content Include="Views\Shared\_BookCategoryPartialView.cshtml" />
+    <Content Include="Views\BookCategory\ShowAllCnBooks.cshtml" />
     <Content Include="Views\Account\UserDataDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>

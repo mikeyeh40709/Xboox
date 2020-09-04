@@ -22,5 +22,6 @@ namespace Xboox.ViewModels
         public string ProductId { get; set; }
         public string Tag { get; set; }
         public List<string> imgLinks { get; set; }
+        public string Category { get; set; }
     }
 }

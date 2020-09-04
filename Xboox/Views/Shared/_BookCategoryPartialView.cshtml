@@ -1,0 +1,29 @@
+﻿@model Xboox.ViewModels.BookCategoryViewModel
+
+
+
+<div class="col-lg-4 col-md-6">
+    <div class="product__item">
+        @*<div class="product__item__pic set-bg" data-setbg="~/Assets/Image/Pics/@(Model.imgLink).jpg">*@
+        <div class="product__item__pic set-bg" data-setbg="@Url.Content("~/Assets/Image/Pics/" + Model.imgLink + ".jpg")">
+            @*<div class="label new">New</div>*@
+            <ul class="product__hover">
+                <li><a href="@Url.Content("~/Assets/Image/Pics/" + Model.imgLink + ".jpg")" class="image-popup"><span class="arrow_expand"></span></a></li>
+                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                <li><a href="@Url.Action("AddToCart", "Cart", new { id = @Model.ProductId })"><span class="icon_bag_alt"></span></a></li>
+                <li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>
+            </ul>
+        </div>
+        <div class="product__item__text">
+            <h6><a href="#">@Model.Name</a></h6>
+            <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            <div class="product__price">$ @Convert.ToInt32(Model.Price)</div>
+        </div>
+    </div>
+</div>
