@@ -27,14 +27,13 @@ namespace Xboox.Services
             Unpaid = 0,
             Paid = 1
         }
-        private XbooxContext context = new XbooxContext();
         public List<OrderViewModel> GetOrder(string id)
         {
-            using (var contexy = new XbooxContext())
+            using (var context = new XbooxContext())
             {
-                var orderList = (from o in contexy.Order
+                var orderList = (from o in context.Order
                                  where o.UserId == id
-                                 join user in contexy.AspNetUsers
+                                 join user in context.AspNetUsers
                                  on o.UserId equals user.Id
                                  select new OrderViewModel
                                  {
@@ -53,10 +52,10 @@ namespace Xboox.Services
         }
         public List<OrderViewModel> GetOrder()
         {
-            using (var contexy = new XbooxContext())
+            using (var context = new XbooxContext())
             {
-                var orderList = (from o in contexy.Order
-                                 join user in contexy.AspNetUsers
+                var orderList = (from o in context.Order
+                                 join user in context.AspNetUsers
                                  on o.UserId equals user.Id
                                  select new OrderViewModel
                                  {
@@ -74,14 +73,14 @@ namespace Xboox.Services
         }
         public List<OrderDetailsViewModel> GetOrderDetails(string id)
         {
-            using (var contexy = new XbooxContext())
+            using (var context = new XbooxContext())
             {
                 List<OrderDetailsViewModel> orderDetailsList = new List<OrderDetailsViewModel>();
                 // 因為多張圖片會重複產品
-                var tempList = (from od in contexy.OrderDetails
-                                join pd in contexy.Product
+                var tempList = (from od in context.OrderDetails
+                                join pd in context.Product
                                 on od.ProductId equals pd.ProductId
-                                join pi in contexy.ProductImgs
+                                join pi in context.ProductImgs
                                 on pd.ProductId equals pi.ProductId
                                 where pd.ProductId == pi.ProductId
                                 select new OrderDetailsViewModel
@@ -127,6 +126,7 @@ namespace Xboox.Services
                     context.SaveChanges();
                     // 先拿會員CartItems 裡資料
                     var cartItems = context.CartItems.Where(item => item.CartId.ToString() == userId).ToList();
+                    var cart = context.Cart.FirstOrDefault(item => item.CartId.ToString() == userId);
                     foreach (var item in cartItems)
                     {
                         var products = context.Product.Where(pd => pd.ProductId == item.ProductId);
@@ -146,20 +146,20 @@ namespace Xboox.Services
                                 context.OrderDetails.Add(orderDetails);
                                 item.Quantity = 0;
                                 Debug.WriteLine(context.Entry(p).State);
-                                
                             }
                             else
                             {
                                 break;
                             }
                         }
-
+                        context.CartItems.Remove(item);
                     }
+                    context.Cart.Remove(cart);
                     context.SaveChanges();
                     operationResult.isSuccessful = true;
                     transaction.Commit();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     operationResult.isSuccessful = false;
                     operationResult.exception = ex;
@@ -172,12 +172,12 @@ namespace Xboox.Services
         public OperationResult EditState(string id)
         {
             OperationResult operationResult = new OperationResult();
-            XbooxContext contexy = new XbooxContext();
-            using (var transaction = contexy.Database.BeginTransaction())
+            XbooxContext context = new XbooxContext();
+            using (var transaction = context.Database.BeginTransaction())
             {
-                try 
+                try
                 {
-                    var order = contexy.Order.FirstOrDefault(x => x.OrderId.ToString() == id);
+                    var order = context.Order.FirstOrDefault(x => x.OrderId.ToString() == id);
                     if (order != null)
                     {
                         if (order.StateId == (int)payment.Unpaid)
@@ -188,12 +188,12 @@ namespace Xboox.Services
                         {
                             order.StateId = (int)payment.Unpaid;
                         }
-                        contexy.SaveChanges();
+                        context.SaveChanges();
                         operationResult.isSuccessful = true;
                         transaction.Commit();
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     operationResult.isSuccessful = false;
                     operationResult.exception = ex;
@@ -201,25 +201,25 @@ namespace Xboox.Services
                 }
                 return operationResult;
             }
-                
+
         }
         public OperationResult Delete(string id)
         {
             OperationResult operationResult = new OperationResult();
-            XbooxContext contexy = new XbooxContext();
-            using (var transaction = contexy.Database.BeginTransaction())
+            XbooxContext context = new XbooxContext();
+            using (var transaction = context.Database.BeginTransaction())
             {
                 try
                 {
-                    var OrderDetails = contexy.OrderDetails.Where(item => item.OrderId.ToString() == id);
-                    var order = contexy.Order.FirstOrDefault(item => item.OrderId.ToString() == id);
+                    var OrderDetails = context.OrderDetails.Where(item => item.OrderId.ToString() == id);
+                    var order = context.Order.FirstOrDefault(item => item.OrderId.ToString() == id);
                     if (order != null && OrderDetails != null)
                     {
                         if (order.StateId == (int)payment.Unpaid)
                         {
                             foreach (var item in OrderDetails)
                             {
-                                var products = contexy.Product.Where(pd => pd.ProductId == item.ProductId).OrderBy(pd => pd.PublishedDate);
+                                var products = context.Product.Where(pd => pd.ProductId == item.ProductId).OrderBy(pd => pd.PublishedDate);
                                 foreach (var pd in products)
                                 {
                                     if (item.Quantity <= 0)
@@ -232,16 +232,16 @@ namespace Xboox.Services
                                         item.Quantity = 0;
                                     }
                                 }
-                                contexy.OrderDetails.Remove(item);
+                                context.OrderDetails.Remove(item);
                             }
-                            contexy.Order.Remove(order);
-                            contexy.SaveChanges();
+                            context.Order.Remove(order);
+                            context.SaveChanges();
                             operationResult.isSuccessful = true;
                             transaction.Commit();
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     operationResult.isSuccessful = false;
                     operationResult.exception = ex;
