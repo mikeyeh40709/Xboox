@@ -14,9 +14,16 @@ namespace Xboox.Models.Services
 
             if (!contextBase.User.Identity.IsAuthenticated)
             {
-                Guid VisitorKey = Guid.NewGuid();
-                //ViewBag.XbooxKey = VisitorKey;
-                return VisitorKey.ToString();
+                if (contextBase.Request.Cookies["VisitorKey"] == null)
+                {
+                    Guid VisitorKey = Guid.NewGuid();
+                    //ViewBag.XbooxKey = VisitorKey;
+                    return VisitorKey.ToString();
+                }
+                else
+                {
+                    return contextBase.Request.Cookies["VisitorKey"].Value;
+                }   
             }
             else
             {
