@@ -8,7 +8,6 @@ namespace Xboox.ViewModels
     public class BookCategoryViewModel
     {
         public string imgLink { get; set; }
-        public List<string> imgLinks { get; set; }
         public string Tags { get; set; }
         public decimal Price { get; set; }
         public string CategoryID { get; set; }
