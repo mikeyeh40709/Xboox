@@ -199,7 +199,6 @@
     <Compile Include="Models\DataTable\CartItems.cs" />
     <Compile Include="Models\DataTable\Category.cs" />
     <Compile Include="Models\DataTable\Coupons.cs" />
-    <Compile Include="Models\DataTable\C__MigrationHistory.cs" />
     <Compile Include="Models\DataTable\XbooxContext.cs" />
     <Compile Include="Models\DataTable\Order.cs" />
     <Compile Include="Models\DataTable\OrderDetails.cs" />
@@ -623,9 +622,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Services\" />
-    <Folder Include="Assets\CSS\Custom\LogInPage\" />
-    <Folder Include="Assets\JavaScript\Custom\LogInPage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

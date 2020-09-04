@@ -3,7 +3,7 @@
     ViewBag.Title = "Order";
 }
 
-<h2 class="mb-3">我的訂單</h2>
+<h2 class="my-3 text-center">所有訂單</h2>
 <section class="shop-cart spad">
     <div class="container">
         <div class="row">
@@ -13,20 +13,22 @@
                         <thead>
                             <tr>
                                 <th>訂單編號</th>
+                                <th>建立人</th>
                                 <th>建立日期</th>
                                 <th>收件人姓名</th>
                                 <th>收件人信箱</th>
                                 <th>收件人地址</th>
                                 <th>訂單明細</th>
                                 <th>付款狀態</th>
-                                <th>刪除</th>
+                                <th>編輯與刪除</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <th>@item.OrderId</th>
+                                    <td>@item.OrderId</td>
+                                    <td>@item.UserName</td>
                                     <td>@item.OrderDate</td>
                                     <td>@item.PurchaserName</td>
                                     <td>@item.PurchaserEmail</td>
@@ -46,11 +48,12 @@
 
                                     </td>
                                     <td>
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" name="id" class="site-btn bg-secondary" data-toggle="modal" data-target="#editOrder">編輯</button>
                                         <button type="submit" class="site-btn" data-toggle="modal" data-target="#deleteOrder">刪除</button>
                                     </td>
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -71,10 +74,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">圖片</th>
-                            <th scope="col">名稱</th>
-                            <th scope="col">數量</th>
-                            <th scope="col">單價</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -84,6 +84,14 @@
         </div>
     </div>
 </div>
+
+<template id="OrderDetailsList">
+    <td><img src="#" alt="productmg" /></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</template>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 @section OrderCSS {
@@ -91,4 +99,7 @@
 }
 @section OrderJS {
     <script src="~/Assets/JavaScript/Custom/OrderPage/modal.js"></script>
+    <script>
+
+    </script>
 }
