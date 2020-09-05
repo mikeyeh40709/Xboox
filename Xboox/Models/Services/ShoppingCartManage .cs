@@ -16,7 +16,7 @@ namespace Xboox.Models.Services
     {
         XbooxContext xbooxDb = new XbooxContext();
         //ViewModels.CartViewModel CartView = new ViewModels.CartViewModel();
-        string ShoppingCartId { get; set; }
+        //string ShoppingCartId { get; set; }
         //public const string CartSessionKey = "CartId";
         //public static ShoppingCartManage GetCart(HttpContextBase context)
         //{
@@ -143,32 +143,43 @@ namespace Xboox.Models.Services
         }
 
 
-        public int RemoveFromCart(Guid id, Product p)
+        //public int RemoveFromCart(Guid id, Product p)
+        //{
+        //    // Get the cart
+        //    var cartItem = xbooxDb.CartItems.SingleOrDefault(
+        //        c => c.CartId.ToString() == ShoppingCartId
+        //        && c.ProductId == p.ProductId);
+
+        //    int itemCount = 0;
+
+        //    if (cartItem != null)
+        //    {
+        //        if (cartItem.Quantity > 1)
+        //        {
+        //            cartItem.Quantity--;
+        //            itemCount = cartItem.Quantity;
+        //        }
+        //        else
+        //        {
+        //            xbooxDb.CartItems.Remove(cartItem);
+        //        }
+        //        // Save changes
+        //        xbooxDb.SaveChanges();
+        //    }
+        //    return itemCount;
+        //}
+
+        public void MigrateCart(string beforeCookie, string afterCookie)
         {
-            // Get the cart
-            var cartItem = xbooxDb.CartItems.SingleOrDefault(
-                c => c.CartId.ToString() == ShoppingCartId
-                && c.ProductId == p.ProductId);
+            var shoppingCart = xbooxDb.CartItems.Where(
+                c => c.CartId.ToString() == beforeCookie);
 
-            int itemCount = 0;
-
-            if (cartItem != null)
+            foreach (CartItems item in shoppingCart)
             {
-                if (cartItem.Quantity > 1)
-                {
-                    cartItem.Quantity--;
-                    itemCount = cartItem.Quantity;
-                }
-                else
-                {
-                    xbooxDb.CartItems.Remove(cartItem);
-                }
-                // Save changes
-                xbooxDb.SaveChanges();
+                item.CartId = Guid.Parse(afterCookie);
             }
-            return itemCount;
+            xbooxDb.SaveChanges();
         }
-
 
         //public string GetCartId(HttpContextBase context)
         //{
@@ -220,17 +231,7 @@ namespace Xboox.Models.Services
 
 
 
-    //public void MigrateCart(string userName)
-    //{
-    //    var shoppingCart = xbooxDb.CartItems.Where(
-    //        c => c.CartId.ToString() == ShoppingCartId);
 
-    //    foreach (CartItems item in shoppingCart)
-    //    {
-    //        item.CartId = Guid.Parse(userName);
-    //    }
-    //    xbooxDb.SaveChanges();
-    //}
 
 
 

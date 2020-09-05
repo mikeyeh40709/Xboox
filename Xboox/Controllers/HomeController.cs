@@ -20,9 +20,9 @@ namespace Xboox.Controllers
        
         public ActionResult Index()
         {
-            GetKey getKey = new GetKey();
-            var allKey = getKey.GetAllKey(this.HttpContext);
-            ViewBag.XbooxKey = allKey;
+            //GetKey getKey = new GetKey();
+            //var allKey = getKey.GetAllKey(this.HttpContext);
+            //ViewBag.XbooxKey = allKey;
 
 
             var products = context.Product.ToList().Select(y => new ProductDetailViewModel
