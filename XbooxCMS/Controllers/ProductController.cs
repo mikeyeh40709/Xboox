@@ -139,10 +139,10 @@ namespace XbooxCMS.Controllers
             {
                 Products = new Product(),
                 Categories = context.Category.ToList(),
-                Tags = context.Tags.ToList(),
+              //  Tags = context.Tags.ToList(),
                 SelectedTags = null,
-             
-
+                
+                Tags = GetAllTags().ToList()
             };
             context.SaveChanges();
            // context.SaveChanges();
@@ -158,7 +158,7 @@ namespace XbooxCMS.Controllers
     
 
             createViewModel.Tags = GetAllTags();
-            createViewModel.SelectedTags = selectedTags;
+          //  createViewModel.SelectedTags = selectedTags;
 
             if (!ModelState.IsValid)
             {
@@ -262,6 +262,7 @@ namespace XbooxCMS.Controllers
         public ActionResult Edit(Guid id)
         {
             var product = context.Product.FirstOrDefault(p => p.ProductId == id);
+          
             if (product == null)
             {
 
@@ -270,18 +271,44 @@ namespace XbooxCMS.Controllers
             }
             else
             {
-
-                var viewModel = new CreateViewModel()
+                List<Tags> TagList = new List<Tags>(); 
+                var viewModels = new CreateViewModel();
+                viewModels.Products = product;
+                viewModels.Tags = context.Tags.ToList();
+                viewModels.Categories = context.Category.ToList();
+                //viewModels.SelectedTags = (IEnumerable<Guid>)(from t in context.ProductTags
+                //                          where t.ProductId == product.ProductId
+                //                          select t.TagId).ToList();
+                var temp = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => x.TagId);
+                //找到本來被選中的tag
+                foreach (var t in temp)
                 {
+                    //var findtagobject = (from p in context.Tags
+                    //                    where p.TagId == t
+                    //                    select new Tags() { TagId = (Guid)t }).ToList();
+                        //context.Tags.Where(x => x.TagId == t).Select ;
+                   TagList.Add(new Tags() { TagId= (Guid)t,TagName = context.Tags.Where(x=>x.TagId==t).Select(x=>x.TagName).FirstOrDefault()});
                     
-                    
-                    Products = product,
-                    Tags = context.Tags.ToList(),
-                    Categories = context.Category.ToList(),
-                   // SelectedTags = 
                 };
+                viewModels.SelectedTags = TagList;
+
+                // viewModels.SelectedTags = //context.ProductTags.Where(x=>x.ProductId==product.ProductId).Select(x=>x.TagId).AsEnumerable();
+                Debug.WriteLine("+++++++++++");
+                foreach(var i in viewModels.SelectedTags)
+                {
+                    Debug.WriteLine(i);
+                }
               
-                return View("Create", viewModel);
+
+
+
+                //    Products = product,
+                //    Tags = context.Tags.ToList(),
+                //    Categories = context.Category.ToList(),
+                //    SelectedTags  = context.ProductTags.Where(t=>viewModel)
+                //};
+
+                return View("Create", viewModels);
             }
 
             
@@ -290,24 +317,30 @@ namespace XbooxCMS.Controllers
 
         [HttpPut]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(CreateViewModel createViewModel)
         {
-           var  productInDb = context.Product.Single(c => c.ProductId == product.ProductId);
-            productInDb.Name = product.Name;
-            productInDb.Price = product.Price;
-            productInDb.Description = product.Description;
-            productInDb.ProductImgId = product.ProductImgId;
-            productInDb.CategoryId = product.CategoryId;
-            productInDb.Publisher = product.Publisher;
-            productInDb.PublishedDate = product.PublishedDate;
-            productInDb.UnitInStock = product.UnitInStock;
-            productInDb.Specification = product.Specification;
+            var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId.ToString()));
+
+            //reload
+            createViewModel.Tags = GetAllTags();
+           // createViewModel.SelectedTags = selectedTags;
+
+            var  productInDb = context.Product.Single(c => c.ProductId == createViewModel.Products.ProductId);
+            productInDb.Name = createViewModel.Products.Name;
+            productInDb.Price = createViewModel.Products.Price;
+            productInDb.Description = createViewModel.Products.Description;
+            productInDb.ProductImgId = createViewModel.Products.ProductImgId;
+            productInDb.CategoryId = createViewModel.Products.CategoryId;
+            productInDb.Publisher = createViewModel.Products.Publisher;
+            productInDb.PublishedDate = createViewModel.Products.PublishedDate;
+            productInDb.UnitInStock = createViewModel.Products.UnitInStock;
+            productInDb.Specification = createViewModel.Products.Specification;
 
             //待確定//
-            productInDb.ProductTags = product.ProductTags;
+            productInDb.ProductTags = createViewModel.Products.ProductTags;
             
-            productInDb.Language = product.Language;
-            productInDb.Intro = product.Intro;
+            productInDb.Language = createViewModel.Products.Language;
+            productInDb.Intro = createViewModel.Products.Intro;
 
             context.SaveChanges();
             return RedirectToAction("Index", "Product"); ;

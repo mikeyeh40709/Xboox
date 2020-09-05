@@ -27,6 +27,8 @@ namespace XbooxCMS.ViewModels
 
         public ProductTags ProductTags { get; set; }
 
+        public List<ProductTags> productTags { get; set; }
+
 
         //  public IEnumerable<TagViewModel> TagViews { get; set; }
         //   public IEnumerable<CategoryViewModel> categoryViews { get; set; }

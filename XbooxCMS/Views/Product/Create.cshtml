@@ -4,10 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
-        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
-        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 </head>
 
 
@@ -116,7 +116,7 @@
                                    class="filepond"
                                    name="filepond"
                                    multiple
-                                   allowRevert ="false"
+                                   allowRevert="false"
                                    @*allowRemove ="false"*@
                                    data-allow-reorder="true"
                                    data-max-file-size="3MB"
@@ -140,7 +140,8 @@
                                                    entity => entity.TagId,
                                                    entity => entity.TagName,
                                                    model => model.SelectedTags
-                                )
+                                                   //(model, entity) => model.Tags.Contains(entity.TagId)
+                            );
                             @*@foreach(var box in Model.Tags)
                                 {
                                     <div class="checkbox">
@@ -178,7 +179,7 @@
             </div>
         </div>
     </div>
-  
+
     <form action="#">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="username" />
@@ -250,4 +251,13 @@
             }
         }
     });
+</script>
+<script>
+    // 驗證是否點選
+    function validateRoleList() {
+        if ($('input[name="SelectedTags"]:checked').length == 0) {
+            alert("Atleast one CheckBox is checked");
+            return false;
+        }
+    }
 </script>
