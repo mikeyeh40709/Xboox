@@ -46,12 +46,6 @@ namespace XbooxCMS.Models
                 .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<AspNetUsers>()
-                .HasMany(e => e.Cart)
-                .WithRequired(e => e.AspNetUsers)
-                .HasForeignKey(e => e.UserId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.Order)
                 .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.UserId)
@@ -82,10 +76,6 @@ namespace XbooxCMS.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<OrderDetails>()
-                .Property(e => e.ProductName)
-                .IsFixedLength();
-
-            modelBuilder.Entity<OrderDetails>()
                 .Property(e => e.UnitPrice)
                 .HasPrecision(18, 6);
 
@@ -113,7 +103,5 @@ namespace XbooxCMS.Models
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
         }
-
-        public System.Data.Entity.DbSet<XbooxCMS.ViewModels.UserListViewModel> UserListViewModels { get; set; }
     }
 }
