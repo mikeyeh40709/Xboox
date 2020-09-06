@@ -21,13 +21,13 @@ namespace XbooxCMS.ViewModels
         public IEnumerable<Tags> SelectedTags { get; set; }
 
         //CheckBoxList的名稱，也是被勾選資料Post回Server時Data binding之目標物件
-        public List<string> PostedTagIds { get; set; }
+        public List<Guid> PostedTagIds { get; set; }
         //Category 
         public IEnumerable<Category> Categories { get; set; }
 
         public ProductTags ProductTags { get; set; }
 
-        public List<ProductTags> productTags { get; set; }
+     //   public List<ProductTags> productTags { get; set; }
 
 
         //  public IEnumerable<TagViewModel> TagViews { get; set; }
@@ -38,7 +38,7 @@ namespace XbooxCMS.ViewModels
         {
             Products = new Product();
             SelectedTags = new List<Tags>();
-            PostedTagIds = new List<string>();
+            PostedTagIds = new List<Guid>();
             ProductTags = new ProductTags();
             
         }

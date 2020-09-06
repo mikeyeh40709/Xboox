@@ -1,6 +1,6 @@
 ﻿@model XbooxCMS.ViewModels.CreateViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 </head>
 
-
-<h2>Create</h2>
+<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
@@ -25,6 +24,9 @@
 
             </div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <input id="Id" name="Id" type="hidden" value=@Model.Products.ProductId>
+
+            @Html.HiddenFor(m => m.Products.ProductId)
             <div class="panel-body">
                 <form role="form" class="form-horizontal  ">
                     <div class="form-group form-display">
@@ -67,13 +69,13 @@
                         </div>
                     </div>
                     @*<div class="form-group form-display">
-                            <label for="field-1" class="col-sm-3 control-label">出版時間</label>
-                            <div class="col-sm-5">
-                                @Html.TextBoxFor(m => m.Products.PublishedDate, new { @class = "form-control", placeholder = "placeholder" })
-                                @Html.ValidationMessageFor(m => m.Products.PublishedDate)
+                    <label for="field-1" class="col-sm-3 control-label">出版時間</label>
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.Products.PublishedDate, new { @class = "form-control", placeholder = "placeholder" })
+                        @Html.ValidationMessageFor(m => m.Products.PublishedDate)
 
-                            </div>
-                        </div>*@
+                    </div>
+                </div>*@
                     <div class="form-group form-display">
                         <label for="field-1" class="col-sm-3 control-label">出版時間</label>
                         <div class="col-sm-5">
@@ -143,14 +145,14 @@
                                                    //(model, entity) => model.Tags.Contains(entity.TagId)
                             );
                             @*@foreach(var box in Model.Tags)
-                                {
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="selectedBox" value="@box.TagId" @if (Model.PostedTagIds.Contains(box.TagId.ToString())) { @Html.Raw("checked = 'checked'")}/>@box.TagName
-                                        </label>
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="selectedBox" value="@box.TagId" @if (Model.PostedTagIds.Contains(box.TagId.ToString())) { @Html.Raw("checked = 'checked'")}/>@box.TagName
+                                </label>
 
-                                    </div>
-                                }*@
+                            </div>
+                        }*@
 
                         </div>
                     </div>
@@ -172,14 +174,14 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-5">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Edit" class="btn btn-default" />
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
+   
     <form action="#">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="username" />
@@ -187,9 +189,6 @@
         </div>
     </form>
 }
-@*@Scripts.Render("~/bundles/jqueryval")*@
-
-@*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
@@ -253,12 +252,3 @@
         }
     });
 </script>
-@*<script>
-    // 驗證是否點選
-    function validateRoleList() {
-        if ($('input[name="SelectedTags"]:checked').length == 0) {
-            alert("Atleast one CheckBox is checked");
-            return false;
-        }
-    }
-</script>*@

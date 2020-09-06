@@ -76,8 +76,6 @@ namespace XbooxCMS.Controllers
         
         }
 
-        Guid productId = Guid.NewGuid();
-        Guid productId2 = Guid.NewGuid();
 
         /// <summary>
         /// 顯示產品資料列表
@@ -154,11 +152,11 @@ namespace XbooxCMS.Controllers
         public ActionResult Create(CreateViewModel createViewModel)
         {
           
-            var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId.ToString()));
+            var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId));
     
 
             createViewModel.Tags = GetAllTags();
-          //  createViewModel.SelectedTags = selectedTags;
+          //  ViewModel.SelectedTags = selectedTags;
 
             if (!ModelState.IsValid)
             {
@@ -170,13 +168,13 @@ namespace XbooxCMS.Controllers
          
             //for (var i =0;i <fileNameList.Count();i++ )
             //{
-            //    productImgs.Add(new ProductImgs() { imgLink = fileNameList[i], ProductId = createViewModel.Products.ProductId });
+            //    productImgs.Add(new ProductImgs() { imgLink = fileNameList[i], ProductId = ViewModel.Products.ProductId });
             //}
             //try
             //{
             //    foreach (var i in ViewBag.List)
             //    {
-            //        productImgs.Add(new ProductImgs() { imgLink = i, ProductId = createViewModel.Products.ProductId });
+            //        productImgs.Add(new ProductImgs() { imgLink = i, ProductId = ViewModel.Products.ProductId });
             //    }
             //}
   
@@ -198,7 +196,7 @@ namespace XbooxCMS.Controllers
             return RedirectToAction("Create","Product");
         }
 
-       private void AddedTag(Product product, List<string> SelectedTags,ProductTags tags)
+       private void AddedTag(Product product, List<Guid> SelectedTags,ProductTags tags)
         {
            
             if (SelectedTags.Count==0)
@@ -207,45 +205,60 @@ namespace XbooxCMS.Controllers
             }
 
             {
- 
-                foreach (var t in SelectedTags)
+                //原本被選的Tag
+                var pTagList = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => (Guid)x.TagId).ToList();
+                if (pTagList.Count == 0)
                 {
-                    tags = new ProductTags()
+                    //create
+                    foreach (var t in SelectedTags)
                     {
-                        ProductId = product.ProductId,
-                        TagId = new Guid(t),
-                        Id = Guid.NewGuid()
-                    };
+                        tags = new ProductTags()
+                        {
+                            ProductId = product.ProductId,
+                            TagId = t,
+                            Id = Guid.NewGuid()
+                        };
 
-                    // if (productTags.Select(x => x.ProductId).Contains(product.ProductId) && productTags.Select(x => x.TagId).Contains(new Guid(t)))
-                    //productsTags.Add(new ProductTags() {ProductId = product.ProductId,TagId = new Guid(t) ,Id= Guid.NewGuid() });
+                        context.ProductTags.Add(tags);
+                    }
                 }
-                //var currentTagIds = context.Product.;
 
-                //foreach (var role in GetAllTags())
-                //{
-                //    if (SelectedTags.Contains(tags.TagId.ToString())
-                //    {
-                //        // 此role有被勾選到
-                //        if (!currentRoleIds.Contains(role.RoleId))
-                //        {
-                //            // 如果原本member沒有這個角色 就要增加
-                //            user.Roles.Add(role);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        // 此role沒有被勾選到
-                //        if (currentRoleIds.Contains(role.RoleId))
-                //        {
-                //            // 如果原本member有這個角色 就要移除
-                //            user.Roles.Remove(role);
-                //        }
-                //    }
-                //}
+              
+                //edit
+                else
+                {
+                    //找出原本有選但現在沒選的Tag
+                    var newTagList1 = pTagList.Except(SelectedTags);
+
+
+                    //把現在沒選的Tag移除
+                    foreach (var t in newTagList1)
+                    {
+
+                        var item = context.ProductTags.Where(x => x.TagId == t && x.ProductId == product.ProductId).FirstOrDefault();
+                        context.ProductTags.Remove(item);
+                    }
+
+                    //找出現在有選但原本沒選的Tag
+                    var newTagList2 = SelectedTags.Except(pTagList);
+
+                    //加入沒選過的tag
+                    foreach (var t in newTagList2)
+                    {
+                        tags = new ProductTags()
+                        {
+                            ProductId = product.ProductId,
+                            TagId = t,
+                            Id = Guid.NewGuid()
+                        };
+                        context.ProductTags.Add(tags);
+                    }
+                }
+               
+
             }
 
-            context.ProductTags.Add(tags);
+        
 
             context.SaveChanges();
             // context.ProductTags.Add(tags);
@@ -276,72 +289,60 @@ namespace XbooxCMS.Controllers
                 viewModels.Products = product;
                 viewModels.Tags = context.Tags.ToList();
                 viewModels.Categories = context.Category.ToList();
-                //viewModels.SelectedTags = (IEnumerable<Guid>)(from t in context.ProductTags
-                //                          where t.ProductId == product.ProductId
-                //                          select t.TagId).ToList();
-                var temp = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => x.TagId);
+         
+                var temp = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => x.TagId).ToList();
                 //找到本來被選中的tag
                 foreach (var t in temp)
                 {
-                    //var findtagobject = (from p in context.Tags
-                    //                    where p.TagId == t
-                    //                    select new Tags() { TagId = (Guid)t }).ToList();
-                        //context.Tags.Where(x => x.TagId == t).Select ;
-                   TagList.Add(new Tags() { TagId= (Guid)t,TagName = context.Tags.Where(x=>x.TagId==t).Select(x=>x.TagName).FirstOrDefault()});
                     
+                   TagList.Add(new Tags() { TagId= (Guid)t,TagName = context.Tags.Where(x=>x.TagId==t).Select(x=>x.TagName).FirstOrDefault()});
+                    Debug.WriteLine(t);
                 };
                 viewModels.SelectedTags = TagList;
 
-                // viewModels.SelectedTags = //context.ProductTags.Where(x=>x.ProductId==product.ProductId).Select(x=>x.TagId).AsEnumerable();
-                Debug.WriteLine("+++++++++++");
-                foreach(var i in viewModels.SelectedTags)
-                {
-                    Debug.WriteLine(i);
-                }
-              
 
-
-
-                //    Products = product,
-                //    Tags = context.Tags.ToList(),
-                //    Categories = context.Category.ToList(),
-                //    SelectedTags  = context.ProductTags.Where(t=>viewModel)
-                //};
-
-                return View("Create", viewModels);
+                return View(viewModels);
             }
 
             
         }
 
 
-        [HttpPut]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CreateViewModel createViewModel)
+        public ActionResult Edit(CreateViewModel ViewModel)
         {
-            var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId.ToString()));
+            if (!ModelState.IsValid)
+            {
+                Debug.WriteLine("Wrong");
+                return RedirectToAction("Index", "Product");
+            }
+            var selectedTags = GetAllTags().Where(t => ViewModel.PostedTagIds.Contains(t.TagId));
 
             //reload
-            createViewModel.Tags = GetAllTags();
-           // createViewModel.SelectedTags = selectedTags;
+            ViewModel.Tags = GetAllTags();
+           // ViewModel.SelectedTags = selectedTags;
 
-            var  productInDb = context.Product.Single(c => c.ProductId == createViewModel.Products.ProductId);
-            productInDb.Name = createViewModel.Products.Name;
-            productInDb.Price = createViewModel.Products.Price;
-            productInDb.Description = createViewModel.Products.Description;
-            productInDb.ProductImgId = createViewModel.Products.ProductImgId;
-            productInDb.CategoryId = createViewModel.Products.CategoryId;
-            productInDb.Publisher = createViewModel.Products.Publisher;
-            productInDb.PublishedDate = createViewModel.Products.PublishedDate;
-            productInDb.UnitInStock = createViewModel.Products.UnitInStock;
-            productInDb.Specification = createViewModel.Products.Specification;
+            var  productInDb = context.Product.Single(c => c.ProductId == ViewModel.Products.ProductId);
+            productInDb.Name = ViewModel.Products.Name;
+            productInDb.Price = ViewModel.Products.Price;
+            productInDb.Description = ViewModel.Products.Description;
 
-            //待確定//
-            productInDb.ProductTags = createViewModel.Products.ProductTags;
+            productInDb.CategoryId = ViewModel.Products.CategoryId;
+            productInDb.Publisher = ViewModel.Products.Publisher;
+            productInDb.PublishedDate = ViewModel.Products.PublishedDate;
+            productInDb.UnitInStock = ViewModel.Products.UnitInStock;
+            productInDb.Specification = ViewModel.Products.Specification;
+
+
+            //  productInDb.ProductImgId = ViewModel.Products.ProductImgId;
+
+            AddedTag(ViewModel.Products, ViewModel.PostedTagIds, ViewModel.ProductTags);
+            //productInDb.ProductTags = ViewModel.Products.ProductTags;
             
-            productInDb.Language = createViewModel.Products.Language;
-            productInDb.Intro = createViewModel.Products.Intro;
-
+            productInDb.Language = ViewModel.Products.Language;
+            productInDb.Intro = ViewModel.Products.Intro;
+     
             context.SaveChanges();
             return RedirectToAction("Index", "Product"); ;
         }
@@ -473,7 +474,7 @@ namespace XbooxCMS.Controllers
 
 
                         //Session[$"fileName{i}"] = fileName;
-                        //productImgs.Add(new ProductImgs() { imgLink = path, ProductId = createViewModel.Products.ProductId });
+                        //productImgs.Add(new ProductImgs() { imgLink = path, ProductId = ViewModel.Products.ProductId });
              files[0].SaveAs(path);
                 // }
                 // }
