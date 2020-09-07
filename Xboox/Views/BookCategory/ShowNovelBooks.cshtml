@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Xboox.ViewModels.BookCategoryViewModel>
+﻿@model IEnumerable<Xboox.ViewModels.ProductDetailViewModel>
 
 
 @{
-    ViewBag.Title = "ShowAllAllBooks";
+    ViewBag.Title = "ShowNovelBooks";
 }
 
 <!-- Breadcrumb Begin -->
@@ -12,8 +12,9 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="/"><i class="fa fa-home"></i> Home</a>
+                    @*<span>中文書</span>*@
                     @*@Html.ActionLink("中文書", "ShowAllCnBooks", "CnBookPage",null, new { hidefocus="hidefocus"})*@
-                    <a href="@Url.Action("ShowAllAllBooks","BookCategory")"><span>All Books</span></a>
+                    <a href="@Url.Action("ShowNovelBooks","BookCategory")"><span>Novel</span></a>
                 </div>
             </div>
         </div>
@@ -236,7 +237,7 @@
             </div>
             <div class="col-lg-9 col-md-9">
                 <div class="row">
-                    @foreach (var cnBook in Model)
+                    @foreach(var cnBook in Model)
                     {
                         @Html.Partial("_BookCategoryPartialView", cnBook);
                     }

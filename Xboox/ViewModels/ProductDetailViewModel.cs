@@ -11,7 +11,7 @@ namespace Xboox.ViewModels
         public string Name { get; set; }
         public string ISBN { get; set; }
         public decimal Price { get; set; }
-        public string imgLink { get; set; }
+        public string ImgLink { get; set; }
         public string Intro { get; set; }
         public string Publisher { get; set; }
         public string PublishedDate { get; set; }
@@ -21,7 +21,9 @@ namespace Xboox.ViewModels
         public string Language { get; set; }
         public string ProductId { get; set; }
         public string Tag { get; set; }
-        public List<string> imgLinks { get; set; }
-        public string Category { get; set; }
+        public List<string> ImgLinks { get; set; }
+        //public string Category { get; set; }
+        public string CategoryID { get; set; }
+        public string CategoryName { get; set; }
     }
 }

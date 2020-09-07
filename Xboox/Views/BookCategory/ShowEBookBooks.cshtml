@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Xboox.ViewModels.BookCategoryViewModel>
+﻿@model IEnumerable<Xboox.ViewModels.ProductDetailViewModel>
 
 
 @{
-    ViewBag.Title = "ShowAllComicsBooks";
+    ViewBag.Title = "ShowEbookBooks";
 }
 
 <!-- Breadcrumb Begin -->
@@ -12,7 +12,7 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="/"><i class="fa fa-home"></i> Home</a>
-                    <a href="@Url.Action("ShowAllComicsBooks","BookCategory")"><span>Comics</span></a>
+                    <a href="@Url.Action("ShowEbookBooks","BookCategory")"><span>Ebooks</span></a>
                 </div>
             </div>
         </div>

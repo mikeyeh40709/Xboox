@@ -8,10 +8,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
-                    <a href="/"><i class="fa fa-home"></i> Home</a>
+                    <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i> Home</a>
                     @*<a href="#">@Model.Category</a>*@
                     @*<a href="@Url.Action("ShowAllCnBooks","BookCategory")"></a>*@
-                    @Html.ActionLink(Model.Category, "ShowAll" + Model.Category + "Books", "BookCategory")
+                    @Html.ActionLink(Model.CategoryName, "Show" + Model.CategoryName + "Books", "BookCategory")
                     <span>@Model.Name</span>
                 </div>
             </div>
@@ -27,20 +27,20 @@
                 <div class="product__details__pic">
                     <div class="product__details__pic__left product__thumb nice-scroll">
                         <a class="pt active" href="#product-1">
-                            <img src="~/Assets/Image/Pics/@(Model.imgLinks[0]).jpg" alt="">
+                            <img src="~/Assets/Image/Pics/@(Model.ImgLinks[0]).jpg" alt="">
                         </a>
-                        @for (var i = 1; i < Model.imgLinks.Count(); i++)
+                        @for (var i = 1; i < Model.ImgLinks.Count(); i++)
                         {
                             <a class="pt" href="#product-@(i+1)">
-                                <img src="~/Assets/Image/Pics/@(Model.imgLinks[i]).jpg" alt="">
+                                <img src="~/Assets/Image/Pics/@(Model.ImgLinks[i]).jpg" alt="">
                             </a>
                         }
                     </div>
                     <div class="product__details__slider__content">
                         <div class="product__details__pic__slider owl-carousel">
-                            @for (var i = 0; i < Model.imgLinks.Count(); i++)
+                            @for (var i = 0; i < Model.ImgLinks.Count(); i++)
                             {
-                                <img data-hash="product-@(i+1)" class="product__big__img" src="~/Assets/Image/Pics/@(Model.imgLinks[i]).jpg" alt="">
+                                <img data-hash="product-@(i+1)" class="product__big__img" src="~/Assets/Image/Pics/@(Model.ImgLinks[i]).jpg" alt="">
                             }
                         </div>
                     </div>
