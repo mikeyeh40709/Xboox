@@ -1,0 +1,76 @@
+﻿body {
+}
+.small-box > .inner {
+    padding: 10px;
+}
+
+.small-box > .small-box-footer {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    display: block;
+    padding: 3px 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    z-index: 10;
+}
+
+    .small-box > .small-box-footer:hover {
+        background: rgba(0, 0, 0, 0.15);
+        color: #ffffff;
+    }
+
+.small-box h3 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.small-box .icon {
+    color: rgba(0, 0, 0, 0.15);
+    z-index: 0;
+    font-size: 70px;
+    top: 20px;
+}
+
+    .small-box .icon > i {
+        font-size: 90px;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        transition: all 0.3s linear;
+    }
+
+
+.small-box:hover {
+    text-decoration: none;
+}
+
+    .small-box:hover .icon > i {
+        font-size: 95px;
+    }
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+    margin-bottom: 1rem;
+}
+.card-header {
+
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: .75rem 1.25rem;
+    position: relative;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}

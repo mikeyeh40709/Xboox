@@ -12,11 +12,10 @@ namespace XbooxCMS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            CartItmes = new HashSet<CartItmes>();
+            CartItems = new HashSet<CartItems>();
             OrderDetails = new HashSet<OrderDetails>();
             ProductTags = new HashSet<ProductTags>();
             WishList = new HashSet<WishList>();
-            WishList1 = new HashSet<WishList>();
         }
 
         public Guid ProductId { get; set; }
@@ -24,7 +23,7 @@ namespace XbooxCMS.Models
         [Required]
         public string Name { get; set; }
 
-        public int Quantity { get; set; }
+        public int UnitInStock { get; set; }
 
         public decimal Price { get; set; }
 
@@ -49,13 +48,13 @@ namespace XbooxCMS.Models
         [StringLength(50)]
         public string Specification { get; set; }
 
-        public DateTime? PublishedDate { get; set; }
+        public DateTime PublishedDate { get; set; }
 
         [StringLength(50)]
         public string Language { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItmes> CartItmes { get; set; }
+        public virtual ICollection<CartItems> CartItems { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
@@ -65,8 +64,5 @@ namespace XbooxCMS.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishList> WishList { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WishList> WishList1 { get; set; }
     }
 }

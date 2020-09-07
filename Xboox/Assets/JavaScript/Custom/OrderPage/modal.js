@@ -5,9 +5,8 @@
     };
     let detailsBtn = $("button[data-target='#orderDetails']");
     let detailsBody = $("#orderDetails .modal-body tbody");
-    let editBtn = $("input[data-target='#editOrder']");
-    let deleteBtn = $("input[data-target='#deleteOrder']");
-    let confirmDeleteBtn = $("swal2-confirm");
+    let editBtn = $("button[data-target='#editOrder']");
+    let deleteBtn = $("button[data-target='#deleteOrder']");
     detailsBtn.on("click", function () {
         $.ajax({
             url: `GetOrderDetails/${this.id}`,
@@ -61,19 +60,6 @@
                         return response.json()
                     }
                 });
-                //fetch(`/Order/ChangeState/${state}`, {
-                //    method: "GET",
-                //})
-                //    .then(response => {
-                //        if (!response.ok) {
-                //            throw new Error(response.statusText)
-                //        }
-                //        return response.json()
-                //    })
-                //    .catch(error => {
-                //        Swal.showValidationMessage(
-                //            `Request failed: ${error}`
-                //        )
                 //    })
             },
             allowOutsideClick: () => !Swal.isLoading()
@@ -96,27 +82,18 @@
             cancelButtonColor: '#d33',
             confirmButtonText: '刪除!',
             preConfirm: () => {
-                return $.ajax({
+                $.ajax({
                     type: "post",
-                    url: `DeleteOrder/${this.id}`,
+                    url: `DeleteOrder?orderId=${this.id}`,
+                    data: "{}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-                        if (!response.ok) {
-                            throw new Error(response.statusText)
-                        }
-                        return response.json()
+                        window.location.href = response.redirectToUrl;
                     }
                 })
-            }
-        }).then((result) => {
-            if (result.value) {
-                Swal.fire(
-                    'Deleted!',
-                    '已成功刪除.',
-                    'success'
-                )
-            }
+            },
+            allowOutsideClick: () => !Swal.isLoading()
         })
     });
 });

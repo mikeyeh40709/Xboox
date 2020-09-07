@@ -1,0 +1,38 @@
+﻿@model IEnumerable<XbooxCMS.Models.Tags>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    </head>
+<h2>Tag List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TagName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TagName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TagId }) 
+            @*@Html.ActionLink("Details", "Details", new { id=item.TagId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TagId })*@
+        </td>
+    </tr>
+}
+
+</table>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>

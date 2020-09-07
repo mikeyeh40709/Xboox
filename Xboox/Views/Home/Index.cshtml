@@ -142,17 +142,58 @@
     </div>
 </section>
 
-<script>
-   
 
+
+@section EndJS{
+    <script>
     doCookieSetup("VisitorKey","@ViewBag.XbooxKey");
-
-
     function doCookieSetup(name, value) {
         var expires = new Date();
         //有效時間保存 2 天 2*24*60*60*1000
         //expires.setTime(expires.getTime() + 3600);
         document.cookie = document.cookie = name + "=" + escape(value) + ";max-age=" + 1000;
     }
+    //let AddBtnGroup= document.querySelectorAll(".icon_bag_alt");
+    //let bookNameGroup = document.querySelectorAll(".product__item__text a");
 
-</script>
+
+    //    function addtocar(name, value) {
+    //        var expires = new Date();
+    //        //有效時間保存 2 天 2*24*60*60*1000
+    //        //expires.setTime(expires.getTime() + 3600);
+    //        document.cookie = document.cookie = name + "=" + escape(value) + ";max-age=" + 1000;
+    //    };
+
+    //    for (var i = 0; i < AddBtnGroup.length; i++) {
+            
+    //        AddBtnGroup[i].addEventListener('click', addtocar("carItem", bookNameGroup[i].innerHTML ));
+
+    //    }
+
+       
+      
+      
+        //function addToCar(item) {
+        //    //item為品項名稱，型態為字串
+        //    if (Cookies.get("carItem") == undefined) {
+        //        //若目前沒有 carItem 這個 key 的 Cookie ，直接新增一個，並只對購物車頁面設定 Cookie
+        //        Cookies.set("carItem", item)
+        //    }
+        //    else {
+        //        //有的話就用逗號將品項做分隔再加入至 carItem 中
+        //        currentItem = Cookies.get("carItem");
+        //        currentItem = currentItem + "," + item;
+        //        Cookies.set("carItem");
+        //    }
+        //}
+        //alert("已加入" + item + "至購物車");
+
+    //AddBtnGroup.forEach((ele, idx) => AddBtnGroup[idx].addEventListener('click', addToCar("1")));
+
+    //function setCookie(name, value) {
+    //    value = encodeURIComponent(JSON.stringify(value).replaceAll(' ', '+'))
+    //    document.cookie = `${name}=${value};`
+    //    return getCookie(name)
+    //}
+    </script>
+}

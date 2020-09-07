@@ -1,0 +1,37 @@
+﻿<div class="col-lg-3 col-12 pb-0 pt-5 px-5">
+    <div class="shop__sidebar h-auto" >
+        <div class="sidebar__categories position-sticky">
+            <div class="section-title">
+                <h4>會員專區</h4>
+            </div>
+            <div class="categories__accordion">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-heading">
+                            <a >修改個人資訊</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-heading">
+                            @Html.ActionLink("我的訂單","UserView","Order")
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-heading">
+                            <a>願望清單</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .categories__accordion .card-heading a::after {
+        content: "";
+    }
+    .shop__sidebar {
+        height: 900px;
+    }
+</style>
+

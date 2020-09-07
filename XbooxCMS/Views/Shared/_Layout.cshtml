@@ -6,89 +6,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
     <link rel="stylesheet" href="~/Assets/Style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-expand-lg fixed-top navbar-light">
         <div class="container">
-            <div class="navbar-header">
-                <span><img src="~/Assets/picture/logo-removebg-preview.png"/></span>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+            <div class="navbar-brand">
+                <span><img src="~/Assets/Pics/logo-removebg-preview.png" /></span>
+             
                 @Html.ActionLink("Xboox", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                   
+                <ul class="navbar-nav ml-auto">
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="aside">
-        <aside>
+    
+        <aside class="sidebar">
+            
             <ul>
                 <li>
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-dashboard"></i>
-                        <span class="color-1">Dashboard</span>
+                        <i class="fa fa-dashboard"></i>
+                        <span class="color-1">@Html.ActionLink("Dashboard", "Index", "Home")</span>
                     </a>
 
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-book"></i>
-                        <span class="color-1">Product Management</span>
+                        <i class="fa fa-book"></i>
+                        <span class="color-1">
+                            @Html.ActionLink("Product Management", "Index", "Product")
+                        </span>
                     </a>
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-user"></i>
-                        <span class="color-1">User Management</span>
+                        <i class="fa fa-user"></i>
+                        <span class="color-1">@Html.ActionLink("User Management", "Index", "User")</span>
                     </a>
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-list"></i>
-                        <span class="color-1">Order Management</span>
+                        <i class="fa fa-list"></i>
+                        <span class="color-1">@Html.ActionLink("Order Management", "Index", "Order")</span>
                     </a>
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-grain"></i>
+                        <i class="fa fa-barcode"></i>
                         <span class="color-1">Coupon Management</span>
                     </a>
                 </li>
                 <li>
 
                     <a class="aside-item color-1">
-                        <i class="glyphicon glyphicon-stats"></i>
+                        <i class="fa fa-barcode"></i>
+                        <span class="color-1"> @Html.ActionLink("Tag Management", "Index", "Tags")</span>
+                    </a>
+                </li>
+                <li>
+
+                    <a class="aside-item color-1">
+                        <i class="fa fa-bar-chart"></i>
                         <span class="color-1">Report</span>
                     </a>
                 </li>
+
             </ul>
+           
         </aside>
-
         <div class="container body-content">
-            @RenderBody()
+        @RenderBody()
 
-            @*<footer>
+        @*<footer>
                 <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
             </footer>*@
-        </div>
-    </div>
+            </div>
+   
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.com/libraries/Chart.js"></script>

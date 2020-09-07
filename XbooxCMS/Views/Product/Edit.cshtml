@@ -1,0 +1,254 @@
+﻿@model XbooxCMS.ViewModels.CreateViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+</head>
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        <div class="panel panel-primary" data-collapsed="0">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    Default Form Inputs
+                </div>
+
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <input id="Id" name="Id" type="hidden" value=@Model.Products.ProductId>
+
+            @Html.HiddenFor(m => m.Products.ProductId)
+            <div class="panel-body">
+                <form role="form" class="form-horizontal  ">
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">產品名稱</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.Name, new { @class = "form-control", placeholder = "請輸入20字以內產品名稱" })
+                            @Html.ValidationMessageFor(m => m.Products.Name)
+                            @*<input type="text" class="form-control" id="field-1" placeholder="請輸入20字以內產品名稱">*@
+                        </div>
+                    </div>
+                    <div class="form-group form-display">
+                        <label for="field-2" class="col-sm-3 control-label">產品價格</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.Price, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.Price)
+                            @*<input type="text" class="form-control" id="field-2" placeholder="Placeholder">*@
+                        </div>
+                    </div>
+
+                    <div class="form-group form-display">
+                        <label for="field-3" class="col-sm-3 control-label">作者</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.Author, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.Author)
+                            @*<input type="text" class="form-control" id="field-3" placeholder="Placeholder">*@
+                        </div>
+                    </div>
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">語言</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.Language, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.Language)
+                        </div>
+                    </div>
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">出版社</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.Publisher, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.Publisher)
+                        </div>
+                    </div>
+                    @*<div class="form-group form-display">
+                    <label for="field-1" class="col-sm-3 control-label">出版時間</label>
+                    <div class="col-sm-5">
+                        @Html.TextBoxFor(m => m.Products.PublishedDate, new { @class = "form-control", placeholder = "placeholder" })
+                        @Html.ValidationMessageFor(m => m.Products.PublishedDate)
+
+                    </div>
+                </div>*@
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">出版時間</label>
+                        <div class="col-sm-5">
+                            @*<input type="date" />*@
+                            @*@Html.TextBoxFor(model => model.CreationDate, "{0:yyyy-MM-dd}", new { type = "date" })*@
+                            @Html.TextBoxFor(m => m.Products.PublishedDate, "{0:2020-MM-dd}", new { type = "date" })
+                            @Html.ValidationMessageFor(m => m.Products.PublishedDate)
+
+                        </div>
+                    </div>
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">規格</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.Specification, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.Specification)
+                        </div>
+                    </div>
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">ISBN</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.ISBN, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.ISBN)
+                        </div>
+                    </div>
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">產品數量</label>
+                        <div class="col-sm-5">
+                            @Html.TextBoxFor(m => m.Products.UnitInStock, new { @class = "form-control", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.UnitInStock)
+                            @*<input type="text" class="form-control" id="field-6" placeholder="Placeholder">*@
+                        </div>
+                    </div>
+                    @*partialview*@
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">圖片</label>
+                        <div class="col-sm-5 ">
+                            @*<input type="file" class="form-control" id="field-7" placeholder="圖片上傳">*@
+                            <input type="file"
+                                   id="filepond"
+                                   class="filepond"
+                                   name="filepond"
+                                   multiple
+                                   allowRevert="false"
+                                   @*allowRemove ="false"*@
+                                   data-allow-reorder="true"
+                                   data-max-file-size="3MB"
+                                   data-max-files="5">
+                        </div>
+                    </div>
+
+                    <div class="form-group form-display">
+                        <label class="col-sm-3 control-label">分類</label>
+                        <div class="col-sm-5">
+                            @Html.DropDownListFor(m => m.Products.CategoryId, new SelectList(Model.Categories, "CategoryId", "Name"), new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group form-display">
+                        <label for="field-1" class="col-sm-3 control-label">標籤</label>
+                        <div class="col-sm-offset-3 col-sm-5">
+                            <!-- 使用CheckBoxListFor擴充方法產生Role的CheckBoxList -->
+                            @Html.CheckBoxListFor(model => model.PostedTagIds,
+                                                   model => model.Tags,
+                                                   entity => entity.TagId,
+                                                   entity => entity.TagName,
+                                                   model => model.SelectedTags
+                                                   //(model, entity) => model.Tags.Contains(entity.TagId)
+                            );
+                            @*@foreach(var box in Model.Tags)
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="selectedBox" value="@box.TagId" @if (Model.PostedTagIds.Contains(box.TagId.ToString())) { @Html.Raw("checked = 'checked'")}/>@box.TagName
+                                </label>
+
+                            </div>
+                        }*@
+
+                        </div>
+                    </div>
+
+                    <div class="form-group form-display">
+                        <label for="field-ta" class="col-sm-3 control-label">簡述</label>
+                        <div class="col-sm-5">
+                            @Html.TextAreaFor(m => m.Products.Intro, new { @class = "form-control" })
+                            @*<textarea class="form-control" id="field-ta" placeholder="Textarea"></textarea>*@
+                        </div>
+                    </div>
+
+                    <div class="form-group form-display">
+                        <label for="field-ta" class="col-sm-3 control-label">內文</label>
+                        <div class="col-sm-5">
+                            @Html.TextAreaFor(m => m.Products.Description, new { @class = "form-control" })
+                            @*<textarea class="form-control" id="field-ta" placeholder="Textarea"></textarea>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-5">
+                            <input type="submit" value="Edit" class="btn btn-default" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+    <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="username" />
+            <label class="mdl-textfield__label" for="username">Username</label>
+        </div>
+    </form>
+}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+<script type="text/javascript">
+
+
+    FilePond.registerPlugin(
+
+        // encodes the file as base64 data
+        FilePondPluginFileEncode,
+
+        // validates the size of the file
+        //FilePondPluginFileValidateSize,
+
+        // corrects mobile image orientation
+        FilePondPluginImageExifOrientation,
+
+        // previews dropped images
+        FilePondPluginImagePreview
+    );
+
+    // Select the file input and use create() to turn it into a pond
+    FilePond.create(
+        document.querySelector('#filepond')
+    );
+
+</script>
+<script>
+  //  const formData = new formData();
+    FilePond.setOptions({
+
+        //server: '@Url.Action("Upload", "Product")'
+        server: {
+            process: '@Url.Action("Upload", "Product")',
+            revert: (source, load, error) => {
+                console.log('remove');
+                // Should somehow send `source` to server so server can remove the file with this source
+                let formData = new FormData();
+                formData.append('ccc', source);
+                fetch(`/Product/Remove?abc=${source}`, {
+                    body: formData,
+                    headers: {
+                        //'content-type': 'multipart/form-data'
+                    },
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                })
+                .then((result) => {
+                    console.log("remove", source);
+                })
+
+                // Can call the error method if something is wrong, should exit after
+                error('oh my goodness');
+
+                // Should call the load method when done, no parameters required
+                load();
+            }
+        }
+    });
+</script>

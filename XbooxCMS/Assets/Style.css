@@ -17,8 +17,8 @@ aside {
     float: left;
     background-color: aliceblue;
     opacity: 70;
-    font-size: 17px;
-    height: 100%;
+    font-size: 14px;
+    height: 150%;
     padding-top: 30px;
 }
     aside > ul > li {
@@ -29,35 +29,103 @@ aside {
         padding:0;
     }
 
+.sidebar {
+    position: fixed;
+    width: 16%;
+    height: 100vh;
+    background-color: aliceblue;
+}
+
 .aside {
     height: 100%;
-   display:flex;
+    /* display:flex;*/
 }
 div.navbar {
     box-shadow: 0 1px 10px 1px rgba(115, 108, 203, .1);
     background-color: aliceblue;
     border-color: aliceblue;
 }
-
-
-div .productinput, textarea {
-    background-color: aliceblue;
-    border: 0;
-    outline: 0;
-    padding: 1em;
-    margin-top: 1em;
-    font-family: 'Merriweather', sans-serif;
-    border-radius: 8px;
-    resize: none;
-    box-shadow: 0 1px 1px;
+.body-content {
+    position: relative;
+    width: 80%;
+    float: right;
+    padding-top: 50px;
+    right:50px;
 }
 
-.cate_dropdown{
 
+
+.cate_dropdownpd{
+    padding:20px 0;
 }
 textarea{
     max-width:350px;
     width:150px;
     height:150px;
     overflow:hidden;
+}
+.panel-primary {
+
+    border-color: #ebebeb;
+    border-radius: 3px;
+    background-clip: padding-box;
+}
+
+.panel-body {
+    border: 1px solid #ebebeb;
+    position: relative;
+    padding: 15px;
+}
+.panel {
+    margin-bottom: 17px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.panel-heading {
+    border:1px solid #ebebeb;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.control-label {
+    text-align: right;
+    padding-top: 7px;
+}
+.form-display {
+    display: flex;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    margin-bottom: 0px;
+}
+.panel-body input, .panel-body textarea {
+    max-width: 400px;
+}
+.mdl-button--gold{
+    background-color:gold;
+}
+.mdl-button.mdl-js-button{
+    margin:5px 0;
+}
+.mdl-button:hover {
+    background-color: gold;
+}
+div .mdl-data-table {
+    white-space: normal;
+}
+
+table.mdl-data-table td {
+    text-align: center;
+}
+
+button.filepond--file-action-button {
+    visibility: hidden;
+    z-index:-10;
+}
+.card{
+    margin-top:30px;
 }

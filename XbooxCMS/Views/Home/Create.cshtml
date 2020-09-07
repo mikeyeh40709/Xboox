@@ -13,51 +13,62 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="col-md-6 form-line form-horizontal">
+<div class="col-md-6 form-line form-horizontal">
 
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group ">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label " })
-            <div class="">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "productinput form-control " } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group ">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label " })
+        <div class="">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "productinput form-control " } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
+    </div>
 
 
-        <div class="form-group ">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
-            <div class="">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "productinput form-control " } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group ">
+        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+        <div class="">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "productinput form-control " } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label " })
-            <div class="">
-                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "productinput form-control" } })
-                @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label " })
+        <div class="">
+            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "productinput form-control" } })
+            @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Publisher, htmlAttributes: new { @class = "control-label " })
-            <div class="">
-                @Html.EditorFor(model => model.Publisher, new { htmlAttributes = new { @class = "productinput form-control" } })
-                @Html.ValidationMessageFor(model => model.Publisher, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Publisher, htmlAttributes: new { @class = "control-label " })
+        <div class="">
+            @Html.EditorFor(model => model.Publisher, new { htmlAttributes = new { @class = "productinput form-control" } })
+            @Html.ValidationMessageFor(model => model.Publisher, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PublishedDate, htmlAttributes: new { @class = "control-label " })
-            <div class="">
-                @Html.EditorFor(model => model.PublishedDate, new { htmlAttributes = new { @class = "productinput form-control" } })
-                @Html.ValidationMessageFor(model => model.PublishedDate, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.PublishedDate, htmlAttributes: new { @class = "control-label " })
+        <div class="">
+            @Html.EditorFor(model => model.PublishedDate, new { htmlAttributes = new { @class = "productinput form-control" } })
+            @Html.ValidationMessageFor(model => model.PublishedDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4" />
+            <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
         </div>
     </div>
+
+
+
+</div>
     <div class="col-md-6 form-line form-horizontal">
         <div class="form-group">
             @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label " })
@@ -67,10 +78,10 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label" })
+            @Html.LabelFor(model => model.UnitInStock, htmlAttributes: new { @class = "control-label" })
             <div class="">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = " productinput form-control" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.UnitInStock, new { htmlAttributes = new { @class = " productinput form-control" } })
+                @Html.ValidationMessageFor(model => model.UnitInStock, "", new { @class = "text-danger" })
             </div>
         </div>
         @*<div class="form-group">
@@ -89,8 +100,8 @@
                     @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
                 </div>
             </div>*@
-        <div class="dropdown cate_dropdown">
-            類別
+        <div class="dropdown cate_dropdownpd">
+            <div>類別</div> 
             <button class="btn btn-default btn-lg dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Category
                 <span class="caret"></span>
@@ -109,28 +120,27 @@
 
         @*CheckBox*@
 
-        <div class="custom-control custom-checkbox">
-            標籤
-            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-            <label class="custom-control-label" for="defaultUnchecked">奇幻</label>
-            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-            <label class="custom-control-label" for="defaultUnchecked">愛情</label>
-            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-            <label class="custom-control-label" for="defaultUnchecked">小說</label>
-            <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
-            <label class="custom-control-label" for="defaultsUnchecked">純文學</label>
-        </div>
+    <div class="custom-control custom-checkbox form-line form-horizontal cate_dropdownpd">
+        <div>標籤</div>
+        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+        <label class="custom-control-label" for="defaultUnchecked">奇幻</label>
+        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+        <label class="custom-control-label" for="defaultUnchecked">愛情</label>
+        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+        <label class="custom-control-label" for="defaultUnchecked">小說</label>
+        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+        <label class="custom-control-label" for="defaultsUnchecked">純文學</label>
+    </div>
 
     </div>
     <div class="introsection col-md-12 form-line form-horizontal">
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.Intro, htmlAttributes: new { @class = "control-label " })
-         <textarea>
+       
+       <div>Intro</div>
+            <textarea>
             @*@Html.EditorFor(model => model.Intro, new { htmlAttributes = new { @class = "productinput form-control" } })
             @Html.ValidationMessageFor(model => model.Intro, "", new { @class = "text-danger" })*@
         </textarea>
-        </div>
+      
 
 
     </div>
@@ -139,8 +149,9 @@
             <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

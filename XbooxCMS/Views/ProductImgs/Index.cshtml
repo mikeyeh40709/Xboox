@@ -1,0 +1,40 @@
+﻿@model IEnumerable<XbooxCMS.Models.ProductImgs>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imgLink)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.imgLink)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductImgId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductImgId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductImgId })
+        </td>
+    </tr>
+}
+
+</table>
