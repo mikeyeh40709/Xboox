@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -36,56 +37,28 @@ namespace Xboox.Controllers
             manage.AddToCart(addItem, this.HttpContext);
 
             // Go back to the main store page for more shopping
-            return RedirectToAction("ShopCart");
+            return RedirectToAction("Index","Home");
         }
         public ActionResult ShopCart()
-        {
-           
+        {       
             var cart = new ShoppingCartManage();
-
-
             return View(cart.GetCartItems(this.HttpContext));
         }
-     
-
-
-       //public ActionResult  RemoveFromCart(Product p)
-       // {
-       //     var currentCart = new ShoppingCartManage();
-       //     currentCart.RemoveProduct(p.ProductId);
-       //     //return View();
-       // }
-
-
-
-        // AJAX: /ShoppingCart/RemoveFromCart/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult RemoveFromCart(Guid id, Product p)
+        //public ActionResult EmptyCart()
         //{
-        //   // Remove the item from the cart
-        //   var cart = ShoppingCartManage.GetCart(this.HttpContext);
+        //    var GetUserKey = HttpContext.Request.Cookies["VisitorKey"].Value;
+        //    var cartItems = context.CartItems.Where(
+        //        cart => cart.CartId == Guid.Parse(GetUserKey)).ToList();
 
-        //    // Get the name of the album to display confirmation
-        //    string bookName = context.CartItems.Single(item => item.CartId == id).Product.Name;
+        //    foreach (var cartItem in cartItems)
+        //    {
+        //        context.CartItems.Remove(cartItem);
+        //    }
+        //    // Save changes
+        //    context.SaveChanges();
+        //    return RedirectToAction("ShopCart");
 
-        //   // Remove from cart
-        //     int itemCount = cart.RemoveFromCart(id,p);
-
-        //  // Display the confirmation message
-        // var results = new ShoppingCartRemoveViewModel
-        // {
-        //     Message = Server.HtmlEncode(p.Name) +
-        //            " has been removed from your shopping cart.",
-        //     //CartTotal = cart.GetTotal(),
-        //     //CartCount = cart.GetCount(),
-        //     ItemCount = itemCount,
-        //     //    DeleteId = id
-        // };
-        //    return Json(results);
         //}
-
-
 
 
 

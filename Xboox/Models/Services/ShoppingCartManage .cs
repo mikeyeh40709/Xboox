@@ -15,6 +15,8 @@ namespace Xboox.Models.Services
     public partial class ShoppingCartManage
     {
         XbooxContext xbooxDb = new XbooxContext();
+        
+        
         //ViewModels.CartViewModel CartView = new ViewModels.CartViewModel();
         //string ShoppingCartId { get; set; }
         //public const string CartSessionKey = "CartId";
@@ -99,11 +101,13 @@ namespace Xboox.Models.Services
                                 where c.CartId.ToString() == GetUserKey
                                 select new CartViewModel
                                 {
-                                    ProductImgLink = i.imgLink,
-                                    Name = p.Name,
-                                    Price = p.Price,
-                                    Quantity = c.Quantity,
-                                    TotalPrice = c.Quantity * p.Price
+                                   ProductId =p.ProductId,
+                                   ProductImgLink = i.imgLink,
+                                   Name = p.Name,
+                                   Price = p.Price,
+                                   Quantity = c.Quantity,
+                                   TotalPrice = c.Quantity * p.Price
+
                                 }).GroupBy(item => item.Name);
                 foreach (var pdList in tempList)
                 {
@@ -142,33 +146,33 @@ namespace Xboox.Models.Services
 
         }
 
+     
+        public int RemoveFromCart(Guid id, HttpContextBase context)
+        {
+            var GetUserKey = context.Request.Cookies["VisitorKey"].Value;
+            // Get the cart
+            var cartItem = xbooxDb.CartItems.Single(
+                cart => cart.CartId == Guid.Parse(GetUserKey)
+                && cart.ProductId == id);
 
-        //public int RemoveFromCart(Guid id, Product p)
-        //{
-        //    // Get the cart
-        //    var cartItem = xbooxDb.CartItems.SingleOrDefault(
-        //        c => c.CartId.ToString() == ShoppingCartId
-        //        && c.ProductId == p.ProductId);
+            int itemCount = 0;
 
-        //    int itemCount = 0;
-
-        //    if (cartItem != null)
-        //    {
-        //        if (cartItem.Quantity > 1)
-        //        {
-        //            cartItem.Quantity--;
-        //            itemCount = cartItem.Quantity;
-        //        }
-        //        else
-        //        {
-        //            xbooxDb.CartItems.Remove(cartItem);
-        //        }
-        //        // Save changes
-        //        xbooxDb.SaveChanges();
-        //    }
-        //    return itemCount;
-        //}
-
+            if (cartItem != null)
+            {
+                if (cartItem.Quantity > 1)
+                {
+                    cartItem.Quantity--;
+                    itemCount = cartItem.Quantity;
+                }
+                else
+                {
+                    xbooxDb.CartItems.Remove(cartItem);
+                }
+                // Save changes
+                xbooxDb.SaveChanges();
+            }
+            return itemCount;
+        }
         public void MigrateCart(string beforeCookie, string afterCookie)
         {
             var shoppingCart = xbooxDb.CartItems.Where(
