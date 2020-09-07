@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using Xboox.Models.Services;
 namespace Xboox.Models.Services
 {
     public  class GetKey
     {
+        private string Visitor { get; set; }
+        ShoppingCartManage ShoppingCartManage = new ShoppingCartManage();
         //private static HttpContextBase contextBase;
         public string GetAllKey(HttpContextBase contextBase)
         {
@@ -18,6 +20,7 @@ namespace Xboox.Models.Services
                 {
                     Guid VisitorKey = Guid.NewGuid();
                     //ViewBag.XbooxKey = VisitorKey;
+                    Visitor = VisitorKey.ToString();
                     return VisitorKey.ToString();
                 }
                 else
@@ -27,9 +30,18 @@ namespace Xboox.Models.Services
             }
             else
             {
-                var MemberKey = contextBase.User.Identity.GetUserId();
+                //var Visitor = contextBase.Request.Cookies["VisitorKey"].Value;
+               
+                var Member = contextBase.User.Identity.GetUserId();
+                if (Visitor != null)
+                {
+                    ShoppingCartManage.MigrateCart(Visitor, Member);
+                }
+
+                //after
+
                 //ViewBag.XbooxKey = MemberKey;
-                return MemberKey;
+                return Member;
             }
 
             //return RedirectToAction()

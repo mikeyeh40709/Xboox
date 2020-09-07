@@ -396,6 +396,7 @@ namespace Xboox.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            //when logoff , delete cookie
             Response.Cookies["VisitorKey"].Expires = DateTime.Now.AddYears(-1);
             return RedirectToAction("Index", "Home");
         }

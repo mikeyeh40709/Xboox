@@ -29,9 +29,9 @@ let total_function = () => {
     cart_total[cart_total.length - 1].innerText = usingMath;
     coupon_function();
 }
-let = cart_count_fun = () => {
-    cart_count.forEach((ele, idx) => cart_count[idx].value = 1);
-}
+//let = cart_count_fun = () => {
+//    cart_count.forEach((ele, idx) => cart_count[idx].value = 1);
+//}
 //Cauculate count func
 let changeCount = () => {
     for (let i = 0; i < cart_count.length; i++) {
@@ -58,10 +58,34 @@ let coupon_function = () => {
     });
  };
 if (cart_count.length > 0) {
-    cart_count_fun();
+   
     changeCount();
     coupon_function();
 }
 
+////remove shop-cart
+
+//$(function () {
+//    // Document.ready -> link up remove event handler
+//    $(".close").click(function () {
+//        // Get the id from the link
+//        var recordToDelete = $(this).attr("data-id");
+//        if (recordToDelete != '') {
+//            // Perform the ajax post
+//            $.post("/Cart/RemoveFromCart", { "id": recordToDelete },
+//                function (data) {
+//                    // Successful requests get here
+//                    // Update the page elements
+//                    if (data.ItemCount == 0) {
+//                        $('#row-' + data.DeleteId).fadeOut('slow');
+//                    } else {
+//                        $('#item-count-' + data.DeleteId).text(data.ItemCount);
+//                    }
+//                    //$('#update-message').text(data.Message);
+//                    //$('#cart-status').text('Cart (' + data.CartCount + ')');
+//                });
+//        }
+//    });
+//});
 
 

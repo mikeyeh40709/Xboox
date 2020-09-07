@@ -17,7 +17,7 @@ namespace Xboox.ViewModels
         public decimal Price { get; set; }
         public decimal TotalPrice{get;set;}
 
-
+        public Guid ProductId { get; set; }
         
 
 

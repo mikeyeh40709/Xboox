@@ -17,13 +17,14 @@ namespace Xboox.Controllers
     public class HomeController : Controller
     {
         private XbooxContext context = new XbooxContext();
-       
+        
         public ActionResult Index()
         {
+            ShoppingCartManage cartManage = new ShoppingCartManage();
             GetKey getKey = new GetKey();
             var allKey = getKey.GetAllKey(this.HttpContext);
             ViewBag.XbooxKey = allKey;
-
+               
 
             var products = context.Product.ToList().Select(y => new ProductDetailViewModel
             {

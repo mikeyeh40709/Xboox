@@ -15,8 +15,10 @@ namespace Xboox.Models.Services
     public partial class ShoppingCartManage
     {
         XbooxContext xbooxDb = new XbooxContext();
+        
+        
         //ViewModels.CartViewModel CartView = new ViewModels.CartViewModel();
-        string ShoppingCartId { get; set; }
+        //string ShoppingCartId { get; set; }
         //public const string CartSessionKey = "CartId";
         //public static ShoppingCartManage GetCart(HttpContextBase context)
         //{
@@ -99,11 +101,13 @@ namespace Xboox.Models.Services
                                 where c.CartId.ToString() == GetUserKey
                                 select new CartViewModel
                                 {
-                                    ProductImgLink = i.imgLink,
-                                    Name = p.Name,
-                                    Price = p.Price,
-                                    Quantity = c.Quantity,
-                                    TotalPrice = c.Quantity * p.Price
+                                   ProductId =p.ProductId,
+                                   ProductImgLink = i.imgLink,
+                                   Name = p.Name,
+                                   Price = p.Price,
+                                   Quantity = c.Quantity,
+                                   TotalPrice = c.Quantity * p.Price
+
                                 }).GroupBy(item => item.Name);
                 foreach (var pdList in tempList)
                 {
@@ -142,13 +146,14 @@ namespace Xboox.Models.Services
 
         }
 
-
-        public int RemoveFromCart(Guid id, Product p)
+     
+        public int RemoveFromCart(Guid id, HttpContextBase context)
         {
+            var GetUserKey = context.Request.Cookies["VisitorKey"].Value;
             // Get the cart
-            var cartItem = xbooxDb.CartItems.SingleOrDefault(
-                c => c.CartId.ToString() == ShoppingCartId
-                && c.ProductId == p.ProductId);
+            var cartItem = xbooxDb.CartItems.Single(
+                cart => cart.CartId == Guid.Parse(GetUserKey)
+                && cart.ProductId == id);
 
             int itemCount = 0;
 
@@ -168,7 +173,17 @@ namespace Xboox.Models.Services
             }
             return itemCount;
         }
+        public void MigrateCart(string beforeCookie, string afterCookie)
+        {
+            var shoppingCart = xbooxDb.CartItems.Where(
+                c => c.CartId.ToString() == beforeCookie);
 
+            foreach (CartItems item in shoppingCart)
+            {
+                item.CartId = Guid.Parse(afterCookie);
+            }
+            xbooxDb.SaveChanges();
+        }
 
         //public string GetCartId(HttpContextBase context)
         //{
@@ -220,17 +235,7 @@ namespace Xboox.Models.Services
 
 
 
-    //public void MigrateCart(string userName)
-    //{
-    //    var shoppingCart = xbooxDb.CartItems.Where(
-    //        c => c.CartId.ToString() == ShoppingCartId);
 
-    //    foreach (CartItems item in shoppingCart)
-    //    {
-    //        item.CartId = Guid.Parse(userName);
-    //    }
-    //    xbooxDb.SaveChanges();
-    //}
 
 
 
