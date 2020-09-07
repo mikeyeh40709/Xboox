@@ -126,3 +126,6 @@ button.filepond--file-action-button {
     visibility: hidden;
     z-index:-10;
 }
+.card{
+    margin-top:30px;
+}
