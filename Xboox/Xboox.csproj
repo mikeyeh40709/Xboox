@@ -17,8 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort>44370</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
@@ -182,6 +181,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AspNetUsersCRUDController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\BookCategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
