@@ -11,7 +11,7 @@ using Microsoft.Owin.Security;
 using Xboox.Models;
 using Xboox.Models.Services;
 using Xboox.Models.DataTable;
-
+using System.Data.Entity;
 
 namespace Xboox.Controllers
 {
@@ -155,7 +155,7 @@ namespace Xboox.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email , PhoneNumber = model.Phone };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email /*,PhoneNumber = model.Phone*/};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -436,14 +436,37 @@ namespace Xboox.Controllers
             return View(userdetails);
         }
 
-  
-        //[HttpPut]
-        //public ActionResult UserDataEdit(AspNetUsers users)
-        //{
-        //    var getUser = con
-        //    retun View();
-        //}
 
+        // Get UserDetails Data
+        public ActionResult UserDataEdit()
+        {
+            var userdetails = AspNetUserManage.GetUserDetails(this.HttpContext);
+
+            return View(userdetails);
+        }
+
+        //[HttpPut]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserDataEdit([Bind(Include = "Email,PhoneNumber,UserName")] AspNetUsers user)
+        {
+            XbooxContext db = new XbooxContext();
+            if (ModelState.IsValid)
+            {
+                //確認狀態
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("UserDataDetails");
+            }
+
+            return View(user);
+        }
+
+        //public ActionResult MemberArea()
+        //{
+
+        //    return View();
+        //}
         #region Helper
         // 新增外部登入時用來當做 XSRF 保護
         private const string XsrfKey = "XsrfId";

@@ -26,5 +26,9 @@
   {
     "outputFile": "Assets/CSS/Custom/CartPage/shop-cart.css",
     "inputFile": "Assets/CSS/Custom/CartPage/shop-cart.scss"
+  },
+  {
+    "outputFile": "Assets/CSS/Custom/LogInPage/scss.css",
+    "inputFile": "Assets/CSS/Custom/LogInPage/scss.scss"
   }
 ]
