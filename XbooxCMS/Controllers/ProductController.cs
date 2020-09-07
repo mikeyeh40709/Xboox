@@ -180,7 +180,7 @@ namespace XbooxCMS.Controllers
   
             PutImgs(createViewModel.Products);
             
-             context.Product.Add(createViewModel.Products);
+            context.Product.Add(createViewModel.Products);
           
             AddedTag(createViewModel.Products, createViewModel.PostedTagIds, createViewModel.ProductTags);
             
@@ -196,10 +196,16 @@ namespace XbooxCMS.Controllers
             return RedirectToAction("Create","Product");
         }
 
+        /// <summary>
+        /// 將Tag加入ProductTag
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="SelectedTags"></param>
+        /// <param name="tags"></param>
        private void AddedTag(Product product, List<Guid> SelectedTags,ProductTags tags)
         {
            
-            if (SelectedTags.Count==0)
+            if (SelectedTags==null)
             {
                 return ;
             }
@@ -261,9 +267,7 @@ namespace XbooxCMS.Controllers
         
 
             context.SaveChanges();
-            // context.ProductTags.Add(tags);
-          
-           // context.SaveChanges();
+     
         }
     
 
@@ -336,7 +340,7 @@ namespace XbooxCMS.Controllers
 
 
             //  productInDb.ProductImgId = ViewModel.Products.ProductImgId;
-
+            PutImgs(ViewModel.Products);
             AddedTag(ViewModel.Products, ViewModel.PostedTagIds, ViewModel.ProductTags);
             //productInDb.ProductTags = ViewModel.Products.ProductTags;
             
@@ -351,6 +355,7 @@ namespace XbooxCMS.Controllers
 
         public ActionResult Details()
         {
+
             return View();
         }
 
@@ -360,12 +365,30 @@ namespace XbooxCMS.Controllers
         public ActionResult ComfirmDelete(Guid? id)
         {
             Product product = context.Product.SingleOrDefault(p => p.ProductId == id);
+            var tags = context.ProductTags.Where(p => p.ProductId == id);
+            var imgs = context.ProductImgs.Where(p => p.ProductId == id);
             if (product == null)
             {
                 return HttpNotFound();
             }
             else
             {
+                if (imgs != null)
+                {
+                    foreach (var i in imgs)
+                    {
+                        context.ProductImgs.Remove(i);
+                    }
+                }
+                if (tags != null)
+                {
+                    foreach (var i in tags)
+                    {
+                        context.ProductTags.Remove(i);
+                    }
+                }
+                //刪除product 刪除 tag
+                
                 context.Product.Remove(product);
                 context.SaveChanges();
                 return RedirectToAction("Index","Product");
@@ -383,7 +406,7 @@ namespace XbooxCMS.Controllers
         private void PutImgs(Product product)
         {
            var productImgs = new ProductImgs();
-         var imgList = getImg().Split(',').Where(x=>x!="").ToList();
+     //   var imgList = getImg().Split(',').Where(x=>x!="").ToList();
             
 
             //用list傳的
@@ -400,32 +423,33 @@ namespace XbooxCMS.Controllers
 
 
 
-            //用string 傳的
-            foreach (var i in imgList)
-            {
-                 productImgs = new ProductImgs()
-                {
+         //   用string 傳的
+       //     foreach (var i in imgList)
+        //    {
+        //        productImgs = new ProductImgs()
+        ////        {
                     // ProductImgId = 0,
-                     imgLink = i,
-                    ProductId = product.ProductId,
-                };
-                context.ProductImgs.Add(productImgs);
+       //             imgLink = i,
+       //             ProductId = product.ProductId,
+      //          };
+       //         context.ProductImgs.Add(productImgs);
                 //productImgs.Add(new ProductImgs() { imgLink = i.ToString(), ProductId = product.ProductId });
-            }
-       
+        //    }
 
-           // context.SaveChanges();
 
-          //  var PiList = new List<ProductImgs>();
-           // var img = productImgs
-        ///    var productImgs = productImgs.Where(x => x.ProductId == product.ProductId);
-        //    freach (var i in productImgs)
-        //   {
-             //   product.ProductImgId = i.ProductImgId + ",";
-                //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
-         //   }
-             imgString = null;
-            //imgList = mull;
+            // context.SaveChanges();
+
+            //  var PiList = new List<ProductImgs>();
+            // var img = productImgs
+            ///    var productImgs = productImgs.Where(x => x.ProductId == product.ProductId);
+            //    freach (var i in productImgs)
+            //   {
+            //   product.ProductImgId = i.ProductImgId + ",";
+            //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
+            //   }
+
+        //    imgString = null;
+             ImgstringList = null;
              context.SaveChanges();
         }
 
@@ -468,7 +492,7 @@ namespace XbooxCMS.Controllers
                            //    file.SaveAs(path);
                            //}
 
-             var fileName = files[0].FileName;
+             var fileName = files[0].FileName;/*C:\Users\User\source\repos\mikeyeh40709\Xboox\Xboox\Assets\Image\Pics\*/
                        
              var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
 

@@ -224,6 +224,7 @@
     <Compile Include="ViewModels\UserListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Css\DashBoard.css" />
     <Content Include="Assets\Css\datatablestyle.css" />
     <Content Include="Assets\Style.css" />
     <Content Include="Content\bootstrap-grid.css" />
