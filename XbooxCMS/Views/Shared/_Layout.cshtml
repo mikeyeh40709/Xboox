@@ -16,7 +16,7 @@
     <div class="navbar navbar-expand-lg fixed-top navbar-light">
         <div class="container">
             <div class="navbar-brand">
-                <span><img src="~/Assets/picture/logo-removebg-preview.png" /></span>
+                <span><img src="~/Assets/Pics/logo-removebg-preview.png" /></span>
              
                 @Html.ActionLink("Xboox", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
@@ -34,7 +34,7 @@
                 <li>
                     <a class="aside-item color-1">
                         <i class="fa fa-dashboard"></i>
-                        <span class="color-1">Dashboard</span>
+                        <span class="color-1">@Html.ActionLink("Dashboard", "Index", "Home")</span>
                     </a>
 
                 </li>
@@ -58,7 +58,7 @@
 
                     <a class="aside-item color-1">
                         <i class="fa fa-list"></i>
-                        <span class="color-1">Order Management</span>
+                        <span class="color-1">@Html.ActionLink("Order Management", "Index", "Order")</span>
                     </a>
                 </li>
                 <li>

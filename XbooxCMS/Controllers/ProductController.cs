@@ -359,10 +359,14 @@ namespace XbooxCMS.Controllers
             return View();
         }
 
-
-        [ActionName("Delete")]
-        [HttpPost]
-        public ActionResult ComfirmDelete(Guid? id)
+        
+        //public ActionResult Delete()
+        //{
+        //    return RedirectToAction("Index", "Product");
+        //}
+        ////[ActionName("Delete")]
+        //[HttpDelete]
+        public ActionResult Delete(Guid id)
         {
             Product product = context.Product.SingleOrDefault(p => p.ProductId == id);
             var tags = context.ProductTags.Where(p => p.ProductId == id);

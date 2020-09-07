@@ -219,6 +219,7 @@
     <Compile Include="ViewModels\CreateImgViewModel.cs" />
     <Compile Include="ViewModels\CreateViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ProductListViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
@@ -412,11 +413,11 @@
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Tags\Edit.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Pics\" />
-    <Folder Include="Views\Order\" />
     <Folder Include="Views\Tag\" />
   </ItemGroup>
   <ItemGroup>

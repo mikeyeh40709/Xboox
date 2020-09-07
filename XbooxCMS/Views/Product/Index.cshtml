@@ -12,7 +12,12 @@
 <h2>ProductManagement</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+  
+    <!-- Colored FAB button -->
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <i class="material-icons" onclick="location.href='@Url.Action("Create", "Product")'">add</i>
+    </button>
+  
 </p>
 
 <div class="col-md-6">
@@ -92,10 +97,11 @@
                         <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" value="Edit" onclick="location.href='@Url.Action("Edit", "Product",new{id=item.ProductId })'" />
                         <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--gold" value="Details" onclick="location.href='@Url.Action("Details", "Product",new{id=item.ProductId })'" />
                         <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Delete" onclick="location.href='@Url.Action("Delete", "Product",new{id=item.ProductId })'" />
+                        @*type="submit"*@
                         @*<button class="uk-button uk-button-default" onclick=location.href ='@Url.Action("Edit","Product",null, new{id=item.ProductId })'></button>*@
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductId, @class = "uk-button uk-button-default" })*@
                         @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
                     </td>
 
                 </tr>
