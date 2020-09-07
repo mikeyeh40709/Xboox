@@ -72,11 +72,11 @@ namespace Xboox.Controllers
             {
                 if(User.Identity.IsAuthenticated == true)
                 {
-                    return RedirectToAction("UserView");
+                    return Json(new { redirectToUrl = Url.Action("UserView", "Order") });
                 }
                 else
                 {
-                    return RedirectToAction("ManagerView");
+                    return Json(new { redirectToUrl = Url.Action("ManagerView", "Order") });
                 }
             }
             else
@@ -94,13 +94,18 @@ namespace Xboox.Controllers
         {
            if(service.CreateOrder(this.HttpContext, order).isSuccessful)
            {
-
-                return Content("訂單建立成功");
+                
+                return RedirectToAction("CreateOrderSuccess");
             }
             else
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+        }
+        public ActionResult CreateOrderSuccess()
+        {
+            ViewBag.success = "訂單建立成功";
+            return View();
         }
     }
 }

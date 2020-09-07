@@ -78,6 +78,7 @@ namespace Xboox.Services
                 List<OrderDetailsViewModel> orderDetailsList = new List<OrderDetailsViewModel>();
                 // 因為多張圖片會重複產品
                 var tempList = (from od in context.OrderDetails
+                                where od.OrderId.ToString() == id
                                 join pd in context.Product
                                 on od.ProductId equals pd.ProductId
                                 join pi in context.ProductImgs

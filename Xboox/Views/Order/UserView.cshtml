@@ -2,65 +2,56 @@
 @{
     ViewBag.Title = "Order";
 }
-
-<h2 class="my-3 text-center">所有訂單</h2>
-<section class="shop-cart spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="shop__cart__table">
-                    <table class="text-center">
-                        <thead>
-                            <tr>
-                                <th>訂單編號</th>
-                                <th>建立人</th>
-                                <th>建立日期</th>
-                                <th>收件人姓名</th>
-                                <th>收件人信箱</th>
-                                <th>收件人地址</th>
-                                <th>訂單明細</th>
-                                <th>付款狀態</th>
-                                <th>編輯與刪除</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.OrderId</td>
-                                    <td>@item.UserName</td>
-                                    <td>@item.OrderDate</td>
-                                    <td>@item.PurchaserName</td>
-                                    <td>@item.PurchaserEmail</td>
-                                    <td>@item.PurchaserAddress</td>
-                                    <td>
-                                        <button class="site-btn bg-info" id="@item.OrderId" data-toggle="modal" data-target="#orderDetails">查看</button>
-                                    </td>
-                                    <td>
-                                        @if (item.StateId == 0)
-                                        {
-                                            <div class="text-danger">未付款</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="text-success">已付款</div>
-                                        }
-
-                                    </td>
-                                    <td>
-                                        @Html.AntiForgeryToken()
-                                        <button type="submit" name="id" class="site-btn bg-secondary" data-toggle="modal" data-target="#editOrder">編輯</button>
-                                        <button type="submit" class="site-btn" data-toggle="modal" data-target="#deleteOrder">刪除</button>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+<div class="container">
+    <div class="row">
+        @Html.Partial("_MemberSidebar")
+        <div class="col-lg-9 col-12">
+            <section class="shop-cart spad py-lg-5 pt-2">
+                <div class="container-fluid">
+                    <h4 class="mb-5"><span class="border-danger border-bottom pb-2">我的訂單</span></h4>
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-12  mb-2">
+                                <div class="card" style="min-height: 300px; height:100%;">
+                                    <div class="card-body p-3 d-flex flex-column justify-content-between">
+                                        <div class="card-title">
+                                            <h6 class="card-title mb-1">編號:</h6>
+                                            <span class="d-inline-block badge badge-danger my-1 p-1 w-100" style="font-size: 10px;">@item.OrderId</span>
+                                            <p class="m-0"><span class="font-weight-bold">建立日期:</span><span class="ml-2">@item.OrderDate</span></p>
+                                            <p class="m-0"><span class="font-weight-bold">收件人:</span><span class="ml-2">@item.PurchaserName</span></p>
+                                            <p class="m-0"><span class="font-weight-bold">地址:</span><span class="ml-2">@item.PurchaserAddress</span></p>
+                                            <p class="m-0"><span class="font-weight-bold">Email:</span><span class="ml-2">@item.PurchaserEmail</span></p>
+                                            <p class="m-0"><span class="font-weight-bold">電話:</span><span class="ml-2">@item.PurchaserPhone</span></p>
+                                            <p>
+                                                狀態:
+                                                @if (item.StateId == 0)
+                                                {
+                                                    <span class="text-danger">未付款</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-success">已付款</span>
+                                                }
+                                            </p>
+                                        </div>
+                                        <div class="card-end">
+                                            <button class="site-btn bg-info mx-1" id="@item.OrderId" data-toggle="modal" data-target="#orderDetails">查看</button>
+                                            @if (item.StateId == 0)
+                                            {
+                                                <button class="site-btn mx-1" id="@item.OrderId" data-toggle="modal" data-target="#deleteOrder">刪除</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
-</section>
+</div>
 <div class="modal fade" id="orderDetails" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="details" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -74,7 +65,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            
                         </tr>
                     </thead>
                     <tbody>
@@ -99,7 +89,4 @@
 }
 @section OrderJS {
     <script src="~/Assets/JavaScript/Custom/OrderPage/modal.js"></script>
-    <script>
-
-    </script>
 }
