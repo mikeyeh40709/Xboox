@@ -21,7 +21,10 @@ namespace Xboox.Controllers
         // GET: Order
         public ActionResult UserView()
         {
-            if(User.Identity.IsAuthenticated == true)
+            ViewBag.Unpaid = 0;
+            ViewBag.paid = 1;
+            ViewBag.Cancel = 2;
+            if (User.Identity.IsAuthenticated == true)
             {
                 var UserId = User.Identity.GetUserId();
                 var result = service.GetOrder(UserId);
@@ -66,9 +69,9 @@ namespace Xboox.Controllers
         }
         // 刪除某筆訂單(使用者和後台)
         [HttpPost]
-        public ActionResult DeleteOrder(string orderId)
+        public ActionResult CancelOrder(string orderId)
         {
-            if (service.Delete(orderId).isSuccessful)
+            if (service.CancelOrder(orderId).isSuccessful)
             {
                 if(User.Identity.IsAuthenticated == true)
                 {

@@ -22,10 +22,11 @@ namespace Xboox.Services
 {
     public class OrderService
     {
-        private enum payment
+        private enum OrderState
         {
             Unpaid = 0,
             Paid = 1,
+            CancelOrder = 2,
         }
         public List<OrderViewModel> GetOrder(string id)
         {
@@ -181,13 +182,13 @@ namespace Xboox.Services
                     var order = context.Order.FirstOrDefault(x => x.OrderId.ToString() == id);
                     if (order != null)
                     {
-                        if (order.StateId == (int)payment.Unpaid)
+                        if (order.StateId == (int)OrderState.Unpaid)
                         {
-                            order.StateId = (int)payment.Paid;
+                            order.StateId = (int)OrderState.Paid;
                         }
                         else
                         {
-                            order.StateId = (int)payment.Unpaid;
+                            order.StateId = (int)OrderState.Unpaid;
                         }
                         context.SaveChanges();
                         operationResult.isSuccessful = true;
@@ -204,7 +205,7 @@ namespace Xboox.Services
             }
 
         }
-        public OperationResult Delete(string id)
+        public OperationResult CancelOrder(string id)
         {
             OperationResult operationResult = new OperationResult();
             XbooxContext context = new XbooxContext();
@@ -216,8 +217,9 @@ namespace Xboox.Services
                     var order = context.Order.FirstOrDefault(item => item.OrderId.ToString() == id);
                     if (order != null && OrderDetails != null)
                     {
-                        if (order.StateId == (int)payment.Unpaid)
+                        if (order.StateId == (int)OrderState.Unpaid)
                         {
+                            order.StateId = (int)OrderState.CancelOrder;
                             foreach (var item in OrderDetails)
                             {
                                 var products = context.Product.Where(pd => pd.ProductId == item.ProductId).OrderBy(pd => pd.PublishedDate);
@@ -229,13 +231,10 @@ namespace Xboox.Services
                                     }
                                     else
                                     {
-                                        pd.UnitInStock = pd.UnitInStock - item.Quantity;
-                                        item.Quantity = 0;
+                                        pd.UnitInStock = pd.UnitInStock + item.Quantity;
                                     }
                                 }
-                                context.OrderDetails.Remove(item);
                             }
-                            context.Order.Remove(order);
                             context.SaveChanges();
                             operationResult.isSuccessful = true;
                             transaction.Commit();
