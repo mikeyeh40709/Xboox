@@ -497,7 +497,8 @@ namespace XbooxCMS.Controllers
                            //}
 
              var fileName = files[0].FileName;/*C:\Users\User\source\repos\mikeyeh40709\Xboox\Xboox\Assets\Image\Pics\*/
-                       
+             
+             //從這裡開始可以用imgur
              var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
 
 
