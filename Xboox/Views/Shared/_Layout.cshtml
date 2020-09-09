@@ -62,7 +62,7 @@
                                 <li>@Html.ActionLink("Novel", "ShowNovelBooks", "BookCategory")</li>
                                 <li>@Html.ActionLink("Magazine", "ShowMagazineBooks", "BookCategory")</li>
                                 <li>@Html.ActionLink("Comics", "ShowComicsBooks", "BookCategory")</li>*@
-                            <li>@Html.ActionLink("All", "ShowBooks", "BookCategory", new { id= "dc5c22d1-ff3e-45fe-87e3-e577ee771551" }, null)</li>
+                            <li>@Html.ActionLink("All", "ShowBooks", "BookCategory", new { id = "dc5c22d1-ff3e-45fe-87e3-e577ee771551" }, null)</li>
                             <li>@Html.ActionLink("Chinese", "ShowBooks", "BookCategory", new { id = "761e6b0f-b8fd-45d2-bf35-9f09c7cc25b8" }, null)</li>
                             <li>@Html.ActionLink("Comics", "ShowBooks", "BookCategory", new { id = "66ab9b96-6d3e-457f-b487-77ce7ab35d1c" }, null)</li>
                             <li>@Html.ActionLink("Ebooks", "ShowBooks", "BookCategory", new { id = "21f3a449-0781-4d0c-bd1c-c9bb9d59c83c" }, null)</li>
@@ -133,12 +133,12 @@
     <script src="https://kit.fontawesome.com/cd487e856f.js" crossorigin="anonymous"></script>
     <script src="~/Assets/JavaScript/Custom/HomePage/HomePage.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="~/Assets/JavaScript/Custom/CartPage/set_to_local_storage.js"></script>
     @RenderSection("endCSS", required: false)
-
     @RenderSection("endJS", required: false)
     @RenderSection("scripts", required: false)
     @RenderSection("OrderJS", required: false)
+    @*這兩個順序盡量別動*@
     @RenderSection("dealWithCart", required: false)
+    <script src="~/Assets/JavaScript/Custom/CartPage/set_to_local_storage.js"></script>
 </body>
 </html>
