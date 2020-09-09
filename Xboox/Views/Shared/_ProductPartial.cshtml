@@ -11,7 +11,7 @@
                     <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i> Home</a>
                     @*<a href="#">@Model.Category</a>*@
                     @*<a href="@Url.Action("ShowAllCnBooks","BookCategory")"></a>*@
-                    @Html.ActionLink(Model.CategoryName, "Show" + Model.CategoryName + "Books", "BookCategory")
+                    @Html.ActionLink(Model.CategoryName, "ShowBooks", "BookCategory", new { id = Model.CategoryID }, null)
                     <span>@Model.Name</span>
                 </div>
             </div>
