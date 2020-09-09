@@ -1,5 +1,6 @@
 ﻿using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,47 +17,47 @@ namespace Xboox.Models.Services
     {
         XbooxContext xbooxDb = new XbooxContext();
 
-        public void AddToCart(Product p, HttpContextBase context)
+        public void AddToCart(string values,HttpContextBase content)
         {
 
+            var CartItems = JsonConvert.DeserializeObject<List<TempCartItems>>(values);
+            var GetUserKey = content.Request.Cookies["VisitorKey"].Value;
 
-            var GetUserKey = context.Request.Cookies["VisitorKey"].Value;
-       
             var cart = xbooxDb.Cart.SingleOrDefault(ca => ca.CartId.ToString() == GetUserKey);
 
             if (cart == null)
             {
-
                 cart = new Cart
                 {
                     CartId = Guid.Parse(GetUserKey),
-                    //因為UserId欄位允許null , 今天若是會員未登入會取拿名字
-                    //如是訪客即為null
-                    UserId = context.User.Identity.Name
+                    UserId =content.User.Identity.Name
                 };
                 xbooxDb.Cart.Add(cart);
                 xbooxDb.SaveChanges();
-                
             }
-            var cartItem = xbooxDb.CartItems.SingleOrDefault(
-                c => c.CartId.ToString() == GetUserKey
-                && c.ProductId == p.ProductId);
-            if (cartItem == null)
+
+            foreach (var item in CartItems)
             {
-                Guid randomId = Guid.NewGuid();
-                cartItem = new CartItems
+                var ProductCheck = xbooxDb.CartItems.FirstOrDefault(
+               c => c.ProductId.ToString() == item.ProductId && c.CartId.ToString() == GetUserKey);
+              
+
+                if (ProductCheck == null)
                 {
-                  
-                    CartId = Guid.Parse(GetUserKey),
-                    ProductId = p.ProductId,
-                    Quantity = 1,
-                    Id = randomId
-                };
-                xbooxDb.CartItems.Add(cartItem);
-            }
-            else
-            {
-                cartItem.Quantity++;
+                    Guid randomId = Guid.NewGuid();
+                    CartItems cartItem = new CartItems
+                    {
+                        CartId = Guid.Parse(GetUserKey),
+                        ProductId = Guid.Parse(item.ProductId),
+                        Quantity = item.Count,
+                        Id = randomId
+                    };
+                    xbooxDb.CartItems.Add(cartItem);
+                }
+                else
+                {
+                        ProductCheck.Quantity = item.Count;
+                }
             }
             xbooxDb.SaveChanges();
         }

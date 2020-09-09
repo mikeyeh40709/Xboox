@@ -21,7 +21,7 @@ namespace Xboox.Controllers
        
         public ActionResult Index()
         {
-            ShoppingCartManage cartManage = new ShoppingCartManage();
+           
             GetKey getKey = new GetKey();
             var allKey = getKey.GetAllKey(HttpContext);
             ViewBag.XbooxKey = allKey;

@@ -13,11 +13,13 @@ using Xboox.Models.ViewModels;
 using Xboox.ViewModels;
 using Newtonsoft.Json;
 
+
 namespace Xboox.Controllers
 {
     public class CartController : Controller
     {
         private XbooxContext context = new XbooxContext();
+        private ShoppingCartManage ShoppingCartManage = new ShoppingCartManage();
         public CartController()
         {
             if (context == null)
@@ -26,8 +28,7 @@ namespace Xboox.Controllers
             }
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LocaltoSQL(string values)
+        public ActionResult AddToCart(string values)
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
@@ -36,55 +37,11 @@ namespace Xboox.Controllers
             }
             else
             {
-                var CartItems = JsonConvert.DeserializeObject<List<TempCartItems>>(values);
-                var GetUserKey = HttpContext.Request.Cookies["VisitorKey"].Value;
-
-                var cart = context.Cart.SingleOrDefault(ca => ca.CartId.ToString() == GetUserKey);
-
-                if (cart == null)
-                {
-                    cart = new Cart
-                    {
-                        CartId = Guid.Parse(GetUserKey),
-                        UserId = HttpContext.User.Identity.Name
-                    };
-                    context.Cart.Add(cart);
-                    context.SaveChanges();
-                }
-
-                foreach (var item in CartItems)
-                {
-                    var ProductCheck = context.CartItems.SingleOrDefault(
-                   c => c.ProductId.ToString() == item.ProductId && c.CartId.ToString() == GetUserKey);
-                    if (ProductCheck == null)
-                    {
-                        Guid randomId = Guid.NewGuid();
-                        CartItems cartItem = new CartItems
-                        {
-                            CartId = Guid.Parse(GetUserKey),
-                            ProductId = Guid.Parse(item.ProductId),
-                            Quantity = item.Count,
-                            Id = randomId
-                        };
-                        context.CartItems.Add(cartItem);
-                    }
-                }
-                context.SaveChanges();
+                ShoppingCartManage.AddToCart(values, this.HttpContext);
                 return Json(new { redirectToUrl = Url.Action("ShopCart") });
             }
           
         }
-
-
-        //public ActionResult AddToCart(string id)
-        //{
-        //    var addItem = context.Product
-        //         .Single(p => p.ProductId.ToString() == id);
-        //    var manage = new ShoppingCartManage();
-        //    manage.AddToCart(addItem, this.HttpContext);
-        //    return PartialView("_HomePageProductPartial");
-        //}
-       
         public ActionResult ShopCart()
         {
             var cart = new ShoppingCartManage();

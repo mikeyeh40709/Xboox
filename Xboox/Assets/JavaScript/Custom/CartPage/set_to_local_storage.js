@@ -1,9 +1,8 @@
-﻿
-
-
-let AddBtnGroup = $(".addCartBtn");
+﻿let AddBtnGroup = $(".addCartBtn");
 let tip = document.querySelector('.cart_count');
+let cart_close_group = document.querySelectorAll(".cart__close");
 
+//set localstorage count
 function setLocalStorage(ProductId, ProductName ) {
     let cartItems = [];
     let cartItem = {
@@ -30,9 +29,6 @@ function setLocalStorage(ProductId, ProductName ) {
         cartItems.push(cartItem);
         localStorage.setItem("CartItems", JSON.stringify(cartItems));
     }
-
-
-
 }
 let headerdropdown = document.querySelector('span.icon_bag_alt~ul.headerdropdown');
 
@@ -43,6 +39,7 @@ localStorageFun();
 window.addEventListener("ready", function () {
 
     localStorageFun();
+   
 })
 AddBtnGroup.each(function() {
     console.log(this);
@@ -51,9 +48,32 @@ AddBtnGroup.each(function() {
         setLocalStorage(this.id, getProductName);
         headerdropdown.innerHTML = "";
         localStorageFun();
+        swal(`${getProductName}`,"成功加入購物車!!", "success");
     })
 });
+//deleteCartItem();
+//CartPage can delete localstorage product
+function deleteCartItem(event) {
+    let productId = event.target.id;
+    let getLocalItems = localStorage.getItem("CartItems");
+    console.log(getLocalItems);
+    let ItemsArray = JSON.parse(getLocalItems);
+    let FindItemIndex = ItemsArray.findIndex(x => x.ProductId == productId);
+    if (FindItemIndex!==-1) {
+        ItemsArray.splice(FindItemIndex, 1);
+        localStorage.setItem("CartItems", JSON.stringify(ItemsArray));
+    }
+    //cart_close_group.forEach((ele, idx) => ele.addEventListener('click', () => {
+    //    if (ItemsArray[idx].ProductId == ele.id) {
+    //        ItemsArray.splice(idx, 1);
+    //    }
+    //    localStorage.removeItem("CartItems");
+    //    localStorage.setItem("CartItems", JSON.stringify(ItemsArray));
 
+    //}));
+}
+
+//Let homepage's products save to localstorage
 function localStorageFun() {
 
     let getLocalStorage = localStorage.getItem("CartItems");
@@ -79,13 +99,14 @@ function localStorageFun() {
 
 }
 
+//ajax  post type 
 $(".header span.icon_bag_alt").click(function (e) {
     e.preventDefault();
     let getLocalStorage = localStorage.getItem("CartItems");
     console.log(`{values : ${getLocalStorage}}`);
     if (window.localStorage !== undefined) {
         $.ajax({
-            url: '/Cart/LocaltoSQL',
+            url: '/Cart/AddToCart',
             data: { values: getLocalStorage },
             dataType: "json",
             type: 'post',
@@ -102,6 +123,11 @@ $(".header span.icon_bag_alt").click(function (e) {
         })
     }
 })
+
+
+
+
+
 
 
 
