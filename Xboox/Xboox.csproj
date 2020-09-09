@@ -301,6 +301,7 @@
     <Content Include="Assets\Image\Pics\LogInPageLogo.png" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
+    <Content Include="Assets\JavaScript\Custom\CartPage\set_to_local_storage.js" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
     <Content Include="Assets\JavaScript\Custom\OrderPage\modal.js" />
     <Content Include="Assets\JavaScript\Custom\LogInPage\main.js" />
@@ -630,6 +631,8 @@
     <Content Include="Views\Shared\_OffcanvasPartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_SearchPartial.cshtml" />
+    <Content Include="Views\Shared\_MemberSidebar.cshtml" />
+    <Content Include="Views\Cart\LocaltoSQL.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

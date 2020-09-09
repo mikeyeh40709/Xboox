@@ -13,9 +13,9 @@
                 </li>
                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                 <li>
-                    <a href="@Url.Action("AddToCart", "Cart", new { id = @Model.ProductId })"><span class="icon_bag_alt" id="@Model.ProductId"></span></a>
+                    <a id="@Model.ProductId" class="addCartBtn" data-target="@Model.Name"><span class="icon_bag_alt"></span></a>
                 </li>
-
+                @*href="@Url.Action("AddToCart", "Cart", new { id = @Model.ProductId })"*@
                 <li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>
             </ul>
         </div>
@@ -32,4 +32,7 @@
         </div>
     </div>
 </div>
+
+
+
 

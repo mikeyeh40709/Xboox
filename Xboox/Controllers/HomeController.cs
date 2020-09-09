@@ -17,14 +17,13 @@ namespace Xboox.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-        //private XbooxContext context = new XbooxContext();
         FindBookDetailRepository books = new FindBookDetailRepository();
        
         public ActionResult Index()
         {
             ShoppingCartManage cartManage = new ShoppingCartManage();
             GetKey getKey = new GetKey();
-            var allKey = getKey.GetAllKey(this.HttpContext);
+            var allKey = getKey.GetAllKey(HttpContext);
             ViewBag.XbooxKey = allKey;
 
             var products = books.FindBookDetail();
@@ -37,26 +36,5 @@ namespace Xboox.Controllers
             return View(products);
         }
 
-        //Visitor Key and Member UserId
-        //private static HttpContextBase ;
-        //public ActionResult GetAllKey(HttpContextBase context_base)
-        //{
-            
-        //    if (!context_base.User.Identity.IsAuthenticated)
-        //    {
-        //        Guid VisitorKey = Guid.NewGuid();
-        //        ViewBag.XbooxKey = VisitorKey;
-                
-        //    }
-        //    else
-        //    {
-        //       var MemberKey = context_base.User.Identity.GetUserId();
-        //        ViewBag.XbooxKey = MemberKey;
-        //    }
-
-        //    //return RedirectToAction()
-        //    return View("Index");
-        //    //return View(ViewBag.Key);
-        //}
     }
 }

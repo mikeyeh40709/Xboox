@@ -79,16 +79,22 @@
                             <li>
                                 <a href="#">
                                     <span class="icon_heart_alt"></span>
-                                    <div class="tip">2</div>
+                                    <div class="tip">0</div>
                                     <ul class="headerdropdown">
                                     </ul>
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("ShopCart","Cart")">
+                                <a>
+                                    @*@Url.Action("ShopCart", "Cart")*@
                                     <span class="icon_bag_alt"></span>
-                                    <div class="tip">2</div>
-                                    <ul class="headerdropdown">
+                                    <div class="tip cart_count">0</div>
+                                    <ul class="headerdropdown" id="cart_dropdown">
+                                     
+                                            @*@Html.ActionLink("a", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })*@
+                                     
+
+
                                     </ul>
                                 </a>
                             </li>
@@ -125,7 +131,9 @@
     <script src="~/Assets/TemplateJavaScript/main.js"></script>
     <script src="https://kit.fontawesome.com/cd487e856f.js" crossorigin="anonymous"></script>
 
+    <script src="~/Assets/JavaScript/Custom/CartPage/set_to_local_storage.js"></script>
     @RenderSection("endCSS", required: false)
+
     @RenderSection("endJS", required: false)
     @RenderSection("scripts", required: false)
     @RenderSection("OrderJS", required: false)
