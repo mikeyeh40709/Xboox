@@ -11,7 +11,7 @@ using Microsoft.Owin.Security;
 using Xboox.Models;
 using Xboox.Models.Services;
 using Xboox.Models.DataTable;
-
+using System.Data.Entity;
 
 namespace Xboox.Controllers
 {
@@ -57,6 +57,8 @@ namespace Xboox.Controllers
 
         //
         // GET: /Account/Login
+      
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -155,7 +157,7 @@ namespace Xboox.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email , PhoneNumber = model.Phone };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email /*,PhoneNumber = model.Phone*/};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -429,20 +431,53 @@ namespace Xboox.Controllers
             base.Dispose(disposing);
         }
 
+        private XbooxContext db = new XbooxContext();
+
         public ActionResult UserDataDetails()
+        {
+            var userdetails = AspNetUserManage.GetUserDetails(this.HttpContext);
+
+            //var details = db.AspNetUsers.FirstOrDefault(u => u.UserName == this.User.Identity.Name);
+
+            return View(userdetails);
+        }
+
+
+        // Get UserDetails Data
+        public ActionResult UserDataEdit()
         {
             var userdetails = AspNetUserManage.GetUserDetails(this.HttpContext);
 
             return View(userdetails);
         }
 
-  
         //[HttpPut]
-        //public ActionResult UserDataEdit(AspNetUsers users)
-        //{
-        //    var getUser = con
-        //    retun View();
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserDataEdit([Bind(Include = "Id,Account,Email,Phone")] UserDetails userdetails)
+        {
+            var details = db.AspNetUsers.FirstOrDefault(u => u.Id == userdetails.Id);
+            details.PhoneNumber = userdetails.Phone;
+            details.Email = userdetails.Email;
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(details).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("UserDataDetails");
+            }
+
+            return View(userdetails);
+            //if (ModelState.IsValid)
+            //{
+            //    db.AspNetUsers.
+            //    db.Entry(aspNetUsers).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("UserDataDetails");
+            //}
+            //return View(details);
+        }
+
 
         #region Helper
         // 新增外部登入時用來當做 XSRF 保護
