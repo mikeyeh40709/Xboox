@@ -129,3 +129,81 @@ button.filepond--file-action-button {
 .card{
     margin-top:30px;
 }
+.input-group{
+    padding:10px 0;
+}
+.label {
+    font-size: 16px;
+    color: #555;
+    text-transform: capitalize;
+
+    margin-bottom: 5px;
+}
+.input-style-4 {
+    line-height: 50px;
+    background: #fafafa;
+    -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 0px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #666;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    border: none;
+}
+.row-space .input-group  {
+    display: block;
+}
+.input-group .label {
+    display: block;
+}
+
+.card-4 {
+    background: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+    .card-4 .card-body {
+        padding: 57px 65px;
+        padding-bottom: 65px;
+    }
+.input-group input{
+    max-width:600px;
+   
+}
+
+.l-width {
+    width: 400px;
+}
+.l-height {
+    height:50px;
+}
+div .input-group.tag-label{
+    width:auto;
+}
+
+button.btn-beige{
+    background-color: beige;
+    padding:10px 50px;
+}
+
+.p-t-15{
+    padding-top:20px;
+}
+/*div.note-editable {
+    height: 200px
+}*/
+.filepond--root {
+ height: 150px;
+ width:600px;
+}

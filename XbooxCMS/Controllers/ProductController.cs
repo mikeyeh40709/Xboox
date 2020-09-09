@@ -11,6 +11,11 @@ using System.Data.Entity.Validation;
 using System.IO;
 using System.Web.SessionState;
 using Newtonsoft.Json;
+using Imgur.API.Authentication;
+using System.Net.Http;
+using Imgur.API.Endpoints;
+using static System.Net.WebRequestMethods;
+using System.Threading.Tasks;
 
 namespace XbooxCMS.Controllers
 {
@@ -461,7 +466,7 @@ namespace XbooxCMS.Controllers
 
 
         [HttpPost]
-        public ActionResult Upload()
+        public async Task<ActionResult>  Upload()
         {
             //foreach (var file in filepond)
            // {
@@ -483,48 +488,23 @@ namespace XbooxCMS.Controllers
 
                // ImgstringList = new List<string>();
                 var files = Request.Files;
+                var File = Request.Files[0];
+                //Imgurapi
+                var apiClient = new ApiClient("0a9f2fb7434821b", "60f9a494f1607de3b90582298fc88c8e29560199");
+                var httpClient = new HttpClient();
 
-                           //if (file != null && file.ContentLength > 0)
-                           //{
-
-                           //    var path = Path.Combine(Server.MapPath("../Assets/Pics"), file.FileName);
-                           //    //放進session
-                           //    Session["fileName"] = Request.Files[0].FileName;
-
-                           //    sessiontest = (string)Session[$"{Request.Files[0].FileName }"];
-                           //   // productImgs.Add(new ProductImgs())
-                           //    file.SaveAs(path);
-                           //}
-
-             var fileName = files[0].FileName;/*C:\Users\User\source\repos\mikeyeh40709\Xboox\Xboox\Assets\Image\Pics\*/
-                       
-             var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
+                var fileName = files[0].FileName;/*C:\Users\User\source\repos\mikeyeh40709\Xboox\Xboox\Assets\Image\Pics\*/
+             
+             //從這裡開始可以用imgur
+           //  var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
 
 
-                        //Session[$"fileName{i}"] = fileName;
-                        //productImgs.Add(new ProductImgs() { imgLink = path, ProductId = ViewModel.Products.ProductId });
-             files[0].SaveAs(path);
-                // }
-                // }
+          //   files[0].SaveAs(path);
+ 
+                var imageEndpoint = new ImageEndpoint(apiClient, httpClient);
+                var imageUpload = await imageEndpoint.UploadImageAsync(File.InputStream);
+                GetImg().Add(imageUpload.Link);
 
-                //if (Session["fileName"] == null)
-                //{
-                //    Session["fileName"] = fileName;
-                //    Debug.WriteLine("getsssion");
-                //}
-                //else
-                //{
-                //    Session["fileName"] = Session["fileName"] + "," +fileName;
-                //    Debug.WriteLine("getsssion2");
-                //}
-                GetImg().Add(fileName);
-                
-                
-               // imgString = getImg()  + fileName + ",";
-
-                // List<string> fileNameList = (List<string>)Session["fileName"];
-                //  fileNameList.Add(fileName);
-                //  Session["fileName"] = fileNameList;
 
                 //ViewBag.List = fileNameCollection;
             }

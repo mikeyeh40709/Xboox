@@ -1,33 +1,36 @@
-﻿@model IEnumerable<Xboox.Models.UserDetails>
+﻿@model Xboox.Models.UserDetails
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Account)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-    </tr>
+    <div class="container">
+        <div class="row">
+            @Html.Partial("_MemberSidebar")
+            <div class="col-lg-9 col-12">
+                <dl class="dl-horizontal">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Account)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-    </tr>
-}
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Account)
+                    </dt>
+                    <hr />
+                    <dd>
+                        @Html.DisplayFor(model => model.Account)
+                    </dd>
+                    <hr />
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <hr />
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <hr />
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </dt>
+                    <hr />
+                    <dd>
+                        @Html.DisplayFor(model => model.Phone)
+                    </dd>
 
-</table>
+                </dl>
+            </div>
+        </div>
+    </div>

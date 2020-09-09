@@ -113,7 +113,7 @@
         let confirmDeleteBtn = $("swal2-confirm");
         detailsBtn.on("click", function () {
             $.ajax({
-                url: `Detail/${this.id}`,
+                url: `Order/Detail/${this.id}`,
                 method: "get",
                 dataType: "json",
                 success: function (res) {

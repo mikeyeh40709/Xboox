@@ -12,16 +12,16 @@
 <h2>ProductManagement</h2>
 
 <p>
-  
+
     <!-- Colored FAB button -->
     <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
         <i class="material-icons" onclick="location.href='@Url.Action("Create", "Product")'">add</i>
     </button>
-  
+
 </p>
 
 <div class="col-md-6">
-    <table class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--1dp"  id="Producytable">
+    <table class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--1dp" id="Producytable">
         <thead>
             <tr>
                 <th>
@@ -97,11 +97,10 @@
                         <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" value="Edit" onclick="location.href='@Url.Action("Edit", "Product",new{id=item.ProductId })'" />
                         <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--gold" value="Details" onclick="location.href='@Url.Action("Details", "Product",new{id=item.ProductId })'" />
                         <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="Delete" onclick="location.href='@Url.Action("Delete", "Product",new{id=item.ProductId })'" />
-                        @*type="submit"*@
-                        @*<button class="uk-button uk-button-default" onclick=location.href ='@Url.Action("Edit","Product",null, new{id=item.ProductId })'></button>*@
-                        @*@Html.ActionLink("Edit", "Edit", new { id = item.ProductId, @class = "uk-button uk-button-default" })*@
-                        @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                        <button type="button" class="btn btn-primary" data-toggle="modal"   data-target="#exampleModal" data-id="@item.ProductId">
+                            Delete
+                        </button>
+
                     </td>
 
                 </tr>
@@ -111,7 +110,26 @@
 
     </table>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                確定要刪除嗎? 資料將會直接消失
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger" id="deletefunction" >Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -124,5 +142,39 @@
         $(document).ready(function () {
             $('#Producytable').DataTable();
         });
+    </script>
+
+
+    <script type="text/javascript">
+
+        $("#deletefunction").click(function () {
+            var dele_id = $(this).data('#data-id')
+            $.ajax({
+                type: "POST",
+                url: 'Delete/Product/' + dele_id,
+                contentType: 'application/json; charset=utf-8',
+               
+                sucess: function (data) {
+                    alert("Success Deleted");
+                },
+
+                error: function (xhr) {
+                    alert('fails');
+
+                }
+
+
+            })
+
+
+
+        })
+
+            @*$.ajax({
+    type: "POST",
+    url: '@Url.Action("DeleteTest","Test")',
+    data: {id:10},
+    contentType: 'application/json; charset=utf-8',
+    success: function (data) {*@
     </script>
 }

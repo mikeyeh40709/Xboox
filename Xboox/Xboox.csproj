@@ -17,13 +17,10 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort>44370</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -234,6 +231,7 @@
       <DependentUpon>shop-cart.css</DependentUpon>
     </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
+    <Content Include="Assets\CSS\Custom\HomePage\HomePage.css" />
     <Content Include="Assets\CSS\Custom\LogInPage\main.css" />
     <Content Include="Assets\CSS\Custom\LogInPage\util.css" />
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.css" />
@@ -250,7 +248,12 @@
     <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\fonts\LogInPage\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Assets\fonts\LogInPage\Linearicons-Free-v1.0.0\icon-font.min.css" />
+    <Content Include="Assets\fonts\LogInPage\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
     <Content Include="Assets\fonts\LogInPage\montserrat\OFL.txt" />
+    <Content Include="Assets\Image\LogInPage\pic_01.jpg" />
+    <Content Include="Assets\Image\LogInPage\pic_02.jpg" />
+    <Content Include="Assets\Image\LogInPage\pic_03.jpg" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
     <Content Include="Assets\Image\Pics\adpic01.jpg" />
@@ -331,6 +334,10 @@
     <Content Include="Assets\TemplateJavaScript\mixitup.min.js" />
     <Content Include="Assets\TemplateJavaScript\owl.carousel.min.js" />
     <Content Include="Assets\Vendor\LogInPage\animate\animate.css" />
+    <Content Include="Assets\Vendor\LogInPage\animsition\css\animsition.css" />
+    <Content Include="Assets\Vendor\LogInPage\animsition\css\animsition.min.css" />
+    <Content Include="Assets\Vendor\LogInPage\animsition\js\animsition.js" />
+    <Content Include="Assets\Vendor\LogInPage\animsition\js\animsition.min.js" />
     <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Assets\Vendor\LogInPage\bootstrap\css\bootstrap-reboot.css" />
@@ -342,14 +349,20 @@
     <Content Include="Assets\Vendor\LogInPage\bootstrap\js\popper.js" />
     <Content Include="Assets\Vendor\LogInPage\bootstrap\js\popper.min.js" />
     <Content Include="Assets\Vendor\LogInPage\bootstrap\js\tooltip.js" />
+    <Content Include="Assets\Vendor\LogInPage\countdowntime\countdowntime.js" />
     <Content Include="Assets\Vendor\LogInPage\css-hamburgers\hamburgers.css" />
     <Content Include="Assets\Vendor\LogInPage\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Assets\Vendor\LogInPage\daterangepicker\daterangepicker.css" />
+    <Content Include="Assets\Vendor\LogInPage\daterangepicker\daterangepicker.js" />
+    <Content Include="Assets\Vendor\LogInPage\daterangepicker\moment.js" />
+    <Content Include="Assets\Vendor\LogInPage\daterangepicker\moment.min.js" />
     <Content Include="Assets\Vendor\LogInPage\jquery\jquery-3.2.1.min.js" />
+    <Content Include="Assets\Vendor\LogInPage\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="Assets\Vendor\LogInPage\perfect-scrollbar\perfect-scrollbar.min.js" />
     <Content Include="Assets\Vendor\LogInPage\select2\select2.css" />
     <Content Include="Assets\Vendor\LogInPage\select2\select2.js" />
     <Content Include="Assets\Vendor\LogInPage\select2\select2.min.css" />
     <Content Include="Assets\Vendor\LogInPage\select2\select2.min.js" />
-    <Content Include="Assets\Vendor\LogInPage\tilt\tilt.jquery.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
@@ -453,6 +466,10 @@
     <Content Include="Assets\fonts\LogInPage\poppins\Poppins-SemiBoldItalic.ttf" />
     <Content Include="Assets\fonts\LogInPage\poppins\Poppins-Thin.ttf" />
     <Content Include="Assets\fonts\LogInPage\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Assets\fonts\LogInPage\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.eot" />
+    <Content Include="Assets\fonts\LogInPage\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.ttf" />
+    <Content Include="Assets\fonts\LogInPage\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff" />
+    <Content Include="Assets\fonts\LogInPage\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff2" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -631,7 +648,9 @@
     <Content Include="Views\Shared\_OffcanvasPartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Shared\_SearchPartial.cshtml" />
+    <Content Include="Views\Order\CreateOrderSuccess.cshtml" />
     <Content Include="Views\Shared\_MemberSidebar.cshtml" />
+    <Content Include="Views\Account\UserDataEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
