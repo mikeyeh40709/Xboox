@@ -429,9 +429,13 @@ namespace Xboox.Controllers
             base.Dispose(disposing);
         }
 
+        private XbooxContext db = new XbooxContext();
+
         public ActionResult UserDataDetails()
         {
             var userdetails = AspNetUserManage.GetUserDetails(this.HttpContext);
+
+            //var details = db.AspNetUsers.FirstOrDefault(u => u.UserName == this.User.Identity.Name);
 
             return View(userdetails);
         }
@@ -448,25 +452,31 @@ namespace Xboox.Controllers
         //[HttpPut]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UserDataEdit([Bind(Include = "Email,PhoneNumber,UserName")] AspNetUsers user)
+        public ActionResult UserDataEdit([Bind(Include = "Id,Account,Email,Phone")] UserDetails userdetails)
         {
-            XbooxContext db = new XbooxContext();
+            var details = db.AspNetUsers.FirstOrDefault(u => u.Id == userdetails.Id);
+            details.PhoneNumber = userdetails.Phone;
+            details.Email = userdetails.Email;
+
             if (ModelState.IsValid)
             {
-                //確認狀態
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(details).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("UserDataDetails");
             }
 
-            return View(user);
+            return View(userdetails);
+            //if (ModelState.IsValid)
+            //{
+            //    db.AspNetUsers.
+            //    db.Entry(aspNetUsers).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("UserDataDetails");
+            //}
+            //return View(details);
         }
 
-        //public ActionResult MemberArea()
-        //{
 
-        //    return View();
-        //}
         #region Helper
         // 新增外部登入時用來當做 XSRF 保護
         private const string XsrfKey = "XsrfId";

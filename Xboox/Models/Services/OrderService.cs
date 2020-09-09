@@ -25,7 +25,7 @@ namespace Xboox.Services
         private enum payment
         {
             Unpaid = 0,
-            Paid = 1
+            Paid = 1,
         }
         public List<OrderViewModel> GetOrder(string id)
         {

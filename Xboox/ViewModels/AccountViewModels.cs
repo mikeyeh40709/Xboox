@@ -135,7 +135,11 @@ namespace Xboox.Models
 
     public class UserDetails
     {
+        public string Id { set; get; }
         public string Account { set; get;}
+
+        [Required]  //必填欄位
+        [EmailAddress]
         public string Email { set; get; }
         public string Phone { set; get; }
         

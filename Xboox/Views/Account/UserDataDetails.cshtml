@@ -1,36 +1,36 @@
-﻿@model Xboox.Models.DataTable.AspNetUsers
+﻿@model Xboox.Models.UserDetails
 
-<div>
-    <h4>AspNetUsers</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+    <div class="container">
+        <div class="row">
+            @Html.Partial("_MemberSidebar")
+            <div class="col-lg-9 col-12">
+                <dl class="dl-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Account)
+                    </dt>
+                    <hr />
+                    <dd>
+                        @Html.DisplayFor(model => model.Account)
+                    </dd>
+                    <hr />
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <hr />
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <hr />
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </dt>
+                    <hr />
+                    <dd>
+                        @Html.DisplayFor(model => model.Phone)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                </dl>
+            </div>
+        </div>
+    </div>

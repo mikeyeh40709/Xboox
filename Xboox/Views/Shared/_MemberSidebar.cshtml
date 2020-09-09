@@ -8,12 +8,17 @@
                 <div class="accordion" id="accordionExample">
                     <div class="card">
                         <div class="card-heading">
-                            <a >修改個人資訊</a>
+                            @Html.ActionLink("變更個人資料", "UserDataEdit", "Account")
                         </div>
                     </div>
+                    @*<div class="card">
+                        <div class="card-heading">
+                            @Html.ActionLink("變更密碼", "ResetPassword", "Account")
+                        </div>
+                    </div>*@                    
                     <div class="card">
                         <div class="card-heading">
-                            @Html.ActionLink("我的訂單","UserView","Order")
+                            @Html.ActionLink("我的訂單", "UserView", "Order")
                         </div>
                     </div>
                     <div class="card">

@@ -181,7 +181,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AspNetUsersCRUDController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\BookCategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -650,6 +649,7 @@
     <Content Include="Views\Shared\_SearchPartial.cshtml" />
     <Content Include="Views\Order\CreateOrderSuccess.cshtml" />
     <Content Include="Views\Shared\_MemberSidebar.cshtml" />
+    <Content Include="Views\Account\UserDataEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
