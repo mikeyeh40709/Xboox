@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Order";
 }
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         @Html.Partial("_MemberSidebar")
         <div class="col-lg-9 col-12">
@@ -18,8 +18,7 @@
                                     <div class="card" style="min-height: 300px; height:100%;">
                                         <div class="card-body p-3 d-flex flex-column justify-content-between">
                                             <div class="card-title">
-                                                <h6 class="card-title mb-1">編號:</h6>
-                                                <span class="d-inline-block badge badge-danger my-1 p-1 w-100" style="font-size: 10px;">@item.OrderId</span>
+                                                <span class="badge badge-danger mb-1 p-1 w-100">@item.OrderId</span>
                                                 <p class="m-0"><span class="font-weight-bold">建立日期:</span><span class="ml-2">@item.OrderDate</span></p>
                                                 <p class="m-0"><span class="font-weight-bold">收件人:</span><span class="ml-2">@item.PurchaserName</span></p>
                                                 <p class="m-0"><span class="font-weight-bold">地址:</span><span class="ml-2">@item.PurchaserAddress</span></p>
@@ -38,10 +37,10 @@
                                                 </p>
                                             </div>
                                             <div class="card-end">
-                                                <button class="site-btn bg-info mx-1" id="@item.OrderId" data-toggle="modal" data-target="#orderDetails">查看</button>
+                                                <button class="site-btn bg-info mx-1" id="@item.OrderId" data-toggle="modal" data-target="#orderDetails">查看明細</button>
                                                 @if (item.StateId == ViewBag.Unpaid)
                                                 {
-                                                    <button class="site-btn mx-1" id="@item.OrderId" data-toggle="modal" data-target="#deleteOrder">刪除</button>
+                                                    <button class="site-btn mx-1" id="@item.OrderId" data-toggle="modal" data-target="#deleteOrder">取消訂單</button>
                                                 }
                                             </div>
                                         </div>
@@ -58,7 +57,7 @@
 <div class="modal fade" id="orderDetails" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="details" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-dark text-white w-100">
                 <h5 class="modal-title" id="details">訂單明細</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -68,6 +67,11 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <td class="text-center">圖片</td>
+                            <td class="text-center">名稱</td>
+                            <td class="text-center">單價</td>
+                            <td class="text-center">數量</td>
+                            <td class="text-center">總價</td>
                         </tr>
                     </thead>
                     <tbody>

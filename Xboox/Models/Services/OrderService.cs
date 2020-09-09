@@ -102,7 +102,7 @@ namespace Xboox.Services
             }
 
         }
-        public OperationResult CreateOrder(HttpContextBase httpcontext, Order order)
+        public OperationResult CreateOrder(HttpContextBase httpcontext, OrderViewModel order)
         {
             OperationResult operationResult = new OperationResult();
             XbooxContext context = new XbooxContext();

@@ -6,6 +6,16 @@ table th,table td {
     text-overflow: ellipsis;
     text-align: center;
 }
+.shop-cart .card {
+    transition: all .3s;
+}
+.shop-cart .card:hover {
+    box-shadow: 0px 0px 5px 1px #b5b5b5;
+    transform: scale(1.01);
+}
+.card-title span.badge {
+    font-size: 5px!important;
+}
 @media (min-width: 576px) {
     .modal-dialog {
         width: 80%;

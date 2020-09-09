@@ -646,6 +646,9 @@
     <Content Include="Views\Shared\_SideBarFilter.cshtml" />
     <Content Include="Views\BookCategory\ShowBooks.cshtml" />
     <Content Include="Views\Account\UserDataEdit.cshtml" />
+    <Content Include="Views\Order\CreateOrderSuccess.cshtml" />
+    <Content Include="Views\Order\CreateOrderFail.cshtml" />
+    <Content Include="Views\Order\CreditDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

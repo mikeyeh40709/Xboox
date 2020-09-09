@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Script;
 using Xboox.Models;
 using Xboox.Models.DataTable;
+using Xboox.Models.Services;
 using Xboox.Models.ViewModels;
 using Xboox.Services;
 using Xboox.ViewModels;
@@ -18,7 +19,6 @@ namespace Xboox.Controllers
     public class OrderController : Controller
     {
         OrderService service = new OrderService();
-        // GET: Order
         public ActionResult UserView()
         {
             ViewBag.Unpaid = 0;
@@ -35,11 +35,6 @@ namespace Xboox.Controllers
                 return RedirectToAction("Login","Account");
             }
 
-        }
-        public ActionResult ManagerView()
-        {
-            var result = service.GetOrder();
-            return View(result);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -87,27 +82,44 @@ namespace Xboox.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
-
+        [Authorize]
         public ActionResult CreateOrder()
         {
-            return View();
+            ShoppingCartManage shopCart = new ShoppingCartManage();
+            var cartItems = shopCart.GetCartItems(this.HttpContext);
+            return View(cartItems);
         }
         [HttpPost]
-        public ActionResult CreateOrder(Order order)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateOrder([Bind(Include = "PurchaserName,PurchaserAddress,PurchaserEmail,PurchaserPhone,StateId")] OrderViewModel order)
         {
-           if(service.CreateOrder(this.HttpContext, order).isSuccessful)
-           {
-                
-                return RedirectToAction("CreateOrderSuccess");
+            if(order.StateId == 1)
+            {
+                return RedirectToAction("CreditDetail");
             }
             else
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var createOrder = service.CreateOrder(this.HttpContext, order);
+                if (createOrder.isSuccessful)
+                {
+                    ViewBag.Success = "訂單建立成功";
+                    return View("CreateOrderSuccess");
+                }
+                else
+                {
+                    var Error = createOrder.exception;
+                    ViewBag.Error = Error.ToString();
+                    return View("CreateOrderFail");
+                }
             }
+        }
+        [Authorize]
+        public ActionResult CreditDetail()
+        {
+            return View();
         }
         public ActionResult CreateOrderSuccess()
         {
-            ViewBag.success = "訂單建立成功";
             return View();
         }
     }
