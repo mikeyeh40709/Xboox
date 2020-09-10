@@ -452,6 +452,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Pics\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Views\Tag\" />
   </ItemGroup>
   <ItemGroup>
