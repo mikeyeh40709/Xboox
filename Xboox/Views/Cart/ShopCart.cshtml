@@ -99,7 +99,8 @@
                         <li>Total <span class="cart__total"></span></li>
                         <li>Discounted Price<span class="discounted_price"></span></li>
                     </ul>
-                    <a href="#" class="primary-btn">Proceed to checkout</a>
+                    @Html.ActionLink("Proceed to checkout", "CreateOrder", "Order",null, new { @class = "primary-btn"})
+                    @*<a href="#" class="primary-btn">Proceed to checkout</a>*@
                 </div>
             </div>
         </div>

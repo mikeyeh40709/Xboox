@@ -5,37 +5,7 @@
 }
 
 <!-- Banner Section Begin -->
-<section class="banner set-bg" data-setbg="/Assets/Image/Pics/slider1.jpeg">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-7 col-lg-8 m-auto">
-                <div class="banner__slider owl-carousel">
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>All in one</span>
-                            <h1>Xboox</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>Don't do drugs, do box!</span>
-                            <h1>Xboox</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                    <div class="banner__item">
-                        <div class="banner__text">
-                            <span>A book a day, keep doctors away</span>
-                            <h1>Xboox</h1>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@Html.Partial("_BannerPartial")
 <!-- Banner Section End -->
 <section class="product spad">
     <div class="container">
@@ -48,12 +18,12 @@
             <div class="col-lg-8 col-md-8">
                 <ul class="filter__controls">
                     <li class="active" data-filter="*">全部</li>
-                    <li data-filter=".fb4d4987-6abf-4569-be06-8172c29a8600">商業職場</li>
-                    <li data-filter=".a6c848b6-a49c-4b6c-92fe-9420d1a4a671">投資理財</li>
-                    <li data-filter=".e0055708-df2e-4c1f-9060-5049f9a64d54">人文社科</li>
-                    <li data-filter=".d08b766d-8299-4714-963a-2c0e37eb03ff">程式語言</li>
-                    <li data-filter=".d149e204-bcb9-4e0c-9670-d14b48f62c77">奇幻冒險</li>
-                    <li data-filter=".f0746657-2dbd-4489-a7a1-f170e5cbc912">醫療保健</li>
+                    <li data-filter=".fb4d4987-6abf-4569-be06-8172c29a8600">Business</li>
+                    <li data-filter=".a6c848b6-a49c-4b6c-92fe-9420d1a4a671">Investment</li>
+                    <li data-filter=".e0055708-df2e-4c1f-9060-5049f9a64d54">SocialScience</li>
+                    <li data-filter=".d08b766d-8299-4714-963a-2c0e37eb03ff">Programming</li>
+                    <li data-filter=".d149e204-bcb9-4e0c-9670-d14b48f62c77">Fantasy</li>
+                    <li data-filter=".f0746657-2dbd-4489-a7a1-f170e5cbc912">Medical</li>
                 </ul>
             </div>
         </div>
@@ -66,81 +36,11 @@
     </div>
 </section>
 <!-- Discount Section Begin -->
-<section class="discount">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 p-0">
-                <div class="discount__pic">
-                    <img src="~/Assets/Image/Pics/adpic01.jpg" alt="" style="height:390px;">
-                </div>
-            </div>
-            <div class="col-lg-6 p-0">
-                <div class="discount__text">
-                    <div class="discount__text__title">
-                        <span>Discount</span>
-                        <h2>Summer 2020</h2>
-                        <h5><span>Sale</span> from 50%</h5>
-                    </div>
-                    <div class="discount__countdown" id="countdown-time">
-                        <div class="countdown__item">
-                            <span>30</span>
-                            <p>Days</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>01</span>
-                            <p>Hour</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>01</span>
-                            <p>Min</p>
-                        </div>
-                        <div class="countdown__item">
-                            <span>01</span>
-                            <p>Sec</p>
-                        </div>
-                    </div>
-                    <a href="#">Shop now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@Html.Partial("_DiscountPartial")
 <!-- Discount Section End -->
 <!-- Services Section Begin -->
-<section class="services spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-car"></i>
-                    <h6>滿額免運</h6>
-                    <p>單筆訂單滿500享免運費</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-money"></i>
-                    <h6>退換貨服務</h6>
-                    <p>部分商品享10天猶豫期</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-headphones"></i>
-                    <h6>24/7線上小幫手</h6>
-                    <p>全年無休線上客服</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="services__item">
-                    <i class="fa fa-support"></i>
-                    <h6>安心交易</h6>
-                    <p>加密連線，確保個資不外漏</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@Html.Partial("_ServicesPartial")
+<!-- Services Section End -->
 
 @section endJS{
     <script>
