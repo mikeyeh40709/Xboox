@@ -70,7 +70,7 @@ namespace XbooxCMS.Api
 
             context.Product.Add(createViewModel.Products);
 
-            AddedTag(createViewModel.Products, createViewModel.PostedTagIds, createViewModel.ProductTags);
+      //      AddedTag(createViewModel.Products, createViewModel.PostedTagIds, createViewModel.ProductTags);
 
 
             context.SaveChanges();
