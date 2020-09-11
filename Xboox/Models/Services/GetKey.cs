@@ -8,9 +8,7 @@ namespace Xboox.Models.Services
 {
     public  class GetKey
     {
-        private string Visitor { get; set; }
-        ShoppingCartManage ShoppingCartManage = new ShoppingCartManage();
-        //private static HttpContextBase contextBase;
+     
         public string GetAllKey(HttpContextBase contextBase)
         {
 
@@ -18,9 +16,7 @@ namespace Xboox.Models.Services
             {
                 if (contextBase.Request.Cookies["VisitorKey"] == null)
                 {
-                    Guid VisitorKey = Guid.NewGuid();
-                    //ViewBag.XbooxKey = VisitorKey;
-                    Visitor = VisitorKey.ToString();
+                    Guid VisitorKey = Guid.NewGuid();                   
                     return VisitorKey.ToString();
                 }
                 else
@@ -29,26 +25,22 @@ namespace Xboox.Models.Services
                 }   
             }
             else
-            {
-                //var Visitor = contextBase.Request.Cookies["VisitorKey"].Value;
-               
+            {              
                 var Member = contextBase.User.Identity.GetUserId();
-                if (Visitor != null)
-                {
-                    ShoppingCartManage.MigrateCart(Visitor, Member);
-                }
 
-                //after
-
-                //ViewBag.XbooxKey = MemberKey;
                 return Member;
             }
-
-            //return RedirectToAction()
-           
-            //return View(ViewBag.Key);
         }
 
+
+    }
+
+
+    public class TempCartItems
+    {
+        public string ProductId { get; set; }
+        public string ProductName { get; set; }
+        public int Count { get; set; }
 
     }
 }

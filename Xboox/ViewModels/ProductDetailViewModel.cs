@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Xboox.Models.DataTable;
 
 namespace Xboox.ViewModels
 {
@@ -20,7 +21,8 @@ namespace Xboox.ViewModels
         public string Author { get; set; }
         public string Language { get; set; }
         public string ProductId { get; set; }
-        public string Tag { get; set; }
+        public string TagId { get; set; }
+        public string TagName { get; set; }
         public List<string> ImgLinks { get; set; }
         //public string Category { get; set; }
         public string CategoryID { get; set; }

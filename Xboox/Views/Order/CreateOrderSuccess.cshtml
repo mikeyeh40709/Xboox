@@ -1,2 +1,7 @@
-﻿<h5>@ViewBag.success</h5>
-@Html.ActionLink("首頁","Index", "Home")
+﻿<section class="h-50 d-flex flex-column justify-content-center align-items-center">
+    <h1>@ViewBag.Success</h1>
+    <button class="btn btn-danger text-white">@Html.ActionLink("回到首頁", "Index", "Home")</button>
+</section>
+@section dealWithCart {
+    <script src="~/Assets/JavaScript/Custom/CartPage/clearStorage.js"></script>   
+}

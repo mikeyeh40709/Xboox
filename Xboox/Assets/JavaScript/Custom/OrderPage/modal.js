@@ -60,7 +60,6 @@
                         return response.json()
                     }
                 });
-                //    })
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
@@ -84,7 +83,7 @@
             preConfirm: () => {
                 $.ajax({
                     type: "post",
-                    url: `DeleteOrder?orderId=${this.id}`,
+                    url: `CancelOrder?orderId=${this.id}`,
                     data: "{}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
