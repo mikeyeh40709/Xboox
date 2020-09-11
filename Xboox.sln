@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xboox", "Xboox\Xboox.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XbooxCMS", "XbooxCMS\XbooxCMS.csproj", "{539560A9-0F93-43C1-BE78-8C60C2DA8055}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XbooxTests", "XbooxTests\XbooxTests.csproj", "{97822C7A-882F-4352-B3ED-FF891F624826}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{539560A9-0F93-43C1-BE78-8C60C2DA8055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{539560A9-0F93-43C1-BE78-8C60C2DA8055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{539560A9-0F93-43C1-BE78-8C60C2DA8055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97822C7A-882F-4352-B3ED-FF891F624826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97822C7A-882F-4352-B3ED-FF891F624826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97822C7A-882F-4352-B3ED-FF891F624826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97822C7A-882F-4352-B3ED-FF891F624826}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
