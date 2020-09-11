@@ -60,7 +60,6 @@
                         return response.json()
                     }
                 });
-                //    })
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
