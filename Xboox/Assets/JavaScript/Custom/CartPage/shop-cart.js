@@ -3,16 +3,51 @@ let cart_price = document.querySelectorAll('.cart__price');
 let cart_count = document.querySelectorAll('.cart__count');
 let discounted_price = document.querySelector('.discounted_price');
 let site_btn = document.querySelector('.site-btn');
-let dec_group = document.querySelectorAll('.dec');
-let inc_group = document.querySelectorAll('.inc');
-
+let decrease = document.querySelectorAll('.decrease');
 //decrease or increase button event!
-let dec_inc_func = (dec_group, inc_group, num) => {
-    dec_group[num].addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation();  if (cart_count[num].value > 1) { cart_count[num].value-- }; item_func(num); total_function(); });
-    inc_group[num].addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation();  cart_count[num].value++; item_func(num); total_function(); });
-}
+function CalculateCount(cauculate, idx) {
+    if (cauculate ==='-' && cart_count[idx].textContent <= 1) {
+    }
+    else {
+        change_localstorage(cauculate, idx);
+        ajaxFun(this, '/Cart/AddToCart');
+        item_func(idx);
+        total_function();    
+    }
+   
+    
+};
+
+//change_count_to_change_localstorage_function
+let change_localstorage = (operator,num) => {
+    let getStorage = localStorage.getItem("CartItems");
+    let cartItems = [];
+    let cartItem = {
+        ProductName: cart_count[num].getAttribute('data-target'),
+        Count: cart_count[num].textContent,
+        ProductId: cart_count[num].id
+    } 
+    JSON.parse(getStorage).forEach(ele => {
+        if (ele.ProductId == cart_count[num].id) {
+            if (operator=='+') {
+                ele.Count = parseInt(ele.Count) + parseInt(1);
+            }
+            else {
+                ele.Count = parseInt(ele.Count)-parseInt(1);
+            }
+            cartItem.Count = ele.Count;
+        }
+        else {
+            cartItems.push(ele);
+        }
+    })
+    cartItems.push(cartItem);
+    localStorage.setItem("CartItems", JSON.stringify(cartItems));
+    headerdropdown.innerHTML = "";
+    renewNavbar();
+};
 //every item price function!
-let item_func = (num) => { cart_total[num].innerHTML = `${parseFloat(cart_price[num].innerText) * parseFloat(cart_count[num].value)}` };
+let item_func = (num) => { cart_total[num].innerHTML = `${parseFloat(cart_price[num].innerText) * parseFloat(cart_count[num].textContent)}` };
 //total item price function!
 let total_function = () => {
     let price_array = [];
@@ -32,7 +67,6 @@ let changeCount = () => {
     for (let i = 0; i < cart_count.length; i++) {
         item_func(i);
         total_function();
-        dec_inc_func(dec_group, inc_group, i);
     }
 }
 ////coupon price fun
@@ -51,9 +85,9 @@ let coupon_function = () => {
         discounted_price.innerText = `${Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * 0.9)}`;    
         cart_total[cart_total.length - 1].setAttribute("style", "color:rgba(0,0,0,0.3);text-decoration:line-through;") ;    
     });
- };
+};
+
 if (cart_count.length > 0) {
-   
     changeCount();
     coupon_function();
 }

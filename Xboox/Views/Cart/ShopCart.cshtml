@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
-                    <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i>Home</a>
+                    <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i>Home</a>
                     <span>Shopping cart</span>
                 </div>
             </div>
@@ -35,34 +35,36 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @{int countIndex = -1;}
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td class="cart__product__item">
-                                    <img src="~/Assets/Image/Pics/@(item.ProductImgLink).jpg" style="width:50px" alt="圖片壞掉拉">
-                                    <div class="cart__product__item__title">
-                                        <h6>@item.Name</h6>
+                                countIndex++;
+                                <tr>
+                                    <td class="cart__product__item">
+                                        <img src="~/Assets/Image/Pics/@(item.ProductImgLink).jpg" style="width:50px" alt="圖片壞掉拉">
+                                        <div class="cart__product__item__title">
+                                            <h6>@item.Name</h6>
 
-                                    </div>
-                                </td>
-                                <td class="cart__price">@Convert.ToInt32(item.Price)</td>
-                                <td class="cart__quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="@item.Quantity" class="cart__count">
-                                    </div>
-                                </td>
-                                @*javascript:void(0)*@
-                                <td class="cart__total"></td>
-                                <td class="cart__close">
-                                    <a href="EmptyCart/@item.ProductId" class="close" aria-label="Close">
-                                        <span id="@item.ProductId" aria-hidden="true" onclick="deleteCartItem(event)">&times;</span>
-                                    </a>
-                                </td>
-                            </tr>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">@Convert.ToInt32(item.Price)</td>
+                                    <td class="cart__quantity">
+                                        <div class="decrease" onclick="CalculateCount('-',@countIndex)">-</div>
+                                        <span class="cart__count" id="@item.ProductId" data-target="@item.Name">@item.Quantity</span>
+                                        <div class="increase" onclick="CalculateCount('+',@countIndex)">+</div>
+                                    </td>
+                                    @*javascript:void(0)*@
+                                    <td class="cart__total"></td>
+                                    <td class="cart__close">
+                                        <a href="EmptyCart/@item.ProductId" class="close" aria-label="Close">
+                                            <span id="@item.ProductId" aria-hidden="true" onclick="deleteCartItem(event)">&times;</span>
+                                        </a>
+                                    </td>
+                                </tr>
 
                             }
 
-                          
+
                         </tbody>
                     </table>
                 </div>
@@ -77,9 +79,9 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="cart__btn update__btn">
-                    <a href="#"><span class="icon_loading"></span> Update cart</a>
-                </div>
+                @*<div class="cart__btn update__btn">
+                    <a href="#"><span class="icon_loading"></span>Delete All cart</a>
+                </div>*@
             </div>
         </div>
         <div class="row">
@@ -99,8 +101,8 @@
                         <li>Total <span class="cart__total"></span></li>
                         <li>Discounted Price<span class="discounted_price"></span></li>
                     </ul>
-                    @Html.ActionLink("Proceed to checkout", "CreateOrder", "Order",null, new { @class = "primary-btn"})
-                    @*<a href="#" class="primary-btn">Proceed to checkout</a>*@
+                    @*@Html.ActionLink("Proceed to checkout", "CreateOrder", "Order",null, new { @class = "primary-btn"})*@
+                    <a href="javascript:void(0)" class="primary-btn">Proceed to checkout</a>
                 </div>
             </div>
         </div>

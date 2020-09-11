@@ -12,6 +12,12 @@
     transition: all 0.3s;
 }
 
+.swal2-modal .swal2-title {
+    font-size: 15px;
+    color: #111;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
 #cart_dropdown {
     background: #000;
     width: 230px;
