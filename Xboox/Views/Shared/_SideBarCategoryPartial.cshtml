@@ -1,50 +1,11 @@
 ﻿
+<li data-filter="*" class="active">
+    ALL
+</li>
 
-@foreach (var item in ViewBag.Tags)
+@for (var i = 0; i < ViewBag.Tags.Count - 1; i++)
 {
-    <label for="@item" data-filter=".@item">
-        @item
-        <input type="checkbox" id="@item" data-filter=".@item">
-    <span class="checkmark"></span>
-    </label>
-    @*<li data-filter=".@item">
-        @item
-    </li>*@
+    <li data-filter=".@ViewBag.Tags[i+1]">
+        @ViewBag.Tags[i + 1]
+    </li>
 }
-
-
-@*<label for="xs">
-        xs
-        <input type="checkbox" id="xs">
-        <span class="checkmark"></span>
-    </label>
-    <label for="xss">
-        xs-s
-        <input type="checkbox" id="xss">
-        <span class="checkmark"></span>
-    </label>
-    <label for="s">
-        s
-        <input type="checkbox" id="s">
-        <span class="checkmark"></span>
-    </label>
-    <label for="m">
-        m
-        <input type="checkbox" id="m">
-        <span class="checkmark"></span>
-    </label>
-    <label for="ml">
-        m-l
-        <input type="checkbox" id="ml">
-        <span class="checkmark"></span>
-    </label>
-    <label for="l">
-        l
-        <input type="checkbox" id="l">
-        <span class="checkmark"></span>
-    </label>
-    <label for="xl">
-        xl
-        <input type="checkbox" id="xl">
-        <span class="checkmark"></span>
-    </label>*@
