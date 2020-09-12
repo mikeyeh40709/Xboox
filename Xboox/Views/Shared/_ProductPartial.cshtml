@@ -152,10 +152,10 @@
 <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
 <script>
     var temp = document.querySelector(".isbn_number").innerHTML;
-    console.log(temp);
     var numList = temp.split('：')
-    const isbn = numList[1];
+    const isbn = numList[1].trim();
     console.log(isbn);
     GBS_setLanguage('zh-TW');
-    GBS_insertPreviewButtonPopup('ISBN:0738531367');
+    GBS_insertPreviewButtonPopup(`ISBN:${isbn}`);
+    console.log(`ISBN:${isbn}`);
 </script>
