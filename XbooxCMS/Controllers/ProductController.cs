@@ -89,7 +89,7 @@ namespace XbooxCMS.Controllers
         public ActionResult Index()
         {
         
-              var productList = context.Product.ToList();
+            var productList = context.Product.ToList();
             List<ProductListViewModel> result = new List<ProductListViewModel>();
             var list = (from p in context.Product
                        join c in context.Category
@@ -106,25 +106,7 @@ namespace XbooxCMS.Controllers
                            CategorName = c.Name
                        }).ToList();
                         
-            foreach(var item in productList)
-            {
-                result.Add(new ProductListViewModel()
-                {
-                   // ProductId = Guid.NewGuid(),
-                    Name = item.Name,
-                    UnitInStock = item.UnitInStock,
-                    Price = item.Price,
-                    Author = item.Author,
-                    PublishedDate = item.PublishedDate,
-                    //CategorName = from i in item.CategoryId
-                    //              join c in context.Category.ToList()
-                    //              on item.CategoryId equals c.CategoryId select item.Name +
-   
 
-                    //欄位
-                });
-                
-            }
         
             return View(list);
         }
@@ -336,7 +318,6 @@ namespace XbooxCMS.Controllers
             productInDb.Name = ViewModel.Products.Name;
             productInDb.Price = ViewModel.Products.Price;
             productInDb.Description = ViewModel.Products.Description;
-
             productInDb.CategoryId = ViewModel.Products.CategoryId;
             productInDb.Publisher = ViewModel.Products.Publisher;
             productInDb.PublishedDate = ViewModel.Products.PublishedDate;

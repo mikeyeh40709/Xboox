@@ -1,6 +1,18 @@
 ﻿/*---------------------
   Shop Cart
 -----------------------*/
+/*table {
+        thead {
+            th {
+                font-size: 10px;
+            }
+        }
+    }
+
+    .cart__product__item {
+        width: 10%;
+    }
+}*/
 .shop-cart {
   padding-top: 70px;
   padding-bottom: 90px; }
@@ -17,6 +29,11 @@
       font-weight: 600;
       text-transform: uppercase;
       padding-bottom: 20px; }
+      @media (max-width: 768px) {
+        .shop__cart__table thead th {
+          font-size: 10px; }
+          .shop__cart__table thead th:last-of-type {
+            padding: 0px 20px 0px 0px; } }
   .shop__cart__table tbody tr {
     border-bottom: 1px solid #f2f2f2; }
     .shop__cart__table tbody tr td {
@@ -30,6 +47,9 @@
       .shop__cart__table tbody tr .cart__product__item .cart__product__item__title {
         overflow: hidden;
         padding-top: 23px; }
+        @media (max-width: 768px) {
+          .shop__cart__table tbody tr .cart__product__item .cart__product__item__title {
+            display: none; } }
         .shop__cart__table tbody tr .cart__product__item .cart__product__item__title h6 {
           color: #111;
           font-weight: 600; }
@@ -42,26 +62,47 @@
       color: #ca1515;
       font-weight: 600;
       width: 190px; }
+      @media (max-width: 768px) {
+        .shop__cart__table tbody tr .cart__price {
+          font-size: 8px; } }
       .shop__cart__table tbody tr .cart__price::before {
         content: "$"; }
-    .shop__cart__table tbody tr .cart__quantity {
-      width: 190px; }
-      .shop__cart__table tbody tr .cart__quantity .pro-qty {
-        border: none;
-        padding: 0;
+    @media (max-width: 768px) {
+      .shop__cart__table tbody tr .cart__quantity {
+        width: 50px;
+        font-size: 8px;
         display: flex;
-        flex-direction: row;
-        border-radius: 0; }
-        .shop__cart__table tbody tr .cart__quantity .pro-qty input {
-          color: #444444; }
-        .shop__cart__table tbody tr .cart__quantity .pro-qty .qtybtn {
-          font-size: 20px;
-          color: #444444; }
+        margin-top: 10px; } }
+    @media (min-width: 769px) {
+      .shop__cart__table tbody tr .cart__quantity {
+        width: 190px;
+        display: flex;
+        align-items: center;
+        margin-top: 10px; } }
+    .shop__cart__table tbody tr .cart__quantity .decrease {
+      font-size: 20px;
+      color: #444444;
+      cursor: pointer; }
+    .shop__cart__table tbody tr .cart__quantity span {
+      color: #444444; }
+      @media (min-width: 769px) {
+        .shop__cart__table tbody tr .cart__quantity span {
+          margin: 0px 35px 0 35px; } }
+      @media (max-width: 768px) {
+        .shop__cart__table tbody tr .cart__quantity span {
+          margin: 7px 10px 0 10px; } }
+    .shop__cart__table tbody tr .cart__quantity .increase {
+      font-size: 20px;
+      color: #444444;
+      cursor: pointer; }
     .shop__cart__table tbody tr .cart__total {
       font-size: 16px;
       color: #ca1515;
       font-weight: 600;
       width: 150px; }
+      @media (max-width: 768px) {
+        .shop__cart__table tbody tr .cart__total {
+          font-size: 8px; } }
       .shop__cart__table tbody tr .cart__total::before {
         content: "$"; }
     .shop__cart__table tbody tr .cart__close {

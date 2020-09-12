@@ -33,7 +33,6 @@ namespace Xboox.Controllers
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
                 return Json(new { redirectToUrl = Url.Action("Login", "Account") });
-               
             }
             else
             {

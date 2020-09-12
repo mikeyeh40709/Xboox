@@ -140,7 +140,16 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#Producytable').DataTable();
+            var table = $('#Producytable').DataTable({
+                ajax: {
+                    url: "Api/ProductApi",
+
+                }
+
+             //用datatable渲染html
+
+
+            });
         });
     </script>
 
@@ -151,7 +160,7 @@
             var dele_id = $(this).data('#data-id')
             $.ajax({
                 type: "POST",
-                url: 'Delete/Product/' + dele_id,
+                url: '/Delete/Product/' + dele_id,
                 contentType: 'application/json; charset=utf-8',
                
                 sucess: function (data) {
@@ -170,7 +179,7 @@
 
         })
 
-            @*$.ajax({
+    @*$.ajax({
     type: "POST",
     url: '@Url.Action("DeleteTest","Test")',
     data: {id:10},

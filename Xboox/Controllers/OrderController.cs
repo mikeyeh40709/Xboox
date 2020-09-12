@@ -82,7 +82,13 @@ namespace Xboox.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
-        [Authorize]
+        [HttpPost]
+        public ActionResult SaveCart(string values)
+        {
+            ShoppingCartManage shopCart = new ShoppingCartManage();
+            shopCart.AddToCart(values, this.HttpContext);
+            return Json(new { redirectToUrl = Url.Action("CreateOrder", "Order") });
+        }
         public ActionResult CreateOrder()
         {
             ShoppingCartManage shopCart = new ShoppingCartManage();
@@ -93,7 +99,7 @@ namespace Xboox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateOrder([Bind(Include = "PurchaserName,PurchaserAddress,PurchaserEmail,PurchaserPhone,StateId")] OrderViewModel order)
         {
-            if(order.StateId == 1)
+            if (order.StateId == 1)
             {
                 return RedirectToAction("CreditDetail");
             }

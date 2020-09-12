@@ -209,7 +209,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\ProductApiController.cs" />
+    <Compile Include="Api\ProductsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -450,6 +453,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Pics\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Views\Tag\" />
   </ItemGroup>
   <ItemGroup>

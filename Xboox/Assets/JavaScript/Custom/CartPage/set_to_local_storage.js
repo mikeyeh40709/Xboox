@@ -1,14 +1,43 @@
-﻿let AddBtnGroup = $(".addCartBtn");
+﻿//homepage every product btn
+let AddBtnGroup = $(".addCartBtn");
+//navbar dom
 let tip = document.querySelector('.cart_count');
-let cart_close_group = document.querySelectorAll(".cart__close");
+let headerdropdown = document.querySelector('span.icon_bag_alt~ul.headerdropdown');
 
-//set localstorage count
-function setLocalStorage(ProductId, ProductName ) {
+// Cartpage dom
+let cart_close_group = document.querySelectorAll(".cart__close");
+// productDetailPage add cart btn
+let productdetail_cart_btn = $('.product__details__button .cart-btn');
+let productdetail_count_dom = document.querySelector('.product__details__button input');
+//swal_text
+let swal_html = '<h2 style="font-size:18px; font-family:Noto Sans TC, sans-serif;">成功加入購物車!</h2><h2 style="font-size:15px; font-family:Noto Sans TC, sans-serif;">I will close in <b style="color:red;"></b> milliseconds.</h2>';
+//homepage product btn click event
+AddBtnGroup.each(function () {
+    $(this).on('click', function () {
+        var getProductName = $(this).attr("data-target");
+        //var getProductImg = $(this).attr("data-toggle");
+        setLocalStorage(this.id, getProductName);
+        headerdropdown.innerHTML = "";   
+        renewNavbar();
+        swal(getProductName);  
+    })
+});
+//productdetail's page product btn click event
+productdetail_cart_btn.on('click', function () {
+    var getProductName = $(this).attr("data-target");
+    //var getProductImg = $(this).attr("data-toggle");
+    setDetailsLocalStorage(this.id, getProductName);
+    headerdropdown.innerHTML = "";
+    renewNavbar();
+    swal(getProductName);
+});
+//honepage add items to localstorage 
+function setLocalStorage(ProductId, ProductName) {
     let cartItems = [];
     let cartItem = {
         ProductName: ProductName,
         Count: 1,
-        ProductId:ProductId
+        ProductId: ProductId
     }
     if (localStorage.length !== 0) {
         let getStorage = localStorage.getItem("CartItems");
@@ -20,7 +49,6 @@ function setLocalStorage(ProductId, ProductName ) {
             else {
                 cartItems.push(ele);
             }
-           
         })
         cartItems.push(cartItem);
         localStorage.setItem("CartItems", JSON.stringify(cartItems));
@@ -30,55 +58,48 @@ function setLocalStorage(ProductId, ProductName ) {
         localStorage.setItem("CartItems", JSON.stringify(cartItems));
     }
 }
-let headerdropdown = document.querySelector('span.icon_bag_alt~ul.headerdropdown');
-
-
-
-localStorageFun();
-
-window.addEventListener("ready", function () {
-
-    localStorageFun();
-   
-})
-AddBtnGroup.each(function() {
-    console.log(this);
-    $(this).on('click', function () {
-        var getProductName = $(this).attr("data-target");
-        setLocalStorage(this.id, getProductName);
-        headerdropdown.innerHTML = "";
-        localStorageFun();
-        swal(`${getProductName}`,"成功加入購物車!!", "success");
-    })
-});
-//deleteCartItem();
+////product detail add Multiple commodities to localstorage
+function setDetailsLocalStorage(ProductId, ProductName) {
+    let cartItems = [];
+    let cartItem = {
+        ProductName: ProductName,
+        Count: productdetail_count_dom.value,
+        ProductId: ProductId
+    }
+    if (localStorage.length !== 0) {
+        let getStorage = localStorage.getItem("CartItems");
+        JSON.parse(getStorage).forEach(ele => {
+            if (ele.ProductName == ProductName) {
+                ele.Count = parseInt(ele.Count) + parseInt(productdetail_count_dom.value)
+                cartItem.Count = ele.Count;
+            }
+            else {
+                cartItems.push(ele);
+            }
+        })
+        cartItems.push(cartItem);
+        localStorage.setItem("CartItems", JSON.stringify(cartItems));
+    }
+    else {
+        cartItems.push(cartItem);
+        localStorage.setItem("CartItems", JSON.stringify(cartItems));
+    }
+}
 //CartPage can delete localstorage product
 function deleteCartItem(event) {
     let productId = event.target.id;
     let getLocalItems = localStorage.getItem("CartItems");
-    console.log(getLocalItems);
     let ItemsArray = JSON.parse(getLocalItems);
     let FindItemIndex = ItemsArray.findIndex(x => x.ProductId == productId);
-    if (FindItemIndex!==-1) {
+    if (FindItemIndex !== -1) {
         ItemsArray.splice(FindItemIndex, 1);
         localStorage.setItem("CartItems", JSON.stringify(ItemsArray));
     }
-    //cart_close_group.forEach((ele, idx) => ele.addEventListener('click', () => {
-    //    if (ItemsArray[idx].ProductId == ele.id) {
-    //        ItemsArray.splice(idx, 1);
-    //    }
-    //    localStorage.removeItem("CartItems");
-    //    localStorage.setItem("CartItems", JSON.stringify(ItemsArray));
-
-    //}));
 }
-
-//Let homepage's products save to localstorage
-function localStorageFun() {
-
+//Let homepage's navbar show  localstorage's products
+function renewNavbar() {
     let getLocalStorage = localStorage.getItem("CartItems");
     let getItems = JSON.parse(getLocalStorage);
-
     if (getItems != null) {
         getItems.forEach(ele => {
             let li = document.createElement('li');
@@ -89,46 +110,72 @@ function localStorageFun() {
             li.appendChild(title);
             li.appendChild(count);
             headerdropdown.append(li);
+            headerdropdown.setAttribute('style', 'overflow: scroll;overflow-x:hidden; height:200px;');
         });
-
         var arrayFromStroage = JSON.parse(localStorage.getItem("CartItems"));
         var arrayLength = arrayFromStroage.length;
-
         tip.textContent = arrayLength;
     }
+}
+//1.  .header span.icon_bag_alt    /Cart/AddToCart
+//ajax  post type 
+ajaxFun('.header span.icon_bag_alt', '/Cart/AddToCart');
+ajaxFun('.shop-cart .primary-btn', '/Order/SaveCart');
 
+function ajaxFun(clickName, ajaxUrl) {
+    $(clickName).click(function (e) {
+        e.preventDefault();
+        let getLocalStorage = localStorage.getItem("CartItems");
+        if (window.localStorage !== undefined) {
+            $.ajax({
+                url: ajaxUrl,
+                data: { values: getLocalStorage },
+                dataType: "json",
+                type: 'post',
+                success: function (data) {
+                    location.href = data.redirectToUrl;
+                },
+                error: function (xhr, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            })
+        }
+    })
 }
 
-//ajax  post type 
-$(".header span.icon_bag_alt").click(function (e) {
-    e.preventDefault();
-    let getLocalStorage = localStorage.getItem("CartItems");
-    console.log(`{values : ${getLocalStorage}}`);
-    if (window.localStorage !== undefined) {
-        $.ajax({
-            url: '/Cart/AddToCart',
-            data: { values: getLocalStorage },
-            dataType: "json",
-            type: 'post',
-            success: function (data) {
-                console.log(data.redirectToUrl);
-                location.href = data.redirectToUrl;
-                console.log(data);
-                console.log(typeof data);
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-            }
-        })
-    }
+function swal(getProductName, getProductImg) {
+    Swal.fire({
+        title: `${getProductName}`,
+        html: `${swal_html}`,
+        //imageUrl: `/Assets/Image/Pics/${getProductImg}.jpg`,
+        //imageWidth: 200,
+        //imageHeight: 200,
+        //imageAlt: 'Image Broken',
+        timer: 2000,
+        timerProgressBar: true,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+            timerInterval = setInterval(() => {
+                const content = Swal.getContent()
+                if (content) {
+                    const b = content.querySelector('b')
+                    if (b) {
+                        b.textContent = Swal.getTimerLeft()
+                    }
+                }
+            }, 100)
+        },
+        onClose: () => {
+            clearInterval(timerInterval)
+        }
+    });
+}
+
+renewNavbar();
+
+window.addEventListener("load", function () {
+    headerdropdown.innerHTML = "";
+    renewNavbar();
+
 })
-
-
-
-
-
-
-
-
-

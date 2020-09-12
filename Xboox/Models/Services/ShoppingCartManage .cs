@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Web;
@@ -61,8 +62,11 @@ namespace Xboox.Models.Services
             }
             xbooxDb.SaveChanges();
         }
+        
         public List<CartViewModel> GetCartItems(HttpContextBase context)
         {
+            var watch = new Stopwatch();
+            watch.Start();
             var GetUserKey = context.Request.Cookies["VisitorKey"].Value;
             using (var db = new XbooxContext())
             {
@@ -90,6 +94,8 @@ namespace Xboox.Models.Services
                     var firstItem = pdList.FirstOrDefault(item => !item.Name.Contains("-0"));
                     CartItemList.Add(firstItem);
                 }
+                watch.Stop();
+                Debug.WriteLine(watch.ElapsedMilliseconds);
                 return CartItemList;
             }
 
