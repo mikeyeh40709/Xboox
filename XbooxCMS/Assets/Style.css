@@ -6,13 +6,17 @@
     padding:0;
     margin:0;
 }
+body{
+    padding-top:0;
+    padding-bottom:0;
+}
 ul {
     list-style: none;
 }
 .color-1{
     color:#737373
 }
-aside {
+/*aside {
     width: 20%;
     float: left;
     background-color: aliceblue;
@@ -20,7 +24,7 @@ aside {
     font-size: 14px;
     height: 150%;
     padding-top: 30px;
-}
+}*/
     aside > ul > li {
         padding: 14px 17px;
         
@@ -42,8 +46,10 @@ aside {
 }
 div.navbar {
     box-shadow: 0 1px 10px 1px rgba(115, 108, 203, .1);
-    background-color: aliceblue;
-    border-color: aliceblue;
+    top:-50px;
+    padding:20px;
+   /* background-color: aliceblue;
+    border-color: aliceblue;*/
 }
 .body-content {
     position: relative;
@@ -206,4 +212,88 @@ button.btn-beige{
 .filepond--root {
  height: 150px;
  width:600px;
+}
+
+
+/*new*/
+.main-sidebar {
+    bottom: 0;
+    float: none;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    overflow-y: hidden;
+    z-index:1034;
+}
+.elevation-4 {
+    box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);
+}
+.sidebar {
+    background-color: black;
+    overflow-y: hidden;
+    box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22);
+}
+.navbar{
+    z-index:1034;
+    display:block;
+}
+aside {
+    width: 250px;
+    display: block;
+    font-size: 1.25rem;
+    line-height: 1.5;
+/*    padding: .8125rem .5rem;*/
+    transition: width .3s ease-in-out;
+    white-space: nowrap;
+    background-color: black;
+}
+
+li .nav-link {
+    display: flex;
+}
+.has-treeview p ,i.fa {
+    color: #c2c7d0;
+    font-size:16px;
+}
+li .nav-item{
+    display:flex;
+}
+.nav-item a:hover,.nav-link a:hover {
+    background-color: #575757;
+    color: black;
+}
+i.nav-icon{
+    margin:5px 3.8px 0 2.6px;
+}
+
+li.nav-item.max-height {
+    max-height: 435px;
+    transition: max-height 0.5s ease-in-out;
+}
+li.manage_section {
+    max-height: 46px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+.nav-item a {
+    color: #c2c7d0;
+    font-size: 16px;
+    padding-top: 7px;
+}
+.nav-item a:hover{
+    text-decoration:none;
+}
+.brand-link img{
+    margin:10px;
+}
+div.brand-link {
+    background-color: #FFFFFFE6;
+    opacity: 0.9;
+}
+span.brand-text{
+    color:black;
+    font-weight:600;
+    line-height:1.2;
+    font-size:20px;
 }
