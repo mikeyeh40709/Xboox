@@ -5,10 +5,10 @@ namespace XbooxLibrary.Models.DataTable
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class XbooxContext : DbContext
+    public partial class XbooxLibraryDBContext : DbContext
     {
-        public XbooxContext()
-            : base("name=XbooxContext")
+        public XbooxLibraryDBContext()
+            : base("name=XbooxLibraryDBContext")
         {
         }
 
