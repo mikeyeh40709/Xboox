@@ -30,109 +30,36 @@
                         <div class="section-title">
                             <h4>Select by category</h4>
                         </div>
-                        <div class="size__list">
+                        @*<div class="filter__controls size__list">
+                                @Html.Partial("_SideBarCategoryPartial")
+                            </div>*@
+                        <ul class="filter__controls" id="shoptags">
                             @Html.Partial("_SideBarCategoryPartial")
-                        </div>
+                        </ul>
                     </div>
                     @Html.Partial("_SideBarFilter")
-                    <div class="sidebar__sizes">
+                    <div class="trend__content">
                         <div class="section-title">
-                            <h4>Shop by size</h4>
+                            <h4>New in @ViewBag.Category</h4>
                         </div>
-                        <div class="size__list">
-                            <label for="xxs">
-                                xxs
-                                <input type="checkbox" id="xxs">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="xs">
-                                xs
-                                <input type="checkbox" id="xs">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="xss">
-                                xs-s
-                                <input type="checkbox" id="xss">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="s">
-                                s
-                                <input type="checkbox" id="s">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="m">
-                                m
-                                <input type="checkbox" id="m">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="ml">
-                                m-l
-                                <input type="checkbox" id="ml">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="l">
-                                l
-                                <input type="checkbox" id="l">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="xl">
-                                xl
-                                <input type="checkbox" id="xl">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
+                        @foreach (var item in Model.Where(x => x.PublishedDate.Substring(0, 7) == "2020/08").Take(3))
+                        {
+                            @Html.Partial("_SidebarSuggestion", item)
+                        }
                     </div>
-                    <div class="sidebar__color">
+                    <div class="trend__content">
                         <div class="section-title">
-                            <h4>Shop by size</h4>
+                            <h4>Top Selling in @ViewBag.Category</h4>
                         </div>
-                        <div class="size__list color__list">
-                            <label for="black">
-                                Blacks
-                                <input type="checkbox" id="black">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="whites">
-                                Whites
-                                <input type="checkbox" id="whites">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="reds">
-                                Reds
-                                <input type="checkbox" id="reds">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="greys">
-                                Greys
-                                <input type="checkbox" id="greys">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="blues">
-                                Blues
-                                <input type="checkbox" id="blues">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="beige">
-                                Beige Tones
-                                <input type="checkbox" id="beige">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="greens">
-                                Greens
-                                <input type="checkbox" id="greens">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label for="yellows">
-                                Yellows
-                                <input type="checkbox" id="yellows">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
+                        @foreach (var item in Model.Where(x => x.UnitInStock == 100).Take(3))
+                        {
+                            @Html.Partial("_SidebarSuggestion", item)
+                        }
                     </div>
                 </div>
             </div>
             <div class="col-lg-9 col-md-9">
-                <div class="row">
+                <div class="row property__gallery">
                     @foreach (var Book in Model)
                     {
                         @Html.Partial("_BookCategoryPartialView", Book);
@@ -151,3 +78,32 @@
     </div>
 </section>
 <!-- Shop Section End -->
+
+@section endCSS{
+    <style>
+        #shoptags li {
+            display: table;
+            margin: 10px 0;
+        }
+    </style>
+}
+@section endJS{
+    <script>
+        function PriceFilter() {
+            let maxPrice = document.getElementById("maxamount").value.substring(1);
+            let minPrice = document.getElementById("minamount").value.substring(1);
+            let UrlIdArray = (window.location.href).split('/');
+            let Id = UrlIdArray[UrlIdArray.length - 1];
+            let data = {
+                maxPrice: maxPrice,
+                minPrice: minPrice,
+                Id: Id
+            }
+            $.ajax({
+                url: '/BookCategory/Books',
+                type: 'Get',
+                data: data
+            })
+        }
+    </script>
+}

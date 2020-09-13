@@ -1,0 +1,20 @@
+﻿@model Xboox.ViewModels.ProductDetailViewModel
+
+<div class="trend__item">
+    <div class="trend__item__pic w-50">
+        <img src="~/Assets/Image/Pics/@(Model.ImgLink).jpg" alt="">
+    </div>
+    <div class="trend__item__text">
+        <h6>@Model.Name</h6>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+        </div>
+        <div class="product__price">$@Convert.ToInt32(Model.Price)</div>
+    </div>
+</div>
+
+

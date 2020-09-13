@@ -48,7 +48,6 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        @*@Html.ActionLink("Xboox", "Index", "Home", new { }, new { @class="ml-5"})*@
                         <a href="@Url.Action("Index","Home")">
                             <h3 class="ml-5">Xboox</h3>
                         </a>
@@ -57,14 +56,6 @@
                 <div class="col-xl-6 col-lg-7">
                     <nav class="header__menu">
                         <ul>
-                            @*<li class="active"><a href="./shop.html">全部書籍</a></li>*@
-                            @*<li>@Html.ActionLink("All", "ShowAllBooks", "BookCategory")</li>
-                                <li>@Html.ActionLink("Chinese", "ShowChineseBooks", "BookCategory")</li>
-                                <li>@Html.ActionLink("Foreign", "ShowForeignLanguageBooks", "BookCategory")</li>
-                                <li>@Html.ActionLink("Ebooks", "ShowEBookBooks", "BookCategory")</li>
-                                <li>@Html.ActionLink("Novel", "ShowNovelBooks", "BookCategory")</li>
-                                <li>@Html.ActionLink("Magazine", "ShowMagazineBooks", "BookCategory")</li>
-                                <li>@Html.ActionLink("Comics", "ShowComicsBooks", "BookCategory")</li>*@
                             <li>@Html.ActionLink("All", "ShowBooks", "BookCategory", new { id = "dc5c22d1-ff3e-45fe-87e3-e577ee771551" }, null)</li>
                             <li>@Html.ActionLink("Chinese", "ShowBooks", "BookCategory", new { id = "761e6b0f-b8fd-45d2-bf35-9f09c7cc25b8" }, null)</li>
                             <li>@Html.ActionLink("Comics", "ShowBooks", "BookCategory", new { id = "66ab9b96-6d3e-457f-b487-77ce7ab35d1c" }, null)</li>
@@ -72,7 +63,6 @@
                             <li>@Html.ActionLink("Foreign", "ShowBooks", "BookCategory", new { id = "1c39dc1e-525a-43ec-91bb-cb113c208dd3" }, null)</li>
                             <li>@Html.ActionLink("Magazine", "ShowBooks", "BookCategory", new { id = "8443c1ae-ab29-49df-854b-b04d44a65237" }, null)</li>
                             <li>@Html.ActionLink("Novel", "ShowBooks", "BookCategory", new { id = "a26d7886-3439-409a-adf9-45b47734bfae" }, null)</li>
-
                         </ul>
                     </nav>
                 </div>
@@ -94,11 +84,7 @@
                                     <span class="icon_bag_alt"></span>
                                     <div class="tip cart_count">0</div>
                                     <ul class="headerdropdown" id="cart_dropdown">
-
                                         @*@Html.ActionLink("a", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })*@
-
-
-
                                     </ul>
                                 </a>
                             </li>

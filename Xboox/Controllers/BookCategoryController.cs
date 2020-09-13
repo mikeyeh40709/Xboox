@@ -17,20 +17,49 @@ namespace Xboox.Controllers
         FindBookDetailRepository findBook = new FindBookDetailRepository();
         private XbooxContext db = new XbooxContext();
 
+
         public ActionResult ShowBooks(string id)
         {
             ViewBag.Tags = db.Tags.Select(x => x.TagName).OrderBy(y => y.Substring(0, 1)).ToList();
-            ViewBag.Category = db.Category.FirstOrDefault(x => x.CategoryId.ToString() == id).Name;
-            ViewBag.CategoryID = db.Category.FirstOrDefault(x => x.CategoryId.ToString() == id).CategoryId;
+            var CategoryDetail = db.Category.FirstOrDefault(x => x.CategoryId.ToString() == id);
+            ViewBag.Category = CategoryDetail.Name;
+            ViewBag.CategoryID = CategoryDetail.CategoryId;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             if (id == "dc5c22d1-ff3e-45fe-87e3-e577ee771551")
             {
                 return View(findBook.FindBookDetail());
             }
             return View(findBook.FindBookDetail(id));
         }
+
+
+        //public ActionResult Books(string maxPrice, string minPrice, string Id)
+        //{
+
+        //    ViewBag.Tags = db.Tags.Select(x => x.TagName).OrderBy(y => y.Substring(0, 1)).ToList();
+        //    var category = db.Category.FirstOrDefault(x => x.CategoryId.ToString() == Id);
+        //    ViewBag.Category = category.Name;
+        //    ViewBag.CategoryID = category.CategoryId;
+        //    if (Id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    if (Id == "dc5c22d1-ff3e-45fe-87e3-e577ee771551")
+        //    {
+
+        //        var a = findBook.FindBookDetail().Where(x => x.Price >= int.Parse(minPrice) && x.Price <= int.Parse(maxPrice)).ToList();
+
+        //        return View(a);
+        //    }
+
+        //    return View(findBook.FindBookDetail(Id).Where(x => x.Price >= int.Parse(minPrice) && x.Price <= int.Parse(maxPrice)));
+
+        //}
+
     }
+
 }
