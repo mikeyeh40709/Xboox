@@ -1,22 +1,24 @@
-﻿using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Web;
-using System.Web.Mvc;
 using Xboox.Models.DataTable;
-using Xboox.Models.ViewModels;
 using Xboox.ViewModels;
+
+
 
 namespace Xboox.Models.Services
 {
     public partial class ShoppingCartManage
     {
+
         XbooxContext xbooxDb = new XbooxContext();
+       
+
+
+
 
         public void AddToCart(string values,HttpContextBase content)
         {

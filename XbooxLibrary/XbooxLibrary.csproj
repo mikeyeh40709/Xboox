@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,14 +54,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Models\DataTable\AspNetRoles.cs" />
+    <Compile Include="Models\DataTable\AspNetUserClaims.cs" />
+    <Compile Include="Models\DataTable\AspNetUserLogins.cs" />
+    <Compile Include="Models\DataTable\AspNetUsers.cs" />
+    <Compile Include="Models\DataTable\Cart.cs" />
+    <Compile Include="Models\DataTable\CartItems.cs" />
+    <Compile Include="Models\DataTable\Category.cs" />
+    <Compile Include="Models\DataTable\Coupons.cs" />
+    <Compile Include="Models\DataTable\Order.cs" />
+    <Compile Include="Models\DataTable\OrderDetails.cs" />
+    <Compile Include="Models\DataTable\Product.cs" />
+    <Compile Include="Models\DataTable\ProductImgs.cs" />
+    <Compile Include="Models\DataTable\ProductTags.cs" />
+    <Compile Include="Models\DataTable\Tags.cs" />
+    <Compile Include="Models\DataTable\WishList.cs" />
+    <Compile Include="Models\DataTable\XbooxLibraryDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GeneralRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Xboox\Xboox.csproj">
-      <Project>{B2951B6D-BC17-4F20-BA33-DA3D73D09794}</Project>
-      <Name>Xboox</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

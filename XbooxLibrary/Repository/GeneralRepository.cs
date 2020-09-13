@@ -4,19 +4,20 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xboox.Models.DataTable;
+using XbooxLibrary.Models.DataTable;
+
 
 namespace XbooxLibrary.Repository
 {
     public class GeneralRepository<T> where T :class
     {
-        private XbooxContext context;
-        protected XbooxContext Context
+        private XbooxLibraryDBContext context;
+        protected XbooxLibraryDBContext Context
         {
             get { return context; }
         }
 
-        public GeneralRepository(XbooxContext contexts)
+        public GeneralRepository(XbooxLibraryDBContext contexts)
         {
             if (contexts == null)
             {

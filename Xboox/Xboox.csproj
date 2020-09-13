@@ -652,6 +652,7 @@
     <Content Include="Views\Order\CreateOrderSuccess.cshtml" />
     <Content Include="Views\Order\CreateOrderFail.cshtml" />
     <Content Include="Views\Order\CreditDetail.cshtml" />
+    <Content Include="Views\Shared\_SidebarSuggestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -666,6 +667,15 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XbooxLibrary\XbooxLibrary.csproj">
+      <Project>{0f75748a-ce58-46e2-a623-c53bf719488e}</Project>
+      <Name>XbooxLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
