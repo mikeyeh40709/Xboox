@@ -10,26 +10,28 @@ let cart_close_group = document.querySelectorAll(".cart__close");
 let productdetail_cart_btn = $('.product__details__button .cart-btn');
 let productdetail_count_dom = document.querySelector('.product__details__button input');
 //swal_text
-let swal_html = '<h2 style="font-size:18px; font-family:Noto Sans TC, sans-serif;">成功加入購物車!</h2><h2 style="font-size:15px; font-family:Noto Sans TC, sans-serif;">I will close in <b style="color:red;"></b> milliseconds.</h2>';
+let swal_html = '<h2 style="font-size:18px; font-family:Noto Sans TC, sans-serif;">成功加入購物車!</h2>';
 //homepage product btn click event
 AddBtnGroup.each(function () {
     $(this).on('click', function () {
+        let calssGroup = $(this).attr('class').split(' ');
+        let imtLink = calssGroup[1];
         var getProductName = $(this).attr("data-target");
-        //var getProductImg = $(this).attr("data-toggle");
         setLocalStorage(this.id, getProductName);
-        headerdropdown.innerHTML = "";   
+        headerdropdown.innerHTML = "";
         renewNavbar();
-        swal(getProductName);  
+        swal(getProductName, imtLink);
     })
 });
 //productdetail's page product btn click event
 productdetail_cart_btn.on('click', function () {
+    let calssGroup = $(this).attr('class').split(' ');
+    let imtLink = calssGroup[1];
     var getProductName = $(this).attr("data-target");
-    //var getProductImg = $(this).attr("data-toggle");
     setDetailsLocalStorage(this.id, getProductName);
     headerdropdown.innerHTML = "";
     renewNavbar();
-    swal(getProductName);
+    swal(getProductName, imtLink);
 });
 //honepage add items to localstorage 
 function setLocalStorage(ProductId, ProductName) {
@@ -144,31 +146,19 @@ function ajaxFun(clickName, ajaxUrl) {
     })
 }
 
-function swal(getProductName, getProductImg) {
+function swal(getProductName, img_link) {
     Swal.fire({
         title: `${getProductName}`,
         html: `${swal_html}`,
-        //imageUrl: `/Assets/Image/Pics/${getProductImg}.jpg`,
-        //imageWidth: 200,
-        //imageHeight: 200,
-        //imageAlt: 'Image Broken',
-        timer: 2000,
+        imageUrl: `/Assets/Image/Pics/${img_link}.jpg`,
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: 'Image Broken',
+        timer: 1300,
         timerProgressBar: true,
         onBeforeOpen: () => {
             Swal.showLoading()
-            timerInterval = setInterval(() => {
-                const content = Swal.getContent()
-                if (content) {
-                    const b = content.querySelector('b')
-                    if (b) {
-                        b.textContent = Swal.getTimerLeft()
-                    }
-                }
-            }, 100)
         },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
     });
 }
 
