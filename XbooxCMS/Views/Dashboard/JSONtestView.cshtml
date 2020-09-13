@@ -1,0 +1,27 @@
+﻿
+<h2>JSON test Veiw</h2>
+
+<div id="test"></div>
+<button id="ajax"></button>
+
+<script>
+    var test = document.getElementById("test");
+    $.ajaxSetup({ cache: false });
+
+    var apiurl = "/Dashboard/Index"
+    $().ready(function () {
+        $("#ajax").click(function () {
+            $.ajax({
+                url: apiurl,
+                type: "POST",
+                dataType: "json",
+                success: function (response) {
+                    jsonText = JSON.stringify(response);
+                    result.innerHTML = jsonText;
+                    result.style.display = "block";
+                    result.className = getAlertStyle();
+                }
+            });
+        });
+    });
+</script>

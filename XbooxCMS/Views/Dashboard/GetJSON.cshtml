@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>JSON test Veiw</h2>
+
+
+<button id="ajax">按爆我</button>
+<p id="test">顯示在這裡</p>
+<p id="test2"></p>
+<p id="test3"></p>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous">
+</script>
+
+<script>
+    var test = document.getElementById("test");
+    var test2 = document.getElementById("test2");
+    var test3 = document.getElementById("test3");
+    test.innerText = "API URL" + apiurl;
+    $.ajaxSetup({ cache: false });
+
+    var apiurl = "/Dashboard/Index"
+    $().ready(function () {
+        $("#ajax").click(function () {
+            $.ajax({
+                url: apiurl,
+                type: "POST",
+                dataType: "json",
+                success: function (response) {
+                    test.innerHTML = JSON.stringify(response);
+                    test.style.display = "block";
+                    test.className = getAlertStyle();
+                    console.log(JSON.stringify(response));
+                }
+                //test3 = 
+            });
+        });
+    });
+
+
+</script>

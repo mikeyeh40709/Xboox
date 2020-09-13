@@ -218,6 +218,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\SalesRevenueViewModel.cs" />
     <Compile Include="ViewModels\CreateImgViewModel.cs" />
     <Compile Include="ViewModels\CreateViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
@@ -455,6 +457,9 @@
     <Content Include="Views\Coupons\Details.cshtml" />
     <Content Include="Views\Coupons\Edit.cshtml" />
     <Content Include="Views\Coupons\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\GetJSON.cshtml" />
+    <None Include="Views\Dashboard\JSONtestView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
