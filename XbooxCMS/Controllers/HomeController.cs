@@ -70,11 +70,7 @@ namespace XbooxCMS.Controllers
             db.SaveChanges();
             return View();
         }
-        public ActionResult Index_Clone()
-        {
 
-            return View();
-        }
-
+     
     }
 }

@@ -459,14 +459,14 @@ namespace Xboox.Controllers
             var details = db.AspNetUsers.FirstOrDefault(u => u.Id == userdetails.Id);
             details.PhoneNumber = userdetails.Phone;
             details.Email = userdetails.Email;
-            //模型驗證 : 檢查傳入的模型是否符合規定的條件
+
             if (ModelState.IsValid)
             {
                 db.Entry(details).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("UserDataDetails");
             }
-            //若不符合就將原本的資料回傳至頁面
+
             return View(userdetails);
             //if (ModelState.IsValid)
             //{
