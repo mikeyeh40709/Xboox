@@ -73,15 +73,16 @@
         @* 從這裡開始是兩個button *@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="cart__btn">
-                    @(Html.ActionLink("Continue Shopping", "Index","Home"))
-
-                </div>
+                @*<div class="cart__btn">
+                        @(Html.ActionLink("Check", "Index","Home"))
+                    </div>*@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-                @*<div class="cart__btn update__btn">
-                    <a href="#"><span class="icon_loading"></span>Delete All cart</a>
-                </div>*@
+                <div class="cart__btn update__btn">
+                    <!-- Button trigger modal -->
+                    <a href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Check Discount Code</a>
+                    <a href="@Url.Action("Index","Home")"><span class="icon_loading"></span>Continue Shopping</a>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -89,16 +90,17 @@
                 <div class="discount__content">
                     <h6>Discount codes</h6>
                     <form action="#">
-                        <input type="text" placeholder="Enter your coupon code">
-                        <button class="site-btn" type="submit">Apply</button>
+                        <input type="text" placeholder="Enter your coupon code" id="discountCode">
                     </form>
+                    <button class="site-btn" onclick="compareCode()">Apply</button>
                 </div>
             </div>
             <div class="col-lg-4 offset-lg-2">
                 <div class="cart__total__procced">
                     <h6>Cart total</h6>
-                    <ul>
+                    <ul id="cartTotal">
                         <li>Total <span class="cart__total"></span></li>
+                        @*<li>Discounted Rate<span class="discounted_price"></span></li>*@
                         <li>Discounted Price<span class="discounted_price"></span></li>
                     </ul>
                     @*@Html.ActionLink("Proceed to checkout", "CreateOrder", "Order",null, new { @class = "primary-btn"})*@
@@ -109,13 +111,62 @@
     </div>
 </section>
 <!-- Shop Cart Section End -->
+<!-- Modal -->
+<div class="modal fade" id="couponModalCenter" tabindex="-1" role="dialog" aria-labelledby="couponModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Coupon Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">CouponCode</th>
+                            <th scope="col">Discount Rate</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">Expire Date</th>
+                            <th scope="col">Click to Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < ViewBag.CouponCode.Count; i++)
+                        {
+                            <tr>
+                                <th scope="row">@ViewBag.CouponCode[i]</th>
+                                <td>@ViewBag.Discount[i]</td>
+                                <td>@ViewBag.StartTime[i]</td>
+                                <td>@ViewBag.EndTime[i]</td>
+                                <td><button type="button" class="btn btn-outline-secondary" id="@ViewBag.CouponCode[i]" onclick="UseCoupon(event)">Use</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script type="text/javascript">
+    function compareCode() {
+        let code = document.getElementById("discountCode").value;
+        let CouponCode = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CouponCode));
+        if (CouponCode.includes(code)) {
+            Swal.fire("成功!", "你的血液中有客家因子!", "success");
+            //var rate = document.createElement("li").innerText = ;
+            //document.getElementById("cartTotal").appendChild(rate);
+        } else {
+            Swal.fire("失敗!", "查無此優惠碼!", "warning");
+        }
+    }
+</script>
 
-@section TopCSS{
-
+@section topCSS{
     <link href="~/Assets/CSS/Custom/CartPage/shop-cart.min.css" rel="stylesheet" />
-}
-
-@section EndJS{
-    <script src="~/Assets/JavaScript/Custom/CartPage/shop-cart.js"></script>
 }

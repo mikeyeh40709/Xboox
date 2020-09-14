@@ -8,6 +8,7 @@ namespace Xboox
         // 如需統合的詳細資訊，請瀏覽 https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.UseCdn = true;
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Assets/JavaScript/Origin/Scripts/jquery-{version}.js"));
 
@@ -21,12 +22,41 @@ namespace Xboox
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Assets/JavaScript/Origin/Scripts/bootstrap.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/templateJS").Include(
+                      "~/Assets/TemplateJavaScript/jquery-3.3.1.min.js",
+                      "~/Assets/TemplateJavaScript/bootstrap.min.js",
+                      "~/Assets/TemplateJavaScript/jquery.magnific-popup.min.js",
+                      "~/Assets/TemplateJavaScript/jquery-ui.min.js",
+                      "~/Assets/TemplateJavaScript/mixitup.min.js",
+                      "~/Assets/TemplateJavaScript/jquery.countdown.min.js",
+                      "~/Assets/TemplateJavaScript/jquery.slicknav.js",
+                      "~/Assets/TemplateJavaScript/owl.carousel.min.js",
+                      "~/Assets/TemplateJavaScript/jquery.nicescroll.min.js",
+                      "~/Assets/TemplateJavaScript/main.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/CustomJS").Include(
+                      "~/Assets/JavaScript/Custom/HomePage/HomePage.js",
+                      "~/Assets/JavaScript/Custom/CartPage/shop-cart.js",
+                      "~/Assets/JavaScript/Custom/CartPage/set_to_local_storage.js"
+                ));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Assets/CSS/Origin/Content/bootstrap.css",
                       "~/Assets/CSS/Origin/Content/site.css"));
             bundles.Add(new StyleBundle("~/Ashion/css").Include(
                       "~/Assets/CSS/Custom/Common/Ashion.css"));
+            bundles.Add(new StyleBundle("~/bundles/templateCSS").Include(
+                      "~/Assets/TemplateCSS/bootstrap.min.css",
+                      "~/Assets/TemplateCSS/jquery-ui.min.css",
+                      "~/Assets/TemplateCSS/magnific-popup.css",
+                      "~/Assets/TemplateCSS/owl.carousel.min.css",
+                      "~/Assets/TemplateCSS/slicknav.min.css",
+                      "~/Assets/TemplateCSS/style.css",
+                      "~/Assets/TemplateCSS/elegant-icons.css",
+                      "~/Assets/TemplateCSS/font-awesome.min.css"
+                ));
+            bundles.Add(new StyleBundle("~/bundles/CustomCSS").Include(
+                      "~/Assets/CSS/Custom/HomePage/HomePage.css"
+                ));
         }
     }
 }

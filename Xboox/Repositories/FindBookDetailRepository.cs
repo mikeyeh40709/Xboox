@@ -13,17 +13,24 @@ namespace Xboox.Repositories
         private XbooxContext _context;
         public FindBookDetailRepository()
         {
-            _context = new XbooxContext();
+            if (_context == null)
+            {
+                _context = new XbooxContext();
+            }
         }
 
         public IEnumerable<ProductDetailViewModel> FindBookDetail(string CategoryId)
         {
             return FindBookDetail().Where(x => x.CategoryID == CategoryId).ToList();
         }
-        //public IEnumerable<ProductDetailViewModel> FindBookDetail(string CategoryId, int maxPrice, int minPrice)
-        //{
-        //    return FindBookDetail().Where(x => x.CategoryID == CategoryId && x.Price >= minPrice && x.Price <= maxPrice).ToList();
-        //}
+        public IEnumerable<ProductDetailViewModel> FindBookDetail(string Id, int maxPrice, int minPrice)
+        {
+            return FindBookDetail().Where(x => x.CategoryID == Id && x.Price >= minPrice && x.Price <= maxPrice).ToList();
+        }
+        public IEnumerable<ProductDetailViewModel> FindBookDetail(int maxPrice, int minPrice)
+        {
+            return FindBookDetail().Where(x => x.Price >= minPrice && x.Price <= maxPrice).ToList();
+        }
         public IEnumerable<ProductDetailViewModel> FindBookDetail()
         {
             return _context.Product.ToList().Select(x => new ProductDetailViewModel()

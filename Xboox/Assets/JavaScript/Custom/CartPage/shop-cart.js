@@ -92,5 +92,9 @@ if (cart_count.length > 0) {
     coupon_function();
 }
 
-
+function UseCoupon(event) {
+    let couponCode = event.target.id;
+    document.getElementById("discountCode").value = couponCode;
+    $('#couponModalCenter').modal('hide');
+}
 

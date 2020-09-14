@@ -1232,6 +1232,7 @@ ol {
 	position: relative;
 	top: 100px;
 	opacity: 0;
+	cursor: pointer;
 }
 
 .product__hover li:nth-child(1) {

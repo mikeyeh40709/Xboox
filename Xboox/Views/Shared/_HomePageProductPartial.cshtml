@@ -2,7 +2,6 @@
 
 <div class="col-lg-3 col-md-4 col-sm-6 mix @Model.TagId">
     <div class="product__item">
-        @*<div class="product__item__pic set-bg" data-setbg="@(Model.imgLink).jpg" onclick="showDetail(@Model.ProductId)">*@
         <div class="product__item__pic set-bg" data-setbg="Assets/Image/Pics/@(Model.ImgLink).jpg">
             @*<div class="label new">New</div>*@
             <ul class="product__hover">
@@ -13,9 +12,8 @@
                 </li>
                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                 <li>
-                    <a id="@Model.ProductId" class="addCartBtn" data-target="@Model.Name" @*data-toggle="@(Model.ImgLink)*@" style="cursor:pointer"><span class="icon_bag_alt"></span></a>
+                    <a id="@Model.ProductId" class="addCartBtn @(Model.ImgLink)" data-target="@Model.Name"><span class="icon_bag_alt"></span></a>
                 </li>
-                @*href="@Url.Action("AddToCart", "Cart", new { id = @Model.ProductId })"*@
                 <li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>
             </ul>
         </div>

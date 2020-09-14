@@ -7,7 +7,6 @@ namespace XbooxCMS.ViewModels
 {
     public class OrderViewModel
     {
-        
         public Guid OrderId { get; set; }
         public string UserName { get; set; }
         public DateTime OrderDate { get; set; }
@@ -15,7 +14,6 @@ namespace XbooxCMS.ViewModels
         public string PurchaserAddress { get; set; }
         public string PurchaserEmail { get; set; }
         public string PurchaserPhone { get; set; }
-     
         public int StateId { get; set; }
     }
 }

@@ -18,8 +18,8 @@ namespace Xboox.Models.DataTable
         [StringLength(50)]
         public string CouponCode { get; set; }
 
-        public DateTime? StartTime { get; set; }
+        public DateTime StartTime { get; set; }
 
-        public DateTime? EndTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }

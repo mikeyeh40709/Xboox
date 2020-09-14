@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "ShowBooks";
+    ViewBag.Title = "FilterBooks";
 }
 
 <!-- Breadcrumb Begin -->
@@ -88,7 +88,7 @@
     </style>
 }
 @section endJS{
-    @*<script>
+    <script>
         function PriceFilter() {
             let maxPrice = document.getElementById("maxamount").value.substring(1);
             let minPrice = document.getElementById("minamount").value.substring(1);
@@ -105,5 +105,5 @@
                 data: data
             })
         }
-    </script>*@
+    </script>
 }
