@@ -14,11 +14,11 @@ namespace XbooxCMS.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-
+            //要做年份限制 多加year(orderdata) 的where 選擇年份做動態選項
             var temp = from od in context.OrderDetails
                        join o in context.Order
                        on od.OrderId equals o.OrderId
-                       where o.StateId == 2
+                       where o.StateId == 2  && o.OrderDate.Year == 2020
                        select new
                        {
                            Month = o.OrderDate.Month,

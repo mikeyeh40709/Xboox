@@ -460,6 +460,7 @@
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Dashboard\GetJSON.cshtml" />
     <None Include="Views\Dashboard\JSONtestView.cshtml" />
+    <Content Include="Views\Home\Index_Clone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
