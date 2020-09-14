@@ -45,5 +45,9 @@ namespace XbooxLibrary.Repository
             return context.Set<T>();
         }
 
+        public void SaveContext()
+        {
+             context.SaveChanges();
+        }
     }
 }

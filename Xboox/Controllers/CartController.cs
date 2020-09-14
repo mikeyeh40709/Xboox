@@ -36,10 +36,22 @@ namespace Xboox.Controllers
             }
             else
             {
-                ShoppingCartManage.AddToCart(values, this.HttpContext);
-                return Json(new { redirectToUrl = Url.Action("ShopCart") });
+                var AddToCart = ShoppingCartManage.AddToCart();
+                var AddToCartItems = ShoppingCartManage.AddToCartItems(values);
+                if (AddToCart.isSuccessful && AddToCartItems.isSuccessful)
+                {
+                    ViewBag.SucssesAddToCart = "成功加入購物車";
+                    return Json(new { redirectToUrl = Url.Action("ShopCart") });
+                }
+                else
+                {
+                    var Error = AddToCart.exception;
+                    ViewBag.ErrorToAddCart = Error.ToString();
+                    return Json(new { redirectToUrl = Url.Action("ShopCart") });
+                }
+
             }
-          
+
         }
         public ActionResult ShopCart()
         {
@@ -55,7 +67,7 @@ namespace Xboox.Controllers
         {
             var GetUserKey = HttpContext.Request.Cookies["VisitorKey"].Value;
             var cartItems = context.CartItems.Where(
-                cart => cart.CartId.ToString() == GetUserKey && cart.ProductId.ToString() == id ).ToList();
+                cart => cart.CartId.ToString() == GetUserKey && cart.ProductId.ToString() == id).ToList();
 
             foreach (var cartItem in cartItems)
             {
@@ -75,3 +87,4 @@ namespace Xboox.Controllers
     }
 
 }
+

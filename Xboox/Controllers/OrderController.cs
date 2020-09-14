@@ -86,7 +86,7 @@ namespace Xboox.Controllers
         public ActionResult SaveCart(string values)
         {
             ShoppingCartManage shopCart = new ShoppingCartManage();
-            shopCart.AddToCart(values, this.HttpContext);
+            shopCart.AddToCartItems(values);
             return Json(new { redirectToUrl = Url.Action("CreateOrder", "Order") });
         }
         public ActionResult CreateOrder()
