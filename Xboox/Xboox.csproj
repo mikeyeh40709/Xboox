@@ -17,8 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44370</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>
     </IISExpressAnonymousAuthentication>
@@ -235,6 +234,7 @@
       <DependentUpon>shop-cart.css</DependentUpon>
     </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
+    <Content Include="Assets\CSS\Custom\HomePage\BooksViwer.css" />
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.css" />
     <Content Include="Assets\CSS\Custom\LogInPage\main.css" />
     <Content Include="Assets\CSS\Custom\LogInPage\util.css" />
@@ -670,6 +670,15 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XbooxLibrary\XbooxLibrary.csproj">
+      <Project>{0f75748a-ce58-46e2-a623-c53bf719488e}</Project>
+      <Name>XbooxLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

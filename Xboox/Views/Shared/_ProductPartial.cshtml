@@ -1,7 +1,7 @@
 ﻿@model Xboox.ViewModels.ProductDetailViewModel
 
 
-
+<link href="~/Assets/CSS/Custom/HomePage/BooksViwer.css" rel="stylesheet" />
 <!-- Breadcrumb Begin -->
 <div class="breadcrumb-option">
     <div class="container">
@@ -68,7 +68,7 @@
                                 <input type="text" value="1">
                             </div>
                         </div>
-                        <a href="#" class="cart-btn" id="@Model.ProductId" data-target="@Model.Name" data-toggle="@Model.ImgLink"><span class="icon_bag_alt"></span> Add to cart</a>
+                        <a href="#" class="cart-btn @Model.ImgLink" id="@Model.ProductId" data-target="@Model.Name"><span class="icon_bag_alt"></span> Add to cart</a>
                         <ul>
                             <li><a href="#"><span class="fa fa-heart"></span></a></li>
                         </ul>
@@ -121,12 +121,13 @@
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <h6>詳細產品資料</h6>
-                            <p>
+                            <p class="isbn_number">
                                 ISBN： @Model.ISBN
                             </p>
                             <p>
                                 規格：@Model.Specification
                             </p>
+
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
                             <h6>Reviews</h6>
@@ -147,6 +148,13 @@
     </div>
 </section>
 <!-- Product Details Section End -->
-
-
-
+<script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
+<script>
+    var temp = document.querySelector(".isbn_number").innerHTML;
+    var numList = temp.split('：')
+    const isbn = numList[1].trim();
+    console.log(isbn);
+    GBS_setLanguage('zh-TW');
+    GBS_insertPreviewButtonPopup(`ISBN:${isbn}`);
+    console.log(`ISBN:${isbn}`);
+</script>
