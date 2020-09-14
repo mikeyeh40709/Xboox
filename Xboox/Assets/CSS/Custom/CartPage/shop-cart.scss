@@ -283,6 +283,13 @@
                         content: "$";
                     }
                 }
+                &:last-child{
+                    span{
+                        &::before{
+                            content:""
+                        }
+                    }
+                }
             }
         }
 

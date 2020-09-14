@@ -150,7 +150,7 @@ function swal(getProductName, img_link) {
     Swal.fire({
         title: `${getProductName}`,
         html: `${swal_html}`,
-        imageUrl: `~/Assets/Image/Pics/${img_link}.jpg`,
+        imageUrl: `/Assets/Image/Pics/${img_link}.jpg`,
         imageWidth: 200,
         imageHeight: 200,
         imageAlt: 'Image Broken',

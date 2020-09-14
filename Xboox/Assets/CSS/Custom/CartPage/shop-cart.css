@@ -186,6 +186,8 @@
         float: right; }
         .cart__total__procced ul li span::before {
           content: "$"; }
+      .cart__total__procced ul li:last-child span::before {
+        content: ""; }
   .cart__total__procced .primary-btn {
     display: block;
     border-radius: 50px;

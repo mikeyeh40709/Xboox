@@ -17,7 +17,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort>44370</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>
     </IISExpressAnonymousAuthentication>
@@ -235,7 +236,6 @@
     </Content>
     <Content Include="Assets\CSS\Custom\Common\Ashion.css" />
     <Content Include="Assets\CSS\Custom\HomePage\BooksViwer.css" />
-    <Content Include="Assets\CSS\Custom\HomePage\HomePage.css" />
     <Content Include="Assets\CSS\Custom\LogInPage\main.css" />
     <Content Include="Assets\CSS\Custom\LogInPage\util.css" />
     <Content Include="Assets\CSS\Custom\HomePage\HomePage.css" />

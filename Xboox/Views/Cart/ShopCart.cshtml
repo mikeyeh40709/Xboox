@@ -91,17 +91,18 @@
                     <h6>Discount codes</h6>
                     <form action="#">
                         <input type="text" placeholder="Enter your coupon code" id="discountCode">
+                        <input type="text" placeholder="Discount Rate:" id="discountRate" class="d-none">
+                        <button class="site-btn" onclick="compareCode()">Apply</button>
                     </form>
-                    <button class="site-btn" onclick="compareCode()">Apply</button>
                 </div>
             </div>
             <div class="col-lg-4 offset-lg-2">
                 <div class="cart__total__procced">
                     <h6>Cart total</h6>
-                    <ul id="cartTotal">
-                        <li>Total <span class="cart__total"></span></li>
-                        @*<li>Discounted Rate<span class="discounted_price"></span></li>*@
-                        <li>Discounted Price<span class="discounted_price"></span></li>
+                    <ul>
+                        <li>Total <span class="cart__total" id="CartTotal"></span></li>
+                        <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="DiscountPrice"></span></li>
+                        <li class="d-none" id="CartDiscountRateLi">Discounted Rate<span class="discounted_price" id="CartDiscountRate"></span></li>
                     </ul>
                     @*@Html.ActionLink("Proceed to checkout", "CreateOrder", "Order",null, new { @class = "primary-btn"})*@
                     <a href="javascript:void(0)" class="primary-btn">Proceed to checkout</a>
@@ -140,7 +141,7 @@
                                 <td>@ViewBag.Discount[i]</td>
                                 <td>@ViewBag.StartTime[i]</td>
                                 <td>@ViewBag.EndTime[i]</td>
-                                <td><button type="button" class="btn btn-outline-secondary" id="@ViewBag.CouponCode[i]" onclick="UseCoupon(event)">Use</button></td>
+                                <td><button type="button" class="btn btn-outline-secondary" id="@ViewBag.CouponCode[i]+@ViewBag.Discount[i]" onclick="UseCoupon(event)">Use</button></td>
                             </tr>
                         }
                     </tbody>
@@ -153,20 +154,32 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    function compareCode() {
-        let code = document.getElementById("discountCode").value;
-        let CouponCode = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CouponCode));
-        if (CouponCode.includes(code)) {
-            Swal.fire("成功!", "你的血液中有客家因子!", "success");
-            //var rate = document.createElement("li").innerText = ;
-            //document.getElementById("cartTotal").appendChild(rate);
-        } else {
-            Swal.fire("失敗!", "查無此優惠碼!", "warning");
-        }
-    }
-</script>
-
 @section topCSS{
     <link href="~/Assets/CSS/Custom/CartPage/shop-cart.min.css" rel="stylesheet" />
+}
+
+@section endJS{
+    <script type="text/javascript">
+        function compareCode() {
+            let discountCode = document.getElementById("discountCode").value;
+            let discountRate = document.getElementById("discountRate").value;
+            let discountprice = document.getElementById("DiscountPrice");
+            let CouponCode = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CouponCode));
+            if (CouponCode.includes(discountCode)) {
+                Swal.fire("成功!", "你的血液中有客家因子!", "success");
+                event.preventDefault();
+                let CartDiscountRate = document.getElementById("CartDiscountRate");
+                CartDiscountRate.innerText = discountRate * 10 + "折";
+                let CartDiscountPriceLi = document.getElementById("CartDiscountPriceLi");
+                document.getElementById("CartDiscountRateLi").setAttribute("class", "d-block");
+                CartDiscountPriceLi.setAttribute("class", "d-block");
+                let cart_total = document.querySelectorAll('.cart__total');
+                cart_total[cart_total.length - 1].setAttribute("style", "color:rgba(0,0,0,0.3);text-decoration:line-through;");
+                discountprice.innerText = Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * parseFloat(discountRate));
+            } else {
+                Swal.fire("失敗!", "查無或請輸入優惠碼", "warning");
+                event.preventDefault();
+            }
+    }
+    </script>
 }

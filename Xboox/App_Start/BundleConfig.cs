@@ -36,8 +36,8 @@ namespace Xboox
                 ));
             bundles.Add(new ScriptBundle("~/bundles/CustomJS").Include(
                       "~/Assets/JavaScript/Custom/HomePage/HomePage.js",
-                      "~/Assets/JavaScript/Custom/CartPage/shop-cart.js",
-                      "~/Assets/JavaScript/Custom/CartPage/set_to_local_storage.js"
+                      "~/Assets/JavaScript/Custom/CartPage/set_to_local_storage.js",
+                      "~/Assets/JavaScript/Custom/CartPage/shop-cart.js"
                 ));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Assets/CSS/Origin/Content/bootstrap.css",

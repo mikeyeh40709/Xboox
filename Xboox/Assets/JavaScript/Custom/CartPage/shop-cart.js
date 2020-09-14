@@ -60,7 +60,7 @@ let total_function = () => {
         usingMath = usingMath + ele;
     });
     cart_total[cart_total.length - 1].innerText = usingMath;
-    coupon_function();
+    //coupon_function();
 }
 //Cauculate count func
 let changeCount = () => {
@@ -71,30 +71,31 @@ let changeCount = () => {
 }
 ////coupon price fun
 //using btn_open_close to control discounted's price . 
-let btn_poen_close = false;
-let coupon_function = () => {
-    if (btn_poen_close) {
-        discounted_price.innerText = `${Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * 0.9)}`;    
-    }
-    else {
-        discounted_price.innerText = cart_total[cart_total.length - 1].innerText;
-    }
-    site_btn.addEventListener('click', (e) => {
-        btn_poen_close = true;
-        e.preventDefault();
-        discounted_price.innerText = `${Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * 0.9)}`;    
-        cart_total[cart_total.length - 1].setAttribute("style", "color:rgba(0,0,0,0.3);text-decoration:line-through;") ;    
-    });
-};
+//let btn_poen_close = false;
+//let coupon_function = () => {
+//    if (btn_poen_close) {
+//        discounted_price.innerText = `${Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * 0.9)}`;    
+//    }
+//    else {
+//        discounted_price.innerText = cart_total[cart_total.length - 1].innerText;
+//    }
+//    site_btn.addEventListener('click', (e) => {
+//        btn_poen_close = true;
+//        e.preventDefault();
+//        discounted_price.innerText = `${Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * 0.9)}`;    
+//        cart_total[cart_total.length - 1].setAttribute("style", "color:rgba(0,0,0,0.3);text-decoration:line-through;") ;    
+//    });
+//};
 
 if (cart_count.length > 0) {
     changeCount();
-    coupon_function();
+    //coupon_function();
 }
 
 function UseCoupon(event) {
-    let couponCode = event.target.id;
-    document.getElementById("discountCode").value = couponCode;
+    let couponCode = (event.target.id);
+    document.getElementById("discountCode").value = couponCode.split('+')[0];
+    document.getElementById("discountRate").value = couponCode.split('+')[1];
     $('#couponModalCenter').modal('hide');
 }
 
