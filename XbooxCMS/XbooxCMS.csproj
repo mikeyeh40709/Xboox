@@ -264,6 +264,7 @@
   <ItemGroup>
     <Content Include="Assets\Css\DashBoard.css" />
     <Content Include="Assets\Css\datatablestyle.css" />
+    <Content Include="Assets\Js\Dashboard_JS.js" />
     <Content Include="Assets\Style.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

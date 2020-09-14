@@ -12,7 +12,7 @@ namespace XbooxCMS.Controllers
     {
         private XbooxContext context = new XbooxContext();
         // GET: Dashboard
-        public ActionResult Index()
+        public ActionResult GetSalesRevenue()
         {
             //要做年份限制 多加year(orderdata) 的where 選擇年份做動態選項
             var temp = from od in context.OrderDetails
@@ -35,6 +35,15 @@ namespace XbooxCMS.Controllers
 
             return Json(Revenue, JsonRequestBehavior.AllowGet);
         }
+
+        //public ActionResult GetTop5Products()
+        //{
+
+
+        //    var top5products = [];
+
+        //    return Json(top5products, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult GetJSON()
         {
