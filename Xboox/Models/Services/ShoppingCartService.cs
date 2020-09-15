@@ -11,7 +11,7 @@ using XbooxLibrary.Repository;
 
 namespace Xboox.Models.Services
 {
-    public partial class ShoppiingCartService
+    public partial class ShoppingCartService
     {
         XbooxLibraryDBContext DbContext = new XbooxLibraryDBContext();
         private string GetCookieKey()
@@ -148,8 +148,7 @@ namespace Xboox.Models.Services
                 {
                     var CartItemsRepo = new GeneralRepository<CartItems>(DbContext);
                     var GetUserKey = GetCookieKey();
-                    var cartItems = DbContext.CartItems.Where(
-                    cart => cart.CartId.ToString() == GetUserKey && cart.ProductId.ToString() == id).ToList();
+                    var cartItems = CartItemsRepo.GetAll().Where(x => x.CartId.ToString() == GetUserKey && x.ProductId.ToString() == id).ToList();
                     foreach (var cartItem in cartItems)
                     {
                         CartItemsRepo.Delete(cartItem);

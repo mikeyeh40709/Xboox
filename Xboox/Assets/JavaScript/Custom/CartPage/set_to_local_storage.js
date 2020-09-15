@@ -1,38 +1,54 @@
 ﻿//homepage every product btn
 let AddBtnGroup = $(".addCartBtn");
+
 //navbar dom
 let tip = document.querySelector('.cart_count');
 let headerdropdown = document.querySelector('span.icon_bag_alt~ul.headerdropdown');
-
 // Cartpage dom
 let cart_close_group = document.querySelectorAll(".cart__close");
 // productDetailPage add cart btn
 let productdetail_cart_btn = $('.product__details__button .cart-btn');
 let productdetail_count_dom = document.querySelector('.product__details__button input');
+let unistockDom = document.querySelector('.product__details__widget li:first-of-type p');
 //swal_text
-let swal_html = '<h2 style="font-size:18px; font-family:Noto Sans TC, sans-serif;">成功加入購物車!</h2>';
+let sucess_html = '<h2 style="font-size:18px; font-family:Noto Sans TC, sans-serif;">成功加入購物車!</h2>';
+let fail_html = '<h2 style="font-size:25px; font-family:Noto Sans TC, sans-serif;"><b>庫存沒了喔</b></h2>';
+let nan_html = '<h2 style="font-size:25px; font-family:Noto Sans TC, sans-serif;"><b>請輸入數字喔</b></h2>';
 //homepage product btn click event
 AddBtnGroup.each(function () {
     $(this).on('click', function () {
-        let calssGroup = $(this).attr('class').split(' ');
-        let imtLink = calssGroup[1];
+        let classGroup = $(this).attr('class').split(' ');
+        let imtLink = classGroup[1];
         var getProductName = $(this).attr("data-target");
         setLocalStorage(this.id, getProductName);
         headerdropdown.innerHTML = "";
         renewNavbar();
-        swal(getProductName, imtLink);
+        swal(getProductName, imtLink, sucess_html);
     })
 });
 //productdetail's page product btn click event
 productdetail_cart_btn.on('click', function () {
-    let calssGroup = $(this).attr('class').split(' ');
-    let imtLink = calssGroup[1];
+    let classGroup = $(this).attr('class').split(' ');
+    let imtLink = classGroup[1];
+    let unitStock = unistockDom.textContent;
     var getProductName = $(this).attr("data-target");
-    setDetailsLocalStorage(this.id, getProductName);
-    headerdropdown.innerHTML = "";
-    renewNavbar();
-    swal(getProductName, imtLink);
+    if (!isNaN(productdetail_count_dom.value)) {
+        if (parseInt(productdetail_count_dom.value) < parseInt(unitStock)) {
+            setDetailsLocalStorage(this.id, getProductName);
+            headerdropdown.innerHTML = "";
+            renewNavbar();
+            swal(sucess_html,getProductName, imtLink);
+        }
+        else {
+            swal(fail_html,getProductName, imtLink);
+        }
+    }
+    else {
+        swal(nan_html);
+    }
+  
 });
+
 //honepage add items to localstorage 
 function setLocalStorage(ProductId, ProductName) {
     let cartItems = [];
@@ -122,7 +138,6 @@ function renewNavbar() {
 //1.  .header span.icon_bag_alt    /Cart/AddToCart
 //ajax  post type 
 ajaxFun('.header span.icon_bag_alt', '/Cart/AddToCart');
-ajaxFun('.shop-cart .primary-btn', '/Order/SaveCart');
 
 function ajaxFun(clickName, ajaxUrl) {
     $(clickName).click(function (e) {
@@ -145,15 +160,16 @@ function ajaxFun(clickName, ajaxUrl) {
         }
     })
 }
-function swal(getProductName, img_link) {
+function swal(htmlContext,getProductName="", img_link = "") {
+
     Swal.fire({
-        title: `${getProductName}`,
-        html: `${swal_html}`,
-        imageUrl: `/Assets/Image/Pics/${img_link}.jpg`,
+        title: getProductName,
+        html: `${htmlContext}`,
+        imageUrl: img_link,
         imageWidth: 200,
         imageHeight: 200,
         imageAlt: 'Image Broken',
-        timer: 1300,
+        timer: 800,
         timerProgressBar: true,
         onBeforeOpen: () => {
             Swal.showLoading()

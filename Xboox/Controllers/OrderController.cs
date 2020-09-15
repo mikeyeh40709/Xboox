@@ -82,16 +82,10 @@ namespace Xboox.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
-        [HttpPost]
-        public ActionResult SaveCart(string values)
-        {
-            ShoppiingCartService shopCart = new ShoppiingCartService();
-            shopCart.AddToCartItems(values);
-            return Json(new { redirectToUrl = Url.Action("CreateOrder", "Order") });
-        }
+
         public ActionResult CreateOrder()
         {
-            ShoppiingCartService shopCart = new ShoppiingCartService();
+            ShoppingCartService shopCart = new ShoppingCartService();
             var cartItems = shopCart.GetCartItems(this.HttpContext);
             return View(cartItems);
         }

@@ -12,7 +12,7 @@
                 </li>
                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                 <li>
-                    <a id="@Model.ProductId" class="addCartBtn @(Model.ImgLink)" data-target="@Model.Name"><span class="icon_bag_alt"></span></a>
+                    <a id="@Model.ProductId" class="addCartBtn @(Model.ImgLink) @(Model.UnitInStock)" data-target="@Model.Name" style="cursor:pointer"><span class="icon_bag_alt"></span></a>
                 </li>
                 <li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>
             </ul>
