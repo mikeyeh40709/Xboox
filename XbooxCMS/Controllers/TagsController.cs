@@ -6,18 +6,23 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using XbooxCMS.Models;
+//using XbooxCMS.Models;
+using XbooxLibrary.Models.DataTable;
+using XbooxLibrary.Services;
+using XbooxCMS.ViewModels;
+
 
 namespace XbooxCMS.Controllers
 {
     public class TagsController : Controller
     {
-        private XbooxContext context = new XbooxContext();
-
+        //private XbooxContext context = new XbooxContext();
+        //private XbooxLibraryDBContext context = new XbooxLibraryDBContext();
         // GET: Tags
         public ActionResult Index()
         {
-            return View(context.Tags.ToList());
+            TagService service = new TagService();
+            return View(service.GetTags());
         }
 
         // GET: Tags/Details/5
@@ -27,7 +32,9 @@ namespace XbooxCMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tags tags = context.Tags.Find(id);
+            TagService service = new TagService();
+            var tags =  service.GetSingleTag((Guid)id);
+           // Tags tags = context.Tags.Find(id);
             if (tags == null)
             {
                 return HttpNotFound();
@@ -41,25 +48,21 @@ namespace XbooxCMS.Controllers
             return View();
         }
 
-        // POST: Tags/Create
-        // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
-        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Tags tags)
+        public ActionResult Create(Tags tags)
         {
             if (ModelState.IsValid)
             {
-                //var viewModel = new TagViewModel()
-                //{
-                //    TagId = Guid.NewGuid(),
-                //    TagName 
-                //}
+                TagService service = new TagService();
+                service.Create(tags);
 
-                tags.TagId = Guid.NewGuid();
-                context.Tags.Add(tags);
-                context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                //tags.TagId = Guid.NewGuid();
+                //context.Tags.Add(tags);
+                //context.SaveChanges();
+
+                return RedirectToAction("Index", "Tags");
             }
             else
             {
@@ -76,7 +79,9 @@ namespace XbooxCMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tags tags = context.Tags.Find(id);
+            TagService service = new TagService();
+            var tags = service.GetSingleTag((Guid)id);
+            //Tags tags = context.Tags.Find(id);
             if (tags == null)
             {
                 return HttpNotFound();
@@ -91,8 +96,10 @@ namespace XbooxCMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Entry(tags).State = EntityState.Modified;
-                context.SaveChanges();
+                TagService service = new TagService();
+                service.Edit(tags);
+                //context.Entry(tags).State = EntityState.Modified;
+                //context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(tags);
@@ -124,13 +131,13 @@ namespace XbooxCMS.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                context.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        context.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

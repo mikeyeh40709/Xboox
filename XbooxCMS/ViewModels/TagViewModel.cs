@@ -11,7 +11,7 @@ namespace XbooxCMS.ViewModels
         public Guid TagId { get; set; }
         public string TagName { get; set; }
 
-        public  Tags   Tags { get; set; }
+        //public  Tags   Tags { get; set; }
 
     }
 }

@@ -529,41 +529,6 @@ namespace XbooxCMS.Controllers
 
 
 
-        /// <summary>
-        /// 創造標籤
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult CreateTag()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateTag(Tags tags)
-        {
-
-            if (ModelState.IsValid)
-            {
-                //var viewModel = new TagViewModel()
-                //{
-                //    TagId = Guid.NewGuid(),
-                //    TagName 
-                //}
-
-                tags.TagId = Guid.NewGuid();
-                context.Tags.Add(tags);
-                context.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-
-                return View();
-
-            }
-
-
-        }
         protected override void Dispose(bool disposing)
         {
             context.Dispose();
