@@ -111,6 +111,14 @@ namespace XbooxCMS.Controllers
             return View(list);
         }
 
+
+        public ActionResult Details(Guid id)
+        {
+
+
+            return View();
+        }
+
         /// <summary>
         /// 建立產品資料 包含分類 標籤 
         /// </summary>
@@ -173,13 +181,7 @@ namespace XbooxCMS.Controllers
             
 
             context.SaveChanges(); 
-            //catch (DbEntityValidationException ex)
-            //{
-            //    var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
-            //    var getFullMessage = string.Join("; ", entityError);
-            //    var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
-            //}
-            
+
             return RedirectToAction("Create","Product");
         }
 

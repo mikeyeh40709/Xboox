@@ -51,9 +51,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CategorName)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.TagName)
-                </th>
+                </th>*@
 
                 <th></th>
             </tr>
@@ -89,9 +89,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.CategorName)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TagName)
-                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.TagName[0])
+                    </td>*@
 
                     <td>
                         <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" value="Edit" onclick="location.href='@Url.Action("Edit", "Product",new{id=item.ProductId })'" />
