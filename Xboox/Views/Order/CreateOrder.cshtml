@@ -5,7 +5,7 @@
     decimal total = 0m;
     foreach (var item in Model)
     {
-        total += Math.Round(item.Price);
+        total += Math.Round(item.Price * item.Quantity);
     }
     ViewBag.Total = total;
 }
@@ -67,7 +67,7 @@
                                 <li class="d-flex justify-content-between">
                                     <span class="d-inline-block" style="width: 70%; text-overflow: ellipsis">@item.Name</span>
                                     <span class="d-inline-block text-center" style="width: 15%; text-overflow: ellipsis">@item.Quantity</span>
-                                    <span class="d-inline-block text-right" style="width: 15%;">@Math.Round(item.Price)</span>
+                                    <span class="d-inline-block text-right" style="width: 15%;">@Math.Round(item.Price * item.Quantity)</span>
                                 </li>
                             }
                         </ul>

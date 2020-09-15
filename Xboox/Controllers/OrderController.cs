@@ -85,13 +85,13 @@ namespace Xboox.Controllers
         [HttpPost]
         public ActionResult SaveCart(string values)
         {
-            ShoppingCartManage shopCart = new ShoppingCartManage();
+            ShoppiingCartService shopCart = new ShoppiingCartService();
             shopCart.AddToCartItems(values);
             return Json(new { redirectToUrl = Url.Action("CreateOrder", "Order") });
         }
         public ActionResult CreateOrder()
         {
-            ShoppingCartManage shopCart = new ShoppingCartManage();
+            ShoppiingCartService shopCart = new ShoppiingCartService();
             var cartItems = shopCart.GetCartItems(this.HttpContext);
             return View(cartItems);
         }

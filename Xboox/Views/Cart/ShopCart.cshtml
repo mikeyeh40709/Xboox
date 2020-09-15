@@ -73,16 +73,11 @@
         @* 從這裡開始是兩個button *@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
-                @*<div class="cart__btn">
-                        @(Html.ActionLink("Check", "Index","Home"))
-                    </div>*@
+                <div class="cart__btn">
+                    @(Html.ActionLink("Continue Shopping", "Index","Home"))
+                </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="cart__btn update__btn">
-                    <!-- Button trigger modal -->
-                    <a href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Check Discount Code</a>
-                    <a href="@Url.Action("Index","Home")"><span class="icon_loading"></span>Continue Shopping</a>
-                </div>
             </div>
         </div>
         <div class="row">

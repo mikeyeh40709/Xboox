@@ -211,9 +211,9 @@
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Services\AspNetUserManage.cs" />
-    <Compile Include="Models\Services\GetKey.cs" />
+    <Compile Include="Models\Services\SetCookieService.cs" />
     <Compile Include="Models\Services\OperationResult.cs" />
-    <Compile Include="Models\Services\ShoppingCartManage .cs" />
+    <Compile Include="Models\Services\ShoppingCartService.cs" />
     <Compile Include="Repositories\FindBookDetailRepository.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />

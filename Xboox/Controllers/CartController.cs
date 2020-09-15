@@ -19,7 +19,7 @@ namespace Xboox.Controllers
     public class CartController : Controller
     {
         private XbooxContext context = new XbooxContext();
-        private ShoppingCartManage ShoppingCartManage = new ShoppingCartManage();
+        private ShoppiingCartService ShoppiingCartService = new ShoppiingCartService();
         public CartController()
         {
             if (context == null)
@@ -36,11 +36,10 @@ namespace Xboox.Controllers
             }
             else
             {
-                var AddToCart = ShoppingCartManage.AddToCart();
-                var AddToCartItems = ShoppingCartManage.AddToCartItems(values);
+                var AddToCart = ShoppiingCartService.AddToCart();
+                var AddToCartItems = ShoppiingCartService.AddToCartItems(values);
                 if (AddToCart.isSuccessful && AddToCartItems.isSuccessful)
                 {
-                    ViewBag.SucssesAddToCart = "成功加入購物車";
                     return Json(new { redirectToUrl = Url.Action("ShopCart") });
                 }
                 else
@@ -49,9 +48,7 @@ namespace Xboox.Controllers
                     ViewBag.ErrorToAddCart = Error.ToString();
                     return Json(new { redirectToUrl = Url.Action("ShopCart") });
                 }
-
             }
-
         }
         public ActionResult ShopCart()
         {
@@ -65,20 +62,14 @@ namespace Xboox.Controllers
         }
         public ActionResult EmptyCart(string id)
         {
-            var GetUserKey = HttpContext.Request.Cookies["VisitorKey"].Value;
-            var cartItems = context.CartItems.Where(
-                cart => cart.CartId.ToString() == GetUserKey && cart.ProductId.ToString() == id).ToList();
-
-            foreach (var cartItem in cartItems)
+            if (ShoppiingCartService.EmptyCart(id).isSuccessful)
             {
-                context.CartItems.Remove(cartItem);
-
+                return RedirectToAction("ShopCart");
             }
-            context.SaveChanges();
-
-
-
-            return RedirectToAction("ShopCart");
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }        
         }
         public ActionResult Bill()
         {

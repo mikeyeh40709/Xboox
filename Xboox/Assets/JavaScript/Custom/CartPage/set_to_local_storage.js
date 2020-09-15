@@ -145,7 +145,6 @@ function ajaxFun(clickName, ajaxUrl) {
         }
     })
 }
-
 function swal(getProductName, img_link) {
     Swal.fire({
         title: `${getProductName}`,
@@ -161,11 +160,8 @@ function swal(getProductName, img_link) {
         },
     });
 }
-
 renewNavbar();
-
 window.addEventListener("load", function () {
     headerdropdown.innerHTML = "";
     renewNavbar();
-
 })
