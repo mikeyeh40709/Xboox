@@ -162,7 +162,7 @@ function swal(htmlContext,getProductName="", img_link = "") {
 
     Swal.fire({
         title: `${getProductName}`,
-        html: `${swal_html}`,
+        html: `${htmlContext}`,
         imageUrl: `${img_link}`,
         imageWidth: 200,
         imageHeight: 200,

@@ -195,7 +195,20 @@
         </div>
     </div>
 </div>
-
+<script>
+    window.addEventListener("load", function () {
+        let form = $("form.checkout__form");
+        console.log(form.attr('action'));
+        let state = $("input[name='Payment']");
+        state.on("change", function () {
+            if ($(this).val() == "COD") {
+                form.attr('action', "/Order/CreateOrder")
+            } else {
+                form.attr('action', "/Order/PostToECPay")
+            }
+        })
+    })
+</script>
 @section endJS{
     <script type="text/javascript">
         function UseCoupon(event) {
