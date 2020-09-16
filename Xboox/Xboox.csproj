@@ -49,6 +49,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ECPay.Payment.Integration, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ECPay.Payment.Integration.1.0.0.8\lib\net45\ECPay.Payment.Integration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -210,9 +213,10 @@
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Services\AspNetUserManage.cs" />
-    <Compile Include="Models\Services\GetKey.cs" />
+    <Compile Include="Models\Services\CommonService.cs" />
+    <Compile Include="Models\Services\SetCookieService.cs" />
     <Compile Include="Models\Services\OperationResult.cs" />
-    <Compile Include="Models\Services\ShoppingCartManage .cs" />
+    <Compile Include="Models\Services\ShoppingCartService.cs" />
     <Compile Include="Repositories\FindBookDetailRepository.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
@@ -649,11 +653,14 @@
     <Content Include="Views\Shared\_SideBarFilter.cshtml" />
     <Content Include="Views\BookCategory\ShowBooks.cshtml" />
     <Content Include="Views\Account\UserDataEdit.cshtml" />
-    <Content Include="Views\Order\CreateOrderSuccess.cshtml" />
-    <Content Include="Views\Order\CreateOrderFail.cshtml" />
-    <Content Include="Views\Order\CreditDetail.cshtml" />
+    <Content Include="Views\Order\Success.cshtml" />
+    <Content Include="Views\Order\Fail.cshtml" />
     <Content Include="Views\Shared\_SidebarSuggestion.cshtml" />
     <Content Include="Views\BookCategory\FilterBooks.cshtml" />
+    <Content Include="Views\Coupon\ShowCoupon.cshtml" />
+    <Content Include="Views\Order\PostToECPay.cshtml" />
+    <Content Include="Views\Order\ECPayResult.cshtml" />
+    <Content Include="Views\Account\info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

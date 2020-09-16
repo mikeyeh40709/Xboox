@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using XbooxLibrary.Models.DataTable;
@@ -43,6 +44,16 @@ namespace XbooxLibrary.Repository
         public IQueryable<T> GetAll()
         {
             return context.Set<T>();
+        }
+
+        public void SaveContext()
+        {
+             context.SaveChanges();
+        }
+
+        public T GetFirst(Expression<Func<T, bool>> entity)
+        {
+            return context.Set<T>().FirstOrDefault<T>(entity); ;
         }
 
     }

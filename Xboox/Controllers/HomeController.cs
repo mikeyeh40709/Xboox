@@ -22,11 +22,7 @@ namespace Xboox.Controllers
        
         public ActionResult Index()
         {
-           
-            GetKey getKey = new GetKey();
-            var allKey = getKey.GetAllKey(HttpContext);
-            ViewBag.XbooxKey = allKey;
-
+            Response.Cookies.Add(SetCookieService.SetCookie());
             var products = books.FindBookDetail();
             return View(products);
             

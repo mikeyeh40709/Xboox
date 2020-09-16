@@ -6,27 +6,34 @@ using System.Web;
 using Xboox.Models.Services;
 namespace Xboox.Models.Services
 {
-    public  class GetKey
+    public class SetCookieService
     {
-     
-        public string GetAllKey(HttpContextBase contextBase)
+        public static HttpCookie SetCookie()
+        {
+            HttpCookie SetCookies = new HttpCookie("VisitorKey");
+            SetCookies.Value = GetAllKey();
+            SetCookies.Expires = DateTime.Now.AddDays(7);
+            return SetCookies;
+        }
+
+        private static string GetAllKey()
         {
 
-            if (!contextBase.User.Identity.IsAuthenticated)
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                if (contextBase.Request.Cookies["VisitorKey"] == null)
+                if (HttpContext.Current.Request.Cookies["VisitorKey"] == null)
                 {
                     Guid VisitorKey = Guid.NewGuid();                   
                     return VisitorKey.ToString();
                 }
                 else
                 {
-                    return contextBase.Request.Cookies["VisitorKey"].Value;
+                    return (HttpContext.Current.Request.Cookies["VisitorKey"].Value);
                 }   
             }
             else
             {              
-                var Member = contextBase.User.Identity.GetUserId();
+                var Member = HttpContext.Current.User.Identity.GetUserId();
 
                 return Member;
             }
@@ -34,8 +41,6 @@ namespace Xboox.Models.Services
 
 
     }
-
-
     public class TempCartItems
     {
         public string ProductId { get; set; }

@@ -6,25 +6,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using Xboox.Models;
-using Xboox.Models.DataTable;
 using Xboox.Models.Services;
 using Xboox.Models.ViewModels;
 using Xboox.ViewModels;
 using Newtonsoft.Json;
-
+using XbooxLibrary.Models.DataTable;
 
 namespace Xboox.Controllers
 {
     public class CartController : Controller
     {
-        private XbooxContext context = new XbooxContext();
-        private ShoppingCartManage ShoppingCartManage = new ShoppingCartManage();
+        private XbooxLibraryDBContext context = new XbooxLibraryDBContext();
+        private ShoppingCartService shoppingCartService = new ShoppingCartService();
         public CartController()
         {
             if (context == null)
             {
-                context = new XbooxContext();
+                context = new XbooxLibraryDBContext();
             }
         }
         [HttpPost]
@@ -36,10 +34,19 @@ namespace Xboox.Controllers
             }
             else
             {
-                ShoppingCartManage.AddToCart(values, this.HttpContext);
-                return Json(new { redirectToUrl = Url.Action("ShopCart") });
+                var AddToCart = shoppingCartService.AddToCart();
+                var AddToCartItems = shoppingCartService.AddToCartItems(values);
+                if (AddToCart.isSuccessful && AddToCartItems.isSuccessful)
+                {
+                    return Json(new { redirectToUrl = Url.Action("ShopCart") });
+                }
+                else
+                {
+                    var Error = AddToCart.exception;
+                    ViewBag.ErrorToAddCart = Error.ToString();
+                    return Json(new { redirectToUrl = Url.Action("ShopCart") });
+                }
             }
-          
         }
         public ActionResult ShopCart()
         {
@@ -48,20 +55,14 @@ namespace Xboox.Controllers
         }
         public ActionResult EmptyCart(string id)
         {
-            var GetUserKey = HttpContext.Request.Cookies["VisitorKey"].Value;
-            var cartItems = context.CartItems.Where(
-                cart => cart.CartId.ToString() == GetUserKey && cart.ProductId.ToString() == id ).ToList();
-
-            foreach (var cartItem in cartItems)
+            if (shoppingCartService.EmptyCart(id).isSuccessful)
             {
-                context.CartItems.Remove(cartItem);
-
+                return RedirectToAction("ShopCart");
             }
-            context.SaveChanges();
-
-
-
-            return RedirectToAction("ShopCart");
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }        
         }
         public ActionResult Bill()
         {
@@ -70,3 +71,4 @@ namespace Xboox.Controllers
     }
 
 }
+

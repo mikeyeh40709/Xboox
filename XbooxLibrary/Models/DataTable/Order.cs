@@ -17,6 +17,9 @@ namespace XbooxLibrary.Models.DataTable
 
         public Guid OrderId { get; set; }
 
+        [StringLength(20)]
+        public string EcpayOrderNumber { get; set; }
+
         [Required]
         [StringLength(128)]
         public string UserId { get; set; }
@@ -29,16 +32,31 @@ namespace XbooxLibrary.Models.DataTable
 
         [Required]
         [StringLength(50)]
-        public string PurchaserAddress { get; set; }
-
-        [Required]
-        [StringLength(50)]
         public string PurchaserEmail { get; set; }
 
         [StringLength(50)]
         public string PurchaserPhone { get; set; }
 
-        public int StateId { get; set; }
+        [Required]
+        [StringLength(20)]
+        public string City { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string District { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Road { get; set; }
+
+        [StringLength(10)]
+        public string Payment { get; set; }
+
+        public bool Paid { get; set; }
+
+        public bool Build { get; set; }
+
+        public bool Remember { get; set; }
 
         public virtual AspNetUsers AspNetUsers { get; set; }
 

@@ -67,6 +67,10 @@ namespace Xboox.Models.DataTable
                 .HasPrecision(18, 6);
 
             modelBuilder.Entity<Order>()
+                .Property(e => e.EcpayOrderNumber)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Order>()
                 .Property(e => e.PurchaserName)
                 .IsFixedLength();
 
@@ -74,10 +78,6 @@ namespace Xboox.Models.DataTable
                 .HasMany(e => e.OrderDetails)
                 .WithRequired(e => e.Order)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<OrderDetails>()
-                .Property(e => e.UnitPrice)
-                .HasPrecision(18, 6);
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)
