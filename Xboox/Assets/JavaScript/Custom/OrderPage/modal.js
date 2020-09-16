@@ -19,7 +19,7 @@
                     let OrderDetailsList = $($("#OrderDetailsList").html());
                     let values = Object.values(item);
                     for (let i = 1; i < values.length; i++) {
-                        OrderDetailsList.eq(0).children("img").attr("src", `/Assets/Image/Pics/${values[0]}.jpg`);
+                        OrderDetailsList.eq(0).children("img").attr("src", `${values[0]}`);
                         OrderDetailsList.eq(2 * i).text(values[i]);
                         console.log(OrderDetailsList);
                         console.log(values[i]);

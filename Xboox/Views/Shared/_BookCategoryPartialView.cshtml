@@ -4,10 +4,10 @@
 
 <div class="col-lg-4 col-md-6 mix @Model.TagName">
     <div class="product__item">
-        <div class="product__item__pic set-bg" data-setbg="@Url.Content("~/Assets/Image/Pics/" + Model.ImgLink + ".jpg")">
+        <div class="product__item__pic set-bg" data-setbg="@Model.ImgLink">
             @*<div class="label new">New</div>*@
             <ul class="product__hover">
-                <li><a href="@Url.Content("~/Assets/Image/Pics/" + Model.ImgLink + ".jpg")" class="image-popup"><span class="arrow_expand"></span></a></li>
+                <li><a href="@Model.ImgLink" class="image-popup"><span class="arrow_expand"></span></a></li>
                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                 <li><a id="@Model.ProductId" class="addCartBtn @(Model.ImgLink)" data-target="@Model.Name"><span class="icon_bag_alt"></span></a></li>
                 <li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>

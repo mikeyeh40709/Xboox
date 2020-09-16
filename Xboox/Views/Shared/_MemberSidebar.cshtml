@@ -8,14 +8,14 @@
                 <div class="accordion" id="accordionExample">
                     <div class="card">
                         <div class="card-heading">
+                            @Html.ActionLink("我的會員資料", "UserDataDetails", "Account")
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-heading">
                             @Html.ActionLink("變更個人資料", "UserDataEdit", "Account")
                         </div>
                     </div>
-                    @*<div class="card">
-                        <div class="card-heading">
-                            @Html.ActionLink("變更密碼", "ResetPassword", "Account")
-                        </div>
-                    </div>*@                    
                     <div class="card">
                         <div class="card-heading">
                             @Html.ActionLink("我的訂單", "UserView", "Order")
@@ -31,12 +31,3 @@
         </div>
     </div>
 </div>
-<style>
-    .categories__accordion .card-heading a::after {
-        content: "";
-    }
-    .shop__sidebar {
-        height: 900px;
-    }
-</style>
-

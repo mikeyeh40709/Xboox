@@ -18,6 +18,7 @@ namespace Xboox.Controllers
 {
     public class OrderController : Controller
     {
+        private XbooxContext _context = new XbooxContext();
         OrderService service = new OrderService();
         public ActionResult UserView()
         {
@@ -82,15 +83,13 @@ namespace Xboox.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
-        [HttpPost]
-        public ActionResult SaveCart(string values)
-        {
-            ShoppingCartManage shopCart = new ShoppingCartManage();
-            shopCart.AddToCart(values, this.HttpContext);
-            return Json(new { redirectToUrl = Url.Action("CreateOrder", "Order") });
-        }
         public ActionResult CreateOrder()
         {
+            var CouponDetails = _context.Coupons.ToList();
+            ViewBag.CouponCode = CouponDetails.Select(x => x.CouponCode).ToList();
+            ViewBag.Discount = CouponDetails.Select(x => Convert.ToDouble(x.Discount)).ToList();
+            ViewBag.StartTime = CouponDetails.Select(x => x.StartTime.ToString("yyyy/MM/dd")).ToList();
+            ViewBag.EndTime = CouponDetails.Select(x => x.EndTime.ToString("yyyy/MM/dd")).ToList();
             ShoppingCartManage shopCart = new ShoppingCartManage();
             var cartItems = shopCart.GetCartItems(this.HttpContext);
             return View(cartItems);

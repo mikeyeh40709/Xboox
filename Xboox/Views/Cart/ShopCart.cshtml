@@ -4,14 +4,13 @@
     ViewBag.Title = "ShopCart";
 }
 <!-- Breadcrumb Begin -->
-
 <div class="breadcrumb-option">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i>Home</a>
-                    <span>Shopping cart</span>
+                    <a href="@Url.Action("ShopCart","Cart")"><span>Shopping cart</span></a>
                 </div>
             </div>
         </div>
@@ -41,7 +40,7 @@
                                 countIndex++;
                                 <tr>
                                     <td class="cart__product__item">
-                                        <img src="~/Assets/Image/Pics/@(item.ProductImgLink).jpg" style="width:50px" alt="圖片壞掉拉">
+                                        <img src="@(item.ProductImgLink)" style="width:50px" alt="圖片壞掉拉">
                                         <div class="cart__product__item__title">
                                             <h6>@item.Name</h6>
 
@@ -80,7 +79,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="cart__btn update__btn">
                     <!-- Button trigger modal -->
-                    <a href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Check Discount Code</a>
+                    @*<a href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Check Discount Code</a>*@
                     <a href="@Url.Action("Index","Home")"><span class="icon_loading"></span>Continue Shopping</a>
                 </div>
             </div>
@@ -88,98 +87,29 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="discount__content">
-                    <h6>Discount codes</h6>
+                    @*<h6>Discount codes</h6>
                     <form action="#">
                         <input type="text" placeholder="Enter your coupon code" id="discountCode">
                         <input type="text" placeholder="Discount Rate:" id="discountRate" class="d-none">
                         <button class="site-btn" onclick="compareCode()">Apply</button>
-                    </form>
+                    </form>*@
                 </div>
             </div>
             <div class="col-lg-4 offset-lg-2">
                 <div class="cart__total__procced">
                     <h6>Cart total</h6>
                     <ul>
-                        <li>Total <span class="cart__total" id="CartTotal"></span></li>
-                        <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="DiscountPrice"></span></li>
-                        <li class="d-none" id="CartDiscountRateLi">Discounted Rate<span class="discounted_price" id="CartDiscountRate"></span></li>
+                        <li>Total <span class="cart__total"></span></li>
+                        @*<li class="d-none" id="CartDiscountRateLi">Discount Rate<span class="discounted_price" id="CartDiscountRate"></span></li>
+                        <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice"></span></li>*@
                     </ul>
-                    @*@Html.ActionLink("Proceed to checkout", "CreateOrder", "Order",null, new { @class = "primary-btn"})*@
-                    <a href="javascript:void(0)" class="primary-btn">Proceed to checkout</a>
+                    @Html.ActionLink("Proceed to checkout", "CreateOrder", "Order", null, new { @class = "primary-btn", id = "checkout" })
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- Shop Cart Section End -->
-<!-- Modal -->
-<div class="modal fade" id="couponModalCenter" tabindex="-1" role="dialog" aria-labelledby="couponModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Coupon Code</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">CouponCode</th>
-                            <th scope="col">Discount Rate</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">Expire Date</th>
-                            <th scope="col">Click to Use</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (var i = 0; i < ViewBag.CouponCode.Count; i++)
-                        {
-                            <tr>
-                                <th scope="row">@ViewBag.CouponCode[i]</th>
-                                <td>@ViewBag.Discount[i]</td>
-                                <td>@ViewBag.StartTime[i]</td>
-                                <td>@ViewBag.EndTime[i]</td>
-                                <td><button type="button" class="btn btn-outline-secondary" id="@ViewBag.CouponCode[i]+@ViewBag.Discount[i]" onclick="UseCoupon(event)">Use</button></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-@section topCSS{
-    <link href="~/Assets/CSS/Custom/CartPage/shop-cart.min.css" rel="stylesheet" />
-}
 
-@section endJS{
-    <script type="text/javascript">
-        function compareCode() {
-            let discountCode = document.getElementById("discountCode").value;
-            let discountRate = document.getElementById("discountRate").value;
-            let discountprice = document.getElementById("DiscountPrice");
-            let CouponCode = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CouponCode));
-            if (CouponCode.includes(discountCode)) {
-                Swal.fire("成功!", "你的血液中有客家因子!", "success");
-                event.preventDefault();
-                let CartDiscountRate = document.getElementById("CartDiscountRate");
-                CartDiscountRate.innerText = discountRate * 10 + "折";
-                let CartDiscountPriceLi = document.getElementById("CartDiscountPriceLi");
-                document.getElementById("CartDiscountRateLi").setAttribute("class", "d-block");
-                CartDiscountPriceLi.setAttribute("class", "d-block");
-                let cart_total = document.querySelectorAll('.cart__total');
-                cart_total[cart_total.length - 1].setAttribute("style", "color:rgba(0,0,0,0.3);text-decoration:line-through;");
-                discountprice.innerText = Math.ceil(parseFloat(cart_total[cart_total.length - 1].innerText) * parseFloat(discountRate));
-            } else {
-                Swal.fire("失敗!", "查無或請輸入優惠碼", "warning");
-                event.preventDefault();
-            }
-    }
-    </script>
-}
+

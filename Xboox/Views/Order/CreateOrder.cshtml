@@ -5,10 +5,25 @@
     decimal total = 0m;
     foreach (var item in Model)
     {
-        total += Math.Round(item.Price);
+        total += Math.Round(item.Price * item.Quantity);
     }
     ViewBag.Total = total;
 }
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i>Home</a>
+                    <a href="@Url.Action("ShopCart","Cart")"><span>Shopping Cart</span></a>
+                    <a href="@Url.Action("CreateOrder","Order")"><span>Place Order</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
 <form action="/Order/CreateOrder" class="checkout__form" method="post">
     <div class="container py-5">
         <div class="row">
@@ -42,10 +57,10 @@
                     </div>
                     <div class="col-lg-12">
                         <div class="checkout__form__checkbox">
-                            <input type="radio" id="Unpaid" name="StateId" value="0" required/><label class="d-inline" for="Unpaid">
+                            <input type="radio" id="Unpaid" name="StateId" value="0" required /><label class="d-inline" for="Unpaid">
                                 貨到付款
                             </label>
-                            <input type="radio" id="Paid" name="StateId" value="1" required/><label class="d-inline-block" for="Paid">
+                            <input type="radio" id="Paid" name="StateId" value="1" required /><label class="d-inline-block" for="Paid">
                                 信用卡
                             </label>
                         </div>
@@ -72,12 +87,24 @@
                             }
                         </ul>
                     </div>
+                    <div class="cart__btn update__btn" id="ordercheckcodebtns">
+                        <!-- Button trigger modal -->
+                        <a href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Discount Code</a>
+                        <a href="@Url.Action("Index","Home")"><span class="icon_loading"></span>Continue Shopping</a>
+                    </div>
+                    <div class="discount__content">
+                        <h6>Discount codes</h6>
+                        <div id="codesection">
+                            <input type="text" placeholder="Enter your coupon code" id="discountCode">
+                            <input type="text" placeholder="Discount Rate:" id="discountRate" class="d-none">
+                            <button class="site-btn" onclick="compareCode()" id="codebtn">Apply</button>
+                        </div>
+                    </div>
                     <div class="checkout__order__total">
                         <ul>
-                            <li>
-                                Total
-                                <span>$@ViewBag.Total</span>
-                            </li>
+                            <li>Total<span class="cart__total">$@ViewBag.Total</span></li>
+                            <li class="d-none" id="CartDiscountRateLi">Discount Rate<span class="discounted_price" id="CartDiscountRate"></span></li>
+                            <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice"></span></li>
                         </ul>
                     </div>
                     <button type="submit" class="site-btn">Place order</button>
@@ -86,6 +113,92 @@
         </div>
     </div>
 </form>
-<div>
-    @Html.ActionLink("Back to List", "Index")
+
+<!-- Modal -->
+<div class="modal fade" id="couponModalCenter" tabindex="-1" role="dialog" aria-labelledby="couponModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Coupon Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">CouponCode</th>
+                            <th scope="col">Discount Rate</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">Expire Date</th>
+                            <th scope="col">Click to Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < ViewBag.CouponCode.Count; i++)
+                        {
+                            <tr>
+                                <th scope="row">@ViewBag.CouponCode[i]</th>
+                                <td>@((1-ViewBag.Discount[i])*100)% OFF</td>
+                                <td>@ViewBag.StartTime[i]</td>
+                                <td>@ViewBag.EndTime[i]</td>
+                                <td><button type="button" class="btn btn-outline-secondary" id="@ViewBag.CouponCode[i]+@ViewBag.Discount[i]" onclick="UseCoupon(event)">Use</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section endJS{
+    <script type="text/javascript">
+        function UseCoupon(event) {
+            let couponCode = (event.target.id);
+            document.getElementById("discountCode").value = couponCode.split('+')[0];
+            document.getElementById("discountRate").value = couponCode.split('+')[1];
+            $('#couponModalCenter').modal('hide');
+        }
+        function compareCode() {
+            let discountCode = document.getElementById("discountCode").value;
+            let discountRate = document.getElementById("discountRate").value;
+            let CartDiscountRate = document.getElementById("CartDiscountRate");
+            let CartDiscountRateLi = document.getElementById("CartDiscountRateLi");
+            let CartDiscountPrice = document.getElementById("CartDiscountPrice");
+            let CartDiscountPriceLi = document.getElementById("CartDiscountPriceLi");
+            let cart_total = document.querySelectorAll('.cart__total');
+            let CouponCode = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CouponCode));
+            let Discount = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.Discount));
+
+            if (CouponCode.includes(discountCode)) {
+                Swal.fire("成功使用 " + discountCode + " 優惠碼!", "你的血液中有客家因子!", "success");
+                event.preventDefault();
+                if (discountRate == "") {
+                    let number = CouponCode.findIndex(x => x == discountCode);
+                    discountRate = Discount[number];
+                    CartDiscountRate.innerText = "x" + discountRate;
+                }                
+                let number = CouponCode.findIndex(x => x == discountCode);
+                discountRate = Discount[number];
+                CartDiscountRate.innerText = "x" + discountRate;
+                CartDiscountRateLi.setAttribute("class", "d-block");
+                CartDiscountPriceLi.setAttribute("class", "d-block");
+                cart_total[cart_total.length - 1].setAttribute("style", "color:rgba(0,0,0,0.3);text-decoration:line-through;");
+                CartDiscountPrice.innerText = "$" + Math.ceil(@ViewBag.Total * parseFloat(discountRate));
+            } else {
+                Swal.fire("失敗!", "查無" + discountCode + "此優惠碼" + ",或請輸入優惠碼", "warning");
+                event.preventDefault();
+                CartDiscountRateLi.setAttribute("class", "d-none");
+                CartDiscountRate.innerText = "";
+                CartDiscountPriceLi.setAttribute("class", "d-none");
+                CartDiscountPrice.innerText = "";
+                cart_total[cart_total.length - 1].setAttribute("style", "color:#ca1515;text-decoration:none;");
+            }
+        }
+    </script>
+}

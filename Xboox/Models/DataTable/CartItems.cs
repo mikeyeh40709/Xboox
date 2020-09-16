@@ -16,9 +16,6 @@ namespace Xboox.Models.DataTable
 
         public Guid Id { get; set; }
 
-        [StringLength(50)]
-        public string UserNameCheckId { get; set; }
-
         public virtual Cart Cart { get; set; }
 
         public virtual Product Product { get; set; }

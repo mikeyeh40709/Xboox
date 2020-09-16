@@ -37,7 +37,8 @@ namespace Xboox
             bundles.Add(new ScriptBundle("~/bundles/CustomJS").Include(
                       "~/Assets/JavaScript/Custom/HomePage/HomePage.js",
                       "~/Assets/JavaScript/Custom/CartPage/set_to_local_storage.js",
-                      "~/Assets/JavaScript/Custom/CartPage/shop-cart.js"
+                      "~/Assets/JavaScript/Custom/CartPage/shop-cart.js",
+                      "~/Assets/JavaScript/Custom/OrderPage/modal.js"
                 ));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Assets/CSS/Origin/Content/bootstrap.css",
@@ -55,7 +56,9 @@ namespace Xboox
                       "~/Assets/TemplateCSS/font-awesome.min.css"
                 ));
             bundles.Add(new StyleBundle("~/bundles/CustomCSS").Include(
-                      "~/Assets/CSS/Custom/HomePage/HomePage.css"
+                      "~/Assets/CSS/Custom/HomePage/HomePage.css",
+                      "~/Assets/CSS/Custom/OrderPage/CustomOrder.css",
+                      "~/Assets/CSS/Custom/CartPage/shop-cart.min.css"
                 ));
         }
     }

@@ -122,7 +122,6 @@ function renewNavbar() {
 //1.  .header span.icon_bag_alt    /Cart/AddToCart
 //ajax  post type 
 ajaxFun('.header span.icon_bag_alt', '/Cart/AddToCart');
-ajaxFun('.shop-cart .primary-btn', '/Order/SaveCart');
 
 function ajaxFun(clickName, ajaxUrl) {
     $(clickName).click(function (e) {
@@ -150,7 +149,7 @@ function swal(getProductName, img_link) {
     Swal.fire({
         title: `${getProductName}`,
         html: `${swal_html}`,
-        imageUrl: `/Assets/Image/Pics/${img_link}.jpg`,
+        imageUrl: `${img_link}`,
         imageWidth: 200,
         imageHeight: 200,
         imageAlt: 'Image Broken',

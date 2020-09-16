@@ -27,12 +27,12 @@
                 <div class="product__details__pic">
                     <div class="product__details__pic__left product__thumb nice-scroll">
                         <a class="pt active" href="#product-1">
-                            <img src="~/Assets/Image/Pics/@(Model.ImgLinks[0]).jpg" alt="">
+                            <img src="@(Model.ImgLinks[0])" alt="">
                         </a>
                         @for (var i = 1; i < Model.ImgLinks.Count(); i++)
                         {
                             <a class="pt" href="#product-@(i+1)">
-                                <img src="~/Assets/Image/Pics/@(Model.ImgLinks[i]).jpg" alt="">
+                                <img src="@(Model.ImgLinks[i])" alt="">
                             </a>
                         }
                     </div>
@@ -40,7 +40,7 @@
                         <div class="product__details__pic__slider owl-carousel">
                             @for (var i = 0; i < Model.ImgLinks.Count(); i++)
                             {
-                                <img data-hash="product-@(i+1)" class="product__big__img" src="~/Assets/Image/Pics/@(Model.ImgLinks[i]).jpg" alt="">
+                                <img data-hash="product-@(i+1)" class="product__big__img" src="@(Model.ImgLinks[i])" alt="">
                             }
                         </div>
                     </div>

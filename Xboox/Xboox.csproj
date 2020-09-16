@@ -186,7 +186,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\BookCategoryController.cs" />
-    <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -655,7 +654,6 @@
     <Content Include="Views\Order\CreditDetail.cshtml" />
     <Content Include="Views\Shared\_SidebarSuggestion.cshtml" />
     <Content Include="Views\BookCategory\FilterBooks.cshtml" />
-    <Content Include="Views\Coupon\ShowCoupon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

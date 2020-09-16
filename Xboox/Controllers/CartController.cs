@@ -43,11 +43,6 @@ namespace Xboox.Controllers
         }
         public ActionResult ShopCart()
         {
-            var CouponDetails = context.Coupons.ToList();
-            ViewBag.CouponCode = CouponDetails.Select(x => x.CouponCode).ToList();
-            ViewBag.Discount = CouponDetails.Select(x => Convert.ToDouble(x.Discount)).ToList();
-            ViewBag.StartTime = CouponDetails.Select(x => x.StartTime.ToString("yyyy/MM/dd")).ToList();
-            ViewBag.EndTime = CouponDetails.Select(x => x.EndTime.ToString("yyyy/MM/dd")).ToList();
             var cart = new ShoppingCartManage();
             return View(cart.GetCartItems(this.HttpContext));
         }

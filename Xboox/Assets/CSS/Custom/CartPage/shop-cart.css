@@ -1,19 +1,4 @@
-﻿/*---------------------
-  Shop Cart
------------------------*/
-/*table {
-        thead {
-            th {
-                font-size: 10px;
-            }
-        }
-    }
-
-    .cart__product__item {
-        width: 10%;
-    }
-}*/
-.shop-cart {
+﻿.shop-cart {
   padding-top: 70px;
   padding-bottom: 90px; }
 
@@ -184,10 +169,10 @@
       .cart__total__procced ul li span {
         color: #ca1515;
         float: right; }
-        .cart__total__procced ul li span::before {
-          content: "$"; }
+      .cart__total__procced ul li:first-child span::before {
+        content: "$"; }
       .cart__total__procced ul li:last-child span::before {
-        content: ""; }
+        content: "$"; }
   .cart__total__procced .primary-btn {
     display: block;
     border-radius: 50px;

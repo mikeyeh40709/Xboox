@@ -69,7 +69,7 @@ let changeCount = () => {
         total_function();
     }
 }
-////coupon price fun
+//coupon price fun
 //using btn_open_close to control discounted's price . 
 //let btn_poen_close = false;
 //let coupon_function = () => {
@@ -92,10 +92,4 @@ if (cart_count.length > 0) {
     //coupon_function();
 }
 
-function UseCoupon(event) {
-    let couponCode = (event.target.id);
-    document.getElementById("discountCode").value = couponCode.split('+')[0];
-    document.getElementById("discountRate").value = couponCode.split('+')[1];
-    $('#couponModalCenter').modal('hide');
-}
 
