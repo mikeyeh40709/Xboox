@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Xboox.ViewModels.CartViewModel>
-
 @{
     ViewBag.Title = "CreateOrder";
     decimal total = 0m;
@@ -22,10 +21,22 @@
                             <input type="text" name="PurchaserName" required>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="checkout__form__input">
+                            <p>City <span>*</span></p>
+                            <input type="text" name="City" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="checkout__form__input">
+                            <p>Area <span>*</span></p>
+                            <input type="text" name="District" required>
+                        </div>
+                    </div>
                     <div class="col-lg-12">
                         <div class="checkout__form__input">
-                            <p>Address <span>*</span></p>
-                            <input type="text" placeholder="請輸入地址" name="PurchaserAddress" required>
+                            <p>Road <span>*</span></p>
+                            <input type="text" name="Road" required>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -40,19 +51,48 @@
                             <input type="email" name="PurchaserEmail" required>
                         </div>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-6 col-12">
                         <div class="checkout__form__checkbox">
-                            <input type="radio" id="Unpaid" name="StateId" value="0" required/><label class="d-inline" for="Unpaid">
-                                貨到付款
-                            </label>
-                            <input type="radio" id="Paid" name="StateId" value="1" required/><label class="d-inline-block" for="Paid">
-                                信用卡
-                            </label>
+                            <p class="text-dark mb-2">選擇付款方式 <span>*</span></p>
+                            <div>
+                                <label for="COD">
+                                    貨到付款
+                                    <input type="radio" id="COD" name="Payment" value="COD">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="Credit">
+                                    信用卡
+                                    <input type="radio" id="Credit" name="Payment" value="Credit">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="BarCode">
+                                    超商條碼
+                                    <input type="radio" id="BarCode" name="Payment" value="BarCode">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="CVS">
+                                    超商繳費
+                                    <input type="radio" id="CVS" name="Payment" value="CVS">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="checkout__form__checkbox">
+                            <p class="text-dark mb-2">是否要記住訂單資訊 <span>*</span></p>
+                            <div>
+                                <label for="Remember">
+                                    記住我
+                                    <input type="checkbox" id="Remember" name="Remember" value="true">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 position-relative">
                 <div class="checkout__order">
                     <h5>Your order</h5>
                     <div class="checkout__order__product">
@@ -86,6 +126,20 @@
         </div>
     </div>
 </form>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script>
+    window.addEventListener("load", function () {
+
+        let form = $("form.checkout__form");
+
+        console.log(form.attr('action'));
+        let state = $("input[name='Payment']");
+        state.on("change", function () {
+            if ($(this).val() == "COD") {
+                form.attr('action', "/Order/CreateOrder")
+            } else {
+                form.attr('action', "/Order/PostToECPay")
+            }
+        })
+
+    })
+</script>
