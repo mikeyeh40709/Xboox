@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Xboox.ViewModels.OrderViewModel>
 @{
     ViewBag.Title = "Order";
+
 }
 <div class="container-fluid">
     <div class="row">
@@ -12,7 +13,7 @@
                     <div class="row">
                         @foreach (var item in Model)
                         {
-                            if (item.StateId != ViewBag.Cancel)
+                            if (item.Build)
                             {
                                 <div class="col-lg-4 col-12  mb-2">
                                     <div class="card" style="min-height: 300px; height:100%;">
@@ -24,9 +25,10 @@
                                                 <p class="m-0"><span class="font-weight-bold">地址:</span><span class="ml-2">@item.PurchaserAddress</span></p>
                                                 <p class="m-0"><span class="font-weight-bold">Email:</span><span class="ml-2">@item.PurchaserEmail</span></p>
                                                 <p class="m-0"><span class="font-weight-bold">電話:</span><span class="ml-2">@item.PurchaserPhone</span></p>
+                                                <p class="m-0"><span class="font-weight-bold">付款方式: </span><span class="ml-2">@item.Payment</span></p>
                                                 <p>
                                                     狀態:
-                                                    @if (item.StateId == ViewBag.Unpaid)
+                                                    @if (!item.Paid)
                                                     {
                                                         <span class="text-danger">未付款</span>
                                                     }
@@ -38,7 +40,7 @@
                                             </div>
                                             <div class="card-end">
                                                 <button class="site-btn bg-info mx-1" id="@item.OrderId" data-toggle="modal" data-target="#orderDetails">查看明細</button>
-                                                @if (item.StateId == ViewBag.Unpaid)
+                                                @if (item.Build)
                                                 {
                                                     <button class="site-btn mx-1" id="@item.OrderId" data-toggle="modal" data-target="#deleteOrder">取消訂單</button>
                                                 }
