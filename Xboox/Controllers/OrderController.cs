@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Xboox.Models.DataTable;
 using Xboox.Models.Services;
 using Xboox.Services;
 using Xboox.ViewModels;
@@ -79,7 +80,7 @@ namespace Xboox.Controllers
             ViewBag.Discount = CouponDetails.Select(x => Convert.ToDouble(x.Discount)).ToList();
             ViewBag.StartTime = CouponDetails.Select(x => x.StartTime.ToString("yyyy/MM/dd")).ToList();
             ViewBag.EndTime = CouponDetails.Select(x => x.EndTime.ToString("yyyy/MM/dd")).ToList();
-            ShoppingCartManage shopCart = new ShoppingCartManage();
+            ShoppingCartService shopCart = new ShoppingCartService();
             var cartItems = shopCart.GetCartItems(this.HttpContext);
             return View(cartItems);
         }

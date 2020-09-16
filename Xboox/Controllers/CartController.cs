@@ -50,7 +50,7 @@ namespace Xboox.Controllers
         }
         public ActionResult ShopCart()
         {
-            var cart = new ShoppingCartManage();
+            var cart = new ShoppingCartService();
             return View(cart.GetCartItems(this.HttpContext));
         }
         public ActionResult EmptyCart(string id)
