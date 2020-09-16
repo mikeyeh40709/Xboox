@@ -25,6 +25,7 @@ namespace XbooxCMS.Controllers
         
         // GET: Product
         private XbooxContext context;
+  
         //private static string GetImg(HttpSessionStateBase httpContext)
         //{
         //    HttpSessionState session = HttpContext.Current.Session;
@@ -136,8 +137,7 @@ namespace XbooxCMS.Controllers
         public ActionResult Create()
         {
             var service = new ProductService();
-            //var tagList = service.GetTags();
-            //var cateList = service.GetCatecory();
+          
             var viewModels = new CreateListViewModel()
             {
                 Tags = service.GetTags(),
@@ -166,24 +166,32 @@ namespace XbooxCMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateViewModel createViewModel)
+        public ActionResult Create(CreateDataModel createDataModel)
         {
-          
-            var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId));
-    
 
-            createViewModel.Tags = GetAllTags();
-          //  ViewModel.SelectedTags = selectedTags;
+            //var selectedTags = GetAllTags().Where(t => createViewModel.PostedTagIds.Contains(t.TagId));
+
+
+            //createViewModel.Tags = GetAllTags();
+            //  ViewModel.SelectedTags = selectedTags;
+            var service = new ProductService();
 
             if (!ModelState.IsValid)
             {
+                //建立失敗
                 return RedirectToAction("Index", "Home");
             }
-            createViewModel.Products.ProductId = Guid.NewGuid();
+
+
+            service.Create(createDataModel);
+
+
+
+
+
+
+           // createViewModel.Products.ProductId = Guid.NewGuid();
           
-         //   Debug.WriteLine(createViewModel.Products.Description);
-          //  createViewModel.Products.Description = HttpUtility.HtmlDecode(createViewModel.Products.Description);
-          //  Debug.WriteLine(createViewModel.Products.Description);
 
             //for (var i =0;i <fileNameList.Count();i++ )
             //{
@@ -197,14 +205,14 @@ namespace XbooxCMS.Controllers
             //    }
             //}
 
-            PutImgs(createViewModel.Products);
+          //  PutImgs(createViewModel.Products);
             
-            context.Product.Add(createViewModel.Products);
+           // context.Product.Add(createViewModel.Products);
           
-            AddedTag(createViewModel.Products, createViewModel.PostedTagIds, createViewModel.ProductTags);
+           // AddedTag(createViewModel.Products, createViewModel.PostedTagIds, createViewModel.ProductTags);
             
 
-            context.SaveChanges(); 
+         //   context.SaveChanges(); 
 
             return RedirectToAction("Index","Product");
         }
@@ -291,11 +299,12 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
-            //var service = new Services.ProductService();
-            //var getproduct = service.GetSingleProduct(id);
-            var product = context.Product.FirstOrDefault(p => p.ProductId == id);
+            //Application["Id"] = 123
+            var service = new ProductService();
+            var getproduct = service.GetSingleProduct(id);
+           //var product = context.Product.FirstOrDefault(p => p.ProductId == id);
           
-            if (product == null)
+            if (getproduct == null)
             {
 
                 return HttpNotFound();
@@ -303,51 +312,46 @@ namespace XbooxCMS.Controllers
             }
             else
             {
-                List<Tags> TagList = new List<Tags>();
-                //var viewmodel = new CreateListViewModel();
-                //viewmodel.Author= getproduct.Author;
-                //viewmodel.CategoryId = getproduct.CategoryId;
-                //viewmodel.Intro = getproduct.Intro;
-                //viewmodel.Name = getproduct.Name;
-                //viewmodel.Price = getproduct.Price;
-                //viewmodel.UnitInStock = getproduct.UnitInStock;
-                //viewmodel.Specification = getproduct.Specification;
-                //viewmodel.PublishedDate = getproduct.PublishedDate;
-                //viewmodel.Publisher = getproduct.Publisher;
-                //viewmodel.ProductImgId = viewmodel.ProductImgId;
-                //viewmodel.ISBN = getproduct.ISBN;
-                //viewmodel.Description = getproduct.Description;
+                //List<Tags> TagList = new List<Tags>();
+                //List<TagViewModel> TagLists = new List<TagViewModel>();
+                var viewmodel = new CreateListViewModel();
+                viewmodel.ProductId = getproduct.ProductId;
+                viewmodel.Author = getproduct.Author;
+                viewmodel.CategoryId = getproduct.CategoryId;
+                viewmodel.Intro = getproduct.Intro;
+                viewmodel.Name = getproduct.Name;
+                viewmodel.Price = getproduct.Price;
+                viewmodel.UnitInStock = getproduct.UnitInStock;
+                viewmodel.Specification = getproduct.Specification;
+                viewmodel.PublishedDate = getproduct.PublishedDate;
+                viewmodel.Publisher = getproduct.Publisher;
+                viewmodel.ProductImgId = viewmodel.ProductImgId;
+                viewmodel.ISBN = getproduct.ISBN;
+                viewmodel.Description = getproduct.Description;
+                viewmodel.Tags = service.GetTags();
+                viewmodel.CategoryViewModels = service.GetCatecory();
 
-                //viewmodel.Tags = service.GetTags();
-                //viewmodel.CategoryViewModels = service.GetCatecory();
-
-                //var temps = context.ProductTags.Where(x => x.ProductId == getproduct.ProductId).Select(x => x.TagId).ToList();
-                //foreach (var t in temps)
-                //{
-
-                //    TagList.Add(new Tags() { TagId = (Guid)t, TagName = context.Tags.Where(x => x.TagId == t).Select(x => x.TagName).FirstOrDefault() });
-                //    Debug.WriteLine(t);
-                //};
+                var tagLists = service.GetSelectedTags(getproduct);
+                viewmodel.SelectedTags = tagLists;
 
 
 
-
-                var viewModels = new CreateViewModel();
-                viewModels.Products = product;
-                viewModels.Tags = context.Tags.ToList();
-                viewModels.Categories = context.Category.ToList();
+                //var viewModels = new CreateViewModel();
+                //viewModels.Products = product;
+                //viewModels.Tags = context.Tags.ToList();
+                //viewModels.Categories = context.Category.ToList();
          
-                var temp = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => x.TagId).ToList();
-                //找到本來被選中的tag
-                foreach (var t in temp)
-                {
+                //var temp = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => x.TagId).ToList();
+                ////找到本來被選中的tag
+                //foreach (var t in temp)
+                //{
                     
-                   TagList.Add(new Tags() { TagId= (Guid)t,TagName = context.Tags.Where(x=>x.TagId==t).Select(x=>x.TagName).FirstOrDefault()});
-                 Debug.WriteLine(t);
-                };
-                viewModels.SelectedTags = TagList;
+                //   TagList.Add(new Tags() { TagId= (Guid)t,TagName = context.Tags.Where(x=>x.TagId==t).Select(x=>x.TagName).FirstOrDefault()});
+                // Debug.WriteLine(t);
+                //};
+                //viewModels.SelectedTags = TagList;
 
-                return View(viewModels);
+                return View(viewmodel);
 
             }
 
@@ -357,39 +361,45 @@ namespace XbooxCMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CreateViewModel ViewModel)
+        public ActionResult Edit(CreateDataModel DataModel)
         {
+
+            var service = new ProductService();
+            
             if (!ModelState.IsValid)
             {
                 Debug.WriteLine("Wrong");
                 return RedirectToAction("Index", "Product");
             }
-            var selectedTags = GetAllTags().Where(t => ViewModel.PostedTagIds.Contains(t.TagId));
+
+            service.Edit(DataModel);
+
+          //  var selectedTags = GetAllTags().Where(t => ViewModel.PostedTagIds.Contains(t.TagId));
 
             //reload
-            ViewModel.Tags = GetAllTags();
+         //   ViewModel.Tags = GetAllTags();
            // ViewModel.SelectedTags = selectedTags;
 
-            var  productInDb = context.Product.Single(c => c.ProductId == ViewModel.Products.ProductId);
-            productInDb.Name = ViewModel.Products.Name;
-            productInDb.Price = ViewModel.Products.Price;
-            productInDb.Description = ViewModel.Products.Description;
-            productInDb.CategoryId = ViewModel.Products.CategoryId;
-            productInDb.Publisher = ViewModel.Products.Publisher;
-            productInDb.PublishedDate = ViewModel.Products.PublishedDate;
-            productInDb.UnitInStock = ViewModel.Products.UnitInStock;
-            productInDb.Specification = ViewModel.Products.Specification;
+           // var  productInDb = context.Product.Single(c => c.ProductId == ViewModel.Products.ProductId);
+            //productInDb.Name = ViewModel.Products.Name;
+            //productInDb.Price = ViewModel.Products.Price;
+            //productInDb.Description = ViewModel.Products.Description;
+            //productInDb.CategoryId = ViewModel.Products.CategoryId;
+            //productInDb.Publisher = ViewModel.Products.Publisher;
+            //productInDb.PublishedDate = ViewModel.Products.PublishedDate;
+            //productInDb.UnitInStock = ViewModel.Products.UnitInStock;
+            //productInDb.Specification = ViewModel.Products.Specification;
 
 
             //  productInDb.ProductImgId = ViewModel.Products.ProductImgId;
-            PutImgs(ViewModel.Products);
-            AddedTag(ViewModel.Products, ViewModel.PostedTagIds, ViewModel.ProductTags);
+          //  PutImgs(ViewModel.Products);
+           // AddedTag(ViewModel.Products, ViewModel.PostedTagIds, ViewModel.ProductTags);
             //productInDb.ProductTags = ViewModel.Products.ProductTags;
             
-            productInDb.Language = ViewModel.Products.Language;
-            productInDb.Intro = ViewModel.Products.Intro;
+          //  productInDb.Language = ViewModel.Products.Language;
+         //   productInDb.Intro = ViewModel.Products.Intro;
      
-            context.SaveChanges();
+          //  context.SaveChanges();
             return RedirectToAction("Index", "Product"); ;
         }
 
@@ -410,37 +420,40 @@ namespace XbooxCMS.Controllers
         //[HttpDelete]
         public ActionResult Delete(Guid id)
         {
-            Product product = context.Product.SingleOrDefault(p => p.ProductId == id);
-            var tags = context.ProductTags.Where(p => p.ProductId == id);
-            var imgs = context.ProductImgs.Where(p => p.ProductId == id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                if (imgs != null)
-                {
-                    foreach (var i in imgs)
-                    {
-                        context.ProductImgs.Remove(i);
-                    }
-                }
-                if (tags != null)
-                {
-                    foreach (var i in tags)
-                    {
-                        context.ProductTags.Remove(i);
-                    }
-                }
-                //刪除product 刪除 tag
+
+            var service = new ProductService();
+            service.Delete(id);
+            //Product product = context.Product.SingleOrDefault(p => p.ProductId == id);
+            //var tags = context.ProductTags.Where(p => p.ProductId == id);
+            //var imgs = context.ProductImgs.Where(p => p.ProductId == id);
+            //if (product == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //else
+            //{
+            //    if (imgs != null)
+            //    {
+            //        foreach (var i in imgs)
+            //        {
+            //            context.ProductImgs.Remove(i);
+            //        }
+            //    }
+            //    if (tags != null)
+            //    {
+            //        foreach (var i in tags)
+            //        {
+            //            context.ProductTags.Remove(i);
+            //        }
+            //    }
+            //    //刪除product 刪除 tag
                 
-                context.Product.Remove(product);
-                context.SaveChanges();
+            //    context.Product.Remove(product);
+            //    context.SaveChanges();
                 return RedirectToAction("Index","Product");
             }
            
-        }
+        
 
 
         /// <summary>
@@ -540,7 +553,7 @@ namespace XbooxCMS.Controllers
 
                 var imageEndpoint = new ImageEndpoint(apiClient, httpClient);
                 var imageUpload = await imageEndpoint.UploadImageAsync(File.InputStream);
-                GetImg().Add(imageUpload.Link);
+                ProductService.GetImg().Add(imageUpload.Link);
 
 
                 //ViewBag.List = fileNameCollection;

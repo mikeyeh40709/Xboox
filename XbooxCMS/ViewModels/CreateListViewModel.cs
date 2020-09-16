@@ -37,12 +37,15 @@ namespace XbooxCMS.ViewModels
 
             public string Intro { get; set; }
 
+            public string Language { get; set; }
+
             [System.Web.Mvc.AllowHtml]
             public string Description { get; set; }
             public Guid CategoryId { get; set; }
 
-            //Product
-        
+             public Guid ProductId { get; set; }
+        //Product
+
 
         public   IEnumerable<CategoryViewModel> CategoryViewModels { get; set; }
 
@@ -59,10 +62,10 @@ namespace XbooxCMS.ViewModels
         //CheckBoxList的名稱，也是被勾選資料Post回Server時Data binding之目標物件
         public List<Guid> PostedTagIds { get; set; }
 
-
+  
         public class CategoryViewModel
         {
-            public string CategorName { get; set; }
+            public string Name { get; set; }
 
             public Guid CategoryId { get; set; }
         }

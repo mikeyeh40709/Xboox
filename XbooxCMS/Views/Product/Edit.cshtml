@@ -1,4 +1,4 @@
-﻿@model XbooxCMS.ViewModels.CreateViewModel
+﻿@model XbooxCMS.ViewModels.CreateListViewModel
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,33 +21,34 @@
             <div class="card-body">
                 <h2 class="title">Edit Product</h2>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <input id="Id" name="Id" type="hidden" value=@Model.Products.ProductId>
+                <input id="Id" name="Id" type="hidden" value=@Model.ProductId>
 
-                @Html.HiddenFor(m => m.Products.ProductId)
-                <div class="row row-space">
-                    <div class="col-6">
-                        <div class="input-group">
-                            <label class="label">Product Name</label>
-                            @*<input class="input-style-4" type="text" name="first_name">*@
-                            @Html.TextBoxFor(m => m.Products.Name, new { @class = "input-style-4 l-width", placeholder = "請輸入50字以內產品名稱" })
-                            @Html.ValidationMessageFor(m => m.Products.Name)
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="input-group">
-                            <label class="label">Product Price</label>
-                            @*<input class="input-style-4" type="text" name="last_name">*@
-                            @Html.TextBoxFor(m => m.Products.Price, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
-                            @Html.ValidationMessageFor(m => m.Products.Price)
-                        </div>
+                @Html.HiddenFor(m => m.ProductId)
+            <div class="row row-space">
+            
+                <div class="col-6">
+                    <div class="input-group">
+                        <label class="label">Product Name</label>
+                        @*<input class="input-style-4" type="text" name="first_name">*@
+                        @Html.TextBoxFor(m => m.Name, new { @class = "input-style-4 l-width", placeholder = "請輸入50字以內產品名稱" })
+                        @Html.ValidationMessageFor(m => m.Name)
                     </div>
                 </div>
+                <div class="col-6">
+                    <div class="input-group">
+                        <label class="label">Product Price</label>
+                        @*<input class="input-style-4" type="text" name="last_name">*@
+                        @Html.TextBoxFor(m => m.Price, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
+                        @Html.ValidationMessageFor(m => m.Price)
+                    </div>
+                </div>
+            </div>
                 <div class="row row-space">
                     <div class="col-6">
                         <div class="input-group">
                             <label class="label">UnitInStock</label>
-                            @Html.TextBoxFor(m => m.Products.UnitInStock, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
-                            @Html.ValidationMessageFor(m => m.Products.UnitInStock)
+                            @Html.TextBoxFor(m => m.UnitInStock, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.UnitInStock)
                         </div>
                     </div>
 
@@ -55,8 +56,8 @@
                         <div class="input-group">
                             <label class="label">PublishedDate</label>
                             <div class="input-group-icon">
-                                @Html.TextBoxFor(m => m.Products.PublishedDate, "{0:2020-MM-dd}", new { type = "date", @class = "input-style-4 l-width" })
-                                @Html.ValidationMessageFor(m => m.Products.PublishedDate)
+                                @Html.TextBoxFor(m => m.PublishedDate, "{0:2020-MM-dd}", new { type = "date", @class = "input-style-4 l-width" })
+                                @Html.ValidationMessageFor(m => m.PublishedDate)
                             </div>
                         </div>
 
@@ -66,31 +67,31 @@
                     <div class="col-6">
                         <div class="input-group">
                             <label class="label">Author</label>
-                            @Html.TextBoxFor(m => m.Products.Author, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
-                            @Html.ValidationMessageFor(m => m.Products.Author)
+                            @Html.TextBoxFor(m => m.Author, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Author)
                         </div>
                     </div>
 
                     <div class="col-6">
                         <div class="input-group">
                             <label class="label">Language</label>
-                            @Html.TextBoxFor(m => m.Products.Language, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
-                            @Html.ValidationMessageFor(m => m.Products.Language)
+                            @Html.TextBoxFor(m => m.Language, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Language)
                         </div>
                     </div>
 
                     <div class="col-6">
                         <div class="input-group">
                             <label class="label">Intro</label>
-                            @Html.TextBoxFor(m => m.Products.Intro, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
-                            @Html.ValidationMessageFor(m => m.Products.Intro)
+                            @Html.TextBoxFor(m => m.Intro, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Intro)
                         </div>
                     </div>
 
                     <div class="col-6">
                         <div class="input-group">
                             <label class="label">Category</label>
-                            @Html.DropDownListFor(m => m.Products.CategoryId, new SelectList(Model.Categories, "CategoryId", "Name"), new { @class = "input-style-4 l-width l-height" })
+                            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryViewModels, "CategoryId", "Name"), new { @class = "input-style-4 l-width l-height" })
                         </div>
                     </div>
                     <div class="col-6 ">
@@ -110,15 +111,15 @@
                     <div class="col-6">
                         <div class="input-group">
                             <label class="label">Spec</label>
-                            @Html.TextBoxFor(m => m.Products.Specification, new { @class = "input-style-4 l-width ", placeholder = "placeholder" })
-                            @Html.ValidationMessageFor(m => m.Products.Specification)
+                            @Html.TextBoxFor(m => m.Specification, new { @class = "input-style-4 l-width ", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Specification)
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-group">
                             <label class="label">ISBN</label>
-                            @Html.TextBoxFor(m => m.Products.ISBN, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
-                            @Html.ValidationMessageFor(m => m.Products.ISBN)
+                            @Html.TextBoxFor(m => m.ISBN, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.ISBN)
                         </div>
                     </div>
                     <div class="col-6">
@@ -137,7 +138,7 @@
                         </div>
                     </div>
                     <div class="col-12 ">
-                        @Html.TextAreaFor(m => m.Products.Description, new { @id = "summernote" })
+                        @Html.TextAreaFor(m => m.Description, new { @id = "summernote" })
                     </div>
 
 

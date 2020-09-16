@@ -13,7 +13,7 @@ namespace XbooxLibrary.Services
     public class ProductService
     {
         private static List<string> ImgstringList = null;
-        private static List<string> GetImg()
+        public static List<string> GetImg()
         {
             if (ImgstringList == null)
             {
@@ -76,16 +76,17 @@ namespace XbooxLibrary.Services
                     Language = input.Language,
                     UnitInStock = input.UnitInStock,
                     PublishedDate = input.PublishedDate,
-                    Description = input.Description
-
+                    Description = input.Description,
+                    Price = input.Price
                 };
                 PutImgs(entity);
                 //加入Img
                 repository.Create(entity);
-
+                repository.SaveContext();
                 //加入tag
                 AddedTag(entity, input.PostedTagIds);
-                repository.SaveContext();
+                //context.SaveChanges();
+               // repository.SaveContext();
 
                 result.IsSuccessful = true;
             }
@@ -105,7 +106,7 @@ namespace XbooxLibrary.Services
 
             var cateList = Categoryrepository.GetAll().Select(item => new CreateListViewModel.CategoryViewModel
             {
-                CategorName = item.Name,
+                Name = item.Name,
                 CategoryId = item.CategoryId
 
 
@@ -130,6 +131,35 @@ namespace XbooxLibrary.Services
         }
 
 
+    //    var temps = context.ProductTags.Where(x => x.ProductId == getproduct.ProductId).Select(x => x.TagId).ToList();
+    //            foreach (var t in temps)
+    //            {
+
+    //                TagLists.Add(new TagViewModel() { TagId = (Guid)t, TagName = context.Tags.Where(x => x.TagId == t).Select(x => x.TagName).FirstOrDefault() });
+    //                Debug.WriteLine(t);
+    //            };
+    //viewmodel.SelectedTags = TagLists;
+        public List<TagViewModel> GetSelectedTags(Product product)
+        {
+            XbooxLibraryDBContext context = new XbooxLibraryDBContext();
+            GeneralRepository<Product> Pdrepository = new GeneralRepository<Product>(context);
+            GeneralRepository<Tags> Tagrepository = new GeneralRepository<Tags>(context);
+            GeneralRepository<ProductTags> ProductTagrepository = new GeneralRepository<ProductTags>(context);
+            List<TagViewModel> TagLists = new List<TagViewModel>();
+            var temps = ProductTagrepository.GetAll().Where(x=>x.ProductId== product.ProductId).Select(x => x.TagId).ToList();
+
+            foreach (var t in temps)
+            {
+
+                TagLists.Add(new TagViewModel() { TagId = (Guid)t, TagName = context.Tags.Where(x => x.TagId == t).Select(x => x.TagName).FirstOrDefault() });
+               
+            };
+            return TagLists;
+        }
+
+
+
+
         public List<ProductListViewModel> GetProducts()
         {
             XbooxLibraryDBContext context = new XbooxLibraryDBContext();
@@ -149,8 +179,8 @@ namespace XbooxLibrary.Services
                UnitInStock = item.UnitInStock,
               Specification = item.Specification,
               ProductId = item.ProductId,
-                Description = item.Description
-
+                Description = item.Description,
+                Language = item.Language
 
             }).ToList();
             return pList;
@@ -173,7 +203,7 @@ namespace XbooxLibrary.Services
             //create
             foreach (var t in SelectedTags)
             {
-                ProductTags entity = new ProductTags()
+                    ProductTags entity = new ProductTags()
                 {
                     ProductId = product.ProductId,
                     TagId = t,
@@ -181,7 +211,7 @@ namespace XbooxLibrary.Services
                 };
 
                 pdtagRepo.Create(entity);
-                //context.ProductTags.Add(tags);
+                //context.ProductTags.Add(entity);
             }
         }
         else
@@ -215,9 +245,15 @@ namespace XbooxLibrary.Services
             }
         }
 
+            pdtagRepo.SaveContext();
+           // context.SaveChanges();
+
+        }
+    
 
 
-    }
+
+
 
     private void PutImgs(Product product)
     {
@@ -240,8 +276,8 @@ namespace XbooxLibrary.Services
         }
 
         ImgstringList = null;
-        Imgrepo.SaveContext();
-    }
+            Imgrepo.SaveContext();
+ }
 
     public OperationResult Edit(CreateDataModel input)
     {
@@ -264,12 +300,15 @@ namespace XbooxLibrary.Services
             productInDb.PublishedDate = input.PublishedDate;
             productInDb.Description = input.Description;
             PutImgs(productInDb);
-            //加入Img
-            repository.Create(productInDb);
+                //加入Img
+            productInDb.ProductImgId = input.ProductImgId;
+             repository.Update(productInDb);
+             repository.SaveContext();
+                //加入tag
+             AddedTag(productInDb, input.PostedTagIds);
 
-            //加入tag
-            AddedTag(productInDb, input.PostedTagIds);
-            repository.SaveContext();
+              //  context.SaveChanges();
+           
 
             result.IsSuccessful = true;
         }

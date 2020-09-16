@@ -35,6 +35,7 @@ namespace XbooxCMS.ViewModels
         public DateTime PublishedDate { get; set; }
 
         public string Intro { get; set; }
+        public string Language{ get; set; }
 
         public Guid CategoryId { get; set; }
 

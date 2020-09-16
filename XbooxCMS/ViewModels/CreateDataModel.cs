@@ -14,7 +14,7 @@ namespace XbooxCMS.ViewModels
 
         public string ISBN { get; set; }
 
-        public int ProductImgId { get; set; }
+        public string ProductImgId { get; set; }
 
         public string Author { get; set; }
 
@@ -30,10 +30,14 @@ namespace XbooxCMS.ViewModels
 
         public string Specification { get; set; }
 
-
+        [System.Web.Mvc.AllowHtml]
         public string Description { get; set; }
 
         public List<Guid> PostedTagIds { get; set; }
+
+        public XbooxLibrary.Models.DataTable.ProductTags ProductTags { get; set; }
+
+
 
 
     }
