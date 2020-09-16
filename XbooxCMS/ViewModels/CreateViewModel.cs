@@ -11,9 +11,11 @@ namespace XbooxCMS.ViewModels
     {
 
         //一般產品欄位
+      
         public Product Products { get; set; }
 
-
+        [System.Web.Mvc.AllowHtml]
+        public string  Description { get; set; }
         //CheckBoxList中的選項清單
         public IEnumerable<Tags> Tags { get; set; }
 

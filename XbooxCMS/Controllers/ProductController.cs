@@ -16,6 +16,7 @@ using System.Net.Http;
 using Imgur.API.Endpoints;
 using static System.Net.WebRequestMethods;
 using System.Threading.Tasks;
+using XbooxLibrary.Services;
 
 namespace XbooxCMS.Controllers
 {
@@ -26,20 +27,27 @@ namespace XbooxCMS.Controllers
         private XbooxContext context;
         //private static string GetImg(HttpSessionStateBase httpContext)
         //{
-        //   //HttpSessionState session = HttpContext.Current.Session;
-        //    var session = httpContext.SessionID;
-         
+        //    HttpSessionState session = HttpContext.Current.Session;
+        //    //var session = httpContext.SessionID;
+
         //    if (session["fileName"] == null)
         //    {
         //        session["fileName"] = "";
         //    }
-            
+
         //    return (string)session["fileName"];
         //}
 
         private static string imgString = null;
         private static List<string> ImgstringList = null;
-       
+        //private static void LoadTempData(this ControllerBase controller)
+        //{
+        //    controller.TempData["ic"] = 5;
+        //}
+        //public static void LoadViewBag(dynamic viewBag)
+        //{
+        //    viewBag.aaa = null;
+        //}
         private static string getImg()
         {
 
@@ -88,27 +96,29 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-        
-            var productList = context.Product.ToList();
-            List<ProductListViewModel> result = new List<ProductListViewModel>();
-            var list = (from p in context.Product
-                       join c in context.Category
-                       on p.CategoryId equals c.CategoryId
-                       select new ProductListViewModel()
-                       {
-                           ProductId = p.ProductId,
-                           Name = p.Name,
-                           UnitInStock = p.UnitInStock,
-                           Price = p.Price,
-                           Publisher = p.Publisher,
-                           Author = p.Author,
-                           PublishedDate = p.PublishedDate,
-                           CategorName = c.Name
-                       }).ToList();
+
+            var service = new ProductService();
+            var pist = service.GetAllProducts();
+          //  var productList = context.Product.ToList();
+            //List<ProductListViewModel> result = new List<ProductListViewModel>();
+            //var list = (from p in context.Product
+            //           join c in context.Category
+            //           on p.CategoryId equals c.CategoryId
+            //           select new ProductListViewModel()
+            //           {
+            //               ProductId = p.ProductId,
+            //               Name = p.Name,
+            //               UnitInStock = p.UnitInStock,
+            //               Price = p.Price,
+            //               Publisher = p.Publisher,
+            //               Author = p.Author,
+            //               PublishedDate = p.PublishedDate,
+            //               CategorName = c.Name
+            //           }).ToList();
                         
 
         
-            return View(list);
+            return View(pist);
         }
 
 
@@ -125,21 +135,33 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
         public ActionResult Create()
         {
-       
+            var service = new ProductService();
+            //var tagList = service.GetTags();
+            //var cateList = service.GetCatecory();
+            var viewModels = new CreateListViewModel()
+            {
+                Tags = service.GetTags(),
+                CategoryViewModels = service.GetCatecory(),
+
+            };
+
+
+
+
+
             //var productsCategory = context.Category.ToList();
             //var Tag = context.Tags.ToList();
-            var viewModel = new CreateViewModel()
-            {
-                Products = new Product(),
-                Categories = context.Category.ToList(),
-              //  Tags = context.Tags.ToList(),
-                SelectedTags = null,
-                
-                Tags = GetAllTags().ToList()
-            };
-            context.SaveChanges();
-           // context.SaveChanges();
-            return View(viewModel);
+            //var viewModel = new CreateViewModel()
+            //{
+            //    Products = new Product(),
+            //    Categories = context.Category.ToList(),
+            //  //  Tags = context.Tags.ToList(),
+            //    SelectedTags = null,
+
+            //    Tags = context.Tags.ToList()
+            //};
+
+            return View(viewModels);
         }
 
         [HttpPost]
@@ -158,9 +180,11 @@ namespace XbooxCMS.Controllers
                 return RedirectToAction("Index", "Home");
             }
             createViewModel.Products.ProductId = Guid.NewGuid();
-        
-       
-         
+          
+         //   Debug.WriteLine(createViewModel.Products.Description);
+          //  createViewModel.Products.Description = HttpUtility.HtmlDecode(createViewModel.Products.Description);
+          //  Debug.WriteLine(createViewModel.Products.Description);
+
             //for (var i =0;i <fileNameList.Count();i++ )
             //{
             //    productImgs.Add(new ProductImgs() { imgLink = fileNameList[i], ProductId = ViewModel.Products.ProductId });
@@ -172,7 +196,7 @@ namespace XbooxCMS.Controllers
             //        productImgs.Add(new ProductImgs() { imgLink = i, ProductId = ViewModel.Products.ProductId });
             //    }
             //}
-  
+
             PutImgs(createViewModel.Products);
             
             context.Product.Add(createViewModel.Products);
@@ -182,7 +206,7 @@ namespace XbooxCMS.Controllers
 
             context.SaveChanges(); 
 
-            return RedirectToAction("Create","Product");
+            return RedirectToAction("Index","Product");
         }
 
         /// <summary>
@@ -267,6 +291,8 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
         public ActionResult Edit(Guid id)
         {
+            //var service = new Services.ProductService();
+            //var getproduct = service.GetSingleProduct(id);
             var product = context.Product.FirstOrDefault(p => p.ProductId == id);
           
             if (product == null)
@@ -277,7 +303,35 @@ namespace XbooxCMS.Controllers
             }
             else
             {
-                List<Tags> TagList = new List<Tags>(); 
+                List<Tags> TagList = new List<Tags>();
+                //var viewmodel = new CreateListViewModel();
+                //viewmodel.Author= getproduct.Author;
+                //viewmodel.CategoryId = getproduct.CategoryId;
+                //viewmodel.Intro = getproduct.Intro;
+                //viewmodel.Name = getproduct.Name;
+                //viewmodel.Price = getproduct.Price;
+                //viewmodel.UnitInStock = getproduct.UnitInStock;
+                //viewmodel.Specification = getproduct.Specification;
+                //viewmodel.PublishedDate = getproduct.PublishedDate;
+                //viewmodel.Publisher = getproduct.Publisher;
+                //viewmodel.ProductImgId = viewmodel.ProductImgId;
+                //viewmodel.ISBN = getproduct.ISBN;
+                //viewmodel.Description = getproduct.Description;
+
+                //viewmodel.Tags = service.GetTags();
+                //viewmodel.CategoryViewModels = service.GetCatecory();
+
+                //var temps = context.ProductTags.Where(x => x.ProductId == getproduct.ProductId).Select(x => x.TagId).ToList();
+                //foreach (var t in temps)
+                //{
+
+                //    TagList.Add(new Tags() { TagId = (Guid)t, TagName = context.Tags.Where(x => x.TagId == t).Select(x => x.TagName).FirstOrDefault() });
+                //    Debug.WriteLine(t);
+                //};
+
+
+
+
                 var viewModels = new CreateViewModel();
                 viewModels.Products = product;
                 viewModels.Tags = context.Tags.ToList();
@@ -289,12 +343,12 @@ namespace XbooxCMS.Controllers
                 {
                     
                    TagList.Add(new Tags() { TagId= (Guid)t,TagName = context.Tags.Where(x=>x.TagId==t).Select(x=>x.TagName).FirstOrDefault()});
-                    Debug.WriteLine(t);
+                 Debug.WriteLine(t);
                 };
                 viewModels.SelectedTags = TagList;
 
-
                 return View(viewModels);
+
             }
 
             
@@ -477,13 +531,13 @@ namespace XbooxCMS.Controllers
                 var httpClient = new HttpClient();
 
                 var fileName = files[0].FileName;/*C:\Users\User\source\repos\mikeyeh40709\Xboox\Xboox\Assets\Image\Pics\*/
-             
+               // session["fileName"]=1
              //從這裡開始可以用imgur
-           //  var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
+             //  var path = Path.Combine(Server.MapPath("../Assets/Pics"), fileName);
 
 
-          //   files[0].SaveAs(path);
- 
+                //   files[0].SaveAs(path);
+
                 var imageEndpoint = new ImageEndpoint(apiClient, httpClient);
                 var imageUpload = await imageEndpoint.UploadImageAsync(File.InputStream);
                 GetImg().Add(imageUpload.Link);

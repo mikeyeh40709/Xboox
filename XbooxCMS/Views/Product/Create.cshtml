@@ -1,4 +1,4 @@
-﻿@model XbooxCMS.ViewModels.CreateViewModel
+﻿@model XbooxCMS.ViewModels.CreateListViewModel
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -61,6 +61,14 @@
                         </div>
 
                     </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="label">Publisher</label>
+                            @Html.TextBoxFor(m => m.Products.Publisher, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Products.Publisher)
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row row-space">
                     <div class="col-6">
@@ -135,9 +143,11 @@
                                    data-max-file-size="3MB"
                                    data-max-files="5">
                         </div>
+
+
                     </div>
                     <div class="col-12 ">
-                        @Html.TextAreaFor(m => m.Products.Description, new { @id = "summernote" })
+                        @Html.TextAreaFor(m => m.Description, new { @id= "summernote" })
                     </div>
 
 

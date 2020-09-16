@@ -42,11 +42,13 @@ namespace XbooxCMS.ViewModels
         [StringLength(50)]
         public string CategorName { get; set; }
 
-      
+        public string Specification { get; set; }
+
+        public string Description { get; set; }
         [StringLength(50)]
         public string TagName { get; set; }
-
         
+
         public Guid TagId { get; set; }
 
     }
