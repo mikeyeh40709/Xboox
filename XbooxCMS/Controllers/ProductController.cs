@@ -40,7 +40,7 @@ namespace XbooxCMS.Controllers
         //}
 
         private static string imgString = null;
-        private static List<string> ImgstringList = null;
+        //private static List<string> ImgstringList = null;
         //private static void LoadTempData(this ControllerBase controller)
         //{
         //    controller.TempData["ic"] = 5;
@@ -67,14 +67,14 @@ namespace XbooxCMS.Controllers
             return imgString;
         }
 
-        private static List<string> GetImg()
-        {
-            if (ImgstringList == null)
-            {
-                ImgstringList = new List<string>();
-            }
-            return ImgstringList;
-        }
+        //private static List<string> GetImg()
+        //{
+        //    if (ImgstringList == null)
+        //    {
+        //        ImgstringList = new List<string>();
+        //    }
+        //    return ImgstringList;
+        //}
 
         public IEnumerable<Tags> GetAllTags()
         {
@@ -336,23 +336,23 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
 
         //把imgid以字串[1,2,3...]的方式加進Product表格
-        private void PutImgs(Product product)
-        {
-           var productImgs = new ProductImgs();
+      //  private void PutImgs(Product product)
+      //  {
+        //   var productImgs = new ProductImgs();
      //   var imgList = getImg().Split(',').Where(x=>x!="").ToList();
             
 
             //用list傳的
-            foreach(var i in GetImg())
-            {
-                productImgs = new ProductImgs()
-                {
-                    // ProductImgId = 0,
-                    imgLink = i,
-                    ProductId = product.ProductId,
-                };
-                context.ProductImgs.Add(productImgs);
-            }
+          //  foreach(var i in GetImg())
+          //  {
+               // productImgs = new ProductImgs()
+              //  {
+                  // ProductImgId = 0,
+          //          imgLink = i,
+          //          ProductId = product.ProductId,
+          //      };
+        //       context.ProductImgs.Add(productImgs);
+      //      }
 
 
 
@@ -382,9 +382,9 @@ namespace XbooxCMS.Controllers
             //   }
 
         //    imgString = null;
-             ImgstringList = null;
-             context.SaveChanges();
-        }
+       //      ImgstringList = null;
+         //    context.SaveChanges();
+      //  }
 
 
 
@@ -436,7 +436,7 @@ namespace XbooxCMS.Controllers
           
             //return Json($"fileUpload {Session["fileName"]}");
             
-            return Json(GetImg());
+            return Json (ProductService.GetImg());
 
 
       
