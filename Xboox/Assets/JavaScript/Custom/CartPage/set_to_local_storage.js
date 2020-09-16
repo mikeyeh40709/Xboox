@@ -17,19 +17,17 @@ let nan_html = '<h2 style="font-size:25px; font-family:Noto Sans TC, sans-serif;
 //homepage product btn click event
 AddBtnGroup.each(function () {
     $(this).on('click', function () {
-        let classGroup = $(this).attr('class').split(' ');
-        let imtLink = classGroup[1];
+        var imgLink = $(this).attr("data-img");
         var getProductName = $(this).attr("data-target");
         setLocalStorage(this.id, getProductName);
         headerdropdown.innerHTML = "";
         renewNavbar();
-        swal(sucess_html,getProductName, imtLink );
+        swal(sucess_html, getProductName, imgLink );
     })
 });
 //productdetail's page product btn click event
 productdetail_cart_btn.on('click', function () {
-    let classGroup = $(this).attr('class').split(' ');
-    let imtLink = classGroup[1];
+    var imgLink = $(this).attr("data-img");
     let unitStock = unistockDom.textContent;
     var getProductName = $(this).attr("data-target");
     if (!isNaN(productdetail_count_dom.value)) {
@@ -37,10 +35,10 @@ productdetail_cart_btn.on('click', function () {
             setDetailsLocalStorage(this.id, getProductName);
             headerdropdown.innerHTML = "";
             renewNavbar();
-            swal(sucess_html,getProductName, imtLink);
+            swal(sucess_html, getProductName, imgLink);
         }
         else {
-            swal(fail_html,getProductName, imtLink);
+            swal(fail_html, getProductName, imgLink);
         }
     }
     else {
