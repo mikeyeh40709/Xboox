@@ -23,7 +23,7 @@ AddBtnGroup.each(function () {
         setLocalStorage(this.id, getProductName);
         headerdropdown.innerHTML = "";
         renewNavbar();
-        swal(getProductName, imtLink, sucess_html);
+        swal(sucess_html,getProductName, imtLink );
     })
 });
 //productdetail's page product btn click event
@@ -128,7 +128,7 @@ function renewNavbar() {
             li.appendChild(title);
             li.appendChild(count);
             headerdropdown.append(li);
-            headerdropdown.setAttribute('style', 'overflow: scroll;overflow-x:hidden; height:200px;');
+            headerdropdown.setAttribute('style', 'overflow: scroll;overflow-x:hidden; height:300px;');
         });
         var arrayFromStroage = JSON.parse(localStorage.getItem("CartItems"));
         var arrayLength = arrayFromStroage.length;
@@ -165,7 +165,7 @@ function swal(htmlContext,getProductName="", img_link = "") {
     Swal.fire({
         title: getProductName,
         html: `${htmlContext}`,
-        imageUrl: img_link,
+        imageUrl: `/Assets/Image/Pics/${img_link}.jpg`,
         imageWidth: 200,
         imageHeight: 200,
         imageAlt: 'Image Broken',
