@@ -27,9 +27,11 @@ namespace XbooxCMS.Services
                                 UserName = user.UserName,
                                 PurchaserName = o.PurchaserName,
                                 PurchaserEmail = o.PurchaserEmail,
-                                PurchaserAddress = o.PurchaserAddress,
+                                PurchaserAddress = o.City + o.District + o.Road,
                                 PurchaserPhone = o.PurchaserPhone,
-                                StateId = o.StateId
+                                Payment = o.Payment,
+                                Paid = o.Paid,
+                                Build = o.Build
                             }).OrderBy(item => item.OrderDate).ToList();
 
 

@@ -51,7 +51,7 @@ namespace XbooxLibrary.Services
             XbooxLibraryDBContext context = new XbooxLibraryDBContext();
             GeneralRepository<Product> repository = new GeneralRepository<Product>(context);
             var temp = repository.GetAll().FirstOrDefault(x => x.ProductId == id);
-            var temps = repository.GetSingle(x => x.ProductId == id);
+            var temps = repository.GetFirst(x => x.ProductId == id);
             return temps;
         }
         //trycatch
@@ -287,7 +287,7 @@ namespace XbooxLibrary.Services
         try
         {
 
-            var productInDb = repository.GetSingle(p => p.ProductId == input.ProductId);
+            var productInDb = repository.GetFirst(p => p.ProductId == input.ProductId);
 
             productInDb.Name = input.Name;
             productInDb.CategoryId = input.CategoryId;
@@ -327,7 +327,7 @@ namespace XbooxLibrary.Services
         GeneralRepository<ProductImgs> Imgrepository = new GeneralRepository<ProductImgs>(context);
         GeneralRepository<ProductTags> Ptrepository = new GeneralRepository<ProductTags>(context);
 
-        var deleteProduct = repository.GetSingle(x => x.ProductId == id);
+        var deleteProduct = repository.GetFirst(x => x.ProductId == id);
         var deleteImg = Imgrepository.GetAll().Where(x => x.ProductId == id);
         var deleteTag = Ptrepository.GetAll().Where(x => x.ProductId == id);
 

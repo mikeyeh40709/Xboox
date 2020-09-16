@@ -77,7 +77,7 @@ namespace XbooxLibrary.Services
             XbooxLibraryDBContext context = new XbooxLibraryDBContext();
             GeneralRepository<Tags> repository = new GeneralRepository<Tags>(context);
             var temp = repository.GetAll().FirstOrDefault(x=>x.TagId==id);
-            var temps = repository.GetSingle(x => x.TagId == id);
+            var temps = repository.GetFirst(x => x.TagId == id);
             return temps;
         }
     }
