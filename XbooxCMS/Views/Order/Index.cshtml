@@ -39,7 +39,7 @@
                                     <td>@item.PurchaserEmail</td>
                                     <td>@item.PurchaserAddress</td>
                                     <td>
-                                        @if (item.StateId == 0)
+                                        @if (!item.Paid)
                                         {
                                             <div class="text-danger">未付款</div>
                                         }
