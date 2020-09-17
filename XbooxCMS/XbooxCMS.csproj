@@ -20,12 +20,9 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44399</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>
-    </IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -222,6 +219,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -259,6 +257,7 @@
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\TagService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Service\DashboardService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateDataModel.cs" />
     <Compile Include="ViewModels\CreateImgViewModel.cs" />
@@ -267,6 +266,7 @@
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ProductListViewModel.cs" />
+    <Compile Include="ViewModels\SalesRevenueViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
   </ItemGroup>
@@ -466,6 +466,8 @@
     <Content Include="Views\Coupons\Details.cshtml" />
     <Content Include="Views\Coupons\Edit.cshtml" />
     <Content Include="Views\Coupons\Index.cshtml" />
+    <Content Include="Views\Dashboard\GetJSON.cshtml" />
+    <Content Include="Views\Home\Index_Clone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
