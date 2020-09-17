@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Description = HttpUtility.HtmlDecode(Model.Description);
 }
 <head>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
@@ -20,7 +21,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="col-md-12">
-   
+
         <div class="card card-4">
             <div class="card-body">
                 <h2 class="title">CREATE PRODUCT</h2>
@@ -130,6 +131,7 @@
                         </div>
                     </div>
                     <div class="col-6">
+
                         <div class="input-group">
                             <label class="label">Picture</label>
                             <input type="file"
@@ -137,24 +139,23 @@
                                    class="filepond"
                                    name="filepond"
                                    multiple
-                                   allowRevert="false"
                                    @*allowRemove ="false"*@
                                    data-allow-reorder="true"
                                    data-max-file-size="3MB"
                                    data-max-files="5">
                         </div>
-
+                        <button class="btn btn-danger pad-1" id="remove"   type="button">Remove All Pictures</button>
 
                     </div>
                     <div class="col-12 ">
-                        @Html.TextAreaFor(m => m.Description, new { @id= "summernote" })
+                        @Html.TextAreaFor(m => m.Description, new { @id = "summernote" })
                     </div>
 
 
                 </div>
 
                 <div class="p-t-15">
-                    <button class="btn btn-beige" type="submit" >Create</button>
+                    <button class="btn btn-beige" type="submit">Create</button>
                 </div>
 
             </div>
@@ -195,16 +196,29 @@
     );
 
     // Select the file input and use create() to turn it into a pond
-    FilePond.create(
+    const pond = FilePond.create(
         document.querySelector('#filepond')
     );
 
 </script>
 <script>
   //  const formData = new formData();
+    const buttonElement = document.querySelector('#remove');
+    buttonElement.addEventListener("click", () => {
+        pond.removeFiles();
+        fetch('/Product/RemoveAll',{
+            method: 'POST'
+        })
+            .then((result) => {
+            })
+    });
+
+    const inputElement = document.querySelector('input[type="file"]');
+
+  
+    
     FilePond.setOptions({
 
-        //server: '@Url.Action("Upload", "Product")'
         server: {
             process: '@Url.Action("Upload", "Product")',
             revert: (source, load, error) => {
@@ -219,7 +233,7 @@
                     },
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
                 })
-                .then((result) => {
+              .then((result) => {
                     console.log("remove", source);
                 })
 
@@ -228,9 +242,37 @@
 
                 // Should call the load method when done, no parameters required
                 load();
-            }
+            },
+
+            //remove: (source, load, error) => {
+            //    console.log("removeAll", source);
+            //    let formData = new FormData();
+            //    formData.append('ddd', source);
+            //    fetch(`/Product/RemoveAll ? abc = ${ source }`, {
+            //        body: formData,
+            //        headers: {
+            //            //'content-type': 'multipart/form-data'
+            //        },
+            //        method: 'POST'
+            //    })
+            //    .then((result) => {
+            //            console.log("remove", source);
+            //    })
+            //    error('oh my goodness');
+            //    load();
+            //}
         }
     });
+    //const filepond_root = document.querySelector('.filepond--root');
+    //filepond_root.addEventListener('FilePond:processfilerevert', e => {
+    //    $.ajax({
+    //        url: "/Product/RemoveAll",
+    //        type: 'POST',
+    //        data: { 'filename': e.detail.file.filename }
+    //    })
+    //});
+    
+ 
 </script>
 <script>
 
