@@ -8,10 +8,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Xboox.Models;
+//using Xboox.Models;
 using Xboox.Models.Services;
 using Xboox.Models.DataTable;
 using System.Data.Entity;
+using XbooxLibrary.Models.DataTable;
+using XbooxLibrary.Models;
 
 namespace Xboox.Controllers
 {
@@ -71,7 +73,7 @@ namespace Xboox.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(Models.LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -106,7 +108,7 @@ namespace Xboox.Controllers
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new Models.VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -114,7 +116,7 @@ namespace Xboox.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        public async Task<ActionResult> VerifyCode(Models.VerifyCodeViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -153,11 +155,11 @@ namespace Xboox.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(Models.RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email /*,PhoneNumber = model.Phone*/};
+                var user = new Models.ApplicationUser { UserName = model.UserName, Email = model.Email /*,PhoneNumber = model.Phone*/};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -204,7 +206,7 @@ namespace Xboox.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(Models.ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -248,7 +250,7 @@ namespace Xboox.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(Models.ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -300,7 +302,7 @@ namespace Xboox.Controllers
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new Models.SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -308,7 +310,7 @@ namespace Xboox.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        public async Task<ActionResult> SendCode(Models.SendCodeViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -349,7 +351,7 @@ namespace Xboox.Controllers
                     // 若使用者沒有帳戶，請提示使用者建立帳戶
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return View("ExternalLoginConfirmation", new Models.ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
@@ -358,7 +360,7 @@ namespace Xboox.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(Models.ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -373,7 +375,7 @@ namespace Xboox.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new Models.ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -431,13 +433,9 @@ namespace Xboox.Controllers
             base.Dispose(disposing);
         }
 
-        private XbooxContext db = new XbooxContext();
-
         public ActionResult UserDataDetails()
         {
             var userdetails = AspNetUserManage.GetUserDetails(this.HttpContext);
-
-            //var details = db.AspNetUsers.FirstOrDefault(u => u.UserName == this.User.Identity.Name);
 
             return View(userdetails);
         }
@@ -454,28 +452,17 @@ namespace Xboox.Controllers
         //[HttpPut]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UserDataEdit([Bind(Include = "Id,Account,Email,Phone")] UserDetails userdetails)
+        public ActionResult UserDataEdit([Bind(Include = "Id,Account,Email,Phone")] Models.UserDetails userdetails)
         {
-            var details = db.AspNetUsers.FirstOrDefault(u => u.Id == userdetails.Id);
-            details.PhoneNumber = userdetails.Phone;
-            details.Email = userdetails.Email;
-
             if (ModelState.IsValid)
             {
-                db.Entry(details).State = EntityState.Modified;
-                db.SaveChanges();
+                AspNetUserManage edit = new AspNetUserManage();
+                edit.EditUserDetails(userdetails);
                 return RedirectToAction("UserDataDetails");
             }
 
             return View(userdetails);
-            //if (ModelState.IsValid)
-            //{
-            //    db.AspNetUsers.
-            //    db.Entry(aspNetUsers).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("UserDataDetails");
-            //}
-            //return View(details);
+      
         }
 
 
