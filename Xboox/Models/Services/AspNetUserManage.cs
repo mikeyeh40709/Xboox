@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Xboox.Models.DataTable;
+//using Xboox.Models.DataTable;
+using XbooxLibrary.Repository;
+using XbooxLibrary.Models.DataTable;
 
 namespace Xboox.Models.Services
 {
@@ -12,9 +14,9 @@ namespace Xboox.Models.Services
 
         public static UserDetails GetUserDetails(HttpContextBase context)
         {
-            XbooxContext db = new XbooxContext();
-            //var details = db.AspNetUsers.FirstOrDefault(u => u.UserName == context.User.Identity.Name);
-            var details = (from u in db.AspNetUsers
+            XbooxLibraryDBContext db = new XbooxLibraryDBContext();
+            GeneralRepository<AspNetUsers> user = new GeneralRepository<AspNetUsers>(db);
+            var details = (from u in user.GetAll()
                            where u.UserName == context.User.Identity.Name
                            select new UserDetails
                            {
@@ -26,5 +28,17 @@ namespace Xboox.Models.Services
 
             return details;
         }        
+
+        public void EditUserDetails(UserDetails userdetails)
+        {
+            XbooxLibraryDBContext db = new XbooxLibraryDBContext();
+            GeneralRepository<AspNetUsers> user = new GeneralRepository<AspNetUsers>(db);
+            var edit = user.GetAll().FirstOrDefault(u => u.Id == userdetails.Id);
+            edit.Email = userdetails.Email;
+            edit.PhoneNumber = userdetails.Phone;
+            user.Update(edit);
+            user.SaveContext();
+
+        }
     }
 }
