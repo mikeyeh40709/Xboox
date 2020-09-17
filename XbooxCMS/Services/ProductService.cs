@@ -7,12 +7,13 @@ using XbooxCMS.ViewModels;
 using XbooxLibrary.Models.DataTable;
 using XbooxLibrary.Repository;
 using XbooxLibrary.Services;
+using XbooxCMS.Helper;
 
 namespace XbooxLibrary.Services
 {
     public class ProductService
     {
-        private static List<string> ImgstringList = null;
+        public static List<string> ImgstringList = null;
         public static List<string> GetImg()
         {
             if (ImgstringList == null)
@@ -20,6 +21,10 @@ namespace XbooxLibrary.Services
                 ImgstringList = new List<string>();
             }
             return ImgstringList;
+        }
+        public void SetNull()
+        {
+            ImgstringList = null;
         }
         public List<ProductListViewModel> GetAllProducts()
         {
@@ -57,7 +62,9 @@ namespace XbooxLibrary.Services
         //trycatch
         public OperationResult Create(CreateDataModel input)
         {
-            var result = new OperationResult();
+           
+            
+           var result = new OperationResult();
             try
             {
                 XbooxLibraryDBContext context = new XbooxLibraryDBContext();
@@ -76,9 +83,12 @@ namespace XbooxLibrary.Services
                     Language = input.Language,
                     UnitInStock = input.UnitInStock,
                     PublishedDate = input.PublishedDate,
+
                     Description = input.Description,
+                  
                     Price = input.Price
                 };
+
                 PutImgs(entity);
                 //加入Img
                 repository.Create(entity);
@@ -131,14 +141,7 @@ namespace XbooxLibrary.Services
         }
 
 
-    //    var temps = context.ProductTags.Where(x => x.ProductId == getproduct.ProductId).Select(x => x.TagId).ToList();
-    //            foreach (var t in temps)
-    //            {
 
-    //                TagLists.Add(new TagViewModel() { TagId = (Guid)t, TagName = context.Tags.Where(x => x.TagId == t).Select(x => x.TagName).FirstOrDefault() });
-    //                Debug.WriteLine(t);
-    //            };
-    //viewmodel.SelectedTags = TagLists;
         public List<TagViewModel> GetSelectedTags(Product product)
         {
             XbooxLibraryDBContext context = new XbooxLibraryDBContext();
@@ -160,7 +163,7 @@ namespace XbooxLibrary.Services
 
 
 
-        public List<ProductListViewModel> GetProducts()
+     public List<ProductListViewModel> GetProducts()
         {
             XbooxLibraryDBContext context = new XbooxLibraryDBContext();
             GeneralRepository<Product> prepository = new GeneralRepository<Product>(context);
@@ -276,9 +279,37 @@ namespace XbooxLibrary.Services
         }
 
         ImgstringList = null;
-            Imgrepo.SaveContext();
+        Imgrepo.SaveContext();
  }
 
+    public CreateListViewModel CreateEditList(Product getproduct)
+    {
+            var viewmodel = new CreateListViewModel();
+            viewmodel.ProductId = getproduct.ProductId;
+            viewmodel.Author = getproduct.Author;
+            viewmodel.CategoryId = getproduct.CategoryId;
+            viewmodel.Intro = getproduct.Intro;
+            viewmodel.Name = getproduct.Name;
+            viewmodel.Price = getproduct.Price;
+            viewmodel.UnitInStock = getproduct.UnitInStock;
+            viewmodel.Specification = getproduct.Specification;
+            viewmodel.PublishedDate = getproduct.PublishedDate;
+            viewmodel.Publisher = getproduct.Publisher;
+            viewmodel.ProductImgId = viewmodel.ProductImgId;
+            viewmodel.ISBN = getproduct.ISBN;
+            viewmodel.Description = getproduct.Description;
+            viewmodel.Language = getproduct.Language;
+            viewmodel.Tags = GetTags();
+            viewmodel.CategoryViewModels = GetCatecory();
+
+            var tagLists = GetSelectedTags(getproduct);
+
+            viewmodel.SelectedTags = tagLists;
+
+
+            return viewmodel;
+
+        }
     public OperationResult Edit(CreateDataModel input)
     {
         var result = new OperationResult();

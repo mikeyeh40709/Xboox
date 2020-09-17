@@ -24,7 +24,7 @@ namespace XbooxCMS.Controllers
     {
         
         // GET: Product
-        private XbooxContext context;
+       // private XbooxContext context;
   
         //private static string GetImg(HttpSessionStateBase httpContext)
         //{
@@ -39,33 +39,12 @@ namespace XbooxCMS.Controllers
         //    return (string)session["fileName"];
         //}
 
-        private static string imgString = null;
         //private static List<string> ImgstringList = null;
         //private static void LoadTempData(this ControllerBase controller)
         //{
         //    controller.TempData["ic"] = 5;
         //}
-        //public static void LoadViewBag(dynamic viewBag)
-        //{
-        //    viewBag.aaa = null;
-        //}
-        private static string getImg()
-        {
 
-
-            if (imgString == null)
-            {
-                //lock (padlock) //lock此區段程式碼，讓其它thread無法進入。
-                //{
-                //    if (abc == null)
-                //    {
-                //        abc = "";
-                //    }
-                //}
-                imgString = "";
-            }
-            return imgString;
-        }
 
         //private static List<string> GetImg()
         //{
@@ -76,17 +55,14 @@ namespace XbooxCMS.Controllers
         //    return ImgstringList;
         //}
 
-        public IEnumerable<Tags> GetAllTags()
-        {
-            return context.Tags;
-        }
+
         public ProductController()
         {
 
-            if (context == null)
-            {
-                context = new XbooxContext();
-            }
+            //if (context == null)
+            //{
+            //    context = new XbooxContext();
+            //}
         
         }
 
@@ -163,73 +139,73 @@ namespace XbooxCMS.Controllers
         /// <param name="product"></param>
         /// <param name="SelectedTags"></param>
         /// <param name="tags"></param>
-       private void AddedTag(Product product, List<Guid> SelectedTags,ProductTags tags)
-        {
+       //private void AddedTag(Product product, List<Guid> SelectedTags,ProductTags tags)
+       // {
            
-            if (SelectedTags==null)
-            {
-                return ;
-            }
+       //     if (SelectedTags==null)
+       //     {
+       //         return ;
+       //     }
 
-            {
-                //原本被選的Tag
-                var pTagList = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => (Guid)x.TagId).ToList();
-                if (pTagList.Count == 0)
-                {
-                    //create
-                    foreach (var t in SelectedTags)
-                    {
-                        tags = new ProductTags()
-                        {
-                            ProductId = product.ProductId,
-                            TagId = t,
-                            Id = Guid.NewGuid()
-                        };
+       //     {
+       //         //原本被選的Tag
+       //         var pTagList = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => (Guid)x.TagId).ToList();
+       //         if (pTagList.Count == 0)
+       //         {
+       //             //create
+       //             foreach (var t in SelectedTags)
+       //             {
+       //                 tags = new ProductTags()
+       //                 {
+       //                     ProductId = product.ProductId,
+       //                     TagId = t,
+       //                     Id = Guid.NewGuid()
+       //                 };
 
-                        context.ProductTags.Add(tags);
-                    }
-                }
+       //                 context.ProductTags.Add(tags);
+       //             }
+       //         }
 
               
-                //edit
-                else
-                {
-                    //找出原本有選但現在沒選的Tag
-                    var newTagList1 = pTagList.Except(SelectedTags);
+       //         //edit
+       //         else
+       //         {
+       //             //找出原本有選但現在沒選的Tag
+       //             var newTagList1 = pTagList.Except(SelectedTags);
 
 
-                    //把現在沒選的Tag移除
-                    foreach (var t in newTagList1)
-                    {
+       //             //把現在沒選的Tag移除
+       //             foreach (var t in newTagList1)
+       //             {
 
-                        var item = context.ProductTags.Where(x => x.TagId == t && x.ProductId == product.ProductId).FirstOrDefault();
-                        context.ProductTags.Remove(item);
-                    }
+       //                 var item = context.ProductTags.Where(x => x.TagId == t && x.ProductId == product.ProductId).FirstOrDefault();
+       //                 context.ProductTags.Remove(item);
+       //             }
 
-                    //找出現在有選但原本沒選的Tag
-                    var newTagList2 = SelectedTags.Except(pTagList);
+       //             //找出現在有選但原本沒選的Tag
+       //             var newTagList2 = SelectedTags.Except(pTagList);
 
-                    //加入沒選過的tag
-                    foreach (var t in newTagList2)
-                    {
-                        tags = new ProductTags()
-                        {
-                            ProductId = product.ProductId,
-                            TagId = t,
-                            Id = Guid.NewGuid()
-                        };
-                        context.ProductTags.Add(tags);
-                    }
-                }
+       //             //加入沒選過的tag
+       //             foreach (var t in newTagList2)
+       //             {
+       //                 tags = new ProductTags()
+       //                 {
+       //                     ProductId = product.ProductId,
+       //                     TagId = t,
+       //                     Id = Guid.NewGuid()
+       //                 };
+       //                 context.ProductTags.Add(tags);
+       //             }
+       //         }
                
 
-            }
+       //     }
 
         
 
-            context.SaveChanges();
+       //     context.SaveChanges();
      
-        }
+       // }
     
 
         /// <summary>
@@ -252,31 +228,9 @@ namespace XbooxCMS.Controllers
             }
             else
             {
-                
-                var viewmodel = new CreateListViewModel();
-                viewmodel.ProductId = getproduct.ProductId;
-                viewmodel.Author = getproduct.Author;
-                viewmodel.CategoryId = getproduct.CategoryId;
-                viewmodel.Intro = getproduct.Intro;
-                viewmodel.Name = getproduct.Name;
-                viewmodel.Price = getproduct.Price;
-                viewmodel.UnitInStock = getproduct.UnitInStock;
-                viewmodel.Specification = getproduct.Specification;
-                viewmodel.PublishedDate = getproduct.PublishedDate;
-                viewmodel.Publisher = getproduct.Publisher;
-                viewmodel.ProductImgId = viewmodel.ProductImgId;
-                viewmodel.ISBN = getproduct.ISBN;
-                viewmodel.Description = getproduct.Description;
-                viewmodel.Tags = service.GetTags();
-                viewmodel.CategoryViewModels = service.GetCatecory();
+                var viewModel = service.CreateEditList(getproduct);
 
-                var tagLists = service.GetSelectedTags(getproduct);
-                viewmodel.SelectedTags = tagLists;
-
-
-
-
-                return View(viewmodel);
+                return View(viewModel);
 
             }
 
@@ -471,11 +425,31 @@ namespace XbooxCMS.Controllers
         }
 
 
-
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public ActionResult RemoveAll()
         {
-            context.Dispose();
+            var service = new ProductService();
+            ///List<string>=null
+
+            service.SetNull();
+
+            //abc.Add(Request.);
+            //abc.Add(Request.);
+          
+
+            //從file移除資料
+            //接Id 然後再抓Id
+            //再處理字串(陣列) 在裡面找該圖的filename然後將其從字串移除
+            //  ImgstringList
+            //string json = JsonConvert.SerializeObject(files);
+            return Json("setnull");
         }
+
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    context.Dispose();
+        //}
 
     }
 }
