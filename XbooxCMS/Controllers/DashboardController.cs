@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using XbooxCMS.Models;
+using XbooxCMS.Service;
 using XbooxCMS.ViewModels;
 
 namespace XbooxCMS.Controllers
@@ -15,23 +16,24 @@ namespace XbooxCMS.Controllers
         public ActionResult GetSalesRevenue()
         {
             //要做年份限制 多加year(orderdata) 的where 選擇年份做動態選項
-            var temp = from od in context.OrderDetails
-                       join o in context.Order
-                       on od.OrderId equals o.OrderId
-                       where o.StateId == 2  && o.OrderDate.Year == 2020
-                       select new
-                       {
-                           Month = o.OrderDate.Month,
-                           Total = od.UnitPrice * od.Quantity
-                       };
-            var Revenue = from t in temp
-                          group t by t.Month into g
-                          select new SalesRevenueViewModel
-                          {
-                              Month = g.Key,
-                              Revenue = g.Sum(x=>x.Total)
-                          };
-           
+            //var temp = from od in context.OrderDetails
+            //           join o in context.Order
+            //           on od.OrderId equals o.OrderId
+            //           where o.StateId == 2  && o.OrderDate.Year == 2020
+            //           select new
+            //           {
+            //               Month = o.OrderDate.Month,
+            //               Total = od.UnitPrice * od.Quantity
+            //           };
+            //var Revenue = from t in temp
+            //              group t by t.Month into g
+            //              select new SalesRevenueViewModel
+            //              {
+            //                  Month = g.Key,
+            //                  Revenue = g.Sum(x=>x.Total)
+            //              };
+            DashboardService ds = new DashboardService();
+            var Revenue = ds.GetSalesRevenue();
 
             return Json(Revenue, JsonRequestBehavior.AllowGet);
         }
