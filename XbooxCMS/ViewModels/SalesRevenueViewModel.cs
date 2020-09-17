@@ -7,12 +7,14 @@ namespace XbooxCMS.ViewModels
 {
     public class SalesRevenueViewModel
     {
+        public int Year { set; get; }
         public int Month { set; get; }
         public decimal Revenue { set; get; }
     }
 
     public class TopProducts
     {
+        public int Year { set; get; }
         public int Month { set; get; }
         public string Name { set; get; }
         public int Quantity { set; get; }
