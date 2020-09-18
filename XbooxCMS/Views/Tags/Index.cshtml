@@ -66,8 +66,10 @@
                     { data: "TagId" },
                     { data: "TagName" },
                     {
-                        data: "TagName",
-                        render: function (data) { '<button id="data"></button>' }
+                        data: "",
+                        render: function (data) {
+                            return  '<button id="data">編輯</button>' 
+                        }
                     }
                 ],
             });
