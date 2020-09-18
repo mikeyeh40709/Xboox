@@ -22,10 +22,10 @@ namespace XbooxCMS.Controllers
 {
     public class ProductController : Controller
     {
-        
+        private static List<string> ImgstringLists = null;
         // GET: Product
-       // private XbooxContext context;
-  
+        // private XbooxContext context;
+
         //private static string GetImg(HttpSessionStateBase httpContext)
         //{
         //    HttpSessionState session = HttpContext.Current.Session;
@@ -73,7 +73,7 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-
+            
             var service = new ProductService();
             var pist = service.GetAllProducts();
      
@@ -250,7 +250,7 @@ namespace XbooxCMS.Controllers
                 Debug.WriteLine("Wrong");
                 return RedirectToAction("Index", "Product");
             }
-
+            
             service.Edit(DataModel);
 
     
@@ -381,6 +381,8 @@ namespace XbooxCMS.Controllers
 
                 var imageEndpoint = new ImageEndpoint(apiClient, httpClient);
                 var imageUpload = await imageEndpoint.UploadImageAsync(File.InputStream);
+                //ImgstringLists.Add(imageUpload.Link);
+                //TempData["imgString"] = ImgstringLists;
                 ProductService.GetImg().Add(imageUpload.Link);
 
 
@@ -390,7 +392,7 @@ namespace XbooxCMS.Controllers
           
             //return Json($"fileUpload {Session["fileName"]}");
             
-            return Json (ProductService.GetImg());
+            return Json (ImgstringLists);
 
 
       

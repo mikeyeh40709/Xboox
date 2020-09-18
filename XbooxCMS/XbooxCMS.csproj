@@ -269,6 +269,9 @@
     <Compile Include="ViewModels\ProductListViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
+    <Compile Include="WebApi\CuponController.cs" />
+    <Compile Include="WebApi\OrderController.cs" />
+    <Compile Include="WebApi\ProductController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Css\DashBoard.css" />
