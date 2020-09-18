@@ -9,13 +9,14 @@ using Xboox.Models.DataTable;
 using Xboox.ViewModels;
 using Xboox.Repositories;
 using System.Net;
+using XbooxLibrary.Models.DataTable;
 
 namespace Xboox.Controllers
 {
     public class BookCategoryController : Controller
     {
         FindBookDetailRepository findBook = new FindBookDetailRepository();
-        private XbooxContext db = new XbooxContext();
+        private XbooxLibraryDBContext db = new XbooxLibraryDBContext();
 
 
         public ActionResult ShowBooks(string id)
@@ -67,31 +68,6 @@ namespace Xboox.Controllers
                 return View(findBook.FindBookDetail(Id, int.Parse(maxPrice), int.Parse(minPrice)));
             }
         }
-
-
-        //public ActionResult Books(string maxPrice, string minPrice, string Id)
-        //{
-
-        //    ViewBag.Tags = db.Tags.Select(x => x.TagName).OrderBy(y => y.Substring(0, 1)).ToList();
-        //    var category = db.Category.FirstOrDefault(x => x.CategoryId.ToString() == Id);
-        //    ViewBag.Category = category.Name;
-        //    ViewBag.CategoryID = category.CategoryId;
-        //    if (Id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    if (Id == "dc5c22d1-ff3e-45fe-87e3-e577ee771551")
-        //    {
-
-        //        var a = findBook.FindBookDetail().Where(x => x.Price >= int.Parse(minPrice) && x.Price <= int.Parse(maxPrice)).ToList();
-
-        //        return View(a);
-        //    }
-
-        //    return View(findBook.FindBookDetail(Id).Where(x => x.Price >= int.Parse(minPrice) && x.Price <= int.Parse(maxPrice)));
-
-        //}
-
     }
 
 }
