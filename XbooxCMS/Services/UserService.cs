@@ -5,6 +5,7 @@ using System.Web;
 using XbooxLibrary.Models.DataTable;
 using XbooxLibrary.Repository;
 using XbooxCMS.ViewModels;
+using Newtonsoft.Json;
 
 namespace XbooxCMS.Services
 {
@@ -13,7 +14,6 @@ namespace XbooxCMS.Services
 
         public List<UserListViewModel> GetAllUsers()
         {
-
            XbooxLibraryDBContext context = new XbooxLibraryDBContext();
             var userrepo = new GeneralRepository<AspNetUsers>(context);
             var userList = userrepo.GetAll().ToList();
@@ -28,7 +28,6 @@ namespace XbooxCMS.Services
                     PhoneNumber = item.PhoneNumber
                 });
             }
-
             return viewModel;
         }
     }

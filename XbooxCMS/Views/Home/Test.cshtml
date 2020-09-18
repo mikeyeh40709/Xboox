@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
     <link rel="stylesheet" href="~/Assets/Style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 
 </head>
 <body>
-
     <div class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <div class="navbar-brand">
@@ -72,7 +71,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/User" class="nav-link">
+                                <a href="javascript:;" id="userLink" class="nav-link">
                                     <i class="fa fa-user nav-icon"></i>
                                     <p>User Management</p>
 
@@ -100,90 +99,77 @@
 
                         </ul>
                     </li>
-
-
-
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->
     </aside>
-    @*<aside class="sidebar">
-
-            <ul>
-                <li>
-                    <a class="aside-item color-1">
-                        <i class="fa fa-dashboard"></i>
-                        <span class="color-1">@Html.ActionLink("Dashboard", "Index", "Home")</span>
-                    </a>
-
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-book"></i>
-                    <span class="color-1">
-                        @Html.ActionLink("Product Management", "Index", "Product")
-                    </span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-user"></i>
-                    <span class="color-1">@Html.ActionLink("User Management", "Index", "User")</span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-list"></i>
-                    <span class="color-1">@Html.ActionLink("Order Management", "Index", "Order")</span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-barcode"></i>
-                    <span class="color-1">@Html.ActionLink("Coupons ManageMent", "Index", "Coupons")</span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-barcode"></i>
-                    <span class="color-1"> @Html.ActionLink("Tag Management", "Index", "Tags")</span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-bar-chart"></i>
-                    <span class="color-1">Report</span>
-                </a>
-            </li>
-
-            </ul>
-
-        </aside>*@
     <div class="container body-content">
-        @RenderBody()
-
-        @*<footer>
-                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
-            </footer>*@
+        <div id="block1" class="row" style="margin: 10px">
+            <div class="col-11">
+                <table id="userable" class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--2dp" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in items">
+                            <td>{{item.Id}}</td>
+                            <td>{{item.UserName}}</td>
+                            <td>{{item.Email}}</td>
+                            <td>{{item.PhoneNumber}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
-    @RenderSection("scripts", required: false)
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+        let vm;
+        function Binding() {
+            vm = new Vue({
+                el: "#block1",
+                data: {
+                    items: {}
+                }
+            });
+        };
+        $("#userLink").click(function () {
+            $.ajax({
+                url: '/api/User/ListUser',
+                dataType: "json",
+                type: 'get',
+                success: function (data) {
+
+                    console.log(typeof data, data);
+                    vm.$data.items = data;
+                },
+                error: function (xhr, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            })
+        }
+        );
+        $(document).ready(function () {
+            Binding()
+            $('#userable').DataTable({
+            });
+        });
+    </script>
 </body>
 </html>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 <script type="text/javascript" charset="utf8" src="https://cdnjs.com/libraries/Chart.js"></script>
 <script>
 

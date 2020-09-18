@@ -21,8 +21,8 @@ namespace XbooxCMS.Controllers
         // GET: Tags
         public ActionResult Index()
         {
-            TagService service = new TagService();
-            return View(service.GetTags());
+            //TagService service = new TagService();
+            return View();
         }
 
         // GET: Tags/Details/5
