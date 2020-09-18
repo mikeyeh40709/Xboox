@@ -77,25 +77,3 @@
         </div>
     </div>
 </section>
-<!-- Shop Section End -->
-
-@*@section endJS{
-    <script>
-        function PriceFilter() {
-            let maxPrice = document.getElementById("maxamount").value.substring(1);
-            let minPrice = document.getElementById("minamount").value.substring(1);
-            let UrlIdArray = (window.location.href).split('/');
-            let Id = UrlIdArray[UrlIdArray.length - 1];
-            let data = {
-                maxPrice: maxPrice,
-                minPrice: minPrice,
-                Id: Id
-            }
-            $.ajax({
-                url: '/BookCategory/FilterBooks',
-                type: 'Get',
-                data: data
-            })
-        }
-    </script>
-}*@

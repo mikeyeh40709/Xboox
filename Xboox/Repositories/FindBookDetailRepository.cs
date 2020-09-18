@@ -5,17 +5,19 @@ using System.Linq;
 using System.Web;
 using Xboox.Models.DataTable;
 using Xboox.ViewModels;
+using XbooxLibrary.Models.DataTable;
 
 namespace Xboox.Repositories
 {
     public class FindBookDetailRepository
     {
-        private XbooxContext _context;
+        private XbooxLibraryDBContext _context;
+        //private XbooxContext _context;
         public FindBookDetailRepository()
         {
             if (_context == null)
             {
-                _context = new XbooxContext();
+                _context = new XbooxLibraryDBContext();
             }
         }
 
