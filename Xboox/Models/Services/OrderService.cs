@@ -24,7 +24,7 @@ namespace Xboox.Services
 {
     public class OrderService
     {
-        public Dictionary<string, string> payment = new Dictionary<string, string>
+        public static Dictionary<string, string> payment = new Dictionary<string, string>
         {
             { "DTO" , "宅配到府"},
             { "Credit" , PaymentMethod.Credit.ToString() },
@@ -115,7 +115,7 @@ namespace Xboox.Services
             }
 
         }
-        public OperationResult CreateOrder(HttpContextBase httpcontext, OrderViewModel order)
+        public OperationResult CreateOrder(HttpContextBase httpcontext, OrderViewModel order, string ecpayNumber)
         {
             var watch = new Stopwatch();
             watch.Start();
@@ -137,6 +137,7 @@ namespace Xboox.Services
                     Order newOrder = new Order()
                     {
                         OrderId = newOrderID,
+                        EcpayOrderNumber = ecpayNumber,
                         UserId = userId,
                         OrderDate = DateTime.Now,
                         PurchaserName = order.PurchaserName,
@@ -182,7 +183,7 @@ namespace Xboox.Services
                         cartItemRepo.Delete(item);
                     }
                     cartRepo.Delete(cart);
-                    cartItemRepo.SaveContext();
+                    orderRepo.SaveContext();
                     operationResult.isSuccessful = true;
                     transaction.Commit();
                 }
@@ -198,41 +199,39 @@ namespace Xboox.Services
             }
 
         }
-        //public OperationResult EditState(string id)
-        //{
-        //    OperationResult operationResult = new OperationResult();
-        //    XbooxContext context = new XbooxContext();
-        //    using (var transaction = context.Database.BeginTransaction())
-        //    {
-        //        try
-        //        {
-        //            var order = context.Order.FirstOrDefault(x => x.OrderId.ToString() == id);
-        //            if (order != null)
-        //            {
-        //                if (order.StateId == (int)OrderState.Build)
-        //                {
-        //                    order.StateId = (int)OrderState.Paid;
-        //                }
-        //                else
-        //                {
-        //                    order.StateId = (int)OrderState.Unpaid;
-        //                }
-        //                context.SaveChanges();
-        //                operationResult.isSuccessful = true;
-        //                transaction.Commit();
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            operationResult.isSuccessful = false;
-        //            operationResult.exception = ex;
-        //            transaction.Rollback();
-        //        }
-        //        return operationResult;
-        //    }
+        public OperationResult EditPaidState(string ECPaidId)
+        {
+            OperationResult operationResult = new OperationResult();
+            using (var dbContext = new XbooxLibraryDBContext())
+            {
+                try
+                {
+                    var orderRepo = new GeneralRepository<Order>(dbContext);
+                    var order = orderRepo.GetFirst(x => x.EcpayOrderNumber.ToString() == ECPaidId);
+                    if (order != null)
+                    {
+                        if (!order.Paid)
+                        {
+                            order.Paid = true;
+                        }
+                        else
+                        {
+                            order.Paid = false;
+                        }
+                        orderRepo.SaveContext();
+                        operationResult.isSuccessful = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    operationResult.isSuccessful = false;
+                    operationResult.exception = ex;
+                }
+                return operationResult;
+            }
 
-        //}
-        public OperationResult CancelOrder(string id)
+        }
+        public OperationResult CancelOrder(string orderId)
         {
             OperationResult operationResult = new OperationResult();
             var dbContext = new XbooxLibraryDBContext();
@@ -243,8 +242,8 @@ namespace Xboox.Services
                     var orderRepo = new GeneralRepository<Order>(dbContext);
                     var orderDetailRepo = new GeneralRepository<OrderDetails>(dbContext);
                     var productRepo = new GeneralRepository<Product>(dbContext);
-                    var orderDetails = orderDetailRepo.GetAll().Where(item => item.OrderId.ToString() == id);
-                    var order = orderRepo.GetFirst(item => item.OrderId.ToString() == id);
+                    var orderDetails = orderDetailRepo.GetAll().Where(item => item.OrderId.ToString() == orderId);
+                    var order = orderRepo.GetFirst(item => item.OrderId.ToString() == orderId);
                     if (order != null && orderDetails != null)
                     {
                         if (order.Paid == false)

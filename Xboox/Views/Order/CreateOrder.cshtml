@@ -205,6 +205,10 @@
                 form.attr('action', "/Order/CreateOrder")
             } else {
                 form.attr('action', "/Order/PostToECPay")
+                let submitBtn = $("button[type='submit']");
+                submitBtn.click(function () {
+                    localStorage.clear();
+                })
             }
         })
     })
