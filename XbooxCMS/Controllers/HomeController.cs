@@ -18,6 +18,11 @@ namespace XbooxCMS.Controllers
 
             return View();
         }
+        public ActionResult Index_Clone()
+        {
+
+            return View();
+        }
         //public CreateGuid()
         //{
         // 
