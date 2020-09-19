@@ -149,14 +149,14 @@
                     {
                         data: 'OrderId',
                         render: function (data) {
-                            return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id=${data} data-toggle="modal" data-target="#orderDetails">查看</button>`
+                            return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id=${data} data-toggle="modal" data-target="#orderDetails" onclick="checkDetails('${data}')">查看</button>`
                         }
                     },
                     {
                         data: 'OrderId',
                         render: function (data) {
-                          //  return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  mdl-button--accent" id=${data} data-toggle="modal" data-target="#deleteOrder">取消</button>`
-                            return ` <input type="button" value="取消" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent  " id=${data} data-toggle="modal" data-target="#deleteOrder">`
+                            return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  mdl-button--accent" id=${data} data-toggle="modal" data-target="#deleteOrder" onclick="cancleOrder('${data}')">取消</button>`
+                            //return ` <input type="button" value="取消" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent  " id=${data} data-toggle="modal" data-target="#deleteOrder">`
 
                         }
                     }
@@ -170,15 +170,18 @@
     </script>
 
     <script>
+        var checkDetails;
+        var cancleOrder;
         window.addEventListener("load", function () {
             let detailsBtn = $("button[data-target='#orderDetails']");
             let detailsBody = $("#orderDetails .modal-body tbody");
             let editBtn = $("input[data-target='#editOrder']");
-            let deleteBtn = $("input[data-target='#deleteOrder']");
+            let deleteBtn = $("button[data-target='#deleteOrder']");
             let redirectUrl = "/order/Index";
-            detailsBtn.on("click", function () {
+            checkDetails = function (id) {
+                console.log('--- detail');
                 $.ajax({
-                    url: `/api/order/${this.id}`,
+                    url: `/api/order/${id}`,
                     method: "get",
                     //dataType: "json",
                     success: function (res) {
@@ -202,10 +205,11 @@
                     },
                     error: function (err) { console.log(err) },
                 });
-            });
+            };
 
 
-            deleteBtn.on("click", function () {
+            cancleOrder = function (id) {
+                console.log('--- delete');
                 Swal.fire({
                     title: '取消訂單',
                     text: "取消訂單後就無法返回",
@@ -217,7 +221,7 @@
                     preConfirm: () => {
                         $.ajax({
                             type: "post",
-                            url: `/api/order/${this.id}`,
+                            url: `/api/order/${id}`,
                             data: "{}",
                             contentType: "application/json; charset=utf-8",
                            
@@ -228,7 +232,7 @@
                     },
                     allowOutsideClick: () => !Swal.isLoading()
                 })
-            });
+            };
         });
     </script>
 }
