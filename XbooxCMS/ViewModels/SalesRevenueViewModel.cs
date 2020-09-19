@@ -20,11 +20,11 @@ namespace XbooxCMS.ViewModels
         public int Quantity { set; get; }
     }
 
-    public class GetTitleData
+    public class TitleData
     {
         public int products { set; get; }
         public int members { set; get; }
-        public int revenue { set; get; }
+        public decimal revenue { set; get; }
         public int orders { set; get; }
     }
 
