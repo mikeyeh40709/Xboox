@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,6 +28,13 @@ namespace XbooxCMS.Controllers
             var topproducts = ds.GetTopProducts();
 
             return Json(topproducts, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTitleData()
+        {
+            DashboardService ds = new DashboardService();
+            var titledata = ds.GetTitleData();
+            return Json(titledata, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetJSON()
