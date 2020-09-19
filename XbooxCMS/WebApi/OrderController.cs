@@ -13,7 +13,7 @@ namespace XbooxCMS.WebApi
     public class OrderController : ApiController
     {
 
-       
+       //所有訂單
         [HttpGet]
         public List<OrderViewModel> GetAllOrders()
         {
@@ -22,7 +22,7 @@ namespace XbooxCMS.WebApi
             return orderList;
         }
 
-
+        //訂單產品內容
         [HttpGet]
      
         public List<OrderDetailsViewModel> GetOrderDeatils(string id)
@@ -30,6 +30,15 @@ namespace XbooxCMS.WebApi
             var service = new OrderService();
             var result = service.GetOrderDeatils(id);
             return result;
+        }
+
+        //取消訂單
+        [HttpPost]
+        public IHttpActionResult CancelOrder(string id)
+        {
+            var service = new OrderService();
+            var result = service.CancelOrder(id);
+            return Json("ok");
         }
     }
 }

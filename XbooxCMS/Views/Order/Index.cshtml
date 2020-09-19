@@ -3,10 +3,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-</head>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+
+    </head>
 
 <h2 class="my-3 text-center">所有訂單</h2>
 <section class="shop-cart spad">
@@ -24,41 +25,14 @@
                                 <th>收件人信箱</th>
                                 <th>收件人地址</th>
                                 <th>付款方式</th>
+                                <th>是否成立</th>
                                 <th>付款狀態</th>
                                 <th>訂單明細</th>
                                 <th>編輯與刪除</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @*@foreach (var item in Model)
-                            {*@
-                                <tr>
-                                    @*<td>@item.OrderId</td>
-                                    <td>@item.UserName</td>
-                                    <td>@item.OrderDate</td>
-                                    <td>@item.PurchaserName</td>
-                                    <td>@item.PurchaserEmail</td>
-                                    <td>@item.PurchaserAddress</td>
-                                    <td>
-                                        @if (!item.Paid)
-                                        {
-                                            <div class="text-danger">未付款</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="text-success">已付款</div>
-                                        }
-
-                                    </td>
-                                    <td>
-                                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="@item.OrderId" data-toggle="modal" data-target="#orderDetails">查看</button>
-                                    </td*@>
-                                    @*<td>
-                                        <input type="button" value="取消" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-toggle="modal" data-target="#editOrder">
-
-                                    </td>*@
-                                </tr>
-                            @*}*@
+                          
                         </tbody>
                     </table>
                 </div>
@@ -105,21 +79,24 @@
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 @*<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>*@
+
+<script  type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@10.2.0/dist/sweetalert2.all.min.js"></script>
+
 <!-- 使用vue -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
 
 @section scripts{
     @*<script>
-        var BindingObj = { items: jsonData }
-        function Binding() {
-            vm = new Vue({
+            var BindingObj = { items: jsonData }
+            function Binding() {
+                vm = new Vue({
 
-                el: "#table1",
-                data: BindingObj,
-            })
-        }
+                    el: "#table1",
+                    data: BindingObj,
+                })
+            }
 
-    </script>*@
+        </script>*@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -135,7 +112,7 @@
 
                     },
                     {
-                        data:'UserName'
+                        data: 'UserName'
                     },
                     {
                         data: 'OrderDate'
@@ -151,14 +128,17 @@
                         data: 'PurchaserAddress'
                     },
                     {
-                        data:'Payment'
+                        data: 'Payment'
+                    },
+                    {
+                        data: 'Build'
                     },
 
                     {
                         data: 'item.Paid',
                         render: function (data) {
                             if (data != true) {
-                                return'<div class="text-danger">未付款</div>'
+                                return '<div class="text-danger">未付款</div>'
                             }
                             if (data == true) {
                                 return '<div class="text-danger">已付款</div>'
@@ -169,16 +149,18 @@
                     {
                         data: 'OrderId',
                         render: function (data) {
-                            return`<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id=${data} data-toggle="modal" data-target="#orderDetails">查看</button>`
+                            return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id=${data} data-toggle="modal" data-target="#orderDetails">查看</button>`
                         }
                     },
                     {
-                        data:'',
+                        data: 'OrderId',
                         render: function (data) {
-                            return ' <input type="button" value="取消" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-toggle="modal" data-target="#editOrder">'
+                          //  return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  mdl-button--accent" id=${data} data-toggle="modal" data-target="#deleteOrder">取消</button>`
+                            return ` <input type="button" value="取消" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent  " id=${data} data-toggle="modal" data-target="#deleteOrder">`
+
                         }
                     }
-               
+
                 ]
 
 
@@ -193,6 +175,7 @@
             let detailsBody = $("#orderDetails .modal-body tbody");
             let editBtn = $("input[data-target='#editOrder']");
             let deleteBtn = $("input[data-target='#deleteOrder']");
+            let redirectUrl = "/order/Index";
             detailsBtn.on("click", function () {
                 $.ajax({
                     url: `/api/order/${this.id}`,
@@ -221,44 +204,7 @@
                 });
             });
 
-            editBtn.on("click", function () {
-                let checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                Swal.fire({
-                    title: '編輯付款狀態',
-                    input: 'radio',
-                    showCancelButton: true,
-                    confirmButtonText: '確認',
-                    showLoaderOnConfirm: true,
-                    inputOptions: {
-                        '0': '未付款',
-                        '1': '已付款',
-                    },
-                    preConfirm: (state) => {
-                        return $.ajax({
-                            type: "POST",
-                            url: "/Order/ChangeState",
-                            data: `{ id: ${state}}`,
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (r) {
-                                if (!response.ok) {
-                                    throw new Error(response.statusText)
-                                }
-                                return response.json()
-                            }
-                        });
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.value) {
-                        Swal.fire({
-                            title: `${result.value.login}'s avatar`,
-                            imageUrl: result.value.avatar_url
-                        })
-                    }
-                })
-            });
+
             deleteBtn.on("click", function () {
                 Swal.fire({
                     title: '取消訂單',
@@ -267,16 +213,16 @@
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: '刪除!',
+                    confirmButtonText: '我要取消!',
                     preConfirm: () => {
                         $.ajax({
                             type: "post",
-                            url: `CancelOrder?orderId=${this.id}`,
+                            url: `/api/order/${this.id}`,
                             data: "{}",
                             contentType: "application/json; charset=utf-8",
-                            dataType: "json",
+                           
                             success: function (response) {
-                                window.location.href = response.redirectToUrl;
+                                window.location.href = redirectUrl;
                             }
                         })
                     },

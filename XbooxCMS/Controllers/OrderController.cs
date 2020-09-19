@@ -38,14 +38,14 @@ namespace XbooxCMS.Controllers
 
             //   
             //}
-            return View(orderList);
+            return View();
         }
 
    
-        public ActionResult Detail(string id)
-        {
-            var service = new OrderService();
-            var result = service.GetOrderDeatils(id);
+        //public ActionResult Detail(string id)
+        //{
+        //    var service = new OrderService();
+        //    var result = service.GetOrderDeatils(id);
             //using (var context = new XbooxContext())
             //{
             //    List<OrderDetailsViewModel> orderDetailsList = new List<OrderDetailsViewModel>();
@@ -70,8 +70,8 @@ namespace XbooxCMS.Controllers
             //        var firstProductItem = productList.FirstOrDefault(item => !item.Imagelink.Contains("-0"));
             //        orderDetailsList.Add(firstProductItem);
             //    }
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
+            //    return Json(result, JsonRequestBehavior.AllowGet);
+            //}
           
         }
     
