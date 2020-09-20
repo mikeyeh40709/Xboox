@@ -1,10 +1,15 @@
-﻿@model IEnumerable<Xboox.ViewModels.CartViewModel>
+﻿@model Xboox.ViewModels.OrderViewModel
 @{
     ViewBag.Title = "CreateOrder";
     decimal total = 0m;
-    foreach (var item in Model)
+    string discountCode = "";
+    foreach (var item in ViewBag.Items)
     {
         total += Math.Round(item.Price * item.Quantity);
+    }
+    if (ViewBag.DiscountCode != null)
+    {
+        discountCode = ViewBag.DiscountCode.CouponCode;
     }
     ViewBag.Total = total;
 }
@@ -15,8 +20,8 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i>Home</a>
-                    <a href="@Url.Action("ShopCart","Cart")"><span>Shopping Cart</span></a>
-                    <a href="@Url.Action("CreateOrder","Order")"><span>Place Order</span></a>
+                    <a href="@Url.Action("ShopCart", "Cart")"><span>Shopping Cart</span></a>
+                    <a href="@Url.Action("CreateOrder", "Order")"><span>Place Order</span></a>
                 </div>
             </div>
         </div>
@@ -30,64 +35,65 @@
                 <h5>Billing detail</h5>
                 <div class="row">
                     @Html.AntiForgeryToken()
+                    <input type="hidden" name="OrderId" value="@Model.OrderId">
                     <div class="col-lg-12">
                         <div class="checkout__form__input">
                             <p>Name <span>*</span></p>
-                            <input type="text" name="PurchaserName" required>
+                            <input type="text" name="PurchaserName" value="@Model.PurchaserName" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="checkout__form__input">
                             <p>City <span>*</span></p>
-                            <input type="text" name="City" required>
+                            <input type="text" name="City" value="@Model.City" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="checkout__form__input">
-                            <p>Area <span>*</span></p>
-                            <input type="text" name="District" required>
+                            <p>District <span>*</span></p>
+                            <input type="text" name="District" value="@Model.District" required>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="checkout__form__input">
                             <p>Road <span>*</span></p>
-                            <input type="text" name="Road" required>
+                            <input type="text" name="Road" value="@Model.Road" required>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="checkout__form__input">
                             <p>Phone <span>*</span></p>
-                            <input type="tel" name="PurchaserPhone" required>
+                            <input type="tel" name="PurchaserPhone" value="@Model.PurchaserPhone" required>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="checkout__form__input">
                             <p>Email <span>*</span></p>
-                            <input type="email" name="PurchaserEmail" required>
+                            <input type="email" name="PurchaserEmail" value="@Model.PurchaserEmail" required>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="checkout__form__checkbox">
-                            <p class="text-dark mb-2">選擇付款方式 <span>*</span></p>
+                            <p class="pb-2 mb-2" style="border-bottom: 1px solid #e1e1e1;">選擇付款方式 <span class="text-danger">*</span></p>
                             <div>
                                 <label for="COD">
                                     貨到付款
-                                    <input type="radio" id="COD" name="Payment" value="COD">
+                                    <input type="radio" id="COD" name="Payment" value="COD" required>
                                     <span class="checkmark"></span>
                                 </label>
                                 <label for="Credit">
                                     信用卡
-                                    <input type="radio" id="Credit" name="Payment" value="Credit">
+                                    <input type="radio" id="Credit" name="Payment" value="Credit" required>
                                     <span class="checkmark"></span>
                                 </label>
                                 <label for="BarCode">
                                     超商條碼
-                                    <input type="radio" id="BarCode" name="Payment" value="BarCode">
+                                    <input type="radio" id="BarCode" name="Payment" value="BarCode" required>
                                     <span class="checkmark"></span>
                                 </label>
                                 <label for="CVS">
                                     超商繳費
-                                    <input type="radio" id="CVS" name="Payment" value="CVS">
+                                    <input type="radio" id="CVS" name="Payment" value="CVS" required>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -95,10 +101,10 @@
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="checkout__form__checkbox">
-                            <p class="text-dark mb-2">是否要記住訂單資訊 <span>*</span></p>
+                            <p class="pb-2 mb-2" style="border-bottom: 1px solid #e1e1e1;">是否要記住訂單資訊 ? <span class="text-danger">*</span></p>
                             <div>
                                 <label for="Remember">
-                                    記住我
+                                    記住訂單資訊
                                     <input type="checkbox" id="Remember" name="Remember" value="true">
                                     <span class="checkmark"></span>
                                 </label>
@@ -110,14 +116,14 @@
             <div class="col-lg-6 position-relative">
                 <div class="checkout__order">
                     <h5>Your order</h5>
-                    <div class="checkout__order__product">
+                    <div class="checkout__order__product border-bottom-0">
                         <ul>
                             <li class="d-flex justify-content-between">
                                 <span class="top__text d-inline-block" style="width: 70%;">Product</span>
                                 <span class="top__text d-inline-block text-center" style="width: 15%;">Quantity</span>
                                 <span class="top__text d-inline-block text-right" style="width: 15%;">Total</span>
                             </li>
-                            @foreach (var item in Model)
+                            @foreach (var item in ViewBag.Items)
                             {
                                 <li class="d-flex justify-content-between">
                                     <span class="d-inline-block" style="width: 70%; text-overflow: ellipsis">@item.Name</span>
@@ -127,17 +133,13 @@
                             }
                         </ul>
                     </div>
-                    <div class="cart__btn update__btn" id="ordercheckcodebtns">
-                        <!-- Button trigger modal -->
-                        <a href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Discount Code</a>
-                        <a href="@Url.Action("Index","Home")"><span class="icon_loading"></span>Continue Shopping</a>
-                    </div>
-                    <div class="discount__content">
-                        <h6>Discount codes</h6>
-                        <div id="codesection">
-                            <input type="text" placeholder="Enter your coupon code" id="discountCode">
-                            <input type="text" placeholder="Discount Rate:" id="discountRate" class="d-none">
-                            <button class="site-btn" onclick="compareCode()" id="codebtn">Apply</button>
+                    <h5 class="pt-4">Discount codes</h5>
+                    <div class="w-100" id="codesection">
+                        <input type="text" placeholder="Enter your coupon code" id="discountCode" name="Discount" value="@discountCode">
+                        <input type="text" placeholder="Discount Rate:" id="discountRate" class="d-none">
+                        <button class="site-btn" onclick="compareCode()" id="codebtn">Apply</button>
+                        <div class="cart__btn update__btn" id="ordercheckcodebtns">
+                            <a class="text-left" href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Discount Code</a>
                         </div>
                     </div>
                     <div class="checkout__order__total">
@@ -147,7 +149,8 @@
                             <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice"></span></li>
                         </ul>
                     </div>
-                    <button type="submit" class="site-btn">Place order</button>
+                    <button type="submit" class="site-btn mb-3">Place order</button>
+                    <a class="site-btn text-center text-white" href="@Url.Action("Index","Home")">Continue Shopping</a>
                 </div>
             </div>
         </div>
@@ -197,15 +200,32 @@
 </div>
 <script>
     window.addEventListener("load", function () {
+        function getCookie(cookieName) {
+            var name = cookieName + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
         let form = $("form.checkout__form");
-        console.log(form.attr('action'));
         let state = $("input[name='Payment']");
+        let remember = $("#Remember")
         state.on("change", function () {
             if ($(this).val() == "COD") {
                 form.attr('action', "/Order/CreateOrder")
             } else {
                 form.attr('action', "/Order/PostToECPay")
+                let submitBtn = $("button[type='submit']");
+                submitBtn.click(function () {
+                    localStorage.clear();
+                })
             }
+        })
+        remember.on("change", function () {
+            getCookie("odStorage")
         })
     })
 </script>
@@ -235,7 +255,7 @@
                     let number = CouponCode.findIndex(x => x == discountCode);
                     discountRate = Discount[number];
                     CartDiscountRate.innerText = "x" + discountRate;
-                }                
+                }
                 let number = CouponCode.findIndex(x => x == discountCode);
                 discountRate = Discount[number];
                 CartDiscountRate.innerText = "x" + discountRate;

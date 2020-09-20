@@ -213,7 +213,7 @@
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Services\AspNetUserManage.cs" />
-    <Compile Include="Models\Services\CommonService.cs" />
+    <Compile Include="Models\Services\ECPayService.cs" />
     <Compile Include="Models\Services\SetCookieService.cs" />
     <Compile Include="Models\Services\OperationResult.cs" />
     <Compile Include="Models\Services\ShoppingCartService.cs" />
