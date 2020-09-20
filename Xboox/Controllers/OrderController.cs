@@ -123,7 +123,7 @@ namespace Xboox.Controllers
             //### 組合檢查碼
             string PostURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut";
             var ecpayNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
-            if (order.OrderId != null)
+            if (order.OrderId != Guid.Empty)
             {
                 var orderDetails = orderservice.GetOrderDetails(order.OrderId.ToString());
                 var postCollection = ecpayService.GetPostCollection(orderDetails, order, ecpayNumber);

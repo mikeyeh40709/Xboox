@@ -44,7 +44,7 @@ namespace Xboox.Models.Services
                 AllInOne opay = new AllInOne();
                 opay.Send.MerchantTradeNo = MerchantTradeNo; //廠商訂單編號
                 opay.Send.MerchantTradeDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"); //廠商訂單日期           
-                opay.Send.TotalAmount = cartItems.Sum(item => item.Price * item.Quantity * discount);
+                opay.Send.TotalAmount = Convert.ToInt32(cartItems.Sum(item => item.Price * item.Quantity * discount));
                 opay.Send.TradeDesc = "ECPay訂單測試";
                 foreach (var item in cartItems)
                 {
@@ -106,7 +106,7 @@ namespace Xboox.Models.Services
                 AllInOne opay = new AllInOne();
                 opay.Send.MerchantTradeNo = MerchantTradeNo; //廠商訂單編號
                 opay.Send.MerchantTradeDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"); //廠商訂單日期           
-                opay.Send.TotalAmount = orderDetailsItems.Sum(item => item.Price * item.Quantity * discount);
+                opay.Send.TotalAmount = Convert.ToInt32(orderDetailsItems.Sum(item => item.Price * item.Quantity * discount));
                 opay.Send.TradeDesc = "ECPay訂單測試";
                 foreach (var item in orderDetailsItems)
                 {
