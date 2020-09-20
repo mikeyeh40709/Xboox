@@ -20,12 +20,12 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>150</h3>
+                <h3 id="neworders">載入中...</h3>
 
                 <p>New Orders</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-shopping-bag"></i>
+            <div class="icon pr-1">
+                <i class="fa fa-pie-chart"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -35,11 +35,11 @@
         <!-- small box -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3 id="revenue">載入中...</h3>
 
-                <p>Bounce Rate</p>
+                <p>Revenue</p>
             </div>
-            <div class="icon">
+            <div class="icon pr-1">
                 <i class="fa fa-bar-chart"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -50,11 +50,11 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>44</h3>
+                <h3 id="allmembers">載入中...</h3>
 
-                <p>User Registrations</p>
+                <p>All Members</p>
             </div>
-            <div class="icon">
+            <div class="icon pr-1">
                 <i class="fa fa-user"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -65,12 +65,12 @@
         <!-- small box -->
         <div class="small-box bg-danger">
             <div class="inner">
-                <h3>65</h3>
+                <h3 id="allproducts">載入中...</h3>
 
-                <p>Unique Visitors</p>
+                <p>All Products</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-pie-chart"></i>
+            <div class="icon pr-1">
+                <i class="fa fa-shopping-bag"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -162,6 +162,29 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script>
+    // titaldata ajax
+    var titalurl = "/Dashboard/GetTitleData"
+    $.ajax({
+        url: titalurl,
+        type: "GEt",
+        dataType: "json",
+        success: function (response) {
+            var orders = document.getElementById('neworders');
+            orders.innerText = response.orders;
+            var revenue = document.getElementById('revenue');
+            revenue.innerText = response.revenue;
+            var members = document.getElementById('allmembers');
+            members.innerText = response.members;
+            var products = document.getElementById('allproducts');
+            products.innerText = response.products;
+
+            console.log(response);
+        }
+
+    });
+
+
+    // sales revenue chartjs
     var ctx = document.querySelector("#revenue-linechart");
     var chart1 = new Chart(ctx, {
         type: "line",
@@ -249,7 +272,7 @@
     });
     //});
 
-
+    // top5product chartjs
     var ctxPie = document.querySelector("#pie-chart");
     var chartpie = new Chart(ctxPie, {
         type: "pie",
@@ -311,5 +334,6 @@
             });
         });
     });
+
 
 </script>
