@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "ShowBooks";
+    ViewBag.Title = "Books";
 }
 
 <!-- Breadcrumb Begin -->
@@ -13,7 +13,7 @@
                 <div class="breadcrumb__links">
                     <a href="/"><i class="fa fa-home"></i> Home</a>
                     @*@Html.ActionLink("中文書", "ShowAllBooks", "BookCategory",null, new { hidefocus="hidefocus"})*@
-                    <a href="@Url.Action("ShowBooks","BookCategory", new { id= ViewBag.CategoryID})"><span>@ViewBag.Category</span></a>
+                    <a href="@Url.Action("Books","Book", new { id= ViewBag.CategoryID})"><span>@ViewBag.Category</span></a>
                 </div>
             </div>
         </div>
@@ -30,9 +30,6 @@
                         <div class="section-title">
                             <h4>Select by category</h4>
                         </div>
-                        @*<div class="filter__controls size__list">
-                                @Html.Partial("_SideBarCategoryPartial")
-                            </div>*@
                         <ul class="filter__controls" id="shoptags">
                             @Html.Partial("_SideBarCategoryPartial")
                         </ul>
@@ -77,3 +74,5 @@
         </div>
     </div>
 </section>
+
+
