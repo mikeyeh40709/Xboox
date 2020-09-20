@@ -269,6 +269,7 @@
     <Compile Include="ViewModels\SalesRevenueViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
+    <Compile Include="WebApi\CouponsController.cs" />
     <Compile Include="WebApi\TagsController.cs" />
     <Compile Include="WebApi\UserController.cs" />
   </ItemGroup>

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using XbooxCMS.ViewModels;
+using System.Web;
 using XbooxLibrary.Models.DataTable;
 using XbooxLibrary.Repository;
+using XbooxCMS.ViewModels;
+using Newtonsoft.Json;
+using XbooxLibrary.Services;
 
-namespace XbooxLibrary.Services
+namespace XbooxCMS.Services
 {
     public class TagService
     {
@@ -21,7 +22,7 @@ namespace XbooxLibrary.Services
                 GeneralRepository<Tags> repository = new GeneralRepository<Tags>(context);
                 Tags entity = new Tags()
                 { TagId = Guid.NewGuid(),
-                  TagName = input.TagName 
+                  TagName = input.TagName
                 };
                 repository.Create(entity);
                 repository.SaveContext();
@@ -72,13 +73,13 @@ namespace XbooxLibrary.Services
             
         }
 
-        public Tags GetSingleTag(Guid id)
-        {
-            XbooxLibraryDBContext context = new XbooxLibraryDBContext();
-            GeneralRepository<Tags> repository = new GeneralRepository<Tags>(context);
-            var temp = repository.GetAll().FirstOrDefault(x=>x.TagId==id);
-            var temps = repository.GetFirst(x => x.TagId == id);
-            return temps;
-        }
+        //public Tags GetSingleTag(Guid id)
+        //{
+        //    XbooxLibraryDBContext context = new XbooxLibraryDBContext();
+        //    GeneralRepository<Tags> repository = new GeneralRepository<Tags>(context);
+        //    //var temp = repository.GetAll().FirstOrDefault(x=>x.TagId==id);
+        //    var temps = repository.GetFirst(x => x.TagId == id);
+        //    return temps;
+        //}
     }
 }
