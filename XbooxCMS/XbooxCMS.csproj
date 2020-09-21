@@ -251,6 +251,7 @@
     <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CouponsService.cs" />
     <Compile Include="Services\ImgService.cs" />
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Services\OrderService.cs" />
