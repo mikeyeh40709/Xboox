@@ -121,7 +121,7 @@ namespace Xboox.Controllers
         {
             ECPayService ecpayService = new ECPayService();
             //### 組合檢查碼
-            string PostURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut";
+            string PostURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/v5";
             var ecpayNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
             if (order.OrderId != Guid.Empty)
             {
@@ -185,10 +185,10 @@ namespace Xboox.Controllers
             }
             var RtnCode = result.FirstOrDefault(item => item.Key == "RtnCode").Value;
             var ReturnCheckMacValue = result.FirstOrDefault(item => item.Key == "CheckMacValue").Value;
-            var MerchantTradeNo = result.FirstOrDefault(item => item.Key == "MerchantTradeNo").Value;
+            var orderId = result.FirstOrDefault(item => item.Key == "CustomField1").Value;
             if (RtnCode == "1")
             {
-                orderservice.EditPaidState(MerchantTradeNo);
+                orderservice.EditPaidState(orderId);
             }
             Response.Write("1|OK");
             this.Response.Flush();

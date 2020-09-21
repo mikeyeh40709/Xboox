@@ -24,6 +24,16 @@ namespace Xboox
                 defaults: new { controller = "Book", action = "Books", CategoryName = "All" }
                 );
             routes.MapRoute(
+                name: "BooksById",
+                url: "Details/{id}",
+                defaults: new { controller = "Home", action = "ProductDetail"}
+                );
+            routes.MapRoute(
+                name: "BooksByName",
+                url: "Find/{Name}",
+                defaults: new { controller = "Book", action = "BooksByName" }
+                );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

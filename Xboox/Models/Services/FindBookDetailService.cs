@@ -11,7 +11,7 @@ namespace Xboox.Services
 {
     public class FindBookDetailService
     {
-        private XbooxLibraryDBContext _context = new XbooxLibraryDBContext();
+        private static XbooxLibraryDBContext _context = new XbooxLibraryDBContext();
 
         public IEnumerable<ProductDetailViewModel> FindBookDetail(string CategoryName)
         {
@@ -61,6 +61,10 @@ namespace Xboox.Services
             {
                 return FindBookDetail(CategoryName).Where(x => x.Price >= Convert.ToDecimal(min_price) && x.Price <= Convert.ToDecimal(max_price));
             }
+        }
+        public IEnumerable<ProductDetailViewModel> FindBookByName(string Name)
+        {
+            return FindBookDetail("All").Where(x => x.Name.Contains(Name));
         }
         public IEnumerable<string> FindTag()
         {

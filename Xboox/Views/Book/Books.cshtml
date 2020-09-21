@@ -13,7 +13,8 @@
                 <div class="breadcrumb__links">
                     <a href="/"><i class="fa fa-home"></i> Home</a>
                     @*@Html.ActionLink("中文書", "ShowAllBooks", "BookCategory",null, new { hidefocus="hidefocus"})*@
-                    <a href="@Url.Action("Books","Book", new { id= ViewBag.CategoryID})"><span>@ViewBag.Category</span></a>
+                    @*<a href="@Url.Action("Books","Book", new { id= ViewBag.CategoryID})"><span>@ViewBag.Category</span></a>*@
+                    <a href="/Books/@ViewBag.Category"><span>@ViewBag.Category</span></a>
                 </div>
             </div>
         </div>
