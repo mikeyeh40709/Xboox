@@ -59,6 +59,7 @@ namespace Xboox.Services
             }
         }
         #endregion
+
         #region 用訂單Id取訂單
         public List<OrderViewModel> GetOrder(HttpContextBase httpContext, string orderId)
         {
@@ -91,6 +92,7 @@ namespace Xboox.Services
             }
         }
         #endregion
+
         #region 取得所有訂單
         public List<OrderViewModel> GetOrder()
         {
@@ -118,6 +120,8 @@ namespace Xboox.Services
             }
         }
         #endregion
+
+        #region 拿到訂單細節
         public List<OrderDetailsViewModel> GetOrderDetails(string orderId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
@@ -152,6 +156,9 @@ namespace Xboox.Services
             }
 
         }
+        #endregion
+
+        #region 拿到記住我的訂單資訊
         public OrderViewModel GetRecordInfo(HttpContextBase httpContext)
         {
             using (var dbContext = new XbooxLibraryDBContext())
@@ -164,19 +171,25 @@ namespace Xboox.Services
                     .OrderByDescending(item => item.OrderDate);
                 var order = orderList.FirstOrDefault();
                 OrderViewModel orderInfo = new OrderViewModel();
-                if (order.Remember)
+                if ( order != null)
                 {
-                    orderInfo.PurchaserName = order.PurchaserName;
-                    orderInfo.City = order.City;
-                    orderInfo.District = order.District;
-                    orderInfo.Road = order.Road;
-                    orderInfo.PurchaserEmail = order.PurchaserEmail;
-                    orderInfo.PurchaserPhone = order.PurchaserPhone;
-                    orderInfo.Remember = order.Remember;
+                    if (order.Remember)
+                    {
+                        orderInfo.PurchaserName = order.PurchaserName;
+                        orderInfo.City = order.City;
+                        orderInfo.District = order.District;
+                        orderInfo.Road = order.Road;
+                        orderInfo.PurchaserEmail = order.PurchaserEmail;
+                        orderInfo.PurchaserPhone = order.PurchaserPhone;
+                        orderInfo.Remember = order.Remember;
+                    }
                 }
                 return orderInfo;
             }
         }
+        #endregion
+
+        #region 建立訂單(httpcontext, order, ecpaynumber)
         public OperationResult CreateOrder(HttpContextBase httpcontext, OrderViewModel order, string ecpayNumber)
         {
             OperationResult operationResult = new OperationResult();
@@ -261,6 +274,9 @@ namespace Xboox.Services
             }
 
         }
+        #endregion
+
+        #region 編輯付款狀態
         public OperationResult EditPaidState(string merchantTradeNo)
         {
             OperationResult operationResult = new OperationResult();
@@ -293,6 +309,9 @@ namespace Xboox.Services
             }
 
         }
+        #endregion
+
+        #region 取消訂單
         public OperationResult CancelOrder(string orderId)
         {
             OperationResult operationResult = new OperationResult();
@@ -341,5 +360,6 @@ namespace Xboox.Services
             }
             return operationResult;
         }
+        #endregion
     }
 }
