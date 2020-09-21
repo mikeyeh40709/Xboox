@@ -9,7 +9,7 @@ using XbooxCMS.Services;
 
 namespace XbooxCMS.WebApi
 {
-    [RoutePrefix("api/[Controller]/[Action]")]
+    //[RoutePrefix("api/[Controller]/[Action]")]
     public class OrderController : ApiController
     {
 
@@ -25,10 +25,10 @@ namespace XbooxCMS.WebApi
         //訂單產品內容
         [HttpGet]
      
-        public List<OrderDetailsViewModel> GetOrderDeatils(string id)
+        public List<OrderDetailsViewModel> GetOrderDeatils(string lalaid)
         {
             var service = new OrderService();
-            var result = service.GetOrderDeatils(id);
+            var result = service.GetOrderDeatils(lalaid);
             return result;
         }
 

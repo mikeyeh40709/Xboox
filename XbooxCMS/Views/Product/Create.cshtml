@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Description = HttpUtility.HtmlDecode(Model.Description);
+  
 }
 <head>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
@@ -20,6 +20,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<form id="product">
     <div class="col-md-12">
 
         <div class="card card-4">
@@ -111,7 +112,7 @@
                                         entity => entity.TagName,
                                         model => model.SelectedTags
                                         //(model, entity) => model.Tags.Contains(entity.TagId)
-                 )
+                             )
                         </div>
                     </div>
                 </div>
@@ -144,7 +145,7 @@
                                    data-max-file-size="3MB"
                                    data-max-files="5">
                         </div>
-                        <button class="btn btn-danger pad-1" id="remove"   type="button">Remove All Pictures</button>
+                        <button class="btn btn-danger pad-1" id="remove" type="button">Remove All Pictures</button>
 
                     </div>
                     <div class="col-12 ">
@@ -155,13 +156,13 @@
                 </div>
 
                 <div class="p-t-15">
-                    <button class="btn btn-beige" type="submit">Create</button>
+                    <button class="btn btn-beige" @*type="submit" onclick="createFunction()"*@ id="createBtn">Create</button>
                 </div>
 
             </div>
         </div>
     </div>
-
+</form>
 }
 @*@Scripts.Render("~/bundles/jqueryval")*@
 
@@ -175,6 +176,41 @@
 <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+    $('#createBtn').click(function () {
+
+        $.ajax({
+            type: "POST", 
+            url: '/api/product',
+            data: $('#product').serialize,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (data) {
+                console.log("Success create", data);
+                window.location.href = redirectUrl;
+            },
+
+            error: function (xhr) {
+                alert('fails');
+
+            }
+
+
+        })
+
+
+
+    })
+
+
+</script>
+
+
+
 
 
 <script type="text/javascript">
@@ -244,33 +280,9 @@
                 load();
             },
 
-            //remove: (source, load, error) => {
-            //    console.log("removeAll", source);
-            //    let formData = new FormData();
-            //    formData.append('ddd', source);
-            //    fetch(`/Product/RemoveAll ? abc = ${ source }`, {
-            //        body: formData,
-            //        headers: {
-            //            //'content-type': 'multipart/form-data'
-            //        },
-            //        method: 'POST'
-            //    })
-            //    .then((result) => {
-            //            console.log("remove", source);
-            //    })
-            //    error('oh my goodness');
-            //    load();
-            //}
         }
     });
-    //const filepond_root = document.querySelector('.filepond--root');
-    //filepond_root.addEventListener('FilePond:processfilerevert', e => {
-    //    $.ajax({
-    //        url: "/Product/RemoveAll",
-    //        type: 'POST',
-    //        data: { 'filename': e.detail.file.filename }
-    //    })
-    //});
+
     
  
 </script>
