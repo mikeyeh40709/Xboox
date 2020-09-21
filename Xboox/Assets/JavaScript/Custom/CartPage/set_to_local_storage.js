@@ -141,7 +141,8 @@ function ajaxFun(clickName, ajaxUrl) {
     $(clickName).click(function (e) {
         e.preventDefault();
         let getLocalStorage = localStorage.getItem("CartItems");
-        if (window.localStorage !== undefined) {
+        console.log(getLocalStorage.length);
+        if (getLocalStorage.length>2) {
             $.ajax({
                 url: ajaxUrl,
                 data: { values: getLocalStorage },
@@ -155,6 +156,9 @@ function ajaxFun(clickName, ajaxUrl) {
                     console.log(thrownError);
                 }
             })
+        }
+        else {
+            swal("請先加入商品至購物車哦!!");
         }
     })
 }

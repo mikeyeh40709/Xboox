@@ -3,25 +3,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*@section topJS{
+        <script src="~/Assets/Js/Dashboard_JS.js"></script>
+    }*@
+
 <head>
     <link href="~/Assets/Css/DashBoard.css" rel="stylesheet" />
-     <link href= "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" rel="stylesheet" />
-   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" rel="stylesheet" />
 </head>
 @*<section class="content">
     <div class="container-fluid">*@
 <!-- Small boxes (Stat box) -->
+
 <div class="row">
     <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>150</h3>
+                <h3 id="neworders">載入中...</h3>
 
                 <p>New Orders</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-shopping-bag"></i>
+            <div class="icon pr-1">
+                <i class="fa fa-pie-chart"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -31,11 +35,11 @@
         <!-- small box -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3 id="revenue">載入中...</h3>
 
-                <p>Bounce Rate</p>
+                <p>Revenue</p>
             </div>
-            <div class="icon">
+            <div class="icon pr-1">
                 <i class="fa fa-bar-chart"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -46,11 +50,11 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>44</h3>
+                <h3 id="allmembers">載入中...</h3>
 
-                <p>User Registrations</p>
+                <p>All Members</p>
             </div>
-            <div class="icon">
+            <div class="icon pr-1">
                 <i class="fa fa-user"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -61,12 +65,12 @@
         <!-- small box -->
         <div class="small-box bg-danger">
             <div class="inner">
-                <h3>65</h3>
+                <h3 id="allproducts">載入中...</h3>
 
-                <p>Unique Visitors</p>
+                <p>All Products</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-pie-chart"></i>
+            <div class="icon pr-1">
+                <i class="fa fa-shopping-bag"></i>
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -87,7 +91,8 @@
                     <ul class="nav nav-pills ml-auto">
                     </ul>
                 </div>
-            </div><!-- /.card-header -->
+            </div>
+            <!-- /.card-header -->
             <div class="card-body">
                 <div class="tab-content p-0">
                     <!-- Morris chart - Sales -->
@@ -103,13 +108,39 @@
     </div>
     <div class="col-lg-5">
         <div class="card">
-
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fa fa-area-chart mr-1"></i>
+                    銷量最高產品
+                </h3>
+                <div class="card-tools">
+                    <ul class="nav nav-pills ml-auto">
+                    </ul>
+                </div>
+            </div>
 
             <div class="card-body">
                 <div class="tab-content p-0">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="productpie-chart"
-                         style="position: relative; height: 400px;">
+                         style="position: relative; height: 550px;">
+                        <div class="row justify-content-around">
+                            <a class="select">一月</a>
+                            <a class="select">二月</a>
+                            <a class="select">三月</a>
+                            <a class="select">四月</a>
+                            <a class="select">五月</a>
+                            <a class="select">六月</a>
+                        </div>
+                        <div class="row justify-content-around">
+                            <a class="select">七月</a>
+                            <a class="select">八月</a>
+                            <a class="select">九月</a>
+                            <a class="select">十月</a>
+                            <a class="select">十一月</a>
+                            <a class="select">十二月</a>
+                        </div>
+
                         <canvas id="pie-chart" height="300" style="height: 300px;"></canvas>
                     </div>
 
@@ -126,168 +157,183 @@
 
 
 
-@*</div>
-    </section>*@
 
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+    // titaldata ajax
+    var titalurl = "/Dashboard/GetTitleData"
+    $.ajax({
+        url: titalurl,
+        type: "GEt",
+        dataType: "json",
+        success: function (response) {
+            var orders = document.getElementById('neworders');
+            orders.innerText = response.orders;
+            var revenue = document.getElementById('revenue');
+            revenue.innerText = response.revenue;
+            var members = document.getElementById('allmembers');
+            members.innerText = response.members;
+            var products = document.getElementById('allproducts');
+            products.innerText = response.products;
+
+            console.log(response);
+        }
+
+    });
 
 
+    // sales revenue chartjs
+    var ctx = document.querySelector("#revenue-linechart");
+    var chart1 = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: "Xboox",
+                fill: false,
+                backgroundColor: 'rgba(153,50,204,0.3)',
+                borderColor: 'rgb(123,55,190)',
+                pointStyle: "circle",
+                pointBackgroundColor: 'rgb(220,20,60)',
+                pointRadius: 5,
+                pointHoverRadius: 10,
+                data: ""
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                fontSize: 26,
+
+            },
+            tooltips: {
+                mode: 'point',
+                intersect: true,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: '月份',
+                        fontSize: 15
+                    },
+                    ticks: {
+                        fontSize: 15
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Million(NTD)',
+                        fontSize: 15
+                    },
+                    ticks: {
+                        fontSize: 15
+                    }
+                }]
+            },
+            animation: {
+                duration: 2000
+            }
+        }
+    });
+    ////get JSON  --  sales revenue
+    var apiurl = "/Dashboard/GetSalesRevenue"
+    $.ajaxSetup({ cache: false })
+
+    //$().ready(function () {
+    //$(window).unload(function () {
+    $.ajax({
+        url: apiurl,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+            //可動態調整每月營收報表
+            var datalist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            var NumOfJData = response.length;
+            for (var i = 0; i < NumOfJData; i++) {
+                var month = response[i]["Month"] - 1;
+                var revenue = response[i]["Revenue"];
+                datalist[month] = revenue;
+            }
+            //CreateChartJS_Line(datalist);
+            chart1.data.datasets[0].data = datalist
+            chart1.update();
+        }
+    });
+    //});
+
+    // top5product chartjs
+    var ctxPie = document.querySelector("#pie-chart");
+    var chartpie = new Chart(ctxPie, {
+        type: "pie",
+        data: {
+            labels: ['test1', 'test2', 'test3', 'test4'],
+            datasets: [{
+                label: "書名",
+                data: [5, 10, 15, 20],
+                backgroundColor: ['rgba(63,127,191,1)', 'rgba(191,102,63,1)', 'rgba(167,63,191,1)', 'rgba(174,191,63,1)', 'rgba(63,191,108,1)'],
+            }]
+        },
+        options: {
+            responsive: true,
+            //title: {
+            //    display: true,
+            //    fontSize: 26,
+            //    text: '銷量最高產品'
+            //},
+            legend: {
+                position: 'bottom',
+                labels: {
+                    fontColor: 'black',
+                }
+            },
+            animation: {
+                duration: 2000
+            }
+        }
+    });
+
+    // get json --  top products
+    var pierul = "/Dashboard/GetTop5Products";
+    $.ajaxSetup({ cache: false })
+    $(".select").each(function (index) {
+        $(this).on("click", function () {
+            $.ajax({
+                url: pierul,
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    var labels = [];
+                    var datalist = [];
+                    // for 迴圈防呆還沒做
+                    for (i = 0; i < response.length; i++) {
+                        if (response[i]["Month"] == index + 1) {
+
+                            labels.push(response[i]["Name"]);
+                            datalist.push(response[i]["Quantity"]);
+                        }
+
+                    }
+                    chartpie.data.labels = labels
+                    chartpie.data.datasets[0].data = datalist
+                    chartpie.update();
+                    //console.log(response);
+                    //console.log(labels);
+                    //console.log(datalist);
+                }
+            });
+        });
+    });
 
 
-
-
-
-<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
-     <script>
-         var ctx = document.querySelector("#revenue-linechart"); 
-         var chart = new Chart(ctx, {
-             type: "line",
-             data: {
-                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-               //  labels: jsMonth,
-                 datasets: [{
-                     label: "Xboox",
-                   //  label: jsBusiness[0].City,
-                     fill: false,
-                     backgroundColor: 'rgba(153,50,204,0.3)',
-                     borderColor: 'rgb(123,55,190)',
-                     pointStyle: "circle",
-                     pointBackgroundColor: 'rgb(220,20,60)',
-                     pointRadius: 5,
-                     pointHoverRadius: 10,
-                   //  data: jsBusiness[0].Business
-                     data: [13.1, 10.2, 13.5, 20.9, 25.2, 27.1, 20.8,13.1, 14.2, 15.5, 20.9, 25.2, 27.1, 25.8]
-                 //}, {
-                 //    label: "高雄",
-                 //   // label: jsBusiness[1].City,
-                 //    fill: false,
-                 //    backgroundColor: 'rgba(0,255,255,0.3)',
-                 //    borderColor: 'rgb(0,225,255)',
-                 //    pointStyle: "triangle",
-                 //    pointBackgroundColor: 'blue',
-                 //    pointRadius: 5,
-                 //    pointHoverRadius: 10,
-                 //    //data: jsBusiness[1].Business
-                 //    data: [29.1, 28.3, 22.6, 25.4, 27.5, 23.4]
-                 //}, {
-                 //    label: "越南",
-                 //   // label: jsBusiness[2].City,
-                 //    fill: false,
-                 //    backgroundColor: 'rgba(153,50,204,0.3)',
-                 //    borderColor: 'rgb(123,55,190)',
-                 //    pointStyle: "rect",
-                 //    pointBackgroundColor: 'rgb(220,20,60)',
-                 //    pointRadius: 5,
-                 //    pointHoverRadius: 10,
-                 //    //data: jsBusiness[2].Business
-                 //    data: [16.6, 17.3, 19.2, 23.8, 12.0, 17.6]
-                 }]
-             },
-             options: {
-                 responsive: true,
-                 title: {
-                     display: true,
-                     fontSize: 26,
-                    
-                 },
-                 tooltips: {
-                     mode: 'point',
-                     intersect: true,
-                 },
-                 hover: {
-                     mode: 'nearest',
-                     intersect: true
-                 },
-                 scales: {
-                     xAxes: [{
-                         display: true,
-                         scaleLabel: {
-                             display: true,
-                             //labelString: '月份',
-                             fontSize: 15
-                         },
-                         ticks: {
-                             fontSize: 15
-                         }
-                     }],
-                     yAxes: [{
-                         display: true,
-                         scaleLabel: {
-                             display: true,
-                             labelString: 'Million(NTD)',
-                             fontSize: 15
-                         },
-                         ticks: {
-                             fontSize: 15
-                         }
-                     }]
-                 },
-                 animation: {
-                     duration: 2000
-                 }
-             }
-         });
-         var ctxPie = document.querySelector("#pie-chart");
-         var chart = new Chart(ctxPie, {
-             type: "pie",
-             data: {
-                 labels: ['The Complete Stories', '證詞：《使女的故事》續集', '房奴：時代控訴長篇小說', '十二國記(14)白銀之墟玄之月(03)', '網頁程式設計ASP.NET MVC 5.X範例完美演繹'],
-                 //  labels: jsMonth,
-                 datasets: [{
-                     label: "書名",
-                     //  label: jsBusiness[0].City,
-                     data: [300, 250, 200, 150, 100],
-                     backgroundColor: ['rgba(63,127,191,1)', 'rgba(191,102,63,1)', 'rgba(167,63,191,1)', 'rgba(174,191,63,1)', 'rgba(63,191,108,1)'],
-                 
-                
-                     //  data: jsBusiness[0].Business
-                  
-                     //}, {
-                     //    label: "高雄",
-                     //   // label: jsBusiness[1].City,
-                     //    fill: false,
-                     //    backgroundColor: 'rgba(0,255,255,0.3)',
-                     //    borderColor: 'rgb(0,225,255)',
-                     //    pointStyle: "triangle",
-                     //    pointBackgroundColor: 'blue',
-                     //    pointRadius: 5,
-                     //    pointHoverRadius: 10,
-                     //    //data: jsBusiness[1].Business
-                     //    data: [29.1, 28.3, 22.6, 25.4, 27.5, 23.4]
-                     //}, {
-                     //    label: "越南",
-                     //   // label: jsBusiness[2].City,
-                     //    fill: false,
-                     //    backgroundColor: 'rgba(153,50,204,0.3)',
-                     //    borderColor: 'rgb(123,55,190)',
-                     //    pointStyle: "rect",
-                     //    pointBackgroundColor: 'rgb(220,20,60)',
-                     //    pointRadius: 5,
-                     //    pointHoverRadius: 10,
-                     //    //data: jsBusiness[2].Business
-                     //    data: [16.6, 17.3, 19.2, 23.8, 12.0, 17.6]
-                 }]
-             },
-             options: {
-                 responsive: true,
-                 title: {
-                     display: true,
-                     fontSize: 26,
-                     text:'銷量最高產品'
-                 },
-                 legend: {
-                     position: 'bottom',
-                     labels: {
-                         fontColor:'black',
-                     }
-                 },
-
-              
-                 animation: {
-                     duration: 2000
-                 }
-             }
-         });
-
-     
-    </script>
+</script>

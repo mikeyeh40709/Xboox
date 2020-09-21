@@ -15,10 +15,10 @@
     </div>
 </div>
 <!-- Breadcrumb End -->
-<div class="container py-5">
+<div class="container">
     <div class="row">
         @Html.Partial("_MemberSidebar")
-        <div class="col-lg-9 col-12">
+        <div class="col-lg-9 col-12 py-lg-5 pt-2">
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <h4>@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 " })</h4>
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "text" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>

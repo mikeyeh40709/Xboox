@@ -14,10 +14,16 @@
                 </div>
             </div>
         </div>
-        @*<a href="@Url.Action("ShowBooks","BookCategory")" id="PriceFilter" onclick="PriceFilter()">Filter</a>*@
-        @*<a href="Javascript:void(0)" id="PriceFilter" onclick="PriceFilter()">Filter</a>*@
-        <a href="Javascript:void(0)"  id="PriceFilter" type="submit">Filter</a> @*改成button*@
+        <a href="Javascript:void(0)"  id="PriceFilter" type="submit">Filter</a>
 
     </div>
 </form>
 
+<script>
+    document.getElementById("PriceFilter").addEventListener("click", function () {
+        var min = document.getElementById("minprice").value.substring(1);
+        var max = document.getElementById("maxprice").value.substring(1);
+        var category = window.location.href.split('/');
+        this.setAttribute("href", "/Book/" + category[4] + "/" + min + "-" + max);
+    });
+</script>

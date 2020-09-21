@@ -24,21 +24,22 @@ namespace Xboox.Services
 {
     public class OrderService
     {
-        public Dictionary<string, string> payment = new Dictionary<string, string>
+        public static Dictionary<string, string> payment = new Dictionary<string, string>
         {
             { "DTO" , "宅配到府"},
             { "Credit" , PaymentMethod.Credit.ToString() },
             { "BarCode" , PaymentMethod.BARCODE.ToString() },
             { "CVS" , PaymentMethod.CVS.ToString()}
         };
-        public List<OrderViewModel> GetOrder(string id)
+        #region 使用UserID取所有訂單
+        public List<OrderViewModel> GetOrder(string userId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
             {
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var orderList = (from o in orderRepo.GetAll()
-                                 where o.UserId == id
+                                 where o.UserId == userId
                                  join user in userRepo.GetAll()
                                  on o.UserId equals user.Id
                                  select new OrderViewModel
@@ -57,6 +58,42 @@ namespace Xboox.Services
                 return orderList;
             }
         }
+        #endregion
+
+        #region 用訂單Id取訂單
+        public List<OrderViewModel> GetOrder(HttpContextBase httpContext, string orderId)
+        {
+            using (var dbContext = new XbooxLibraryDBContext())
+            {
+                var orderRepo = new GeneralRepository<Order>(dbContext);
+                var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
+                var userId = httpContext.User.Identity.GetUserId();
+                var orderList = (from o in orderRepo.GetAll()
+                                 where o.UserId == userId && o.OrderId.ToString() == orderId
+                                 join user in userRepo.GetAll()
+                                 on o.UserId equals user.Id
+                                 select new OrderViewModel
+                                 {
+                                     OrderId = o.OrderId,
+                                     EcpayOrderNumber = o.EcpayOrderNumber,
+                                     OrderDate = o.OrderDate,
+                                     UserName = user.UserName,
+                                     PurchaserName = o.PurchaserName,
+                                     PurchaserEmail = o.PurchaserEmail,
+                                     City = o.City ,
+                                     District =o.District ,
+                                     Road = o.Road,
+                                     PurchaserPhone = o.PurchaserPhone,
+                                     Payment = o.Payment,
+                                     Paid = o.Paid,
+                                     Build = o.Build
+                                 }).OrderBy(item => item.OrderDate).ToList();
+                return orderList;
+            }
+        }
+        #endregion
+
+        #region 取得所有訂單
         public List<OrderViewModel> GetOrder()
         {
             using (var dbContext = new XbooxLibraryDBContext())
@@ -82,7 +119,10 @@ namespace Xboox.Services
                 return orderList;
             }
         }
-        public List<OrderDetailsViewModel> GetOrderDetails(string id)
+        #endregion
+
+        #region 拿到訂單細節
+        public List<OrderDetailsViewModel> GetOrderDetails(string orderId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
             {
@@ -92,7 +132,7 @@ namespace Xboox.Services
                 List<OrderDetailsViewModel> orderDetailsList = new List<OrderDetailsViewModel>();
                 // 因為多張圖片會重複產品
                 var tempList = (from od in orderDetailRepo.GetAll()
-                                where od.OrderId.ToString() == id
+                                where od.OrderId.ToString() == orderId
                                 join pd in productRepo.GetAll()
                                 on od.ProductId equals pd.ProductId
                                 join pi in imgRepo.GetAll()
@@ -101,11 +141,12 @@ namespace Xboox.Services
                                 select new OrderDetailsViewModel
                                 {
                                     Imagelink = pi.imgLink,
-                                    ProductName = pd.Name,
+                                    Name = pd.Name,
                                     Quantity = od.Quantity,
-                                    UnitPrice = pd.Price,
+                                    Price = pd.Price,
+                                    Discount = od.Discount,
                                     Total = Math.Round(pd.Price * od.Quantity)
-                                }).GroupBy(item => item.ProductName);
+                                }).GroupBy(item => item.Name);
                 foreach (var productList in tempList)
                 {
                     var firstProductItem = productList.FirstOrDefault(item => !item.Imagelink.Contains("-0"));
@@ -115,10 +156,42 @@ namespace Xboox.Services
             }
 
         }
-        public OperationResult CreateOrder(HttpContextBase httpcontext, OrderViewModel order)
+        #endregion
+
+        #region 拿到記住我的訂單資訊
+        public OrderViewModel GetRecordInfo(HttpContextBase httpContext)
         {
-            var watch = new Stopwatch();
-            watch.Start();
+            using (var dbContext = new XbooxLibraryDBContext())
+            {
+                var orderRepo = new GeneralRepository<Order>(dbContext);
+                var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
+                var userId = httpContext.User.Identity.GetUserId();
+                var orderList = orderRepo.GetAll()
+                    .Where(item => item.UserId == userId)
+                    .OrderByDescending(item => item.OrderDate);
+                var order = orderList.FirstOrDefault();
+                OrderViewModel orderInfo = new OrderViewModel();
+                if ( order != null)
+                {
+                    if (order.Remember)
+                    {
+                        orderInfo.PurchaserName = order.PurchaserName;
+                        orderInfo.City = order.City;
+                        orderInfo.District = order.District;
+                        orderInfo.Road = order.Road;
+                        orderInfo.PurchaserEmail = order.PurchaserEmail;
+                        orderInfo.PurchaserPhone = order.PurchaserPhone;
+                        orderInfo.Remember = order.Remember;
+                    }
+                }
+                return orderInfo;
+            }
+        }
+        #endregion
+
+        #region 建立訂單(httpcontext, order, ecpaynumber)
+        public OperationResult CreateOrder(HttpContextBase httpcontext, OrderViewModel order, string ecpayNumber)
+        {
             OperationResult operationResult = new OperationResult();
             var dbContext = new XbooxLibraryDBContext();
             using (var transaction = dbContext.Database.BeginTransaction())
@@ -137,6 +210,7 @@ namespace Xboox.Services
                     Order newOrder = new Order()
                     {
                         OrderId = newOrderID,
+                        EcpayOrderNumber = ecpayNumber,
                         UserId = userId,
                         OrderDate = DateTime.Now,
                         PurchaserName = order.PurchaserName,
@@ -155,7 +229,7 @@ namespace Xboox.Services
                     // 先拿會員CartItems 裡資料
                     var cartItems = cartItemRepo.GetAll().Where(item => item.CartId.ToString() == userId).ToList();
                     var cart = cartRepo.GetFirst(item => item.CartId.ToString() == userId);
-                    var Coupon = couponRepo.GetFirst(item => item.CouponName == order.Discount);
+                    var Coupon = couponRepo.GetFirst(item => item.CouponCode == order.Discount);
                     foreach (var item in cartItems)
                     {
                         var products = productRepo.GetAll().Where(pd => pd.ProductId == item.ProductId);
@@ -168,8 +242,12 @@ namespace Xboox.Services
                                 {
                                     OrderId = newOrderID,
                                     ProductId = p.ProductId,
-                                    Quantity = item.Quantity
+                                    Quantity = item.Quantity,
                                 };
+                                if (Coupon != null)
+                                {
+                                    orderDetails.Discount = Coupon.Id;
+                                }
                                 orderDetailRepo.Create(orderDetails);
                                 item.Quantity = 0;
                                 Debug.WriteLine(dbContext.Entry(p).State);
@@ -182,7 +260,7 @@ namespace Xboox.Services
                         cartItemRepo.Delete(item);
                     }
                     cartRepo.Delete(cart);
-                    cartItemRepo.SaveContext();
+                    orderRepo.SaveContext();
                     operationResult.isSuccessful = true;
                     transaction.Commit();
                 }
@@ -192,47 +270,49 @@ namespace Xboox.Services
                     operationResult.exception = ex;
                     transaction.Rollback();
                 }
-                watch.Stop();
-                Debug.WriteLine(watch.ElapsedMilliseconds);
                 return operationResult;
             }
 
         }
-        //public OperationResult EditState(string id)
-        //{
-        //    OperationResult operationResult = new OperationResult();
-        //    XbooxContext context = new XbooxContext();
-        //    using (var transaction = context.Database.BeginTransaction())
-        //    {
-        //        try
-        //        {
-        //            var order = context.Order.FirstOrDefault(x => x.OrderId.ToString() == id);
-        //            if (order != null)
-        //            {
-        //                if (order.StateId == (int)OrderState.Build)
-        //                {
-        //                    order.StateId = (int)OrderState.Paid;
-        //                }
-        //                else
-        //                {
-        //                    order.StateId = (int)OrderState.Unpaid;
-        //                }
-        //                context.SaveChanges();
-        //                operationResult.isSuccessful = true;
-        //                transaction.Commit();
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            operationResult.isSuccessful = false;
-        //            operationResult.exception = ex;
-        //            transaction.Rollback();
-        //        }
-        //        return operationResult;
-        //    }
+        #endregion
 
-        //}
-        public OperationResult CancelOrder(string id)
+        #region 編輯付款狀態
+        public OperationResult EditPaidState(string merchantTradeNo)
+        {
+            OperationResult operationResult = new OperationResult();
+            using (var dbContext = new XbooxLibraryDBContext())
+            {
+                try
+                {
+                    var orderRepo = new GeneralRepository<Order>(dbContext);
+                    var order = orderRepo.GetFirst(x => x.EcpayOrderNumber == merchantTradeNo);
+                    if (order != null)
+                    {
+                        if (!order.Paid)
+                        {
+                            order.Paid = true;
+                        }
+                        else
+                        {
+                            order.Paid = false;
+                        }
+                        orderRepo.SaveContext();
+                        operationResult.isSuccessful = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    operationResult.isSuccessful = false;
+                    operationResult.exception = ex;
+                }
+                return operationResult;
+            }
+
+        }
+        #endregion
+
+        #region 取消訂單
+        public OperationResult CancelOrder(string orderId)
         {
             OperationResult operationResult = new OperationResult();
             var dbContext = new XbooxLibraryDBContext();
@@ -243,8 +323,8 @@ namespace Xboox.Services
                     var orderRepo = new GeneralRepository<Order>(dbContext);
                     var orderDetailRepo = new GeneralRepository<OrderDetails>(dbContext);
                     var productRepo = new GeneralRepository<Product>(dbContext);
-                    var orderDetails = orderDetailRepo.GetAll().Where(item => item.OrderId.ToString() == id);
-                    var order = orderRepo.GetFirst(item => item.OrderId.ToString() == id);
+                    var orderDetails = orderDetailRepo.GetAll().Where(item => item.OrderId.ToString() == orderId);
+                    var order = orderRepo.GetFirst(item => item.OrderId.ToString() == orderId);
                     if (order != null && orderDetails != null)
                     {
                         if (order.Paid == false)
@@ -280,5 +360,6 @@ namespace Xboox.Services
             }
             return operationResult;
         }
+        #endregion
     }
 }

@@ -10,7 +10,7 @@ using Xboox.Models;
 using Xboox.Models.DataTable;
 using Xboox.Models.Services;
 using Xboox.ViewModels;
-using Xboox.Repositories;
+using Xboox.Services;
 using System.Net;
 
 namespace Xboox.Controllers
@@ -18,12 +18,12 @@ namespace Xboox.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-        FindBookDetailRepository books = new FindBookDetailRepository();
+        FindBookDetailService books = new FindBookDetailService();
        
         public ActionResult Index()
         {
             Response.Cookies.Add(SetCookieService.SetCookie());
-            var products = books.FindBookDetail();
+            var products = books.FindBookDetail("All");
             return View(products);
             
         }
@@ -33,7 +33,7 @@ namespace Xboox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var products = books.FindBookDetail().FirstOrDefault(x=>x.ProductId == id);
+            var products = books.FindBookDetail("All").FirstOrDefault(x=>x.ProductId == id);
             if (products == null)
             {
                 return HttpNotFound();

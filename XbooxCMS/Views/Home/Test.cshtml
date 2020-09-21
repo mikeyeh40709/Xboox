@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <link rel="stylesheet" href="~/Assets/Style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+    <div class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <div class="navbar-brand">
+                @*<span><img src="~/Assets/Pics/logo-removebg-preview.png" /></span>*@
+
+                @*@Html.ActionLink("Xboox", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav ml-auto">
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <div href="/Home" class="brand-link">
+            <img src="~/Assets/Pics/logo-removebg-preview.png" alt="Xboox Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">Xboox</span>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="/Home" class="nav-link ">
+                            <i class="nav-icon fa fa-dashboard"></i>
+                            <p>
+                                Dashboard
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item has-treeview manage_section" id="manage_section">
+                        <a href="#" class="nav-link" id="manage" onclick="handleClick()">
+                            <i class="nav-icon fa fa-copy"></i>
+                            <p>
+                                Management
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/Product" class="nav-link">
+                                    <i class="fa fa-book nav-icon"></i>
+                                    <p>Product Management</p>
+                                    @*@Html.ActionLink("Product Management", "Index", "Product")*@
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:;" id="userLink" class="nav-link">
+                                    <i class="fa fa-user nav-icon"></i>
+                                    <p>User Management</p>
+
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Order" class="nav-link">
+                                    <i class="fa fa-list nav-icon"></i>
+                                    <p>Order Management</p>
+
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Tags" class="nav-link">
+                                    <i class="fa fa-barcode nav-icon"></i>
+                                    <p>Tag Management</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Coupons" class="nav-link">
+                                    <i class="fa fa-ticket nav-icon"></i>
+                                    <p>Coupon Management</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+    <div class="container body-content">
+        <div id="block1" class="row" style="margin: 10px">
+            <div class="col-11">
+                <table id="userable" class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--2dp" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in items">
+                            <td>{{item.Id}}</td>
+                            <td>{{item.UserName}}</td>
+                            <td>{{item.Email}}</td>
+                            <td>{{item.PhoneNumber}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+        let vm;
+        function Binding() {
+            vm = new Vue({
+                el: "#block1",
+                data: {
+                    items: {}
+                }
+            });
+        };
+        $("#userLink").click(function () {
+            $.ajax({
+                url: '/api/User/ListUser',
+                dataType: "json",
+                type: 'get',
+                success: function (data) {
+
+                    console.log(typeof data, data);
+                    vm.$data.items = data;
+                },
+                error: function (xhr, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            })
+        }
+        );
+        $(document).ready(function () {
+            Binding()
+            $('#userable').DataTable({
+            });
+        });
+    </script>
+</body>
+</html>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.com/libraries/Chart.js"></script>
+<script>
+
+    function handleClick() {
+        const nav = document.querySelector('#manage');
+        const manage = document.querySelector('#manage_section');
+        if (manage.classList.contains('max-height')) {
+            manage.classList.remove('max-height');
+        } else {
+            manage.classList.add('max-height');
+        }
+    }
+
+
+</script>
