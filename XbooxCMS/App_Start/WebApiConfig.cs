@@ -15,11 +15,25 @@ namespace XbooxCMS.App_Start
             // Web API 路由
             config.MapHttpAttributeRoutes();
 
+
+          //  config.Routes.MapHttpRoute(
+          //    name: "Imgs",
+          //    routeTemplate: "api/img/{action}",
+          //   defaults: new { controller = "img", action = "DeleteImg" }
+          //);
+            //config.Routes.MapHttpRoute(
+            //name: "ActionApi",
+            //routeTemplate: "api/{controller}/{id}",
+            //defaults: new { controller = "product" ,id = RouteParameter.Optional }
+            //);
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+
         }
     }
 }

@@ -251,6 +251,7 @@
     <Compile Include="Models\Tags.cs" />
     <Compile Include="Models\WishList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CouponsService.cs" />
     <Compile Include="Services\ImgService.cs" />
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Services\OrderService.cs" />
@@ -269,6 +270,13 @@
     <Compile Include="ViewModels\SalesRevenueViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
+    <Compile Include="WebApi\CuponController.cs" />
+    <Compile Include="WebApi\ImgController.cs" />
+    <Compile Include="WebApi\OrderController.cs" />
+    <Compile Include="WebApi\ProductController.cs" />
+
+    <Compile Include="WebApi\TagsController.cs" />
+    <Compile Include="WebApi\UserController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Css\DashBoard.css" />
@@ -456,15 +464,9 @@
     <Content Include="Views\ProductImgs\Edit.cshtml" />
     <Content Include="Views\ProductImgs\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Tags\Create.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
-    <Content Include="Views\Tags\Edit.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Coupons\Create.cshtml" />
-    <Content Include="Views\Coupons\Delete.cshtml" />
-    <Content Include="Views\Coupons\Details.cshtml" />
-    <Content Include="Views\Coupons\Edit.cshtml" />
     <Content Include="Views\Coupons\Index.cshtml" />
     <Content Include="Views\Dashboard\GetJSON.cshtml" />
     <Content Include="Views\Home\Index_Clone.cshtml" />

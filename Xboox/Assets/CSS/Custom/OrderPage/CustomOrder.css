@@ -8,10 +8,10 @@
     transition: all .3s;
 }
 
-    .shop-cart .card:hover {
-        box-shadow: 0px 0px 5px 1px #b5b5b5;
-        transform: scale(1.01);
-    }
+.shop-cart .card:hover {
+    box-shadow: 0px 0px 5px 1px #b5b5b5;
+    transform: scale(1.01);
+}
 
 .card-title span.badge {
     font-size: 12px !important;
@@ -19,6 +19,30 @@
 
 .discount__content {
     text-align: center;
+}
+
+.cancelState {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 5;
+    transition: all 0.5s;
+    height: 100%;
+}
+
+
+
+.cancelState p {
+    transform: rotate(45deg);
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+    letter-spacing: 5px;
+    font-size: 20px;
 }
 
 #codesection {
@@ -63,6 +87,7 @@
 .shop__sidebar {
     height: 900px;
 }
+
 
 @media (min-width: 576px) {
     .modal-dialog {

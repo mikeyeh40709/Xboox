@@ -1,57 +1,189 @@
-﻿@model IEnumerable<XbooxCMS.Models.Coupons>
+﻿<div class="row" style="margin: 10px">
+    <div class="col-11">
+        <h2 class="coupounTitle">優惠碼總覽</h2>
+        <button class="btn-primary border btn-lg  mb-4" id="couponCreate">Create New</button>
+        <table id="couponsTable" class="table">
+            <thead>
+                <tr>
+                    <th>CouponName</th>
+                    <th>Discount</th>
+                    <th>CouponCode</th>
+                    <th>StartTime</th>
+                    <th>EndTime</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 
-@{
-    ViewBag.Title = "Index";
+
+    <div id="coupounSetting" style="display:none">
+        <div class="form-group">
+            <p style="display:none"></p>
+            <label for="couponName">優惠卷名稱</label>
+            <input type="text" class="form-control" id="couponName">
+            <label for="coupoDiscount">折扣</label>
+            <input type="text" class="form-control" id="coupoDiscount">
+            <label for="couponCode">優惠碼</label>
+            <input type="text" class="form-control" id="couponCode">
+            <label for="startTime">優惠開始時間</label>
+            <input type="date" class="form-control" id="startTime">
+            <label for="endTime">優惠結束時間</label>
+            <input type="date" class="form-control" id="endTime">
+        </div>
+        <button id="backToCoupounIndex" class="btn btn-primary">Back to List</button>
+        <button id="saveChangeCoupoun" class="btn btn-primary" style="margin:10px 0 0 0">Save Change</button>
+        <button id="createSuccessBtn" class="btn btn-primary" style="display:none;margin:10px 0 0 0">Create</button>
+        <button id="deleteCoupounBtn" class="btn btn-primary" style="display:none;margin:10px 0 0 0">Delete</button>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#couponsTable').DataTable({
+                "ajax": {
+                    "url": "/api/Coupons/GetCoupons",
+                    "type": "GET",
+                    "dataSrc": '',
+                },
+                "columns": [
+                    { data: "CouponName" },
+                    { data: "Discount" },
+                    { data: "CouponCode" },
+                    {
+                        data: "StartTime",
+                        render: function (data) { return `<p id="couStartTime">${getDate(data)} </p>` }
+                    },
+                    {
+                        data: "EndTime",
+                        render: function (data) { return `<p id="couEndTime">${getDate(data)} </p>` }
+                    },
+                    {
+                        data: null,
+                        render: function (data) {
+                            return '<a href="#" onclick="editCoupoun(this);"  data-id="' + data["Id"] + '"    data-name="' + data["CouponName"] + '"  data-discount="' + data["Discount"] + '"  data-code="' + data["CouponCode"] + '">Edit</a>|<a href="#"   onclick="detailCoupoun(this);"  data-id="' + data["Id"] + '"    data-name="' + data["CouponName"] + '"  data-discount="' + data["Discount"] + '"  data-code="' + data["CouponCode"] + '"  data-start="' + getDate(data["StartTime"]) + '"  data-end="' + getDate(data["EndTime"]) + '">Details</a>|<a href="#" data-id="' + data["Id"] + '"    data-name="' + data["CouponName"] + '"  data-discount="' + data["Discount"] + '"  data-code="' + data["CouponCode"] + '"  data-start="' + getDate(data["StartTime"]) + '"  data-end="' + getDate(data["EndTime"]) + '" onclick="detailCoupoun(this);">Delete</a>'
+                        }
+                    }
+                ],
+            }
+            )
+        });
+
+        function getDate(data) {
+            let date = new Date(data);
+            let day = ("0" + date.getDate()).slice(-2);
+            let month = ("0" + (date.getMonth() + 1)).slice(-2);
+            let year = date.getFullYear();
+            return `${year}/${month}/${day}`;
+        }
+
+        function formSet(coupounset, edit, createSave, index, wrapper,title,create) {
+            $('#coupounSetting').css('display', coupounset);
+            $('#saveChangeCoupoun').css('display', edit);
+            $('#createSuccessBtn').css('display', createSave);
+            $('table').css('display', index);
+            $('#couponsTable_wrapper').css('display', wrapper);
+            $('.coupounTitle').text(title);
+            $('#couponCreate').css('display',create)
+        }
+        function editCoupoun(ele) {
+            formSet("block","block","none","none","none","編輯優惠卷資訊","none");
+            console.log($(ele).attr('data-code'));
+            $('#couponName').val($(ele).attr('data-name'));
+            $('#coupoDiscount').val($(ele).attr('data-discount'));
+            $('#couponCode').val($(ele).attr('data-code'));
+            $('#coupounSetting p').text($(ele).attr('data-id'));
+        }
+
+        function detailCoupoun(ele)
+        {
+            formSet("block","none","none","none","none","優惠卷詳細資訊","none");
+            console.log($(ele).attr('data-code'));
+            $('#couponName').val($(ele).attr('data-name')).attr("readonly", true);
+            $('#coupoDiscount').val($(ele).attr('data-discount')).attr("readonly", true);
+            $('#couponCode').val($(ele).attr('data-code')).attr("readonly", true);
+            $('#startTime').attr({ 'type' : 'text', "readonly": true}).val($(ele).attr('data-start')); 
+            $('#endTime').attr({ 'type': 'text', "readonly": true }).val($(ele).attr('data-end'));
+            $('#deleteCoupounBtn').css('display','block');
+            $('#coupounSetting p').text($(ele).attr('data-id'));
+        }
+     
+
+        let saveChange = document.querySelector('#saveChangeCoupoun');
+        saveChange.addEventListener('click', function () {
+            let id = $('#coupounSetting p').text();
+            ajaxSet("/api/Coupons/SaveEditCoupon",id);
+        });
+
+
+
+        $('#couponCreate').click(function (e) {
+            formSet("block", "none", "block", "none", "none", "建立一個新的優惠卷","none");
+
+        })
+
+
+        $('#createSuccessBtn').click(function () {
+            ajaxSet("/api/CouponsCreate/CreateCoupon");
+
+        })
+
+        $('#deleteCoupounBtn').click(function () {
+            let id = $('#coupounSetting p').text();
+            $.ajax({
+                url: "/api/CouponsCreate/DeleteCoupon",
+                data: { "": id},
+                type: 'PUT',
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    location.href = '/Coupons/Index';
+                },
+                error: function (xhr, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                    location.href = '/Coupons/Index';
+                }
+            });
+            
+        })
+
+
+     
+        function ajaxSet(setUrl,id="") {
+            let name = $('#couponName').val();
+            let discount = $('#coupoDiscount').val();
+            let code = $('#couponCode').val();
+            let start = $('#startTime').val();
+            let end = $('#endTime').val();
+            if (start.length !== 0 || end.length !== 0) {
+                $.ajax({
+                    url: setUrl,
+                    data: { "Id": id, "CouponName": name, "Discount": discount, "CouponCode": code, "StartTime": start, "EndTime": end },
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        location.href = '/Coupons/Index';
+                    },
+                    error: function (xhr, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                        location.href = '/Coupons/Index';
+                    }
+                });
+            }
+            else {
+                alert("請別忘記設定日期喔");
+            }
+        }
+
+
+
+        $("#backToCoupounIndex").click(function () { location.href = '/Coupons/Index'; });
+    </script>
+
 }
-
-<h2>優惠碼總覽</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CouponName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Discount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CouponCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndTime)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CouponName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Discount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CouponCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>

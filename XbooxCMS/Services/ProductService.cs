@@ -386,6 +386,38 @@ namespace XbooxLibrary.Services
 
 
 
+    public List<string> GetPictures(Guid id)
+        {
+            XbooxLibraryDBContext context = new XbooxLibraryDBContext();
+            GeneralRepository<Product> repository = new GeneralRepository<Product>(context);
+            GeneralRepository<ProductImgs> Imgrepository = new GeneralRepository<ProductImgs>(context);
 
-}
+            var imgList = Imgrepository.GetAll().Where(x => x.ProductId == id).Select(x=>x.imgLink).ToList();
+            return imgList;
+        }
+
+
+
+    public void RemoveImg(string imgName)
+    {
+            XbooxLibraryDBContext context = new XbooxLibraryDBContext();
+            GeneralRepository<Product> repository = new GeneralRepository<Product>(context);
+            GeneralRepository<ProductImgs> Imgrepository = new GeneralRepository<ProductImgs>(context);
+
+
+            var imgToDelete = Imgrepository.GetAll().FirstOrDefault(x => x.imgLink == imgName);
+            if (imgToDelete != null)
+            {
+                Imgrepository.Delete(imgToDelete);
+                Imgrepository.SaveContext();
+            }
+            else
+            {
+                
+            }
+          
+          
+     }
+
+    }
 }

@@ -213,7 +213,7 @@
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Services\AspNetUserManage.cs" />
-    <Compile Include="Models\Services\CommonService.cs" />
+    <Compile Include="Models\Services\ECPayService.cs" />
     <Compile Include="Models\Services\SetCookieService.cs" />
     <Compile Include="Models\Services\OperationResult.cs" />
     <Compile Include="Models\Services\ShoppingCartService.cs" />
@@ -261,6 +261,11 @@
     <Content Include="Assets\Image\LogInPage\pic_01.jpg" />
     <Content Include="Assets\Image\LogInPage\pic_02.jpg" />
     <Content Include="Assets\Image\LogInPage\pic_03.jpg" />
+    <Content Include="Assets\Image\LogInPage\pic_04.jpg" />
+    <Content Include="Assets\Image\LogInPage\pic_05.jpg" />
+    <Content Include="Assets\Image\LogInPage\pic_06.jpg" />
+    <Content Include="Assets\Image\LogInPage\pic_07.jpg" />
+    <Content Include="Assets\Image\LogInPage\pic_08.jpg" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
     <Content Include="Assets\Image\Pics\adpic01.jpg" />
