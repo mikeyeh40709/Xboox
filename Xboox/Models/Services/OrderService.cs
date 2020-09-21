@@ -314,9 +314,9 @@ namespace Xboox.Services
         }
         #endregion
 
-        #region 編輯付款狀態
+        #region 編輯付款狀態(orderId)
         /// <summary>
-        /// 編輯當筆訂單的付款狀態
+        /// 編輯當筆訂單的付款狀態(orderId)
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
@@ -352,8 +352,44 @@ namespace Xboox.Services
             }
 
         }
-        #endregion
+        #endregion 編輯付款狀態(ecpayNumber)
+        /// <summary>
+        /// 編輯當筆訂單的付款狀態(ecpayNumber)
+        /// </summary>
+        /// <param name="ecpayNumber"></param>
+        /// <returns></returns>
+        public OperationResult EditPaidStateByEcNumber(string ecpayNumber)
+        {
+            OperationResult operationResult = new OperationResult();
+            using (var dbContext = new XbooxLibraryDBContext())
+            {
+                try
+                {
+                    var orderRepo = new GeneralRepository<Order>(dbContext);
+                    var order = orderRepo.GetFirst(x => x.EcpayOrderNumber.ToString() == ecpayNumber);
+                    if (order != null)
+                    {
+                        if (!order.Paid)
+                        {
+                            order.Paid = true;
+                        }
+                        else
+                        {
+                            order.Paid = false;
+                        }
+                        orderRepo.SaveContext();
+                        operationResult.isSuccessful = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    operationResult.isSuccessful = false;
+                    operationResult.exception = ex;
+                }
+                return operationResult;
+            }
 
+        }
         #region 取消訂單
         /// <summary>
         /// 取消當筆訂單(將狀態改為取消)
