@@ -260,6 +260,7 @@
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\TagService.cs" />
+    <Compile Include="Services\TimeCheckerService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Service\DashboardService.cs" />
     <Compile Include="Startup.cs" />
