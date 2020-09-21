@@ -39,12 +39,9 @@ namespace XbooxCMS.WebApi
             service.CouponsCreate(data);
             return Ok(data);
         }
-    }
 
-    [RoutePrefix("api/[Controller]/[Action]")]
-    public class CouponsDeleteController : ApiController
-    {
-        [HttpPost]
+
+        [HttpPut]
         public IHttpActionResult DeleteCoupon([FromBody]Guid id)
         {
             CouponsService service = new CouponsService();
@@ -52,4 +49,6 @@ namespace XbooxCMS.WebApi
             return Ok(id);
         }
     }
+
+
 }

@@ -460,15 +460,9 @@
     <Content Include="Views\ProductImgs\Edit.cshtml" />
     <Content Include="Views\ProductImgs\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Tags\Create.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
-    <Content Include="Views\Tags\Edit.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Coupons\Create.cshtml" />
-    <Content Include="Views\Coupons\Delete.cshtml" />
-    <Content Include="Views\Coupons\Details.cshtml" />
-    <Content Include="Views\Coupons\Edit.cshtml" />
     <Content Include="Views\Coupons\Index.cshtml" />
     <Content Include="Views\Dashboard\GetJSON.cshtml" />
     <Content Include="Views\Home\Index_Clone.cshtml" />

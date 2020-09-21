@@ -12,7 +12,6 @@
         <table id="tagTable" class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--2dp" style="width:100%">
             <thead>
                 <tr>
-                    <th>TagId</th>
                     <th>TagName</th>
                     <th></th>
                 </tr>
@@ -45,7 +44,6 @@
                     "dataSrc": '',
                 },
                 "columns": [
-                    { data: "TagId" },
                     { data: "TagName" },
                     {
                         data: null,
@@ -93,7 +91,7 @@
 
         });
 
-        $("#backToTagsList").click(function () { location.href = '/Tags/Index'; });
+     
 
         $('.createTag').click(function () {
             formSet('block', 'none', 'block', 'none', 'none');
@@ -102,11 +100,12 @@
 
         $('#createBtn').click(function (e) {
             e.preventDefault();
+
             let InputName = $('#tagsInput').val();
             $.ajax({
-                url: "/api/TagsCreate/CreateTags/",
+                url: "/api/Tags/CreateTags/",
                 data: { "tagName": InputName },
-                type: 'POST',
+                type: 'PUT',
                 dataType: "json",
                 success: function (data) {
                     location.href = '/Tags/Index';
@@ -118,5 +117,7 @@
                 }
             });
         })
+
+        $("#backToTagsList").click(function () { location.href = '/Tags/Index'; });
     </script>
 }

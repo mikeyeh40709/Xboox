@@ -26,17 +26,18 @@ namespace XbooxCMS.WebApi
             service.Edit(id);
             return Ok(id);
         }
-    }
-    [RoutePrefix("api/[Controller]/[Action]")]
-
-    public class TagsCreateController : ApiController
-    {
-        [HttpPost]
-        public string CreateTags([FromBody]Tags name)
+        [HttpPut]
+        public IHttpActionResult CreateTags([FromBody]Tags name)
         {
             TagService service = new TagService();
             service.Create(name);
-            return "ABC";
+            return Ok(name);
         }
     }
+    //[RoutePrefix("api/[Controller]/[Action]")]
+
+    //public class TagsCreateController : ApiController
+    //{
+       
+    //}
 }
