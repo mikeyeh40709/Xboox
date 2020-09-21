@@ -244,6 +244,11 @@ namespace Xboox.Controllers
             return View(model);
         }
 
+        public ActionResult ChangePasswordSuccess()
+        {
+            return View();
+        }
+
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
