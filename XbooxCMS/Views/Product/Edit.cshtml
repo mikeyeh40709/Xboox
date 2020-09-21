@@ -15,6 +15,7 @@
 
 @using (Html.BeginForm())
 {
+<form id="editproducts">
     @Html.AntiForgeryToken()
     <div class="col-md-12">
         <div class="card card-4">
@@ -24,25 +25,25 @@
                 <input id="Id" name="Id" type="hidden" value=@Model.ProductId>
 
                 @Html.HiddenFor(m => m.ProductId)
-            <div class="row row-space">
-            
-                <div class="col-6">
-                    <div class="input-group">
-                        <label class="label">Product Name</label>
-                        @*<input class="input-style-4" type="text" name="first_name">*@
-                        @Html.TextBoxFor(m => m.Name, new { @class = "input-style-4 l-width", placeholder = "請輸入50字以內產品名稱" })
-                        @Html.ValidationMessageFor(m => m.Name)
+                <div class="row row-space">
+
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="label">Product Name</label>
+                            @*<input class="input-style-4" type="text" name="first_name">*@
+                            @Html.TextBoxFor(m => m.Name, new { @class = "input-style-4 l-width", placeholder = "請輸入50字以內產品名稱" })
+                            @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <label class="label">Product Price</label>
+                            @*<input class="input-style-4" type="text" name="last_name">*@
+                            @Html.TextBoxFor(m => m.Price, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
+                            @Html.ValidationMessageFor(m => m.Price)
+                        </div>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="input-group">
-                        <label class="label">Product Price</label>
-                        @*<input class="input-style-4" type="text" name="last_name">*@
-                        @Html.TextBoxFor(m => m.Price, new { @class = "input-style-4 l-width", placeholder = "placeholder" })
-                        @Html.ValidationMessageFor(m => m.Price)
-                    </div>
-                </div>
-            </div>
                 <div class="row row-space">
                     <div class="col-6">
                         <div class="input-group">
@@ -137,6 +138,11 @@
                                    data-max-files="5">
                         </div>
                     </div>
+                    <div class="col-12">
+                        <div class="picture-group" data-pid="@Model.ProductId">
+
+                        </div>
+                    </div>
                     <div class="col-12 ">
                         @Html.TextAreaFor(m => m.Description, new { @id = "summernote" })
                     </div>
@@ -145,12 +151,12 @@
                 </div>
 
                 <div class="p-t-15">
-                    <button class="btn btn-beige" type="submit">Save</button>
+                    <button class="btn btn-beige" @*type="submit"*@ id="saveBtn">Save</button>
                 </div>
             </div>
         </div>
     </div>
-
+</form>
 
 }
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -189,15 +195,14 @@
 
 </script>
 <script>
-  //  const formData = new formData();
+
+
     FilePond.setOptions({
 
-        //server: '@Url.Action("Upload", "Product")'
         server: {
             process: '@Url.Action("Upload", "Product")',
             revert: (source, load, error) => {
                 console.log('remove');
-                // Should somehow send `source` to server so server can remove the file with this source
                 let formData = new FormData();
                 formData.append('ccc', source);
                 fetch(`/Product/Remove?abc=${source}`, {
@@ -211,16 +216,133 @@
                     console.log("remove", source);
                 })
 
-                // Can call the error method if something is wrong, should exit after
                 error('oh my goodness');
 
-                // Should call the load method when done, no parameters required
                 load();
             }
         }
     });
 </script>
 <script>
+
+    window.addEventListener("load", function () {
+        var deleteElement;
+        //load的的時候街上url
+        var pId = document.querySelector('.picture-group').attributes['data-pid'].value;
+        console.log(pId);
+
+
+        var url = `/api/product/${pId}`;
+     //   var data = { username: 'example' };
+
+        fetch(url, {
+            method: 'GET', 
+          
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        })
+           // .then(res => res.json())
+           
+            .then((response) => {
+
+                return response.json();
+
+                console.log('Success:', response)
+            })
+            .then(data => {
+                console.log(data.data)
+                const div = document.querySelector('.picture-group');
+             
+                for (var item of data) {
+                    var closeBtn = this.document.createElement('Button');
+                    var div_pic = this.document.createElement('div');
+                    //div_pic.classList.add(`${item}`);
+                    div.appendChild(div_pic);
+                    closeBtn.innerHTML = "X";
+                    closeBtn.classList.add("closebtn");
+                    closeBtn.id = item;
+                  //  closeBtn.setAttribute("onclick", `removeImg(${encodeURI(item)})`);
+                    var img = this.document.createElement('Img');
+                    img.classList.add("pic_size");
+                   
+                    img.src = item;
+
+                    div_pic.appendChild(img);
+                    div_pic.appendChild(closeBtn);
+
+                  deleteElement = document.querySelectorAll(".closebtn");
+                    console.log(deleteElement);
+                    deleteElement.forEach(x => x.addEventListener('click', function () { removeImg(this.id); }))
+
+                }
+               
+            })
+        
+
+        //function removeImg(imgName) {
+        //    console.log(imgName, typeof (imgName));
+        //    fetch(`/api/img/DeleteImg?query="${imgName}"`, {
+              
+        //        method: 'POST',
+        //        body: JSON.stringify({ id: imgName }),
+        //        headers: new Headers({
+        //            'Content-Type': 'application/json'
+        //        })
+        //    })
+        //        .then((response) => {
+
+        //            //return response.json();
+
+        //           // console.log('Success:', response)
+
+        //            var removeDiv = document.querySelector(`[id=${imgName}]`);
+        //            removeDiv.remove();
+        //        })
+        //        .catch((err) => {
+        //            console.log(err);
+        //            alert("Wrong");
+        //        })
+
+        //}
+
+
+    });
+
+    
+
+
+    //deleteElement.addEventListener('click', function () {
+
+    //    removeImg(this.id);
+    //})
+
+
+    //$('#saveBtn').click(function () {
+
+    //    $.ajax({
+    //        type: "PUT",
+    //        url: '/api/product',
+    //        body: $('#editproducts').serialize,
+    //        contentType: 'application/json; charset=utf-8',
+
+    //        success: function (data) {
+    //            console.log("Success save", data);
+    //            window.location.href = redirectUrl;
+    //        },
+
+    //        error: function (xhr) {
+    //            alert('fails');
+
+    //        }
+
+
+    //    })
+
+
+
+    //})
+
 
     $('#summernote').summernote({
         placeholder: 'Books Content...',

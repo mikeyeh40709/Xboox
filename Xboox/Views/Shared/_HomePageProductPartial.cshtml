@@ -1,6 +1,6 @@
 ﻿@model Xboox.ViewModels.ProductDetailViewModel
 
-<div class="col-lg-3 col-md-4 col-sm-6 mix @Model.TagId">
+<div class="col-lg-3 col-md-4 col-sm-6 mix @Model.TagName">
     <div class="product__item">
         <div class="product__item__pic set-bg" data-setbg="@(Model.ImgLink)">
             @*<div class="label new">New</div>*@
@@ -14,7 +14,8 @@
                 <li>
                     <a id="@Model.ProductId" class="addCartBtn" data-img="@(Model.ImgLink)" data-target="@Model.Name" style="cursor:pointer"><span class="icon_bag_alt"></span></a>
                 </li>
-                <li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>
+                @*<li><a href="/Home/ProductDetail?id=@Model.ProductId"><span class="fas fa-question"></span></a></li>*@
+                <li><a href="/Details/@Model.ProductId"><span class="fas fa-question"></span></a></li>
             </ul>
         </div>
         <div class="product__item__text">

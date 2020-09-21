@@ -5,6 +5,7 @@ using System.Web;
 using XbooxLibrary.Models.DataTable;
 using XbooxCMS.ViewModels;
 using XbooxLibrary.Repository;
+using XbooxLibrary.Services;
 
 namespace XbooxCMS.Services
 {
@@ -78,6 +79,55 @@ namespace XbooxCMS.Services
             return result;
         }
 
+        //取消訂單
+        public OperationResult CancelOrder(string id)
+        {
+            OperationResult operationResult = new OperationResult();
+            var dbContext = new XbooxLibraryDBContext();
+            using (var transaction = dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var orderRepo = new GeneralRepository<Order>(dbContext);
+                    var orderDetailRepo = new GeneralRepository<OrderDetails>(dbContext);
+                    var productRepo = new GeneralRepository<Product>(dbContext);
+                    var orderDetails = orderDetailRepo.GetAll().Where(item => item.OrderId.ToString() == id);
+                    var order = orderRepo.GetFirst(item => item.OrderId.ToString() == id);
+                    if (order != null && orderDetails != null)
+                    {
+                        if (order.Paid == false)
+                        {
+                            order.Build = false;
+                            foreach (var item in orderDetails)
+                            {
+                                var products = productRepo.GetAll().Where(pd => pd.ProductId == item.ProductId).OrderBy(pd => pd.PublishedDate);
+                                foreach (var pd in products)
+                                {
+                                    if (item.Quantity <= 0)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        pd.UnitInStock = pd.UnitInStock + item.Quantity;
+                                    }
+                                }
+                            }
+                            productRepo.SaveContext();
+                            operationResult.IsSuccessful = true;
+                            transaction.Commit();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    operationResult.IsSuccessful = false;
+                    operationResult.exception = ex;
+                    transaction.Rollback();
+                }
+            }
+            return operationResult;
+        }
 
     }
     

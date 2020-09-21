@@ -22,38 +22,8 @@ namespace XbooxCMS.Controllers
 {
     public class ProductController : Controller
     {
-        
-        // GET: Product
-       // private XbooxContext context;
-  
-        //private static string GetImg(HttpSessionStateBase httpContext)
-        //{
-        //    HttpSessionState session = HttpContext.Current.Session;
-        //    //var session = httpContext.SessionID;
-
-        //    if (session["fileName"] == null)
-        //    {
-        //        session["fileName"] = "";
-        //    }
-
-        //    return (string)session["fileName"];
-        //}
-
-        //private static List<string> ImgstringList = null;
-        //private static void LoadTempData(this ControllerBase controller)
-        //{
-        //    controller.TempData["ic"] = 5;
-        //}
-
-
-        //private static List<string> GetImg()
-        //{
-        //    if (ImgstringList == null)
-        //    {
-        //        ImgstringList = new List<string>();
-        //    }
-        //    return ImgstringList;
-        //}
+        private static List<string> ImgstringLists = null;
+   
 
 
         public ProductController()
@@ -73,7 +43,7 @@ namespace XbooxCMS.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-
+            
             var service = new ProductService();
             var pist = service.GetAllProducts();
      
@@ -112,26 +82,26 @@ namespace XbooxCMS.Controllers
             return View(viewModels);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDataModel createDataModel)
-        {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(CreateDataModel createDataModel)
+        //{
 
            
-            var service = new ProductService();
+        //    var service = new ProductService();
 
-            if (!ModelState.IsValid)
-            {
-                //建立失敗
-                return RedirectToAction("Index", "Home");
-            }
-
-
-            service.Create(createDataModel);
+        //    if (!ModelState.IsValid)
+        //    {
+        //        //建立失敗
+        //        return RedirectToAction("Index", "Home");
+        //    }
 
 
-            return RedirectToAction("Index","Product");
-        }
+        //    service.Create(createDataModel);
+
+
+        //    return RedirectToAction("Index","Product");
+        //}
 
         /// <summary>
         /// 將Tag加入ProductTag
@@ -250,28 +220,16 @@ namespace XbooxCMS.Controllers
                 Debug.WriteLine("Wrong");
                 return RedirectToAction("Index", "Product");
             }
-
+            
             service.Edit(DataModel);
 
     
-            return RedirectToAction("Index", "Product"); ;
+            return RedirectToAction("Index", "Product"); 
         }
 
 
 
-        public ActionResult Details()
-        {
-
-            return View();
-        }
-
-        
-        //public ActionResult Delete()
-        //{
-        //    return RedirectToAction("Index", "Product");
-        //}
-        ////[ActionName("Delete")]
-        //[HttpDelete]
+  
         public ActionResult Delete(Guid id)
         {
 
@@ -283,62 +241,6 @@ namespace XbooxCMS.Controllers
            
         
 
-
-        /// <summary>
-        /// 圖片上傳
-        /// </summary>
-        /// <returns></returns>
-
-        //把imgid以字串[1,2,3...]的方式加進Product表格
-      //  private void PutImgs(Product product)
-      //  {
-        //   var productImgs = new ProductImgs();
-     //   var imgList = getImg().Split(',').Where(x=>x!="").ToList();
-            
-
-            //用list傳的
-          //  foreach(var i in GetImg())
-          //  {
-               // productImgs = new ProductImgs()
-              //  {
-                  // ProductImgId = 0,
-          //          imgLink = i,
-          //          ProductId = product.ProductId,
-          //      };
-        //       context.ProductImgs.Add(productImgs);
-      //      }
-
-
-
-         //   用string 傳的
-       //     foreach (var i in imgList)
-        //    {
-        //        productImgs = new ProductImgs()
-        ////        {
-                    // ProductImgId = 0,
-       //             imgLink = i,
-       //             ProductId = product.ProductId,
-      //          };
-       //         context.ProductImgs.Add(productImgs);
-                //productImgs.Add(new ProductImgs() { imgLink = i.ToString(), ProductId = product.ProductId });
-        //    }
-
-
-            // context.SaveChanges();
-
-            //  var PiList = new List<ProductImgs>();
-            // var img = productImgs
-            ///    var productImgs = productImgs.Where(x => x.ProductId == product.ProductId);
-            //    freach (var i in productImgs)
-            //   {
-            //   product.ProductImgId = i.ProductImgId + ",";
-            //product.ProductImgId = Convert.ToInt64(product.ProductImgId) + ",";
-            //   }
-
-        //    imgString = null;
-       //      ImgstringList = null;
-         //    context.SaveChanges();
-      //  }
 
 
 
@@ -381,6 +283,8 @@ namespace XbooxCMS.Controllers
 
                 var imageEndpoint = new ImageEndpoint(apiClient, httpClient);
                 var imageUpload = await imageEndpoint.UploadImageAsync(File.InputStream);
+                //ImgstringLists.Add(imageUpload.Link);
+                //TempData["imgString"] = ImgstringLists;
                 ProductService.GetImg().Add(imageUpload.Link);
 
 
@@ -390,7 +294,7 @@ namespace XbooxCMS.Controllers
           
             //return Json($"fileUpload {Session["fileName"]}");
             
-            return Json (ProductService.GetImg());
+            return Json ("OK");
 
 
       

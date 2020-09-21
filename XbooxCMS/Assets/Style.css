@@ -297,3 +297,22 @@ span.brand-text{
     line-height:1.2;
     font-size:20px;
 }
+
+.pic_size {
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+  
+}
+.picture-group {
+    display: flex;
+}
+.closebtn {
+    color: darkred;
+    border-radius:999em;
+    border:1px   solid;
+    border-color:black;
+    padding:5px;
+
+
+}

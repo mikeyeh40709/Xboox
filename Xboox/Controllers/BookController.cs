@@ -24,5 +24,13 @@ namespace Xboox.Controllers
             ViewBag.CategoryID = FindBook.FindCategory(CategoryName).CategoryId;
             return View(FindBook.FindBookByRange(CategoryName, min_price, max_price));
         }
+        public ActionResult BooksByName(string Name)
+        {
+            ViewBag.Tags = FindBook.FindTag();
+            ViewBag.Category = FindBook.FindCategory("All").Name;
+            ViewBag.CategoryID = FindBook.FindCategory("All").CategoryId;
+            //ViewBag.SideSuggestion = FindBook.FindBookDetail("All");
+            return View("Books", FindBook.FindBookByName(Name));
+        }
     }
 }

@@ -9,9 +9,7 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i> Home</a>
-                    @*<a href="#">@Model.Category</a>*@
-                    @*<a href="@Url.Action("ShowAllCnBooks","BookCategory")"></a>*@
-                    @Html.ActionLink(Model.CategoryName, "ShowBooks", "BookCategory", new { id = Model.CategoryID }, null)
+                    <a href="/Books/@Model.CategoryName">@Model.CategoryName</a>
                     <span>@Model.Name</span>
                 </div>
             </div>
