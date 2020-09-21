@@ -308,11 +308,16 @@ span.brand-text{
     display: flex;
 }
 .closebtn {
-    color: darkred;
-    border-radius:999em;
-    border:1px   solid;
-    border-color:black;
-    padding:5px;
-
+    color: antiquewhite;
+    border-radius: 100%;
+    border: 2px solid;
+    border-color: black;
+    padding: 5px 10px;
+    background-color: darkorange;
+    font-weight: bold;
+}
+.closebtn:hover{
+    color:red;
+    background-color:antiquewhite;
 
 }
