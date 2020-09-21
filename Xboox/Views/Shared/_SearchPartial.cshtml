@@ -2,7 +2,16 @@
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch">+</div>
         <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
+            <input type="text" id="search_input" placeholder="Search here.....">
+            <button type="submit" class="btn btn-outline-secondary" id="SearchBtn"><i class="fa fa-search"></i></button>
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById("SearchBtn").addEventListener("click", function () {
+        event.preventDefault();
+        var book = document.getElementById("search_input").value
+        location.href = "/Find/" + book;
+    })
+</script>

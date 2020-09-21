@@ -655,10 +655,8 @@
     <Content Include="Views\Order\Success.cshtml" />
     <Content Include="Views\Order\Fail.cshtml" />
     <Content Include="Views\Shared\_SidebarSuggestion.cshtml" />
-    <Content Include="Views\Coupon\ShowCoupon.cshtml" />
     <Content Include="Views\Order\PostToECPay.cshtml" />
     <Content Include="Views\Order\ECPayResult.cshtml" />
-    <Content Include="Views\Account\info.cshtml" />
     <Content Include="Views\Book\Books.cshtml" />
   </ItemGroup>
   <ItemGroup>
