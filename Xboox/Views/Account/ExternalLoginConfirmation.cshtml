@@ -2,35 +2,81 @@
 @{
     ViewBag.Title = "註冊";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>關聯您的 @ViewBag.LoginProvider 帳戶。</h3>
 
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
 
-    <h4>關聯表單</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <p class="text-info">
-        您已成功向下列單位驗證: <strong>@ViewBag.LoginProvider</strong>。
-        請在下面輸入此網站的使用者名稱，然後按一下 [註冊] 按鈕完成
-        登入。
-    </p>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="註冊" />
-        </div>
-    </div>
+@section topCSS{
+    <link href="~/Assets/fonts/LogInPage/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Assets/fonts/LogInPage/Linearicons-Free-v1.0.0/icon-font.min.css" rel="stylesheet" />
+    <link href="~/Assets/Vendor/LogInPage/animate/animate.css" rel="stylesheet" />
+    <link href="~/Assets/Vendor/LogInPage/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
+    <link href="~/Assets/Vendor/LogInPage/animsition/css/animsition.min.css" rel="stylesheet" />
+    <link href="~/Assets/Vendor/LogInPage/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/Assets/Vendor/LogInPage/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/Custom/LogInPage/main.css" rel="stylesheet" />
+    <link href="~/Assets/CSS/Custom/LogInPage/util.css" rel="stylesheet" />
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form">
+                <h3>關聯您的 @ViewBag.LoginProvider 帳戶。</h3>
+
+                @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <h4>@ViewBag.LoginProvider 帳號驗證</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <p class="text-info">
+                        <strong>@ViewBag.LoginProvider</strong>  驗證成功，
+                        請在下面輸入此網站的使用者名稱，然後按一下 [註冊] 按鈕完成
+                        登入。
+                    </p>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "mt-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "border border-secondary p-3" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="login100-form-btn" value="註冊" />
+                        </div>
+                    </div>
+                }
+
+                @section Scripts {
+                    @Scripts.Render("~/bundles/jqueryval")
+                }
+
+            </div>
+
+            <div class="login100-more" style="background-image: url('/Assets/Image/LogInPage/pic_05.jpg')"></div>
+
+        </div>
+    </div>
+</div>
+
+<div id="dropDownSelect1"></div>
+
+
+
+
+@section endJS{
+    <script src="~/Assets/Vendor/LogInPage/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Assets/Vendor/LogInPage/animsition/js/animsition.min.js"></script>
+    <script src="~/Assets/Vendor/LogInPage/select2/select2.min.js"></script>
+    <script>
+        $(".selection-2").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect1')
+        });
+    </script>
+    <script src="~/Assets/Vendor/LogInPage/daterangepicker/moment.min.js"></script>
+    <script src="~/Assets/Vendor/LogInPage/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Assets/Vendor/LogInPage/countdowntime/countdowntime.js"></script>
+    <script src="~/Assets/JavaScript/Custom/LogInPage/main.js"></script>
 }
