@@ -111,6 +111,10 @@ function deleteCartItem(event) {
         ItemsArray.splice(FindItemIndex, 1);
         localStorage.setItem("CartItems", JSON.stringify(ItemsArray));
     }
+    //if (getLocalItems.length == 2) {
+       
+    //}
+
 }
 //Let homepage's navbar show  localstorage's products
 function renewNavbar() {
@@ -141,8 +145,7 @@ function ajaxFun(clickName, ajaxUrl) {
     $(clickName).click(function (e) {
         e.preventDefault();
         let getLocalStorage = localStorage.getItem("CartItems");
-        console.log(getLocalStorage.length);
-        if (getLocalStorage.length>2) {
+        if (getLocalStorage != null) {
             $.ajax({
                 url: ajaxUrl,
                 data: { values: getLocalStorage },
@@ -182,4 +185,10 @@ renewNavbar();
 window.addEventListener("load", function () {
     headerdropdown.innerHTML = "";
     renewNavbar();
+    if ($('.cart_item_tr').length == 0) {
+        localStorage.clear();
+    }
+   
 })
+
+
