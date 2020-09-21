@@ -25,10 +25,10 @@ namespace XbooxCMS.WebApi
         //訂單產品內容
         [HttpGet]
      
-        public List<OrderDetailsViewModel> GetOrderDeatils(string lalaid)
+        public List<OrderDetailsViewModel> GetOrderDeatils(string id)
         {
             var service = new OrderService();
-            var result = service.GetOrderDeatils(lalaid);
+            var result = service.GetOrderDeatils(id);
             return result;
         }
 

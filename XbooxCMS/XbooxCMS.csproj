@@ -20,9 +20,12 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44399</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -270,11 +273,10 @@
     <Compile Include="ViewModels\SalesRevenueViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
-    <Compile Include="WebApi\CuponController.cs" />
+    <Compile Include="WebApi\CouponsController.cs" />
     <Compile Include="WebApi\ImgController.cs" />
     <Compile Include="WebApi\OrderController.cs" />
     <Compile Include="WebApi\ProductController.cs" />
-
     <Compile Include="WebApi\TagsController.cs" />
     <Compile Include="WebApi\UserController.cs" />
   </ItemGroup>
