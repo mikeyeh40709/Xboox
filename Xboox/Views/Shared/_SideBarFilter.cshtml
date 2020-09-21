@@ -1,4 +1,4 @@
-﻿@*<form action="FilterBooks" method="post">*@
+﻿<form action="FilterBooks" method="post">
     <div class="sidebar__filter">
         <div class="section-title">
             <h4>Shop by price</h4>
@@ -15,6 +15,15 @@
             </div>
         </div>
         <a href="Javascript:void(0)"  id="PriceFilter" type="submit">Filter</a>
-    </div>
-@*</form>*@
 
+    </div>
+</form>
+
+<script>
+    document.getElementById("PriceFilter").addEventListener("click", function () {
+        var min = document.getElementById("minprice").value.substring(1);
+        var max = document.getElementById("maxprice").value.substring(1);
+        var category = window.location.href.split('/');
+        this.setAttribute("href", "/Book/" + category[4] + "/" + min + "-" + max);
+    });
+</script>
