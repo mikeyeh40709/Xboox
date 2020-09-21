@@ -128,8 +128,8 @@ namespace Xboox.Models.Services
                 PostCollection.Add("TotalAmount", Convert.ToInt32(opay.Send.TotalAmount).ToString());
                 PostCollection.Add("TradeDesc", opay.Send.TradeDesc);
                 PostCollection.Add("ItemName", opay.Send.ItemName);
-                PostCollection.Add("ClientBackURL", "https://b31425e214ff.ngrok.io/Home/Index");
-                PostCollection.Add("ReturnURL", "https://b31425e214ff.ngrok.io/Order/ECPayResult");//廠商通知付款結果API
+                PostCollection.Add("ClientBackURL", "http://xboox.azurewebsites.net/Home/Index");
+                PostCollection.Add("ReturnURL", "http://xboox.azurewebsites.net/Order/ECPayResult");//廠商通知付款結果API
                 PostCollection.Add("ChoosePayment", payment);
                 PostCollection.Add("EncryptType", "1");//固定
                 PostCollection.Add("CustomField1", order.OrderId.ToString());
