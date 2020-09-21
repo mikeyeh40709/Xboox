@@ -23,6 +23,19 @@ namespace XbooxCMS.WebApi
             return Json("Deleteok");
         }
 
+        //[System.Web.Http.HttpPost]
+        //public IHttpActionResult RemoveAll()
+        //{
+        //    var service = new ProductService();
+        //    ///List<string>=null
+
+        //    service.SetNull();
+
+
+        //    return Json("setnull");
+        //}
+
+
         //    [System.Web.Http.HttpPost]
         //    public async Task<ActionResult> Upload()
         //    {
@@ -59,6 +72,6 @@ namespace XbooxCMS.WebApi
 
         //        //return Json("OK");
         //    }
-        }
-
     }
+
+}

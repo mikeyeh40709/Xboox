@@ -22,17 +22,10 @@ namespace XbooxCMS.Controllers
 {
     public class ProductController : Controller
     {
-        private static List<string> ImgstringLists = null;
-   
-
 
         public ProductController()
         {
 
-            //if (context == null)
-            //{
-            //    context = new XbooxContext();
-            //}
         
         }
 
@@ -47,20 +40,11 @@ namespace XbooxCMS.Controllers
             var service = new ProductService();
             var pist = service.GetAllProducts();
      
-                        
-
-        
             return View(pist);
         }
 
 
-        public ActionResult Details(Guid id)
-        {
-
-
-            return View();
-        }
-
+       
         /// <summary>
         /// 建立產品資料 包含分類 標籤 
         /// </summary>
@@ -77,105 +61,10 @@ namespace XbooxCMS.Controllers
             };
 
 
-
-
             return View(viewModels);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(CreateDataModel createDataModel)
-        //{
-
-           
-        //    var service = new ProductService();
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        //建立失敗
-        //        return RedirectToAction("Index", "Home");
-        //    }
-
-
-        //    service.Create(createDataModel);
-
-
-        //    return RedirectToAction("Index","Product");
-        //}
-
-        /// <summary>
-        /// 將Tag加入ProductTag
-        /// </summary>
-        /// <param name="product"></param>
-        /// <param name="SelectedTags"></param>
-        /// <param name="tags"></param>
-       //private void AddedTag(Product product, List<Guid> SelectedTags,ProductTags tags)
-       // {
-           
-       //     if (SelectedTags==null)
-       //     {
-       //         return ;
-       //     }
-
-       //     {
-       //         //原本被選的Tag
-       //         var pTagList = context.ProductTags.Where(x => x.ProductId == product.ProductId).Select(x => (Guid)x.TagId).ToList();
-       //         if (pTagList.Count == 0)
-       //         {
-       //             //create
-       //             foreach (var t in SelectedTags)
-       //             {
-       //                 tags = new ProductTags()
-       //                 {
-       //                     ProductId = product.ProductId,
-       //                     TagId = t,
-       //                     Id = Guid.NewGuid()
-       //                 };
-
-       //                 context.ProductTags.Add(tags);
-       //             }
-       //         }
-
-              
-       //         //edit
-       //         else
-       //         {
-       //             //找出原本有選但現在沒選的Tag
-       //             var newTagList1 = pTagList.Except(SelectedTags);
-
-
-       //             //把現在沒選的Tag移除
-       //             foreach (var t in newTagList1)
-       //             {
-
-       //                 var item = context.ProductTags.Where(x => x.TagId == t && x.ProductId == product.ProductId).FirstOrDefault();
-       //                 context.ProductTags.Remove(item);
-       //             }
-
-       //             //找出現在有選但原本沒選的Tag
-       //             var newTagList2 = SelectedTags.Except(pTagList);
-
-       //             //加入沒選過的tag
-       //             foreach (var t in newTagList2)
-       //             {
-       //                 tags = new ProductTags()
-       //                 {
-       //                     ProductId = product.ProductId,
-       //                     TagId = t,
-       //                     Id = Guid.NewGuid()
-       //                 };
-       //                 context.ProductTags.Add(tags);
-       //             }
-       //         }
-               
-
-       //     }
-
-        
-
-       //     context.SaveChanges();
-     
-       // }
+    
     
 
         /// <summary>
@@ -208,38 +97,6 @@ namespace XbooxCMS.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(CreateDataModel DataModel)
-        {
-
-            var service = new ProductService();
-            
-            if (!ModelState.IsValid)
-            {
-                Debug.WriteLine("Wrong");
-                return RedirectToAction("Index", "Product");
-            }
-            
-            service.Edit(DataModel);
-
-    
-            return RedirectToAction("Index", "Product"); 
-        }
-
-
-
-  
-        public ActionResult Delete(Guid id)
-        {
-
-            var service = new ProductService();
-            service.Delete(id);
-       
-                return RedirectToAction("Index","Product");
-            }
-           
-        
 
 
 
@@ -301,32 +158,32 @@ namespace XbooxCMS.Controllers
         }
 
      
-        [HttpPost]
-        public ActionResult Remove(string ccc)
-        {
-            //var session = httpContext.Session;
-            List<Object> abc = new List<Object>();
+        //[HttpPost]
+        //public ActionResult Remove(string ccc)
+        //{
+        //    //var session = httpContext.Session;
+        //    List<Object> abc = new List<Object>();
             
-            abc.Add(Request.Form["ccc"]);
-            //abc.Add(Request.Files);
-          //  abc.Add(JsonConvert.DeserializeObject<string>(Request.Form["ccc"]));
-            abc.Add(Request.Params["abc"]);
-            //abc.Add(Request.Params["QUERY_STRING"]);
+        //    abc.Add(Request.Form["ccc"]);
+        //    //abc.Add(Request.Files);
+        //  //  abc.Add(JsonConvert.DeserializeObject<string>(Request.Form["ccc"]));
+        //    abc.Add(Request.Params["abc"]);
+        //    //abc.Add(Request.Params["QUERY_STRING"]);
             
             
            
-            //abc.Add(Request.);
-            //abc.Add(Request.);
-            var files = Request.Files;
+        //    //abc.Add(Request.);
+        //    //abc.Add(Request.);
+        //    var files = Request.Files;
 
 
-            //從file移除資料
-            //接Id 然後再抓Id
-            //再處理字串(陣列) 在裡面找該圖的filename然後將其從字串移除
-            //  ImgstringList
-            //string json = JsonConvert.SerializeObject(files);
-            return Json(abc);
-        }
+        //    //從file移除資料
+        //    //接Id 然後再抓Id
+        //    //再處理字串(陣列) 在裡面找該圖的filename然後將其從字串移除
+        //    //  ImgstringList
+        //    //string json = JsonConvert.SerializeObject(files);
+        //    return Json(abc);
+        //}
 
 
         [HttpPost]
@@ -337,23 +194,12 @@ namespace XbooxCMS.Controllers
 
             service.SetNull();
 
-            //abc.Add(Request.);
-            //abc.Add(Request.);
-          
-
-            //從file移除資料
-            //接Id 然後再抓Id
-            //再處理字串(陣列) 在裡面找該圖的filename然後將其從字串移除
-            //  ImgstringList
-            //string json = JsonConvert.SerializeObject(files);
+ 
             return Json("setnull");
         }
 
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    context.Dispose();
-        //}
+     
 
     }
 }

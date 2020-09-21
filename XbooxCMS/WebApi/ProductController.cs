@@ -44,7 +44,7 @@ namespace XbooxCMS.WebApi
         }
 
         [System.Web.Http.HttpPost]
-        //[ValidateAntiForgeryToken]
+     
         public HttpResponseMessage CreateProduct(CreateDataModel createDataModel)
         {
 
@@ -64,23 +64,23 @@ namespace XbooxCMS.WebApi
         }
 
 
-        //[System.Web.Http.HttpPut]
-        //[ValidateAntiForgeryToken]
-        //public HttpResponseMessage EditProduct([FromBody]CreateDataModel DataModel)
-        //{
+        [System.Web.Http.HttpPut]
+       // [ValidateAntiForgeryToken]
+        public HttpResponseMessage EditProduct([FromBody] CreateDataModel DataModel)
+        {
 
-        //    var service = new ProductService();
+            var service = new ProductService();
 
 
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-        //    }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
 
-        //    service.Edit(DataModel);
+            service.Edit(DataModel);
 
-        //    return new HttpResponseMessage(HttpStatusCode.OK);
-        //}
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
     }
 }

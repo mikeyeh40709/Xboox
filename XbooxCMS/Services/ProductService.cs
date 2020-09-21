@@ -8,6 +8,7 @@ using XbooxLibrary.Models.DataTable;
 using XbooxLibrary.Repository;
 using XbooxLibrary.Services;
 using XbooxCMS.Helper;
+using System.Diagnostics;
 
 namespace XbooxLibrary.Services
 {
@@ -403,9 +404,12 @@ namespace XbooxLibrary.Services
             XbooxLibraryDBContext context = new XbooxLibraryDBContext();
             GeneralRepository<Product> repository = new GeneralRepository<Product>(context);
             GeneralRepository<ProductImgs> Imgrepository = new GeneralRepository<ProductImgs>(context);
-
-
-            var imgToDelete = Imgrepository.GetAll().FirstOrDefault(x => x.imgLink == imgName);
+           
+             var charac = imgName.Split('"');
+            foreach(var i in charac) { Debug.WriteLine(i); }
+            var temp = charac[1];
+        
+            var imgToDelete = Imgrepository.GetAll().FirstOrDefault(x => x.imgLink == temp);
             if (imgToDelete != null)
             {
                 Imgrepository.Delete(imgToDelete);
