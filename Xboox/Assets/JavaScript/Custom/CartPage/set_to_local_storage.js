@@ -22,7 +22,7 @@ AddBtnGroup.each(function () {
         setLocalStorage(this.id, getProductName);
         headerdropdown.innerHTML = "";
         renewNavbar();
-        swal(sucess_html, getProductName, imgLink );
+        swalSet(sucess_html, getProductName, imgLink );
     })
 });
 //productdetail's page product btn click event
@@ -35,14 +35,14 @@ productdetail_cart_btn.on('click', function () {
             setDetailsLocalStorage(this.id, getProductName);
             headerdropdown.innerHTML = "";
             renewNavbar();
-            swal(sucess_html, getProductName, imgLink);
+            swalSet(sucess_html, getProductName, imgLink);
         }
         else {
-            swal(fail_html, getProductName, imgLink);
+            swalSet(fail_html, getProductName, imgLink);
         }
     }
     else {
-        swal(nan_html);
+        swalSet(nan_html);
     }
   
 });
@@ -158,11 +158,11 @@ function ajaxFun(clickName, ajaxUrl) {
             })
         }
         else {
-            swal("請先加入商品至購物車哦!!");
+            Swal.fire("", "請先加入商品至購物車哦!!", "error")
         }
     })
 }
-function swal(htmlContext,getProductName="", img_link = "") {
+function swalSet(htmlContext,getProductName="", img_link = "") {
 
     Swal.fire({
         title: `${getProductName}`,

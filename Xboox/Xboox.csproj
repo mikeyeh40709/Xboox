@@ -376,6 +376,7 @@
     <Content Include="Assets\Vendor\LogInPage\select2\select2.js" />
     <Content Include="Assets\Vendor\LogInPage\select2\select2.min.css" />
     <Content Include="Assets\Vendor\LogInPage\select2\select2.min.js" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\CSS\Origin\Content\Site.css" />
     <Content Include="Assets\Image\Pics\logo.png" />
@@ -693,7 +694,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Assets\Image\Origin\favicon.ico</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
