@@ -8,7 +8,7 @@ namespace XbooxLibrary.Models.DataTable
 
     public partial class Coupons
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         [Display(Name = "優惠券名稱")]
         [StringLength(50)]
         [Required(ErrorMessage = "優惠券名稱必須輸入!")]

@@ -11,7 +11,7 @@ namespace XbooxLibrary.Repository
 {
     public class GeneralRepository<T> where T :class
     {
-        private XbooxLibraryDBContext context;
+        private  static XbooxLibraryDBContext context;
         protected XbooxLibraryDBContext Context
         {
             get { return context; }
