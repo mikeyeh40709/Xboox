@@ -187,8 +187,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\CartController.cs" />
-    <Compile Include="Controllers\BookCategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -213,11 +213,11 @@
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Services\AspNetUserManage.cs" />
-    <Compile Include="Models\Services\CommonService.cs" />
+    <Compile Include="Models\Services\ECPayService.cs" />
     <Compile Include="Models\Services\SetCookieService.cs" />
     <Compile Include="Models\Services\OperationResult.cs" />
     <Compile Include="Models\Services\ShoppingCartService.cs" />
-    <Compile Include="Repositories\FindBookDetailRepository.cs" />
+    <Compile Include="Models\Services\FindBookDetailService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />
@@ -651,19 +651,19 @@
     <Content Include="Views\Shared\_SideBarCategoryPartial.cshtml" />
     <None Include="Properties\PublishProfiles\Xboox - Web Deploy.pubxml" />
     <Content Include="Views\Shared\_SideBarFilter.cshtml" />
-    <Content Include="Views\BookCategory\ShowBooks.cshtml" />
     <Content Include="Views\Account\UserDataEdit.cshtml" />
     <Content Include="Views\Order\Success.cshtml" />
     <Content Include="Views\Order\Fail.cshtml" />
     <Content Include="Views\Shared\_SidebarSuggestion.cshtml" />
-    <Content Include="Views\BookCategory\FilterBooks.cshtml" />
     <Content Include="Views\Coupon\ShowCoupon.cshtml" />
     <Content Include="Views\Order\PostToECPay.cshtml" />
     <Content Include="Views\Order\ECPayResult.cshtml" />
     <Content Include="Views\Account\info.cshtml" />
+    <Content Include="Views\Book\Books.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

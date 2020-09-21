@@ -14,6 +14,16 @@ namespace Xboox
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Books",
+                url: "Books/{CategoryName}",
+                defaults: new { controller = "Book", action = "Books" }
+                );
+            routes.MapRoute(
+                name: "BooksByRange",
+                url: "Books/{CategoryName}/{min_price}-{max_price}",
+                defaults: new { controller = "Book", action = "Books", CategoryName = "All" }
+                );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
