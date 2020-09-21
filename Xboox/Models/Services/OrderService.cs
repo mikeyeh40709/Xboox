@@ -277,7 +277,7 @@ namespace Xboox.Services
         #endregion
 
         #region 編輯付款狀態
-        public OperationResult EditPaidState(string merchantTradeNo)
+        public OperationResult EditPaidState(string orderId)
         {
             OperationResult operationResult = new OperationResult();
             using (var dbContext = new XbooxLibraryDBContext())
@@ -285,7 +285,7 @@ namespace Xboox.Services
                 try
                 {
                     var orderRepo = new GeneralRepository<Order>(dbContext);
-                    var order = orderRepo.GetFirst(x => x.EcpayOrderNumber == merchantTradeNo);
+                    var order = orderRepo.GetFirst(x => x.OrderId.ToString() == orderId);
                     if (order != null)
                     {
                         if (!order.Paid)
