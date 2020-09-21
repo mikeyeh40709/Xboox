@@ -44,7 +44,7 @@ namespace XbooxCMS.WebApi
         }
 
         [System.Web.Http.HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public HttpResponseMessage CreateProduct(CreateDataModel createDataModel)
         {
 

@@ -82,26 +82,26 @@ namespace XbooxCMS.Controllers
             return View(viewModels);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateDataModel createDataModel)
-        {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(CreateDataModel createDataModel)
+        //{
 
            
-            var service = new ProductService();
+        //    var service = new ProductService();
 
-            if (!ModelState.IsValid)
-            {
-                //建立失敗
-                return RedirectToAction("Index", "Home");
-            }
-
-
-            service.Create(createDataModel);
+        //    if (!ModelState.IsValid)
+        //    {
+        //        //建立失敗
+        //        return RedirectToAction("Index", "Home");
+        //    }
 
 
-            return RedirectToAction("Index","Product");
-        }
+        //    service.Create(createDataModel);
+
+
+        //    return RedirectToAction("Index","Product");
+        //}
 
         /// <summary>
         /// 將Tag加入ProductTag

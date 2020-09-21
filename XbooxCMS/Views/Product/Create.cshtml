@@ -16,10 +16,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@*@using (Html.BeginForm())
+{*@
+
+    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
 <form id="product">
     <div class="col-md-12">
 
@@ -156,14 +156,14 @@
                 </div>
 
                 <div class="p-t-15">
-                    <button class="btn btn-beige" @*type="submit" onclick="createFunction()"*@ id="createBtn">Create</button>
+                    <button class="btn btn-beige" type="submit" @*onclick="createFunction()"*@ id="createBtn">Create</button>
                 </div>
 
             </div>
         </div>
     </div>
 </form>
-}
+@*}*@
 @*@Scripts.Render("~/bundles/jqueryval")*@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -181,17 +181,21 @@
 
 <script type="text/javascript">
 
-    $('#createBtn').click(function () {
+    var redirectUrl = '/product';
+    $("form").on("submit", function (event) {
+        event.preventDefault();
+        //alert($(this).serialize());
 
-        $.ajax({
+          $.ajax({
             type: "POST", 
             url: '/api/product',
-            data: $('#product').serialize,
-            contentType: 'application/json; charset=utf-8',
+            data: $(this).serialize(),
+
+              contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 
             success: function (data) {
                 console.log("Success create", data);
-                window.location.href = redirectUrl;
+                window.location.href = '/product';
             },
 
             error: function (xhr) {
@@ -202,9 +206,34 @@
 
         })
 
+    });
 
 
-    })
+   // $('#createBtn').click(function () {
+      //  alert($('#product').serialize());
+        //$.ajax({
+        //    type: "POST", 
+        //    url: '/api/product',
+        //    data: $('#product').serialize,
+            
+        //    contentType: 'application/json; charset=utf-8',
+
+        //    success: function (data) {
+        //        console.log("Success create", data);
+        //        window.location.href = redirectUrl;
+        //    },
+
+        //    error: function (xhr) {
+        //        alert('fails');
+
+        //    }
+
+
+        //})
+
+
+
+   // })
 
 
 </script>

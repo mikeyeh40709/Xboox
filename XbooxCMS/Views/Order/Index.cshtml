@@ -135,13 +135,13 @@
                     },
 
                     {
-                        data: 'item.Paid',
+                        data: 'Paid',
                         render: function (data) {
                             if (data != true) {
                                 return '<div class="text-danger">未付款</div>'
                             }
-                            if (data == true) {
-                                return '<div class="text-danger">已付款</div>'
+                            else{
+                                return '<div class="text-success">已付款</div>'
                             }
 
                         }
