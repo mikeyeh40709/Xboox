@@ -112,7 +112,9 @@
 <!-- Shop Cart Section End -->
 @section endJS{
     <script>
-     
+        if ($('.cart_item_tr').length == 0) {
+            localStorage.clear();
+        }
     </script>
     }
 

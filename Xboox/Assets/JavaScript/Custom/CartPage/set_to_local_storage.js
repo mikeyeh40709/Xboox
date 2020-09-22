@@ -185,9 +185,7 @@ renewNavbar();
 window.addEventListener("load", function () {
     headerdropdown.innerHTML = "";
     renewNavbar();
-    if ($('.cart_item_tr').length == 0) {
-        localStorage.clear();
-    }
+   
    
 })
 
