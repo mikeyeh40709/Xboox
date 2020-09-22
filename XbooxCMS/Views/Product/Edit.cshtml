@@ -199,7 +199,7 @@
     FilePond.setOptions({
 
         server: {
-            process: '@Url.Action("Upload", "Product")',
+            process: '/api/img',
             revert: (source, load, error) => {
                 console.log('remove');
                 let formData = new FormData();
@@ -284,7 +284,7 @@
 
             fetch(`/api/img/DeleteImg?query="${imgName}"`, {
               
-                method: 'POST',
+                method: 'DELETE',
                 body: JSON.stringify({ id: imgName }),
                 headers: new Headers({
                     'Content-Type': 'application/json'
