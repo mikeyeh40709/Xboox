@@ -111,6 +111,7 @@
 
 
                 .decrease {
+                    margin:0 0 0 58px;
                     font-size: 20px;
                     color: #444444;
                     cursor: pointer;
@@ -118,11 +119,11 @@
 
                 span {
                     @media (min-width: 769px) {
-                        margin: 0px 35px 0 35px;
+                        margin: 0px 40px 0 40px;
                     }
 
                     @media (max-width: 768px) {
-                        margin: 7px 10px 0 10px;
+                        margin: 0px 10px 0 10px;
                     }
 
                     color: #444444;
