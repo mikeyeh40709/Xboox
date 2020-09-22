@@ -4,23 +4,16 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-@*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/css/uikit.min.css" />*@
-@*//<link href="~/Assets/Css/datatablestyle.css" rel="stylesheet" />*@
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-<h2>ProductManagement</h2>
 
-<p>
-
-    <!-- Colored FAB button -->
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-        <i class="material-icons" onclick="location.href='@Url.Action("Create", "Product")'">add</i>
-    </button>
-
-</p>
-
-<div class="col-md-6">
+<div class="d-flex justify-content-between">
+    <h2>Products Management</h2>
+    <p>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <i class="material-icons" onclick="location.href='@Url.Action("Create", "Product")'">add</i>
+        </button>
+    </p>
+</div>
+<div class="col-md-12 my-3">
     <table class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--1dp" id="Producttable">
         <thead>
             <tr>
@@ -86,8 +79,6 @@
 
 <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-@*<script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.7/dist/js/uikit-icons.min.js"></script>*@
 
 @section scripts{
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
@@ -162,12 +153,7 @@
             dele_id = id;
       
         }
-
-
-
         $("#deletefunction").click(function () {
-           
-      
             $.ajax({
                 type: "DELETE",
                 url: '/api/product/'+ dele_id,
@@ -189,12 +175,5 @@
 
 
         })
-
-    @*$.ajax({
-    type: "POST",
-    url: '@Url.Action("DeleteTest","Test")',
-    data: {id:10},
-    contentType: 'application/json; charset=utf-8',
-    success: function (data) {*@
     </script>
 }

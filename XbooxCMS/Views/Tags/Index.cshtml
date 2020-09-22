@@ -1,37 +1,29 @@
-﻿@*<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">*@
-@*@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
-
-
-<div class="row" style="margin: 10px">
-    <div class="col-11">
-        <button class="btn-primary border btn-lg  mb-4 createTag">Create Tag</button>
-        <table id="tagTable" class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--2dp" style="width:100%">
-            <thead>
-                <tr>
-                    <th>TagName</th>
-                    <th></th>
-                </tr>
-            </thead>
-        </table>
+﻿
+<div class="d-flex justify-content-between">
+    <h2>Tags Management</h2>
+    <button class="btn-primary border btn-lg  mb-4 createTag">建立書本標籤</button>
+</div>
+<div class="col-12 my-3">
+    <table id="tagTable" class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--2dp" style="width:100%">
+        <thead>
+            <tr>
+                <th>TagName</th>
+                <th>編輯</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div id="tagSetting" style="display:none">
+    <div class="form-group">
+        <label for="tagsInput">Tags Name</label>
+        <input type="text" class="form-control" id="tagsInput">
+        <p style="display:none"></p>
     </div>
-    <div id="tagSetting" style="display:none">
-        <div class="form-group">
-            <label for="tagsInput">Tags Name</label>
-            <input type="text" class="form-control" id="tagsInput">
-            <p style="display:none"></p>
-        </div>
-        <button id="backToTagsList" class="btn btn-primary">Back to List</button>
-        <button id="saveChangeTags" class="btn btn-primary" style="margin:10px 0 0 0">Save Change</button>
-        <button id="createBtn" class="btn btn-primary" style="display:none;margin:10px 0 0 0">Create</button>
-    </div>
-
+    <button id="backToTagsList" class="btn btn-primary">Back to List</button>
+    <button id="saveChangeTags" class="btn btn-primary" style="margin:10px 0 0 0">Save Change</button>
+    <button id="createBtn" class="btn btn-primary" style="display:none;margin:10px 0 0 0">Create</button>
 </div>
 
-@*<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>*@
 
 @section scripts{
     <script type="text/javascript">
@@ -91,7 +83,7 @@
 
         });
 
-     
+
 
         $('.createTag').click(function () {
             formSet('block', 'none', 'block', 'none', 'none');
