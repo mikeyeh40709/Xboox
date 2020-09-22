@@ -115,7 +115,7 @@
         let saveChange = document.querySelector('#saveChangeCoupoun');
         saveChange.addEventListener('click', function () {
             let id = $('#coupounSetting p').text();
-            ajaxSet("/api/Coupons/SaveEditCoupon",id);
+            ajaxSet("/api/Coupons/SaveEditCoupon", "PUT",id);
         });
 
 
@@ -127,7 +127,7 @@
 
 
         $('#createSuccessBtn').click(function () {
-            ajaxSet("/api/Coupons/CreateCoupon");
+            ajaxSet("/api/Coupons/CreateCoupon", "POST");
 
         })
 
@@ -153,18 +153,17 @@
 
 
      
-        function ajaxSet(setUrl,id=null) {
+        function ajaxSet(setUrl,connectiontype,id=null) {
             let name = $('#couponName').val();
             let discount = $('#coupoDiscount').val();
             let code = $('#couponCode').val();
             let start = $('#startTime').val();
             let end = $('#endTime').val();
-            console.log(id);
             if (start.length !== 0 || end.length !== 0) {
                 $.ajax({
                     url: setUrl,
                     data: { "Id": id, "CouponName": name, "Discount": discount, "CouponCode": code, "StartTime": start, "EndTime": end },
-                    type: 'POST',
+                    type: connectiontype,
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
@@ -178,7 +177,7 @@
                 });
             }
             else {
-                alert("請別忘記設定日期喔");
+                Swal.fire("", "請選擇日期哦!", "error")
             }
         }
 
