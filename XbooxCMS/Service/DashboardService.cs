@@ -14,19 +14,24 @@ namespace XbooxCMS.Service
 {
     public class DashboardService
     {
-        public IQueryable<SalesRevenueViewModel> GetSalesRevenue()
+        static XbooxLibraryDBContext db = new XbooxLibraryDBContext();
+        GeneralRepository<Order> otable = new GeneralRepository<Order>(db);
+        GeneralRepository<OrderDetails> odtable = new GeneralRepository<OrderDetails>(db);
+        GeneralRepository<Product> ptable = new GeneralRepository<Product>(db);
+        GeneralRepository<AspNetUsers> mtable = new GeneralRepository<AspNetUsers>(db);
+        public IEnumerable<SalesRevenueViewModel> GetSalesRevenue()
         {
-            XbooxLibraryDBContext db = new XbooxLibraryDBContext();
-            GeneralRepository<Order> otable = new GeneralRepository<Order>(db);
-            GeneralRepository<OrderDetails> odtable = new GeneralRepository<OrderDetails>(db);
-            GeneralRepository<Product> ptable = new GeneralRepository<Product>(db);
+            //XbooxLibraryDBContext db = new XbooxLibraryDBContext();
+            //GeneralRepository<Order> otable = new GeneralRepository<Order>(db);
+            //GeneralRepository<OrderDetails> odtable = new GeneralRepository<OrderDetails>(db);
+            //GeneralRepository<Product> ptable = new GeneralRepository<Product>(db);
 
-            var temp = from od in odtable.GetAll()
-                       join o in otable.GetAll()
+            var temp = from od in odtable.GetAll().AsEnumerable()
+                       join o in otable.GetAll().AsEnumerable()
                        on od.OrderId equals o.OrderId
-                       join p in ptable.GetAll()
+                       join p in ptable.GetAll().AsEnumerable()
                        on od.ProductId equals p.ProductId
-                       //where o.Paid == true   //paid 付款狀態 註解掉可以取得較多data
+                       where o.Paid == true   //paid 付款狀態 註解掉可以取得較多data
                        select new
                        {
                            Year = o.OrderDate.Year,
@@ -48,16 +53,16 @@ namespace XbooxCMS.Service
 
         public IQueryable<TopProducts> GetTopProducts()
         {
-            XbooxLibraryDBContext db = new XbooxLibraryDBContext();
-            GeneralRepository<Order> otable = new GeneralRepository<Order>(db);
-            GeneralRepository<OrderDetails> odtable = new GeneralRepository<OrderDetails>(db);
-            GeneralRepository<Product> ptable = new GeneralRepository<Product>(db);
+            //XbooxLibraryDBContext db = new XbooxLibraryDBContext();
+            //GeneralRepository<Order> otable = new GeneralRepository<Order>(db);
+            //GeneralRepository<OrderDetails> odtable = new GeneralRepository<OrderDetails>(db);
+            //GeneralRepository<Product> ptable = new GeneralRepository<Product>(db);
             var temp = from od in odtable.GetAll()
                        join o in otable.GetAll()
                        on od.OrderId equals o.OrderId
                        join p in ptable.GetAll()
                        on od.ProductId equals p.ProductId
-                       //where o.Paid == true   //paid 付款狀態 註解掉可以取得較多data
+                       where o.Paid == true   //paid 付款狀態 註解掉可以取得較多data
                        select new
                        {
                            Year = o.OrderDate.Year,
@@ -80,11 +85,11 @@ namespace XbooxCMS.Service
 
         public TitleData GetTitleData()
         {
-            XbooxLibraryDBContext db = new XbooxLibraryDBContext();
-            GeneralRepository<AspNetUsers> mtable = new GeneralRepository<AspNetUsers>(db);
-            GeneralRepository<Product> ptable = new GeneralRepository<Product>(db);
-            GeneralRepository<Order> otable = new GeneralRepository<Order>(db);
-            GeneralRepository<OrderDetails> odtable = new GeneralRepository<OrderDetails>(db);
+            //XbooxLibraryDBContext db = new XbooxLibraryDBContext();
+            //GeneralRepository<AspNetUsers> mtable = new GeneralRepository<AspNetUsers>(db);
+            //GeneralRepository<Product> ptable = new GeneralRepository<Product>(db);
+            //GeneralRepository<Order> otable = new GeneralRepository<Order>(db);
+            //GeneralRepository<OrderDetails> odtable = new GeneralRepository<OrderDetails>(db);
 
             var revenue = (from o in otable.GetAll().AsEnumerable()
                            join od in odtable.GetAll().AsEnumerable()
@@ -92,34 +97,38 @@ namespace XbooxCMS.Service
                            join p in ptable.GetAll().AsEnumerable()
                            on od.ProductId equals p.ProductId
                            where o.OrderDate.Month == DateTime.UtcNow.Month
-                           //where o.Paid == true   //paid 付款狀態 註解掉可以取得較多data
+                           where o.Paid == true   //paid 付款狀態 註解掉可以取得較多data
                            select new
                            {
                                Revenue = p.Price * od.Quantity
                            }).Sum(x => x.Revenue);
 
+            //entity 資料庫映射回來的 實體
+            //linq to object(Ienumerable) ,  linq to entity(IQueryable)
 
-            //var totalreneve = revenue.Sum(x => x.Revenue).ToString();
+            var members = mtable.GetAll().Count();
+            //(from m in mtable.GetAll()
+            //           select new
+            //           {
+            //               members = m.Id
+            //           }).Count();
 
-            var members = (from m in mtable.GetAll()
-                           select new
-                           {
-                               members = m.Id
-                           }).Count();
+            var products = ptable.GetAll().Count();
+            //(from p in ptable.GetAll()
+            //            select new
+            //            {
+            //                products = p.Name
+            //            }).Count();
 
-            var products = (from p in ptable.GetAll()
-                            select new
-                            {
-                                products = p.Name
-                            }).Count();
-
-            var orders = (from o in otable.GetAll()
-                          where o.OrderDate.Month == DateTime.UtcNow.Month
-                          select new
-                          {
-                              orders = o.OrderId
-                          }
-                          ).Count();
+            var orders = otable.GetAll().Where(x => x.OrderDate.Month == DateTime.UtcNow.Month && x.Paid == true).Count();
+                //(from o in otable.GetAll()
+                //          where o.OrderDate.Month == DateTime.UtcNow.Month
+                //          where o.Paid == true
+                //          select new
+                //          {
+                //              orders = o.OrderId
+                //          }
+                //          ).Count();
             TitleData title = new TitleData() {
                 products = products,
                 orders = orders,
