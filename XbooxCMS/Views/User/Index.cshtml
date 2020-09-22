@@ -1,27 +1,23 @@
-﻿
-<div class="row" style="margin: 10px">
-    <div class="col-11">
-        <table id="userable" class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--2dp" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>UserName</th>
-                    <th>Email</th>
-                    <th>PhoneNumber</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+﻿<h2>Users Management</h2>
+<div class="col-12 my-3">
+    <table id="userable" class="table mdl-data-table mdl-data-table_full mdl-js-data-table mdl-shadow--2dp" style="width:100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+            </tr>
+        </thead>
+    </table>
 </div>
 
 @section scripts{
-
-   
     <script type="text/javascript">
         $(document).ready(function () {
-      
+
             $('#userable').DataTable({
-               "ajax": {
+                "ajax": {
                     "url": "/api/User/ListUser",
                     "type": "GET",
                     "dataSrc": '',
