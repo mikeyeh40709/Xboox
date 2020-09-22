@@ -4,89 +4,70 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <title>Xboox後台管理</title>
     <link rel="stylesheet" href="~/Assets/Style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link href="~/Assets/Css/DashBoard.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-
 </head>
 <body>
-
-    <div class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <div class="navbar-brand">
-                @*<span><img src="~/Assets/Pics/logo-removebg-preview.png" /></span>*@
-
-                @*@Html.ActionLink("Xboox", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="navbar-nav ml-auto">
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse collapse">
+            <div class="ml-auto">@Html.Partial("_LoginPartial")</div>
         </div>
     </div>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <div href="/Home" class="brand-link">
-            <img src="~/Assets/Pics/logo-removebg-preview.png" alt="Xboox Logo" class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
-            <span class="brand-text font-weight-light">Xboox</span>
+        <div href="/Home" class="brand-link d-flex align-items-center">
+            <img src="~/Assets/Pics/logo-removebg-preview.png" alt="Xboox Logo" class="brand-image img-circle elevation-3">
+            <span class="brand-text font-weight-light">XBOOX</span>
         </div>
-
-        <!-- Sidebar -->
-        <div class="sidebar">
-
-            <!-- Sidebar Menu -->
+        <div class="sidebar mt-4">
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                     <li class="nav-item has-treeview menu-open">
                         <a href="/Home" class="nav-link ">
                             <i class="nav-icon fa fa-dashboard"></i>
-                            <p>
-                                Dashboard
-                                <i class="right fa fa-angle-left"></i>
-                            </p>
+                            <p>Dashboard</p>
                         </a>
-
                     </li>
-
                     <li class="nav-item has-treeview manage_section" id="manage_section">
-                        <a href="#" class="nav-link" id="manage" onclick="handleClick()">
+                        <a href="javascript:;" class="nav-link color-1" id="manage" onclick="handleClick()">
                             <i class="nav-icon fa fa-copy"></i>
                             <p>
                                 Management
-                                <i class="fa fa-angle-left right"></i>
+                                <i class="fa fa-angle-down right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
+                            <li class="nav-item ">
                                 <a href="/Product" class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>Product Management</p>
-                                    @*@Html.ActionLink("Product Management", "Index", "Product")*@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/User" class="nav-link">
+                                <a href="/User" class="nav-link ">
                                     <i class="fa fa-user nav-icon"></i>
                                     <p>User Management</p>
 
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Order" class="nav-link">
+                                <a href="/Order" class="nav-link ">
                                     <i class="fa fa-list nav-icon"></i>
                                     <p>Order Management</p>
 
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Tags" class="nav-link">
+                                <a href="/Tags" class="nav-link ">
                                     <i class="fa fa-barcode nav-icon"></i>
                                     <p>Tag Management</p>
                                 </a>
@@ -100,87 +81,19 @@
 
                         </ul>
                     </li>
-
-
-
                 </ul>
             </nav>
-            <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar -->
     </aside>
-    @*<aside class="sidebar">
-
-            <ul>
-                <li>
-                    <a class="aside-item color-1">
-                        <i class="fa fa-dashboard"></i>
-                        <span class="color-1">@Html.ActionLink("Dashboard", "Index", "Home")</span>
-                    </a>
-
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-book"></i>
-                    <span class="color-1">
-                        @Html.ActionLink("Product Management", "Index", "Product")
-                    </span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-user"></i>
-                    <span class="color-1">@Html.ActionLink("User Management", "Index", "User")</span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-list"></i>
-                    <span class="color-1">@Html.ActionLink("Order Management", "Index", "Order")</span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-barcode"></i>
-                    <span class="color-1">@Html.ActionLink("Coupons ManageMent", "Index", "Coupons")</span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-barcode"></i>
-                    <span class="color-1"> @Html.ActionLink("Tag Management", "Index", "Tags")</span>
-                </a>
-            </li>
-            <li>
-
-                <a class="aside-item color-1">
-                    <i class="fa fa-bar-chart"></i>
-                    <span class="color-1">Report</span>
-                </a>
-            </li>
-
-            </ul>
-
-        </aside>*@
     <div class="container body-content">
         @RenderBody()
-
-        @*<footer>
-                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
-            </footer>*@
     </div>
-
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdnjs.com/libraries/Chart.js"></script>
-    @RenderSection("scripts", required: false)
 </body>
 </html>
 

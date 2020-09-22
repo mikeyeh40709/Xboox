@@ -15,7 +15,6 @@ namespace XbooxCMS.Services
         {
 
             XbooxLibraryDBContext context = new XbooxLibraryDBContext();
-            TimeCheckerService timeService = new TimeCheckerService();
             var odrepo = new GeneralRepository<Order>(context);
             var userrepo = new GeneralRepository<AspNetUsers>(context);
             var result = new List<OrderViewModel>();
@@ -25,7 +24,7 @@ namespace XbooxCMS.Services
                             select new OrderViewModel
                             {
                                 OrderId = o.OrderId,
-                                OrderDate = timeService.GetTaipeiTime(o.OrderDate),
+                                OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                 UserName = user.UserName,
                                 PurchaserName = o.PurchaserName,
                                 PurchaserEmail = o.PurchaserEmail,
