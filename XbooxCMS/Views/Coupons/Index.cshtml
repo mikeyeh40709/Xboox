@@ -127,16 +127,16 @@
 
 
         $('#createSuccessBtn').click(function () {
-            ajaxSet("/api/CouponsCreate/CreateCoupon");
+            ajaxSet("/api/Coupons/CreateCoupon");
 
         })
 
         $('#deleteCoupounBtn').click(function () {
             let id = $('#coupounSetting p').text();
             $.ajax({
-                url: "/api/CouponsCreate/DeleteCoupon",
+                url: "/api/Coupons/DeleteCoupon",
                 data: { "": id},
-                type: 'PUT',
+                type: 'DELETE',
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
@@ -153,12 +153,13 @@
 
 
      
-        function ajaxSet(setUrl,id="") {
+        function ajaxSet(setUrl,id=null) {
             let name = $('#couponName').val();
             let discount = $('#coupoDiscount').val();
             let code = $('#couponCode').val();
             let start = $('#startTime').val();
             let end = $('#endTime').val();
+            console.log(id);
             if (start.length !== 0 || end.length !== 0) {
                 $.ajax({
                     url: setUrl,

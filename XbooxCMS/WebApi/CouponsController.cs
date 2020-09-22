@@ -9,29 +9,25 @@ using XbooxLibrary.Models.DataTable;
 
 namespace XbooxCMS.WebApi
 {
-        [RoutePrefix("api/[Controller]/[Action]")]
+    [RoutePrefix("api/[Controller]/[Action]")]
     public class CouponsController : ApiController
     {
+        //[Route("GetCoupons")]
         [HttpGet]
         public List<Coupons> GetCoupons()
         {
             CouponsService service = new CouponsService();
-           return service.GetAllCoupons();
+            return service.GetAllCoupons();
         }
-        [HttpPost]
+        //[Route("SaveEditCoupon")]
+        [HttpPut]
         public IHttpActionResult SaveEditCoupon([FromBody]Coupons data)
         {
             CouponsService service = new CouponsService();
             service.CouponsEdit(data);
             return Ok(data);
         }
-
-
-    }
-
-    [RoutePrefix("api/[Controller]/[Action]")]
-    public class CouponsCreateController :ApiController
-    {
+        //[Route("CreateCoupon")]
         [HttpPost]
         public IHttpActionResult CreateCoupon([FromBody]Coupons data)
         {
@@ -39,16 +35,37 @@ namespace XbooxCMS.WebApi
             service.CouponsCreate(data);
             return Ok(data);
         }
-
-
-        [HttpPut]
+        [HttpDelete]
         public IHttpActionResult DeleteCoupon([FromBody]Guid id)
         {
             CouponsService service = new CouponsService();
             service.DeleteConfirmed(id);
             return Ok(id);
         }
+
     }
+
+
+    //[RoutePrefix("api/[Controller]/[Action]")]
+    //public class CouponsCreateController : ApiController
+    //{
+    //    [HttpPost]
+    //    public IHttpActionResult CreateCoupon([FromBody]Coupons data)
+    //    {
+    //        CouponsService service = new CouponsService();
+    //        service.CouponsCreate(data);
+    //        return Ok(data);
+    //    }
+
+
+    //    [HttpPut]
+    //    public IHttpActionResult DeleteCoupon([FromBody]Guid id)
+    //    {
+    //        CouponsService service = new CouponsService();
+    //        service.DeleteConfirmed(id);
+    //        return Ok(id);
+    //    }
+    //}
 
 
 }
