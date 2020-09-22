@@ -129,28 +129,77 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script>
+$(document).ready(function () {  
     // titaldata ajax
-    var titalurl = "/Dashboard/GetTitleData"
-    $.ajax({
-        url: titalurl,
-        type: "GEt",
-        dataType: "json",
-        success: function (response) {
-            var orders = document.getElementById('neworders');
-            orders.innerText = response.orders;
-            var revenue = document.getElementById('revenue');
-            revenue.innerText = response.revenue;
-            var members = document.getElementById('allmembers');
-            members.innerText = response.members;
-            var products = document.getElementById('allproducts');
-            products.innerText = response.products;
+        $.ajax({
+            url: "/TitleData/GetTitleData",
+            type: "GEt",
+            dataType: "json",
+            success: function (response) {
+                var orders = document.getElementById('neworders');
+                orders.innerText = response.orders;
+                var revenue = document.getElementById('revenue');
+                revenue.innerText = response.revenue;
+                var members = document.getElementById('allmembers');
+                members.innerText = response.members;
+                var products = document.getElementById('allproducts');
+                products.innerText = response.products;
 
-            console.log(response);
-        }
+                console.log(response);
+                ////get JSON  --  sales revenue
+                $.ajax({
+                    url: "/Dashboard/GetSalesRevenue",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        //可動態調整每月營收報表
+                        var datalist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        var NumOfJData = response.length;
+                        for (var i = 0; i < NumOfJData; i++) {
+                            var month = response[i]["Month"] - 1;
+                            var revenue = response[i]["Revenue"];
+                            datalist[month] = revenue;
+                        }
+                        //CreateChartJS_Line(datalist);
+                        chart1.data.datasets[0].data = datalist
+                        chart1.update();
+                        // get json --  top products
+                        $(".select").each(function (index) {
+                            $(this).on("click", function () {
+                                $.ajax({
+                                    url: "/PieChajs/GetTop5Products",
+                                    type: "GET",
+                                    dataType: "json",
+                                    success: function (response) {
+                                        var labels = [];
+                                        var datalist = [];
+                                        // for 迴圈防呆還沒做
+                                        for (i = 0; i < response.length; i++) {
+                                            if (response[i]["Month"] == index + 1) {
 
-    });
+                                                labels.push(response[i]["Name"]);
+                                                datalist.push(response[i]["Quantity"]);
+                                            }
 
+                                        }
+                                        chartpie.data.labels = labels
+                                        chartpie.data.datasets[0].data = datalist
+                                        chartpie.update();
+                                        //console.log(response);
+                                        //console.log(labels);
+                                        //console.log(datalist);
+                                    }
+                                });
+                            });
+                        });
+                    }
+                });
 
+            }
+        });
+    
+});
+    
     // sales revenue chartjs
     var ctx = document.querySelector("#revenue-linechart");
     var chart1 = new Chart(ctx, {
@@ -213,31 +262,7 @@
             }
         }
     });
-    ////get JSON  --  sales revenue
-    var apiurl = "/Dashboard/GetSalesRevenue"
-    $.ajaxSetup({ cache: false })
-
-    //$().ready(function () {
-    //$(window).unload(function () {
-    $.ajax({
-        url: apiurl,
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
-            //可動態調整每月營收報表
-            var datalist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            var NumOfJData = response.length;
-            for (var i = 0; i < NumOfJData; i++) {
-                var month = response[i]["Month"] - 1;
-                var revenue = response[i]["Revenue"];
-                datalist[month] = revenue;
-            }
-            //CreateChartJS_Line(datalist);
-            chart1.data.datasets[0].data = datalist
-            chart1.update();
-        }
-    });
-    //});
+    
 
     // top5product chartjs
     var ctxPie = document.querySelector("#pie-chart");
@@ -268,39 +293,6 @@
                 duration: 2000
             }
         }
-    });
-
-    // get json --  top products
-    var pierul = "/Dashboard/GetTop5Products";
-    $.ajaxSetup({ cache: false })
-    $(".select").each(function (index) {
-        $(this).on("click", function () {
-            $.ajax({
-                url: pierul,
-                type: "GET",
-                dataType: "json",
-                success: function (response) {
-                    var labels = [];
-                    var datalist = [];
-                    // for 迴圈防呆還沒做
-                    for (i = 0; i < response.length; i++) {
-                        if (response[i]["Month"] == index + 1) {
-
-                            labels.push(response[i]["Name"]);
-                            datalist.push(response[i]["Quantity"]);
-                        }
-
-                    }
-                    chartpie.data.labels = labels
-                    chartpie.data.datasets[0].data = datalist
-                    chartpie.update();
-                    //console.log(response);
-                    //console.log(labels);
-                    //console.log(datalist);
-                }
-            });
-        });
-    });
-
+    });    
 
 </script>

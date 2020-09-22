@@ -259,7 +259,7 @@
     <Compile Include="Services\TagService.cs" />
     <Compile Include="Services\TimeCheckerService.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="Service\DashboardService.cs" />
+    <Compile Include="Services\DashboardService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateDataModel.cs" />
     <Compile Include="ViewModels\CreateImgViewModel.cs" />
