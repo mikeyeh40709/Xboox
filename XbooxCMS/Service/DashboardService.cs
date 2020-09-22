@@ -8,6 +8,8 @@ using XbooxCMS.ViewModels;
 using XbooxLibrary.Models.DataTable;
 using XbooxLibrary.Repository;
 using Newtonsoft.Json;
+using XbooxCMS.Services;
+
 namespace XbooxCMS.Service
 {
     public class DashboardService
@@ -79,40 +81,40 @@ namespace XbooxCMS.Service
         public TitleData GetTitleData()
         {
             XbooxLibraryDBContext db = new XbooxLibraryDBContext();
-            GeneralRepository<AspNetUsers> ms = new GeneralRepository<AspNetUsers>(db);
-            GeneralRepository<Product> ps = new GeneralRepository<Product>(db);
-            GeneralRepository<Order> os = new GeneralRepository<Order>(db);
-            GeneralRepository<OrderDetails> ods = new GeneralRepository<OrderDetails>(db);
-            DateTime NowMonth = DateTime.Now;
-            var revenue = (from o in os.GetAll()
-                           join od in ods.GetAll()
+            GeneralRepository<AspNetUsers> mtable = new GeneralRepository<AspNetUsers>(db);
+            GeneralRepository<Product> ptable = new GeneralRepository<Product>(db);
+            GeneralRepository<Order> otable = new GeneralRepository<Order>(db);
+            GeneralRepository<OrderDetails> odtable = new GeneralRepository<OrderDetails>(db);
+
+            var revenue = (from o in otable.GetAll().AsEnumerable()
+                           join od in odtable.GetAll().AsEnumerable()
                            on o.OrderId equals od.OrderId
-                           join p in ps.GetAll()
+                           join p in ptable.GetAll().AsEnumerable()
                            on od.ProductId equals p.ProductId
-                           where o.OrderDate.Month == NowMonth.Month
+                           where o.OrderDate.Month == DateTime.UtcNow.Month
                            //where o.Paid == true   //paid 付款狀態 註解掉可以取得較多data
                            select new
                            {
                                Revenue = p.Price * od.Quantity
-                           }).ToList();
+                           }).Sum(x => x.Revenue);
 
 
-            var totalreneve = revenue.Sum(x => x.Revenue);
+            //var totalreneve = revenue.Sum(x => x.Revenue).ToString();
 
-            var members = (from m in ms.GetAll()
+            var members = (from m in mtable.GetAll()
                            select new
                            {
                                members = m.Id
                            }).Count();
 
-            var products = (from p in ps.GetAll()
+            var products = (from p in ptable.GetAll()
                             select new
                             {
                                 products = p.Name
                             }).Count();
 
-            var orders = (from o in os.GetAll()
-                          where o.OrderDate.Month == NowMonth.Month
+            var orders = (from o in otable.GetAll()
+                          where o.OrderDate.Month == DateTime.UtcNow.Month
                           select new
                           {
                               orders = o.OrderId
@@ -122,7 +124,7 @@ namespace XbooxCMS.Service
                 products = products,
                 orders = orders,
                 members = members,
-                revenue = totalreneve
+                revenue = revenue
             };
             
 
