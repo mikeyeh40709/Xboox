@@ -286,3 +286,21 @@ span.brand-text{
 .container.body-content {
     margin-left: 300px;
 }
+.field-validation-error {
+    display:flex;
+    color:red;
+
+    /*position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    text-align: right;*/
+}
+
+.pd-50{
+    padding-top:50px;
+}
+#text1{
+    position:absolute;
+    visibility:hidden;
+}
