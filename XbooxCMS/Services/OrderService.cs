@@ -30,6 +30,7 @@ namespace XbooxCMS.Services
                                 PurchaserEmail = o.PurchaserEmail,
                                 PurchaserAddress = o.City + o.District + o.Road,
                                 PurchaserPhone = o.PurchaserPhone,
+                                PayDate = o.PayDate,
                                 Payment = o.Payment,
                                 Paid = o.Paid,
                                 Build = o.Build

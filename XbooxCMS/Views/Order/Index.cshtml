@@ -10,21 +10,39 @@
             <thead>
                 <tr>
                     <th>訂單編號</th>
-                    <th>建立人</th>
                     <th>建立日期</th>
-                    <th>收件人姓名</th>
-                    <th>收件人信箱</th>
-                    <th>收件人地址</th>
+                    <th>付款時間</th>
                     <th>付款方式</th>
                     <th>是否成立</th>
                     <th>付款狀態</th>
-                    <th>訂單明細</th>
+                    <th>購買人明細</th>
+                    <th>訂單產品明細</th>
                     <th>編輯與刪除</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
+    </div>
+</div>
+<div class="modal fade" id="purchaserInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">購買人資訊</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 <div class="modal fade" id="orderDetails" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="details" aria-hidden="true">
@@ -40,7 +58,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            @*<td class="text-center">圖片</td>*@
                             <td style="width: 60%;">名稱</td>
                             <td>單價</td>
                             <td>數量</td>
@@ -76,35 +93,38 @@
                     url: "/Api/Order",
                     dataSrc: ""
                 },
-
                 columns: [
                     {
                         data: 'OrderId',
-
-                    },
-                    {
-                        data: 'UserName'
+                        width: '20%',
                     },
                     {
                         data: 'OrderDate'
                     },
-                    {
-                        data: 'PurchaserName'
-                    },
 
                     {
-                        data: 'PurchaserEmail'
-                    },
-                    {
-                        data: 'PurchaserAddress'
+                        data: 'PayDate',
+                        render: function (data) {
+                            if (!data) {
+                                return '<div class="text-danger">未有付款日期</div>'
+                            }
+                        }
                     },
                     {
                         data: 'Payment'
                     },
                     {
-                        data: 'Build'
-                    },
+                        data: 'Build',
+                        render: function (data) {
+                            if (data != true) {
+                                return '<div class="text-danger">已取消</div>'
+                            }
+                            else {
+                                return '<div class="text-success">已建立</div>'
+                            }
 
+                        }
+                    },
                     {
                         data: 'Paid',
                         render: function (data) {
@@ -119,6 +139,13 @@
                     },
                     {
                         data: 'OrderId',
+                        render: function (data,type,row) {
+                            return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id=${data} data-toggle="modal" data-target="#purchaserInfo" onclick="PurchaserInfo('${row.PurchaserName}','${row.PurchaserEmail}','${row.PurchaserPhone}','${row.PurchaserAddress}')">查看</button>`
+                        }
+
+                    },
+                    {
+                        data: 'OrderId',
                         render: function (data) {
                             return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id=${data} data-toggle="modal" data-target="#orderDetails" onclick="checkDetails('${data}')">查看</button>`
                         }
@@ -127,11 +154,8 @@
                         data: 'OrderId',
                         render: function (data) {
                             return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  mdl-button--accent" id=${data} data-toggle="modal" data-target="#deleteOrder" onclick="cancleOrder('${data}')">取消</button>`
-                            //return ` <input type="button" value="取消" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent  " id=${data} data-toggle="modal" data-target="#deleteOrder">`
-
                         }
                     }
-
                 ]
 
 
@@ -141,14 +165,20 @@
     </script>
 
     <script>
-        var checkDetails;
-        var cancleOrder;
+        let checkDetails;
+        let cancleOrder;
+        let PurchaserInfo;
         window.addEventListener("load", function () {
-            let detailsBtn = $("button[data-target='#orderDetails']");
             let detailsBody = $("#orderDetails .modal-body tbody");
-            let editBtn = $("input[data-target='#editOrder']");
-            let deleteBtn = $("button[data-target='#deleteOrder']");
             let redirectUrl = "/order/Index";
+            PurchaserInfo = function (name, email, phone, address) {
+                console.log(name, email, phone, address);
+                let infoModal = $("#purchaserInfo .modal-body ul li")
+                infoModal.eq(0).text(`購買人:  ${name}`)
+                infoModal.eq(1).text(`購買人信箱:  ${email}`)
+                infoModal.eq(2).text(`購買人電話:  ${phone}`)
+                infoModal.eq(3).text(`購買人地址:  ${address}`)
+            }
             checkDetails = function (id) {
                 console.log('--- detail');
                 $.ajax({
@@ -207,4 +237,3 @@
             };
         });
     </script>
-}

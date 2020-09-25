@@ -13,12 +13,13 @@ using Xboox.Models.DataTable;
 using Xboox.Models.Services;
 using Xboox.Services;
 using Xboox.ViewModels;
+using XbooxLibrary.Models.DataTable;
 
 namespace Xboox.Controllers
 {
     public class OrderController : Controller
     {
-        private XbooxContext _context = new XbooxContext();
+        private XbooxLibraryDBContext _context = new XbooxLibraryDBContext();
         OrderService orderservice = new OrderService();
         ShoppingCartService shoppingCartService = new ShoppingCartService();
         public ActionResult UserView()
