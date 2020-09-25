@@ -53,14 +53,14 @@ namespace Xboox.Services
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
-                                     OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
                                      PurchaserAddress = o.City + o.District + o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
-                                     PayDate = TimeCheckerService.GetTaipeiTime((DateTime)o.PayDate),
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Paid = o.Paid,
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
@@ -91,7 +91,7 @@ namespace Xboox.Services
                                  {
                                      OrderId = o.OrderId,
                                      EcpayOrderNumber = o.EcpayOrderNumber,
-                                     OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
@@ -100,7 +100,7 @@ namespace Xboox.Services
                                      Road = o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
-                                     PayDate = TimeCheckerService.GetTaipeiTime((DateTime)o.PayDate),
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Paid = o.Paid,
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
@@ -126,7 +126,7 @@ namespace Xboox.Services
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
-                                     OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
@@ -134,7 +134,7 @@ namespace Xboox.Services
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
                                      Paid = o.Paid,
-                                     PayDate = TimeCheckerService.GetTaipeiTime((DateTime)o.PayDate),
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
                 return orderList;
