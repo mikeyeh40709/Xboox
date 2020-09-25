@@ -28,13 +28,13 @@
 <div class="modal fade" id="purchaserInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">購買人資訊</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="exampleModalLongTitle">購買人資訊</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-0">
                 <ul class="list-group">
                     <li class="list-group-item"></li>
                     <li class="list-group-item"></li>
@@ -174,10 +174,10 @@
             PurchaserInfo = function (name, email, phone, address) {
                 console.log(name, email, phone, address);
                 let infoModal = $("#purchaserInfo .modal-body ul li")
-                infoModal.eq(0).text(`購買人:  ${name}`)
-                infoModal.eq(1).text(`購買人信箱:  ${email}`)
-                infoModal.eq(2).text(`購買人電話:  ${phone}`)
-                infoModal.eq(3).text(`購買人地址:  ${address}`)
+                infoModal.eq(0).html(`<span class="font-weight-bold mr-3">購買人:</span><span>${name}</span>`)
+                infoModal.eq(1).html(`<span class="font-weight-bold mr-3">購買人信箱:</span><span>${email}</span>`)
+                infoModal.eq(2).html(`<span class="font-weight-bold mr-3">購買人電話:</span><span>${phone}</span>`)
+                infoModal.eq(3).html(`<span class="font-weight-bold mr-3">購買人地址: </span><span>${address}</span>`)
             }
             checkDetails = function (id) {
                 console.log('--- detail');
