@@ -43,8 +43,7 @@ namespace Xboox.Services
         public List<OrderViewModel> GetOrder(string userId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
-            {
-                TimeCheckerService timecheck = new TimeCheckerService();
+            { 
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var orderList = (from o in orderRepo.GetAll().AsEnumerable()
@@ -54,13 +53,14 @@ namespace Xboox.Services
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
-                                     OrderDate = timecheck.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
                                      PurchaserAddress = o.City + o.District + o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
+                                     PayDate = TimeCheckerService.GetTaipeiTime((DateTime)o.PayDate),
                                      Paid = o.Paid,
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
@@ -80,7 +80,6 @@ namespace Xboox.Services
         {
             using (var dbContext = new XbooxLibraryDBContext())
             {
-                TimeCheckerService timecheck = new TimeCheckerService();
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var userId = httpContext.User.Identity.GetUserId();
@@ -92,7 +91,7 @@ namespace Xboox.Services
                                  {
                                      OrderId = o.OrderId,
                                      EcpayOrderNumber = o.EcpayOrderNumber,
-                                     OrderDate = timecheck.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
@@ -101,6 +100,7 @@ namespace Xboox.Services
                                      Road = o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
+                                     PayDate = TimeCheckerService.GetTaipeiTime((DateTime)o.PayDate),
                                      Paid = o.Paid,
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
@@ -118,7 +118,6 @@ namespace Xboox.Services
         {
             using (var dbContext = new XbooxLibraryDBContext())
             {
-                TimeCheckerService timecheck = new TimeCheckerService();
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var orderList = (from o in orderRepo.GetAll().AsEnumerable()
@@ -127,7 +126,7 @@ namespace Xboox.Services
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
-                                     OrderDate = timecheck.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
@@ -135,6 +134,7 @@ namespace Xboox.Services
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
                                      Paid = o.Paid,
+                                     PayDate = TimeCheckerService.GetTaipeiTime((DateTime)o.PayDate),
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
                 return orderList;
@@ -372,6 +372,7 @@ namespace Xboox.Services
                         if (!order.Paid)
                         {
                             order.Paid = true;
+                            order.PayDate = DateTime.UtcNow;
                         }
                         else
                         {

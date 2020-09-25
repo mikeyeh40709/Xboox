@@ -28,5 +28,6 @@ namespace Xboox.ViewModels
         public bool Paid { get; set; }
         public bool Build { get; set; }
         public bool Remember { get; set; }
+        public DateTime? PayDate { get; set; }
     }
 }
