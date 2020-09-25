@@ -1,0 +1,12 @@
+﻿@model IEnumerable<string>
+<div class="col-xl-6 col-lg-7">
+    <nav class="header__menu">
+        <ul>
+            @foreach (var bar in Model)
+            {
+                string active = Request.Url.Segments.Length > 2 ? Request.Url.Segments[2] == bar || Request.Url.Segments[2] == bar + "/" ? "active" : String.Empty : String.Empty;
+                <li class="@active"><a href="/Books/@bar">@bar</a></li>
+            }
+        </ul>
+    </nav>
+</div>

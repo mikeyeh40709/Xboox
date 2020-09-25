@@ -21,16 +21,27 @@ namespace Xboox.Controllers
         {
             ViewBag.Tags = FindBook.FindTag();
             ViewBag.Category = FindBook.FindCategory(CategoryName).Name;
-            ViewBag.CategoryID = FindBook.FindCategory(CategoryName).CategoryId;
-            return View(FindBook.FindBookByRange(CategoryName, min_price, max_price));
+            var result = FindBook.FindBookByRange(CategoryName, min_price, max_price);
+            ViewBag.Result = result.Count();
+            return View(result);
+            //Todo changePage
+            //int activePage = id;
+            //int pageRows = 15;
+            //int totalRows = products.Count();
+            //int Pages = totalRows % pageRows == 0 ? Pages = totalRows / pageRows : Pages = totalRows / pageRows + 1;
+            //int startRow = (activePage - 1) * pageRows;
+            //products = products.OrderBy(x => x.Name.Substring(0, 1)).Skip(startRow).Take(pageRows);
+            //ViewData["Active"] = id;
+            //ViewData["Pages"] = Pages;
         }
+        [OutputCache(Duration = 60)]
         public ActionResult BooksByName(string Name)
         {
             ViewBag.Tags = FindBook.FindTag();
-            ViewBag.Category = FindBook.FindCategory("All").Name;
-            ViewBag.CategoryID = FindBook.FindCategory("All").CategoryId;
-            //ViewBag.SideSuggestion = FindBook.FindBookDetail("All");
-            return View("Books", FindBook.FindBookByName(Name));
+            ViewBag.Category = Name;
+            var result = FindBook.FindBookByName(Name);
+            ViewBag.Result = result.Count();
+            return View("Books", result);
         }
     }
 }
