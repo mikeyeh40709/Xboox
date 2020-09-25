@@ -16,7 +16,6 @@ namespace XbooxLibrary.Models.DataTable
         [Display(Name = "優惠折數/金額")]
         [Required(ErrorMessage = "優惠折數/金額必須輸入!")]
         public decimal? Discount { get; set; }
-
         [Display(Name = "優惠碼")]
         [Required(ErrorMessage = "優惠碼必須輸入!")]
         [StringLength(50)]

@@ -219,6 +219,7 @@
     <Compile Include="Models\Services\OperationResult.cs" />
     <Compile Include="Models\Services\ShoppingCartService.cs" />
     <Compile Include="Models\Services\FindBookDetailService.cs" />
+    <Compile Include="Models\Services\TimeCheckerService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />

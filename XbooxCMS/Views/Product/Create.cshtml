@@ -209,31 +209,6 @@
     });
 
 
-   // $('#createBtn').click(function () {
-      //  alert($('#product').serialize());
-        //$.ajax({
-        //    type: "POST", 
-        //    url: '/api/product',
-        //    data: $('#product').serialize,
-            
-        //    contentType: 'application/json; charset=utf-8',
-
-        //    success: function (data) {
-        //        console.log("Success create", data);
-        //        window.location.href = redirectUrl;
-        //    },
-
-        //    error: function (xhr) {
-        //        alert('fails');
-
-        //    }
-
-
-        //})
-
-
-
-   // })
 
 
 </script>
@@ -267,12 +242,12 @@
 
 </script>
 <script>
-  //  const formData = new formData();
+  // Remove all files
     const buttonElement = document.querySelector('#remove');
     buttonElement.addEventListener("click", () => {
         pond.removeFiles();
-        fetch('/Product/RemoveAll',{
-            method: 'POST'
+        fetch('/api/img',{
+            method: 'GET'
         })
             .then((result) => {
             })
@@ -285,7 +260,7 @@
     FilePond.setOptions({
 
         server: {
-            process: '@Url.Action("Upload", "Product")',
+            process: '/api/img',
             revert: (source, load, error) => {
                 console.log('remove');
                 // Should somehow send `source` to server so server can remove the file with this source

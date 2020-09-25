@@ -13,12 +13,13 @@ using Xboox.Models.DataTable;
 using Xboox.Models.Services;
 using Xboox.Services;
 using Xboox.ViewModels;
+using XbooxLibrary.Models.DataTable;
 
 namespace Xboox.Controllers
 {
     public class OrderController : Controller
     {
-        private XbooxContext _context = new XbooxContext();
+        private XbooxLibraryDBContext _context = new XbooxLibraryDBContext();
         OrderService orderservice = new OrderService();
         ShoppingCartService shoppingCartService = new ShoppingCartService();
         public ActionResult UserView()
@@ -183,12 +184,17 @@ namespace Xboox.Controllers
             {
                 result.Add(item, Request.Form.Get(item));
             }
-            var RtnCode = result.FirstOrDefault(item => item.Key == "RtnCode").Value;
-            var ReturnCheckMacValue = result.FirstOrDefault(item => item.Key == "CheckMacValue").Value;
-            var orderId = result.FirstOrDefault(item => item.Key == "CustomField1").Value;
+            string RtnCode = result.FirstOrDefault(item => item.Key == "RtnCode").Value;
+            string ReturnCheckMacValue = result.FirstOrDefault(item => item.Key == "CheckMacValue").Value;
+            string merchantTradeNo = result.FirstOrDefault(item => item.Key == "MerchantTradeNo").Value;
+            string orderId = result.FirstOrDefault(item => item.Key == "CustomField1").Value;
             if (RtnCode == "1")
             {
-                orderservice.EditPaidState(orderId);
+                if(orderId != "")
+                {
+                    orderservice.EditPaidState(orderId);
+                }
+                orderservice.EditPaidStateByEcNumber(merchantTradeNo);
             }
             Response.Write("1|OK");
             this.Response.Flush();

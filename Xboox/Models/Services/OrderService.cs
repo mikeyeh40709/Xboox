@@ -24,6 +24,9 @@ namespace Xboox.Services
 {
     public class OrderService
     {
+        /// <summary>
+        /// 取得付款類別
+        /// </summary>
         public static Dictionary<string, string> payment = new Dictionary<string, string>
         {
             { "DTO" , "宅配到府"},
@@ -32,26 +35,32 @@ namespace Xboox.Services
             { "CVS" , PaymentMethod.CVS.ToString()}
         };
         #region 使用UserID取所有訂單
+        /// <summary>
+        /// 利用UserId取訂單
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public List<OrderViewModel> GetOrder(string userId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
-            {
+            { 
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
-                var orderList = (from o in orderRepo.GetAll()
+                var orderList = (from o in orderRepo.GetAll().AsEnumerable()
                                  where o.UserId == userId
-                                 join user in userRepo.GetAll()
+                                 join user in userRepo.GetAll().AsEnumerable()
                                  on o.UserId equals user.Id
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
-                                     OrderDate = o.OrderDate,
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
                                      PurchaserAddress = o.City + o.District + o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Paid = o.Paid,
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
@@ -61,6 +70,12 @@ namespace Xboox.Services
         #endregion
 
         #region 用訂單Id取訂單
+        /// <summary>
+        /// 利用訂單Id取訂單
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public List<OrderViewModel> GetOrder(HttpContextBase httpContext, string orderId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
@@ -68,15 +83,15 @@ namespace Xboox.Services
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var userId = httpContext.User.Identity.GetUserId();
-                var orderList = (from o in orderRepo.GetAll()
+                var orderList = (from o in orderRepo.GetAll().AsEnumerable()
                                  where o.UserId == userId && o.OrderId.ToString() == orderId
-                                 join user in userRepo.GetAll()
+                                 join user in userRepo.GetAll().AsEnumerable()
                                  on o.UserId equals user.Id
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
                                      EcpayOrderNumber = o.EcpayOrderNumber,
-                                     OrderDate = o.OrderDate,
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
@@ -85,6 +100,7 @@ namespace Xboox.Services
                                      Road = o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Paid = o.Paid,
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
@@ -94,19 +110,23 @@ namespace Xboox.Services
         #endregion
 
         #region 取得所有訂單
+        /// <summary>
+        /// 取得所有訂單
+        /// </summary>
+        /// <returns></returns>
         public List<OrderViewModel> GetOrder()
         {
             using (var dbContext = new XbooxLibraryDBContext())
             {
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
-                var orderList = (from o in orderRepo.GetAll()
-                                 join user in userRepo.GetAll()
+                var orderList = (from o in orderRepo.GetAll().AsEnumerable()
+                                 join user in userRepo.GetAll().AsEnumerable()
                                  on o.UserId equals user.Id
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
-                                     OrderDate = o.OrderDate,
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
@@ -114,6 +134,7 @@ namespace Xboox.Services
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
                                      Paid = o.Paid,
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
                 return orderList;
@@ -122,6 +143,11 @@ namespace Xboox.Services
         #endregion
 
         #region 拿到訂單細節
+        /// <summary>
+        ///  拿到訂單裡的產品資訊
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public List<OrderDetailsViewModel> GetOrderDetails(string orderId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
@@ -159,6 +185,11 @@ namespace Xboox.Services
         #endregion
 
         #region 拿到記住我的訂單資訊
+        /// <summary>
+        /// 拿到記住訂單的資訊
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         public OrderViewModel GetRecordInfo(HttpContextBase httpContext)
         {
             using (var dbContext = new XbooxLibraryDBContext())
@@ -190,6 +221,13 @@ namespace Xboox.Services
         #endregion
 
         #region 建立訂單(httpcontext, order, ecpaynumber)
+        /// <summary>
+        /// 建立訂單
+        /// </summary>
+        /// <param name="httpcontext"></param>
+        /// <param name="order"></param>
+        /// <param name="ecpayNumber"></param>
+        /// <returns></returns>
         public OperationResult CreateOrder(HttpContextBase httpcontext, OrderViewModel order, string ecpayNumber)
         {
             OperationResult operationResult = new OperationResult();
@@ -212,7 +250,7 @@ namespace Xboox.Services
                         OrderId = newOrderID,
                         EcpayOrderNumber = ecpayNumber,
                         UserId = userId,
-                        OrderDate = DateTime.Now,
+                        OrderDate = DateTime.UtcNow,
                         PurchaserName = order.PurchaserName,
                         City = order.City,
                         District = order.District,
@@ -276,7 +314,12 @@ namespace Xboox.Services
         }
         #endregion
 
-        #region 編輯付款狀態
+        #region 編輯付款狀態(orderId)
+        /// <summary>
+        /// 編輯當筆訂單的付款狀態(orderId)
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public OperationResult EditPaidState(string orderId)
         {
             OperationResult operationResult = new OperationResult();
@@ -309,9 +352,51 @@ namespace Xboox.Services
             }
 
         }
-        #endregion
+        #endregion 編輯付款狀態(ecpayNumber)
+        /// <summary>
+        /// 編輯當筆訂單的付款狀態(ecpayNumber)
+        /// </summary>
+        /// <param name="ecpayNumber"></param>
+        /// <returns></returns>
+        public OperationResult EditPaidStateByEcNumber(string ecpayNumber)
+        {
+            OperationResult operationResult = new OperationResult();
+            using (var dbContext = new XbooxLibraryDBContext())
+            {
+                try
+                {
+                    var orderRepo = new GeneralRepository<Order>(dbContext);
+                    var order = orderRepo.GetFirst(x => x.EcpayOrderNumber.ToString() == ecpayNumber);
+                    if (order != null)
+                    {
+                        if (!order.Paid)
+                        {
+                            order.Paid = true;
+                            order.PayDate = DateTime.UtcNow;
+                        }
+                        else
+                        {
+                            order.Paid = false;
+                        }
+                        orderRepo.SaveContext();
+                        operationResult.isSuccessful = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    operationResult.isSuccessful = false;
+                    operationResult.exception = ex;
+                }
+                return operationResult;
+            }
 
+        }
         #region 取消訂單
+        /// <summary>
+        /// 取消當筆訂單(將狀態改為取消)
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public OperationResult CancelOrder(string orderId)
         {
             OperationResult operationResult = new OperationResult();

@@ -2,26 +2,11 @@
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@*@section topJS{
-        <script src="~/Assets/Js/Dashboard_JS.js"></script>
-    }*@
-
-<head>
-    <link href="~/Assets/Css/DashBoard.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" rel="stylesheet" />
-</head>
-@*<section class="content">
-    <div class="container-fluid">*@
-<!-- Small boxes (Stat box) -->
-
 <div class="row">
     <div class="col-lg-3 col-6">
-        <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
                 <h3 id="neworders">載入中...</h3>
-
                 <p>New Orders</p>
             </div>
             <div class="icon pr-1">
@@ -30,13 +15,10 @@
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <!-- ./col -->
     <div class="col-lg-3 col-6">
-        <!-- small box -->
         <div class="small-box bg-success">
             <div class="inner">
                 <h3 id="revenue">載入中...</h3>
-
                 <p>Revenue</p>
             </div>
             <div class="icon pr-1">
@@ -45,9 +27,7 @@
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <!-- ./col -->
     <div class="col-lg-3 col-6">
-        <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
                 <h3 id="allmembers">載入中...</h3>
@@ -60,9 +40,7 @@
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <!-- ./col -->
     <div class="col-lg-3 col-6">
-        <!-- small box -->
         <div class="small-box bg-danger">
             <div class="inner">
                 <h3 id="allproducts">載入中...</h3>
@@ -75,12 +53,9 @@
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <!-- ./col -->
 </div>
 <div class="row">
-    <!-- Left col -->
     <div class="col-lg-7 connectedSortable">
-        <!-- Custom tabs (Charts with tabs)-->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
@@ -92,18 +67,15 @@
                     </ul>
                 </div>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
                 <div class="tab-content p-0">
-                    <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="revenue-chart"
                          style="position: relative; height: 550px;">
                         <canvas id="revenue-linechart" height="300" style="height: 300px;"></canvas>
                     </div>
 
                 </div>
-            </div><!-- /.card-body -->
-
+            </div>
         </div>
     </div>
     <div class="col-lg-5">
@@ -121,7 +93,6 @@
 
             <div class="card-body">
                 <div class="tab-content p-0">
-                    <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="productpie-chart"
                          style="position: relative; height: 550px;">
                         <div class="row justify-content-around">
@@ -145,12 +116,8 @@
                     </div>
 
                 </div>
-            </div><!-- /.card-body -->
-
-
+            </div>
         </div>
-
-
     </div>
 </div>
 
@@ -162,28 +129,77 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script>
+$(document).ready(function () {  
     // titaldata ajax
-    var titalurl = "/Dashboard/GetTitleData"
-    $.ajax({
-        url: titalurl,
-        type: "GEt",
-        dataType: "json",
-        success: function (response) {
-            var orders = document.getElementById('neworders');
-            orders.innerText = response.orders;
-            var revenue = document.getElementById('revenue');
-            revenue.innerText = response.revenue;
-            var members = document.getElementById('allmembers');
-            members.innerText = response.members;
-            var products = document.getElementById('allproducts');
-            products.innerText = response.products;
+        $.ajax({
+            url: "/TitleData/GetTitleData",
+            type: "GEt",
+            dataType: "json",
+            success: function (response) {
+                var orders = document.getElementById('neworders');
+                orders.innerText = response.orders;
+                var revenue = document.getElementById('revenue');
+                revenue.innerText = response.revenue;
+                var members = document.getElementById('allmembers');
+                members.innerText = response.members;
+                var products = document.getElementById('allproducts');
+                products.innerText = response.products;
 
-            console.log(response);
-        }
+                console.log(response);
+                ////get JSON  --  sales revenue
+                $.ajax({
+                    url: "/Dashboard/GetSalesRevenue",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        //可動態調整每月營收報表
+                        var datalist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        var NumOfJData = response.length;
+                        for (var i = 0; i < NumOfJData; i++) {
+                            var month = response[i]["Month"] - 1;
+                            var revenue = response[i]["Revenue"];
+                            datalist[month] = revenue;
+                        }
+                        //CreateChartJS_Line(datalist);
+                        chart1.data.datasets[0].data = datalist
+                        chart1.update();
+                        // get json --  top products
+                        $(".select").each(function (index) {
+                            $(this).on("click", function () {
+                                $.ajax({
+                                    url: "/PieChajs/GetTop5Products",
+                                    type: "GET",
+                                    dataType: "json",
+                                    success: function (response) {
+                                        var labels = [];
+                                        var datalist = [];
+                                        // for 迴圈防呆還沒做
+                                        for (i = 0; i < response.length; i++) {
+                                            if (response[i]["Month"] == index + 1) {
 
-    });
+                                                labels.push(response[i]["Name"]);
+                                                datalist.push(response[i]["Quantity"]);
+                                            }
 
+                                        }
+                                        chartpie.data.labels = labels
+                                        chartpie.data.datasets[0].data = datalist
+                                        chartpie.update();
+                                        //console.log(response);
+                                        //console.log(labels);
+                                        //console.log(datalist);
+                                    }
+                                });
+                            });
+                        });
+                    }
+                });
 
+            }
+        });
+    
+});
+    
     // sales revenue chartjs
     var ctx = document.querySelector("#revenue-linechart");
     var chart1 = new Chart(ctx, {
@@ -246,31 +262,7 @@
             }
         }
     });
-    ////get JSON  --  sales revenue
-    var apiurl = "/Dashboard/GetSalesRevenue"
-    $.ajaxSetup({ cache: false })
-
-    //$().ready(function () {
-    //$(window).unload(function () {
-    $.ajax({
-        url: apiurl,
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
-            //可動態調整每月營收報表
-            var datalist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            var NumOfJData = response.length;
-            for (var i = 0; i < NumOfJData; i++) {
-                var month = response[i]["Month"] - 1;
-                var revenue = response[i]["Revenue"];
-                datalist[month] = revenue;
-            }
-            //CreateChartJS_Line(datalist);
-            chart1.data.datasets[0].data = datalist
-            chart1.update();
-        }
-    });
-    //});
+    
 
     // top5product chartjs
     var ctxPie = document.querySelector("#pie-chart");
@@ -301,39 +293,6 @@
                 duration: 2000
             }
         }
-    });
-
-    // get json --  top products
-    var pierul = "/Dashboard/GetTop5Products";
-    $.ajaxSetup({ cache: false })
-    $(".select").each(function (index) {
-        $(this).on("click", function () {
-            $.ajax({
-                url: pierul,
-                type: "GET",
-                dataType: "json",
-                success: function (response) {
-                    var labels = [];
-                    var datalist = [];
-                    // for 迴圈防呆還沒做
-                    for (i = 0; i < response.length; i++) {
-                        if (response[i]["Month"] == index + 1) {
-
-                            labels.push(response[i]["Name"]);
-                            datalist.push(response[i]["Quantity"]);
-                        }
-
-                    }
-                    chartpie.data.labels = labels
-                    chartpie.data.datasets[0].data = datalist
-                    chartpie.update();
-                    //console.log(response);
-                    //console.log(labels);
-                    //console.log(datalist);
-                }
-            });
-        });
-    });
-
+    });    
 
 </script>

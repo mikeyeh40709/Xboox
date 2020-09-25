@@ -38,7 +38,7 @@
                             @foreach (var item in Model)
                             {
                                 countIndex++;
-                                <tr>
+                                <tr class="cart_item_tr">
                                     <td class="cart__product__item">
                                         <img src="@(item.ProductImgLink)" style="width:50px" alt="圖片壞掉拉">
                                         <div class="cart__product__item__title">
@@ -110,6 +110,13 @@
     </div>
 </section>
 <!-- Shop Cart Section End -->
+@section endJS{
+    <script>
+        if ($('.cart_item_tr').length == 0) {
+            localStorage.clear();
+        }
+    </script>
+    }
 
 
 

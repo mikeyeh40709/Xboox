@@ -11,7 +11,7 @@ namespace XbooxCMS.ViewModels
 
         public IEnumerable<ProductListViewModel> productListViews { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "需要產品名稱")]
             [StringLength(50)]
             public string Name { get; set; }
 
@@ -19,6 +19,7 @@ namespace XbooxCMS.ViewModels
 
            public int UnitInStock { get; set; }
 
+             [Required(ErrorMessage = "需要產品價格")]
             public decimal Price { get; set; }
 
             [StringLength(50)]

@@ -18,18 +18,19 @@ namespace XbooxCMS.Services
             var odrepo = new GeneralRepository<Order>(context);
             var userrepo = new GeneralRepository<AspNetUsers>(context);
             var result = new List<OrderViewModel>();
-            var orderList = (from o in odrepo.GetAll()
-                            join user in userrepo.GetAll()
+            var orderList = (from o in odrepo.GetAll().AsEnumerable()
+                            join user in userrepo.GetAll().AsEnumerable()
                             on o.UserId equals user.Id
                             select new OrderViewModel
                             {
                                 OrderId = o.OrderId,
-                                OrderDate = o.OrderDate,
+                                OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                 UserName = user.UserName,
                                 PurchaserName = o.PurchaserName,
                                 PurchaserEmail = o.PurchaserEmail,
                                 PurchaserAddress = o.City + o.District + o.Road,
                                 PurchaserPhone = o.PurchaserPhone,
+                                PayDate = o.PayDate,
                                 Payment = o.Payment,
                                 Paid = o.Paid,
                                 Build = o.Build
@@ -38,16 +39,6 @@ namespace XbooxCMS.Services
 
             return orderList;
         }
-
-
-
-
-
-
-
-
-
-
         public List<OrderDetailsViewModel> GetOrderDeatils(string id)
         {
            XbooxLibraryDBContext context = new XbooxLibraryDBContext();
