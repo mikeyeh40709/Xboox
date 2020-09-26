@@ -34,7 +34,7 @@ namespace XbooxCMS.Services
                                 Payment = o.Payment,
                                 Paid = o.Paid,
                                 Build = o.Build
-                            }).OrderBy(item => item.OrderDate).ToList();
+                            }).OrderByDescending(item => item.OrderDate).ToList();
 
 
             return orderList;

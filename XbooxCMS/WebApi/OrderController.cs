@@ -41,6 +41,7 @@ namespace XbooxCMS.WebApi
             service.CancelOrder(order.OrderId.ToString());
             return Json(new { redirectToUrl = "/Order/Index" });
         }
+        //刪除訂單
         [HttpPost]
         public IHttpActionResult DeleteOrder([FromBody]OrderViewModel order)
         {

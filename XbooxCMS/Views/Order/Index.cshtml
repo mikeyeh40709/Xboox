@@ -96,10 +96,11 @@
             columns: [
                 {
                     data: 'OrderId',
-                    width: '20%',
+                    width: '15%',
                 },
                 {
-                    data: 'OrderDate'
+                    data: 'OrderDate',
+                    width: '10%'
                 },
 
                 {
@@ -108,7 +109,10 @@
                         if (!data) {
                             return '<div class="text-danger">未有付款日期</div>'
                         }
+                        return data
                     }
+                    ,
+                    width: '10%'
                 },
                 {
                     data: 'Payment'
@@ -140,7 +144,7 @@
                 {
                     data: 'OrderId',
                     render: function (data, type, row) {
-                        return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id=${data} data-toggle="modal" data-target="#purchaserInfo" onclick="PurchaserInfo('${row.PurchaserName}','${row.PurchaserEmail}','${row.PurchaserPhone}','${row.PurchaserAddress}')">查看</button>`
+                        return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect bg-primary text-white" id=${data} data-toggle="modal" data-target="#purchaserInfo" onclick="PurchaserInfo('${row.PurchaserName}','${row.PurchaserEmail}','${row.PurchaserPhone}','${row.PurchaserAddress}')">查看</button>`
                     }
 
                 },
@@ -152,9 +156,12 @@
                 },
                 {
                     data: 'OrderId',
-                    render: function (data) {
-                        return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  mdl-button--accent" id=${data} data-toggle="modal" data-target="#deleteOrder" onclick="cancleOrder('${data}')">取消</button>
-                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect  mdl-button--accent" id=${data} data-toggle="modal" data-target="#deleteOrder" onclick="deleteOrder('${data}')">刪除</button>`
+                    render: function (data, type, row) {
+                        if (row.Build) {
+                            return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect bg-danger text-white" id=${data} data-toggle="modal" data-target="#deleteOrder" onclick="cancleOrder('${data}')">取消</button>
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id=${data} data-toggle="modal" data-target="#deleteOrder" onclick="deleteOrder('${data}')">刪除</button>`
+                        }
+                        return `<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent ml-auto" id=${data} data-toggle="modal" data-target="#deleteOrder" onclick="deleteOrder('${data}')">刪除</button>`
                     }
                 }
             ]
@@ -178,7 +185,7 @@
             infoModal.eq(0).html(`<span class="font-weight-bold mr-3">購買人:</span><span>${name}</span>`)
             infoModal.eq(1).html(`<span class="font-weight-bold mr-3">購買人信箱:</span><span>${email}</span>`)
             infoModal.eq(2).html(`<span class="font-weight-bold mr-3">購買人電話:</span><span>${phone}</span>`)
-            infoModal.eq(3).html(`<span class="font-weight-bold mr-3">購買人地址: </span><span>${address}</span>`)
+            infoModal.eq(3).html(`<span class="font-weight-bold mr-3">購買人地址:</span><span>${address}</span>`)
         }
         checkDetails = function (id) {
             console.log('--- detail');
@@ -210,12 +217,9 @@
 
         cancleOrder = function (orderid) {
             console.log('--- cancel');
-            let data = {
-                OrderId: orderid
-            }
             Swal.fire({
                 title: '取消訂單',
-                text: "取消訂單後就無法返回",
+                text: "取消訂單後將訂單狀態改為已取消,此動作無法返回",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -226,8 +230,7 @@
                     $.ajax({
                         type: "post",
                         url: `/api/order/CancelOrder`,
-                        data: JSON.stringify(data),
-                        contentType: 'application/json',
+                        data: { OrderId: orderid },
                         success: function (response) {
                             console.log(response);
                             window.location.href = response.redirectToUrl;
