@@ -665,6 +665,7 @@
     <Content Include="Views\Order\PostToECPay.cshtml" />
     <Content Include="Views\Order\ECPayResult.cshtml" />
     <Content Include="Views\Book\Books.cshtml" />
+    <Content Include="Views\Shared\_OrderPartialView.cshtml" />
     <Content Include="Views\Shared\_BannerPartial.cshtml" />
     <Content Include="Views\Shared\_NavBarPartial.cshtml" />
     <Content Include="Views\Shared\_HomePageTagsPartial.cshtml" />

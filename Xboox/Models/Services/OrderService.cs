@@ -334,6 +334,7 @@ namespace Xboox.Services
                         if (!order.Paid)
                         {
                             order.Paid = true;
+                            order.PayDate = DateTime.UtcNow;
                         }
                         else
                         {

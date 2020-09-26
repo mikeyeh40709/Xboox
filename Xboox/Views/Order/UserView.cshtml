@@ -25,54 +25,66 @@
             <section class="shop-cart spad py-lg-5 pt-2">
                 <div class="container-fluid">
                     <h4 class="mb-5"><span class="border-danger border-bottom pb-2">我的訂單</span></h4>
-                    <div class="row">
-                        @foreach (var item in Model.OrderBy(item => !item.Build))
-                        {
-                        <div class="col-lg-4 col-12 mb-4 position-relative">
-                            <div class="card" style="min-height: 300px; height:100%;">
-                                @if (!item.Build)
-                                {
-                                    <div class="w-100 h-100 rounded cancelState">
-                                        <p class="badge badge-danger">已取消訂單</p>
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="unPaid" data-toggle="pill" href="#pills-unPaid" role="tab" aria-controls="pills-unPaid" aria-selected="true">未付款</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="paid" data-toggle="pill" href="#pills-paid" role="tab" aria-controls="pills-paid" aria-selected="false">已付款</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="cancel" data-toggle="pill" href="#pills-cancel" role="tab" aria-controls="pills-cancel" aria-selected="false">已取消</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-unPaid" role="tabpanel" aria-labelledby="unPaid">
+                            @if (Model.Where(item => item.Build && !item.Paid).Count() == 0)
+                            {
+                                <div class="jumbotron jumbotron-fluid bg-light border border-light">
+                                    <div class="container">
+                                        <h1 style="letter-spacing: 10px;" class="text-center text-secondary">目前無資料</h1>
                                     </div>
+                                </div>
+                            }
+                            <div class="row">
+                                @foreach (var item in Model.Where(item => item.Build && !item.Paid).OrderBy(item => item.OrderDate))
+                                {
+                                    @Html.Partial("_OrderPartialView", item)
                                 }
-                            <div class="card-body p-2 d-flex flex-column justify-content-between">
-                                <span class="badge badge-danger p-1 w-100">@item.OrderId</span>
-                                <div class="card-title p-1">
-                                    <p class="m-0"><span class="font-weight-bold">建立日期:</span><span class="ml-2">@item.OrderDate</span></p>
-                                    <p class="m-0"><span class="font-weight-bold">收件人:</span><span class="ml-2">@item.PurchaserName</span></p>
-                                    <p class="m-0"><span class="font-weight-bold">地址:</span><span class="ml-2">@item.PurchaserAddress</span></p>
-                                    <p class="m-0"><span class="font-weight-bold">Email:</span><span class="ml-2">@item.PurchaserEmail</span></p>
-                                    <p class="m-0"><span class="font-weight-bold">電話:</span><span class="ml-2">@item.PurchaserPhone</span></p>
-                                    <p class="m-0"><span class="font-weight-bold">付款方式: </span><span class="ml-2">@item.Payment</span></p>
-                                    <p>
-                                        狀態:
-                                        @if (!item.Paid)
-                                        {
-                                            <span class="text-danger">未付款</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-success">已付款</span>
-                                        }
-                                    </p>
-
-                                </div>
-                                <div class="card-end">
-                                    <button class="btn bg-info mx-1 text-white" id="@item.OrderId" data-toggle="modal" data-target="#orderDetails">查看明細</button>
-                                    @if (item.Build && !item.Paid)
-                                    {
-                                        <button class="btn btn-danger mx-1" id="@item.OrderId" data-toggle="modal" data-target="#deleteOrder">取消訂單</button>
-                                    }
-                                    @if (item.Build && !item.Paid && item.Payment == "Credit")
-                                    {
-                                        <button class="btn btn-warning text-white"><a href="/Order/Checkout/?orderId=@item.OrderId">重新結帳</a></button>
-                                    }
-                                </div>
-                            </div>
                             </div>
                         </div>
-                        }
+                        <div class="tab-pane fade" id="pills-paid" role="tabpanel" aria-labelledby="paid">
+                            @if (Model.Where(item => item.Build && item.Paid).Count() == 0)
+                            {
+                                <div class="jumbotron jumbotron-fluid bg-light border border-light">
+                                    <div class="container">
+                                        <h1 style="letter-spacing: 10px;" class="text-center text-secondary">目前無資料</h1>
+                                    </div>
+                                </div>
+                            }
+                            <div class="row">
+                                @foreach (var item in Model.Where(item => item.Build && item.Paid).OrderBy(item => item.OrderDate))
+                                {
+                                    @Html.Partial("_OrderPartialView", item)
+                                }
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-cancel" role="tabpanel" aria-labelledby="cancel">
+                            @if (Model.Where(item => !item.Build).Count() == 0)
+                            {
+                                <div class="jumbotron jumbotron-fluid bg-light border border-light">
+                                    <div class="container">
+                                        <h1 style="letter-spacing: 10px;" class="text-center text-secondary">目前無資料</h1>
+                                    </div>
+                                </div>
+                            }
+                            <div class="row">
+                                @foreach (var item in Model.Where(item => !item.Build).OrderBy(item => item.OrderDate))
+                                {
+                                    @Html.Partial("_OrderPartialView", item)
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

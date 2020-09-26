@@ -1,5 +1,5 @@
 ﻿<div class="col-lg-2 col-12 pb-0 pt-5 pr-5">
-    <div class="shop__sidebar h-auto pl-lg-5" >
+    <div class="shop__sidebar h-auto pl-lg-5">
         <div class="sidebar__categories">
             <div class="section-title">
                 <h4>會員專區</h4>
@@ -7,28 +7,40 @@
             <div class="categories__accordion">
                 <div class="accordion" id="accordionExample">
                     <div class="card">
-                        <div class="card-heading">
+                        <div class="card-heading d-flex align-items-center">
+                            @if (Request.Url.Segments.Length > 0 && Request.Url.Segments[2] == "UserDataDetails")
+                            {
+                                <span style="font-size: 20px;margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                            }
                             @Html.ActionLink("我的會員資料", "UserDataDetails", "Account")
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-heading">
+                        <div class="card-heading d-flex align-items-center">
+                            @if (Request.Url.Segments.Length > 0 && Request.Url.Segments[2] == "UserDataEdit")
+                            {
+                                <span style=" font-size: 20px; margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                            }
                             @Html.ActionLink("變更個人資料", "UserDataEdit", "Account")
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-heading">
+                        <div class="card-heading d-flex align-items-center">
+                            @if (Request.Url.Segments.Length > 0 && Request.Url.Segments[2] == "ChangePassWord")
+                            {
+                                <span style="font-size: 20px; margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                            }
                             @Html.ActionLink("變更密碼", "ChangePassWord", "Manage")
+
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-heading">
+                        <div class="card-heading d-flex align-items-center">
+                            @if (Request.Url.Segments.Length > 0 && Request.Url.Segments[2] == "UserView")
+                            {
+                                <span style="font-size: 20px; margin-right: 4px;"> <i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                            }
                             @Html.ActionLink("我的訂單", "UserView", "Order")
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-heading">
-                            <a>願望清單</a>
                         </div>
                     </div>
                 </div>

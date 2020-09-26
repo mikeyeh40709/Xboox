@@ -120,39 +120,17 @@ namespace Xboox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PostToECPay([Bind(Include = "OrderId, EcpayOrderNumber,PurchaserName,City,District,Road,PurchaserEmail,PurchaserPhone,Discount,Payment,Remember")] OrderViewModel order)
         {
-            ECPayService ecpayService = new ECPayService();
-            //### 組合檢查碼
-            string PostURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/v5";
-            var ecpayNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
-            if (order.OrderId != Guid.Empty)
+            if (ModelState.IsValid)
             {
-                var orderDetails = orderservice.GetOrderDetails(order.OrderId.ToString());
-                var postCollection = ecpayService.GetPostCollection(orderDetails, order, ecpayNumber);
-                string ParameterString = string.Join("&", postCollection.Select(p => p.Key + "=" + p.Value));
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append("<html><body>").AppendLine();
-                sb.Append("<form name='ECPayAIO'  id='ECPayAIO' action='" + PostURL + "' method='POST'>").AppendLine();
-                foreach (var aa in postCollection)
+                ECPayService ecpayService = new ECPayService();
+                //### 組合檢查碼
+                string PostURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/v5";
+                var ecpayNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
+                // 重新結帳
+                if (order.OrderId != Guid.Empty)
                 {
-                    sb.Append("<input type='hidden' name='" + aa.Key + "' value='" + aa.Value + "'>").AppendLine();
-                }
-
-                sb.Append("</form>").AppendLine();
-                sb.Append("<script> var theForm = document.forms['ECPayAIO'];  if (!theForm) { theForm = document.ECPayAIO; } theForm.submit(); </script>").AppendLine();
-                sb.Append("<html><body>").AppendLine();
-                TempData["PostForm"] = sb.ToString();
-                return View();
-            }
-            else
-            {
-                // 取的購物車的資料
-                var cartItems = shoppingCartService.GetCartItems(this.HttpContext);
-                var createOrder = orderservice.CreateOrder(this.HttpContext, order, ecpayNumber);
-                if (createOrder.isSuccessful)
-                {
-                    var postCollection = ecpayService.GetPostCollection(cartItems, order, ecpayNumber);
-                    //### Form Post To ECPay
-                    string ParameterString = string.Join("&", postCollection.Select(p => p.Key + "=" + p.Value));
+                    var orderDetails = orderservice.GetOrderDetails(order.OrderId.ToString());
+                    var postCollection = ecpayService.GetPostCollection(orderDetails, order, ecpayNumber);
                     System.Text.StringBuilder sb = new System.Text.StringBuilder();
                     sb.Append("<html><body>").AppendLine();
                     sb.Append("<form name='ECPayAIO'  id='ECPayAIO' action='" + PostURL + "' method='POST'>").AppendLine();
@@ -167,14 +145,39 @@ namespace Xboox.Controllers
                     TempData["PostForm"] = sb.ToString();
                     return View();
                 }
+                // 建立新的綠界訂單 
                 else
                 {
-                    var Error = createOrder.exception;
-                    ViewBag.Error = Error.ToString();
-                    return View("Fail");
+                    // 取的購物車的資料
+                    var cartItems = shoppingCartService.GetCartItems(this.HttpContext);
+                    var createOrder = orderservice.CreateOrder(this.HttpContext, order, ecpayNumber);
+                    if (createOrder.isSuccessful)
+                    {
+                        var postCollection = ecpayService.GetPostCollection(cartItems, order, ecpayNumber);
+                        //### Form Post To ECPay
+                        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                        sb.Append("<html><body>").AppendLine();
+                        sb.Append("<form name='ECPayAIO'  id='ECPayAIO' action='" + PostURL + "' method='POST'>").AppendLine();
+                        foreach (var aa in postCollection)
+                        {
+                            sb.Append("<input type='hidden' name='" + aa.Key + "' value='" + aa.Value + "'>").AppendLine();
+                        }
+
+                        sb.Append("</form>").AppendLine();
+                        sb.Append("<script> var theForm = document.forms['ECPayAIO'];  if (!theForm) { theForm = document.ECPayAIO; } theForm.submit(); </script>").AppendLine();
+                        sb.Append("<html><body>").AppendLine();
+                        TempData["PostForm"] = sb.ToString();
+                        return View();
+                    }
+                    else
+                    {
+                        var Error = createOrder.exception;
+                        ViewBag.Error = Error.ToString();
+                        return View("Fail");
+                    }
                 }
             }
-            
+            return View("CreateOrder");
         }
         [HttpPost]
         public ActionResult ECPayResult()
