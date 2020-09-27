@@ -15,23 +15,23 @@ namespace Xboox
 
             routes.MapRoute(
                 name: "Books",
-                url: "Books/{CategoryName}",
-                defaults: new { controller = "Book", action = "Books" }
+                url: "Books/{CategoryName}/{ActivePageNum}",
+                defaults: new { controller = "Book", action = "Books", CategoryName = "All", ActivePageNum = 1 }
                 );
             routes.MapRoute(
                 name: "BooksByRange",
-                url: "Books/{CategoryName}/{min_price}-{max_price}",
-                defaults: new { controller = "Book", action = "Books", CategoryName = "All" }
+                url: "Books/{CategoryName}/{min_price}-{max_price}/{ActivePageNum}",
+                defaults: new { controller = "Book", action = "Books", CategoryName = "All", min_price = 0, max_price = 9999, ActivePageNum = 1 }
                 );
             routes.MapRoute(
                 name: "BooksById",
                 url: "Details/{id}",
-                defaults: new { controller = "Home", action = "ProductDetail"}
+                defaults: new { controller = "Home", action = "ProductDetail" }
                 );
             routes.MapRoute(
                 name: "BooksByName",
-                url: "Find/{Name}",
-                defaults: new { controller = "Book", action = "BooksByName" }
+                url: "Find/{Name}/{ActivePageNum}",
+                defaults: new { controller = "Book", action = "BooksByName", Name = "MVC", ActivePageNum = 1 }
                 );
             routes.MapRoute(
                 name: "Default",

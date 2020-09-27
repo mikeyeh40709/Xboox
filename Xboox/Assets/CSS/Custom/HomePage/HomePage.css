@@ -67,3 +67,9 @@
     display: table;
     margin: 10px 0;
 }
+
+#ResultBar {
+    margin-bottom: 10px;
+    background-color: #e9ecef;
+    padding: 10px;
+}
