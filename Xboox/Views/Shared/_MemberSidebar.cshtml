@@ -8,27 +8,36 @@
                 <div class="accordion" id="accordionExample">
                     <div class="card">
                         <div class="card-heading d-flex align-items-center">
-                            @if (Request.Url.Segments.Length > 0 && Request.Url.Segments[2] == "UserDataDetails")
+                            @if (Request.Url.Segments.Length >= 3)
                             {
-                                <span style="font-size: 20px;margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                                if (Request.Url.Segments[2] == "UserData")
+                                {
+                                    <span style="font-size: 20px;margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                                }
                             }
                             @Html.ActionLink("我的會員資料", "UserDataDetails", "Account")
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-heading d-flex align-items-center">
-                            @if (Request.Url.Segments.Length > 0 && Request.Url.Segments[2] == "UserDataEdit")
+                            @if (Request.Url.Segments.Length >= 3)
                             {
-                                <span style=" font-size: 20px; margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                                if (Request.Url.Segments[2] == "UserEdit")
+                                {
+                                    <span style=" font-size: 20px; margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                                }
                             }
                             @Html.ActionLink("變更個人資料", "UserDataEdit", "Account")
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-heading d-flex align-items-center">
-                            @if (Request.Url.Segments.Length > 0 && Request.Url.Segments[2] == "ChangePassWord")
+                            @if (Request.Url.Segments.Length >= 3)
                             {
-                                <span style="font-size: 20px; margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                                if (Request.Url.Segments[2] == "ChangePassword")
+                                {
+                                    <span style="font-size: 20px; margin-right: 4px;"><i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                                }
                             }
                             @Html.ActionLink("變更密碼", "ChangePassWord", "Manage")
 
@@ -36,9 +45,12 @@
                     </div>
                     <div class="card">
                         <div class="card-heading d-flex align-items-center">
-                            @if (Request.Url.Segments.Length > 0 && Request.Url.Segments[2] == "UserView")
+                            @if (Request.Url.Segments.Length >= 3)
                             {
-                                <span style="font-size: 20px; margin-right: 4px;"> <i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                                if (Request.Url.Segments[2] == "Order")
+                                {
+                                    <span style="font-size: 20px; margin-right: 4px;"> <i class="fa fa-caret-right text-danger" aria-hidden="true"></i></span>
+                                }
                             }
                             @Html.ActionLink("我的訂單", "UserView", "Order")
                         </div>

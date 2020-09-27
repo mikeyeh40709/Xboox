@@ -213,6 +213,7 @@
     <Compile Include="Models\DataTable\Tags.cs" />
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\OrderItemsBase.cs" />
     <Compile Include="Models\Services\AspNetUserManage.cs" />
     <Compile Include="Models\Services\ECPayService.cs" />
     <Compile Include="Models\Services\SetCookieService.cs" />
@@ -316,6 +317,7 @@
     <Content Include="Assets\Image\Pics\en03-human03-novel02-02.jpg" />
     <Content Include="Assets\Image\Pics\en03-human03-novel02.jpg" />
     <Content Include="Assets\Image\Pics\LogInPageLogo.png" />
+    <Content Include="Assets\Image\Pics\xboox.ico" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\CartPage\clearStorage.js" />

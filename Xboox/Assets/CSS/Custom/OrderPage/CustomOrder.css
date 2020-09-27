@@ -1,7 +1,6 @@
 ﻿table th, table td {
     width: 250px;
     text-overflow: ellipsis;
-    text-align: center;
 }
 
 .nav {

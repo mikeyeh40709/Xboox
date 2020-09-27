@@ -9,7 +9,7 @@
     }
     if (ViewBag.DiscountCode != null)
     {
-        discountCode = ViewBag.DiscountCode.CouponCode;
+        discountCode = ViewBag.DiscountCode;
     }
     ViewBag.Total = total;
 }
@@ -28,7 +28,7 @@
     </div>
 </div>
 <!-- Breadcrumb End -->
-<form action="/Order/CreateOrder" class="checkout__form" method="post">
+<form class="checkout__form" method="post">
     <div class="container py-5">
         <div class="row">
             <div class="col-lg-6">
@@ -278,6 +278,9 @@
         let form = $("form.checkout__form");
         let state = $("input[name='Payment']");
         let remember = $("#Remember")
+        if (state.val() !== "COD") {
+            form.attr('action', "/Order/PostToECPay")
+        }
         state.on("change", function () {
             if ($(this).val() == "COD") {
                 form.attr('action', "/Order/CreateOrder")
