@@ -22,7 +22,6 @@ namespace Xboox.Controllers
         private XbooxLibraryDBContext _context = new XbooxLibraryDBContext();
         OrderService orderservice = new OrderService();
         ShoppingCartService shoppingCartService = new ShoppingCartService();
-        [Route("Member/Order")]
         public ActionResult UserView()
         {
             if (User.Identity.IsAuthenticated == true)
@@ -74,7 +73,10 @@ namespace Xboox.Controllers
             var orderInfo = orderservice.GetOrder(this.HttpContext, orderId).FirstOrDefault();
             var orderDetails = orderservice.GetOrderDetails(orderId);
             ViewBag.Items = orderDetails;
-            ViewBag.DiscountCode = orderDetails.FirstOrDefault().Coupon.CouponCode;
+            if (orderDetails.FirstOrDefault().Coupon != null)
+            {
+                ViewBag.DiscountCode = orderDetails.FirstOrDefault().Coupon.CouponCode;
+            }
             return View("CreateOrder", orderInfo);
         }
         public ActionResult CreateOrder()
