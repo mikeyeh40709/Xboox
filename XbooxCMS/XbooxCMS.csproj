@@ -281,6 +281,15 @@
   <ItemGroup>
     <Content Include="Assets\Css\DashBoard.css" />
     <Content Include="Assets\Css\datatablestyle.css" />
+    <Content Include="Assets\Pics\6671057_R.jpg" />
+    <Content Include="Assets\Pics\986541823.jpg" />
+    <Content Include="Assets\Pics\986541823_b3.jpg" />
+    <Content Include="Assets\Pics\gier02.png" />
+    <Content Include="Assets\Pics\gter01.png" />
+    <Content Include="Assets\Pics\h1.png" />
+    <Content Include="Assets\Pics\logo-removebg-preview.png" />
+    <Content Include="Assets\Pics\logo.png" />
+    <Content Include="Assets\Pics\xboox.ico" />
     <Content Include="Assets\Style.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -474,7 +483,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Pics\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
