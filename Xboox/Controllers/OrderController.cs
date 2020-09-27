@@ -22,6 +22,7 @@ namespace Xboox.Controllers
         private XbooxLibraryDBContext _context = new XbooxLibraryDBContext();
         OrderService orderservice = new OrderService();
         ShoppingCartService shoppingCartService = new ShoppingCartService();
+        [Route("Member/Order")]
         public ActionResult UserView()
         {
             if (User.Identity.IsAuthenticated == true)
@@ -73,7 +74,7 @@ namespace Xboox.Controllers
             var orderInfo = orderservice.GetOrder(this.HttpContext, orderId).FirstOrDefault();
             var orderDetails = orderservice.GetOrderDetails(orderId);
             ViewBag.Items = orderDetails;
-            ViewBag.DiscountCode = CouponDetails.FirstOrDefault(item => item.Id == orderDetails.FirstOrDefault().Discount);
+            ViewBag.DiscountCode = orderDetails.FirstOrDefault().Coupon.CouponCode;
             return View("CreateOrder", orderInfo);
         }
         public ActionResult CreateOrder()
@@ -120,61 +121,49 @@ namespace Xboox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PostToECPay([Bind(Include = "OrderId, EcpayOrderNumber,PurchaserName,City,District,Road,PurchaserEmail,PurchaserPhone,Discount,Payment,Remember")] OrderViewModel order)
         {
-            ECPayService ecpayService = new ECPayService();
-            //### 組合檢查碼
-            string PostURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/v5";
-            var ecpayNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
-            if (order.OrderId != Guid.Empty)
+            if (ModelState.IsValid)
             {
-                var orderDetails = orderservice.GetOrderDetails(order.OrderId.ToString());
-                var postCollection = ecpayService.GetPostCollection(orderDetails, order, ecpayNumber);
-                string ParameterString = string.Join("&", postCollection.Select(p => p.Key + "=" + p.Value));
+                ECPayService ecpayService = new ECPayService();
+                string PostURL = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/v5";
+                var ecpayNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
+
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append("<html><body>").AppendLine();
                 sb.Append("<form name='ECPayAIO'  id='ECPayAIO' action='" + PostURL + "' method='POST'>").AppendLine();
-                foreach (var aa in postCollection)
+                // 重新結帳
+                if (order.OrderId != Guid.Empty)
                 {
-                    sb.Append("<input type='hidden' name='" + aa.Key + "' value='" + aa.Value + "'>").AppendLine();
+                    var orderDetails = orderservice.GetOrderDetails(order.OrderId.ToString());
+                    var postCollection = ecpayService.GetPostCollection(orderDetails, order, ecpayNumber);
+                    foreach (var aa in postCollection)
+                    {
+                        sb.Append("<input type='hidden' name='" + aa.Key + "' value='" + aa.Value + "'>").AppendLine();
+                    }
                 }
-
+                // 新訂單
+                else
+                {
+                    var cartItems = shoppingCartService.GetCartItems(this.HttpContext);
+                    var createOrder = orderservice.CreateOrder(this.HttpContext, order, ecpayNumber);
+                    var postCollection = ecpayService.GetPostCollection(cartItems, order, ecpayNumber);
+                    foreach (var aa in postCollection)
+                    {
+                        sb.Append("<input type='hidden' name='" + aa.Key + "' value='" + aa.Value + "'>").AppendLine();
+                    }
+                    if (!createOrder.isSuccessful)
+                    {
+                        var Error = createOrder.exception;
+                        ViewBag.Error = Error.ToString();
+                        return View("Fail");
+                    }
+                }
                 sb.Append("</form>").AppendLine();
                 sb.Append("<script> var theForm = document.forms['ECPayAIO'];  if (!theForm) { theForm = document.ECPayAIO; } theForm.submit(); </script>").AppendLine();
                 sb.Append("<html><body>").AppendLine();
                 TempData["PostForm"] = sb.ToString();
                 return View();
             }
-            else
-            {
-                // 取的購物車的資料
-                var cartItems = shoppingCartService.GetCartItems(this.HttpContext);
-                var createOrder = orderservice.CreateOrder(this.HttpContext, order, ecpayNumber);
-                if (createOrder.isSuccessful)
-                {
-                    var postCollection = ecpayService.GetPostCollection(cartItems, order, ecpayNumber);
-                    //### Form Post To ECPay
-                    string ParameterString = string.Join("&", postCollection.Select(p => p.Key + "=" + p.Value));
-                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                    sb.Append("<html><body>").AppendLine();
-                    sb.Append("<form name='ECPayAIO'  id='ECPayAIO' action='" + PostURL + "' method='POST'>").AppendLine();
-                    foreach (var aa in postCollection)
-                    {
-                        sb.Append("<input type='hidden' name='" + aa.Key + "' value='" + aa.Value + "'>").AppendLine();
-                    }
-
-                    sb.Append("</form>").AppendLine();
-                    sb.Append("<script> var theForm = document.forms['ECPayAIO'];  if (!theForm) { theForm = document.ECPayAIO; } theForm.submit(); </script>").AppendLine();
-                    sb.Append("<html><body>").AppendLine();
-                    TempData["PostForm"] = sb.ToString();
-                    return View();
-                }
-                else
-                {
-                    var Error = createOrder.exception;
-                    ViewBag.Error = Error.ToString();
-                    return View("Fail");
-                }
-            }
-            
+            return View("CreateOrder");
         }
         [HttpPost]
         public ActionResult ECPayResult()

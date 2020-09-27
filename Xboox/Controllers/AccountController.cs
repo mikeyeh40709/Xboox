@@ -432,7 +432,7 @@ namespace Xboox.Controllers
 
             base.Dispose(disposing);
         }
-
+        [Route("Member/UserData")]
         public ActionResult UserDataDetails()
         {
             var userdetails = AspNetUserManage.GetUserDetails(this.HttpContext);
@@ -440,7 +440,7 @@ namespace Xboox.Controllers
             return View(userdetails);
         }
 
-
+        [Route("Member/UserEdit")]
         // Get UserDetails Data
         public ActionResult UserDataEdit()
         {
@@ -452,6 +452,7 @@ namespace Xboox.Controllers
         //[HttpPut]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Member/UserEdit")]
         public ActionResult UserDataEdit([Bind(Include = "Id,Account,Email,Phone")] Models.UserDetails userdetails)
         {
             if (ModelState.IsValid)

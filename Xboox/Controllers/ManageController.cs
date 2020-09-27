@@ -215,6 +215,7 @@ namespace Xboox.Controllers
 
         //
         // GET: /Manage/ChangePassword
+        [Route("Member/ChangePassword")]
         public ActionResult ChangePassword()
         {
             return View();
@@ -224,6 +225,7 @@ namespace Xboox.Controllers
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Member/ChangePassword")]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
