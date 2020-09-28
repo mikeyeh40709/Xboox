@@ -20,26 +20,31 @@ namespace XbooxCMS.Controllers
             var Revenue = ds.GetSalesRevenue();
 
             return Json(Revenue, JsonRequestBehavior.AllowGet);
-        }
+        }         
 
-        public ActionResult GetTop5Products()
+        public ActionResult GetJSON()
         {
-            DashboardService ds = new DashboardService();
-            var topproducts = ds.GetTopProducts();
-
-            return Json(topproducts, JsonRequestBehavior.AllowGet);
+            return View();
         }
-
+    }
+    public class TitleDataController : Controller 
+    {
         public ActionResult GetTitleData()
         {
             DashboardService ds = new DashboardService();
             var titledata = ds.GetTitleData();
             return Json(titledata, JsonRequestBehavior.AllowGet);
         }
+    }
 
-        public ActionResult GetJSON()
+    public class PieChajsController : Controller
+    {
+        public ActionResult GetTop5Products()
         {
-            return View();
+            DashboardService ds = new DashboardService();
+            var topproducts = ds.GetTopProducts();
+
+            return Json(topproducts, JsonRequestBehavior.AllowGet);
         }
     }
 }

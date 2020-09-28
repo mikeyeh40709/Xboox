@@ -17,20 +17,41 @@ namespace Xboox.Controllers
             return View();
         }
         [OutputCache(Duration = 60)]
-        public ActionResult Books(string CategoryName, string min_price, string max_price)
+        public ActionResult Books(string CategoryName, string min_price, string max_price, int ActivePageNum = 1)
         {
             ViewBag.Tags = FindBook.FindTag();
-            ViewBag.Category = FindBook.FindCategory(CategoryName).Name;
-            ViewBag.CategoryID = FindBook.FindCategory(CategoryName).CategoryId;
-            return View(FindBook.FindBookByRange(CategoryName, min_price, max_price));
+            ViewBag.CateOrName = FindBook.FindCategory(CategoryName).Name;
+            var TotalResult = FindBook.FindBookByCateAndRange(CategoryName, min_price, max_price);
+            ViewBag.TotalResult = TotalResult.Count();
+
+            int pageRows = 12;
+            int totalRows = TotalResult.Count();
+            int TotalPages = totalRows % pageRows == 0 ? totalRows / pageRows : totalRows / pageRows + 1;
+            int startRow = (ActivePageNum - 1) * pageRows;
+            var ResultWithPaging = TotalResult.OrderBy(x => x.Name.Substring(0, 1)).Skip(startRow).Take(pageRows);
+
+            ViewBag.Active = ActivePageNum;
+            ViewBag.Pages = TotalPages;
+            return View(ResultWithPaging);
         }
-        public ActionResult BooksByName(string Name)
+
+        [OutputCache(Duration = 60)]
+        public ActionResult BooksByName(string Name, string min_price, string max_price, int ActivePageNum = 1)
         {
             ViewBag.Tags = FindBook.FindTag();
-            ViewBag.Category = FindBook.FindCategory("All").Name;
-            ViewBag.CategoryID = FindBook.FindCategory("All").CategoryId;
-            //ViewBag.SideSuggestion = FindBook.FindBookDetail("All");
-            return View("Books", FindBook.FindBookByName(Name));
+            ViewBag.CateOrName = Name;
+            var TotalResult = FindBook.FindBookByNameAndRange(Name, min_price, max_price);
+            ViewBag.TotalResult = TotalResult.Count();
+
+            int pageRows = 12;
+            int totalRows = TotalResult.Count();
+            int TotalPages = totalRows % pageRows == 0 ? totalRows / pageRows : totalRows / pageRows + 1;
+            int startRow = (ActivePageNum - 1) * pageRows;
+            var ResultWithPaging = TotalResult.OrderBy(x => x.Name.Substring(0, 1)).Skip(startRow).Take(pageRows);
+
+            ViewBag.Active = ActivePageNum;
+            ViewBag.Pages = TotalPages;
+            return View("Books", ResultWithPaging);
         }
     }
 }

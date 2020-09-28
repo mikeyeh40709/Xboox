@@ -15,17 +15,7 @@
                     <h4>推薦商品</h4>
                 </div>
             </div>
-            <div class="col-lg-8 col-md-8">
-                <ul class="filter__controls">
-                    <li class="active" data-filter="*">全部</li>
-                    <li data-filter=".Business">Business</li>
-                    <li data-filter=".Investment">Investment</li>
-                    <li data-filter=".SocialScience">SocialScience</li>
-                    <li data-filter=".Programming">Programming</li>
-                    <li data-filter=".Fantasy">Fantasy</li>
-                    <li data-filter=".Medical">Medical</li>
-                </ul>
-            </div>
+            @Html.Partial("_HomePageTagsPartial", new Xboox.Services.FindBookDetailService().FindTagSkipFirst())
         </div>
         <div class="row property__gallery">
             @foreach (var item in Model)

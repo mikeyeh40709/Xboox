@@ -3,12 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Ashion Template">
-    <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Xboox</title>
-
+    <link rel="shortcut icon" href="~/Assets/Image/Pics/xboox.ico" />
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
@@ -45,19 +43,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-7">
-                    <nav class="header__menu">
-                        <ul>
-                            <li><a href="/Books/All">All</a></li>
-                            <li><a href="/Books/Chinese">Chinese</a></li>
-                            <li><a href="/Books/Foreign">Foreign</a></li>
-                            <li><a href="/Books/Magazine">Magazine</a></li>
-                            <li><a href="/Books/Ebooks">Ebooks</a></li>
-                            <li><a href="/Books/Novel">Novel</a></li>
-                            <li><a href="/Books/Comics">Comics</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                @Html.Partial("_NavBarPartial", new Xboox.Helper.NavBarHelper().GetNavBarCategories())
                 <div class="col-lg-3">
                     <div class="header__right">
                         <ul class="header__right__widget">
@@ -72,7 +58,6 @@
                             </li>
                             <li>
                                 <a>
-                                    @*@Url.Action("ShopCart", "Cart")*@
                                     <span class="icon_bag_alt"></span>
                                     <div class="tip cart_count">0</div>
                                     <ul class="headerdropdown" id="cart_dropdown">
@@ -110,6 +95,6 @@
     @RenderSection("dealWithCart", required: false)
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://kit.fontawesome.com/cd487e856f.js" crossorigin="anonymous"></script>
-    
+
 </body>
 </html>

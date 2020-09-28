@@ -7,9 +7,10 @@ using System.Web.Http;
 using XbooxCMS.ViewModels;
 using XbooxCMS.Services;
 
+
 namespace XbooxCMS.WebApi
 {
-    //[RoutePrefix("api/[Controller]/[Action]")]
+    [RoutePrefix("api/[Controller]/[Action]")]
     public class OrderController : ApiController
     {
 
@@ -34,11 +35,19 @@ namespace XbooxCMS.WebApi
 
         //取消訂單
         [HttpPost]
-        public IHttpActionResult CancelOrder(string id)
+        public IHttpActionResult CancelOrder([FromBody]OrderViewModel order)
         {
             var service = new OrderService();
-            var result = service.CancelOrder(id);
-            return Json("ok");
+            service.CancelOrder(order.OrderId.ToString());
+            return Json(new { redirectToUrl = "/Order/Index" });
+        }
+        //刪除訂單
+        [HttpPost]
+        public IHttpActionResult DeleteOrder([FromBody]OrderViewModel order)
+        {
+            var service = new OrderService();
+            service.DeleteOrder(order.OrderId.ToString());
+            return Json(new { redirectToUrl = "/Order/Index" });
         }
     }
 }

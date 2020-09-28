@@ -195,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\NavBarHelper.cs" />
     <Compile Include="Models\DataTable\AspNetRoles.cs" />
     <Compile Include="Models\DataTable\AspNetUserClaims.cs" />
     <Compile Include="Models\DataTable\AspNetUserLogins.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Models\DataTable\Tags.cs" />
     <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\OrderItemsBase.cs" />
     <Compile Include="Models\Services\AspNetUserManage.cs" />
     <Compile Include="Models\Services\ECPayService.cs" />
     <Compile Include="Models\Services\SetCookieService.cs" />
@@ -315,6 +317,7 @@
     <Content Include="Assets\Image\Pics\en03-human03-novel02-02.jpg" />
     <Content Include="Assets\Image\Pics\en03-human03-novel02.jpg" />
     <Content Include="Assets\Image\Pics\LogInPageLogo.png" />
+    <Content Include="Assets\Image\Pics\xboox.ico" />
     <Content Include="Assets\JavaScript\Custom\CartPage\bill.js" />
     <Content Include="Assets\Image\Pics\slider1.jpeg" />
     <Content Include="Assets\JavaScript\Custom\CartPage\clearStorage.js" />
@@ -654,7 +657,6 @@
     <Content Include="Views\Shared\_MemberSidebar.cshtml" />
     <Content Include="Views\Shared\_ServicesPartial.cshtml" />
     <Content Include="Views\Shared\_DiscountPartial.cshtml" />
-    <Content Include="Views\Shared\_BannerPartial.cshtml" />
     <Content Include="Views\Shared\_SideBarCategoryPartial.cshtml" />
     <None Include="Properties\PublishProfiles\Xboox - Web Deploy.pubxml" />
     <Content Include="Views\Shared\_SideBarFilter.cshtml" />
@@ -665,6 +667,10 @@
     <Content Include="Views\Order\PostToECPay.cshtml" />
     <Content Include="Views\Order\ECPayResult.cshtml" />
     <Content Include="Views\Book\Books.cshtml" />
+    <Content Include="Views\Shared\_OrderPartialView.cshtml" />
+    <Content Include="Views\Shared\_BannerPartial.cshtml" />
+    <Content Include="Views\Shared\_NavBarPartial.cshtml" />
+    <Content Include="Views\Shared\_HomePageTagsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,7 +27,7 @@ namespace XbooxLibrary.Models.DataTable
         public DateTime OrderDate { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(50)]
         public string PurchaserName { get; set; }
 
         [Required]
@@ -51,6 +51,8 @@ namespace XbooxLibrary.Models.DataTable
 
         [StringLength(10)]
         public string Payment { get; set; }
+
+        public DateTime? PayDate { get; set; }
 
         public bool Paid { get; set; }
 

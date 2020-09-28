@@ -19,13 +19,12 @@ namespace Xboox.Controllers
     public class HomeController : Controller
     {
         FindBookDetailService books = new FindBookDetailService();
-       
+
         public ActionResult Index()
         {
             Response.Cookies.Add(SetCookieService.SetCookie());
-            var products = books.FindBookDetail("All");
+            var products = FindBookDetailService.FindBookDetail();
             return View(products);
-            
         }
         public ActionResult ProductDetail(string id)
         {
@@ -33,13 +32,12 @@ namespace Xboox.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var products = books.FindBookDetail("All").FirstOrDefault(x=>x.ProductId == id);
+            var products = books.FindBookById(id);
             if (products == null)
             {
                 return HttpNotFound();
             }
             return View(products);
         }
-
     }
 }

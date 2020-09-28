@@ -9,11 +9,21 @@ namespace Xboox.Models.Services
 {
     public class TimeCheckerService
     {
-        public DateTime GetTaipeiTime(DateTime orderDate)
+        /// <summary>
+        /// 取得Taipei 時間
+        /// </summary>
+        /// <param name="orderDate"></param>
+        /// <returns>回傳台北時間沒有則為null</returns>
+        public static DateTime? GetTaipeiTime(DateTime? orderDate)
         {
             TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Taipei Standard Time");
-            DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(orderDate, cstZone);
-            return cstTime;
+            DateTime cstTime = new DateTime();
+            if(orderDate != null)
+            {
+                cstTime = TimeZoneInfo.ConvertTimeFromUtc((DateTime)orderDate, cstZone);
+                return cstTime;
+            }
+            return null;
         }
     }
 }

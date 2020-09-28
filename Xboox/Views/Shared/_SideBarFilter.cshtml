@@ -3,15 +3,6 @@
         <h4>Shop by price</h4>
     </div>
     <div class="filter-range-wrap">
-        @*<div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                 data-min="0" data-max="999"></div>
-            <div class="range-slider">
-                <div class="price-input">
-                    <p>Price:</p>
-                    <input type="text" id="minprice">
-                    <input type="text" id="maxprice">
-                </div>
-            </div>*@
         <p>
             <label for="amount">Price range:</label>
             <input type="text" id="amount" readonly style="border:0; color:#CA1515; font-weight:bold;">
@@ -24,12 +15,14 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 <script>
 
+
     $(function () {
+        let url = window.location.href.split('/');
         $("#slider-range").slider({
             range: true,
             min: 0,
             max: 999,
-            values: [0, 999],
+            values: url.length > 5 ? url[5].length < 3 ? [0, 999] : [parseInt(url[5].split('-')[0]), parseInt(url[5].split('-')[1])] : [0, 999],
             slide: function (event, ui) {
                 $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
             }
@@ -44,6 +37,6 @@
         var mintrans = min.substring(1, min.length - 1);
         var maxtrans = max.substring(2, max.length);
         var category = window.location.href.split('/');
-        this.setAttribute("href", "/Books/" + category[4] + "/" + mintrans + "-" + maxtrans);
+        this.setAttribute("href", `/${category[3]}/${category[4]}/${mintrans}-${maxtrans}/1`);
     });
 </script>

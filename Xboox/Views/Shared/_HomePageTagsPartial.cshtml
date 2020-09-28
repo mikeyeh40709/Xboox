@@ -1,0 +1,11 @@
+﻿@model IEnumerable<string>
+
+<div class="col-lg-8 col-md-8">
+    <ul class="filter__controls">
+        <li class="active" data-filter="*">All</li>
+        @foreach (var tag in Model)
+        {
+            <li data-filter=".@tag">@tag</li>
+        }
+    </ul>
+</div>

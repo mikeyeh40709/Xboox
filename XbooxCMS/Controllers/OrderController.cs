@@ -19,16 +19,12 @@ namespace XbooxCMS.Controllers
 
             var service = new OrderService();
             var orderList = service.GetAllOrders();
-           
+
             return View();
         }
 
-          
-        }
-    
-    
-    
     }
+}
 
 
    

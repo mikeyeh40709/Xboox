@@ -43,8 +43,7 @@ namespace Xboox.Services
         public List<OrderViewModel> GetOrder(string userId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
-            {
-                TimeCheckerService timecheck = new TimeCheckerService();
+            { 
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var orderList = (from o in orderRepo.GetAll().AsEnumerable()
@@ -54,13 +53,14 @@ namespace Xboox.Services
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
-                                     OrderDate = timecheck.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
                                      PurchaserAddress = o.City + o.District + o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Paid = o.Paid,
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
@@ -80,7 +80,6 @@ namespace Xboox.Services
         {
             using (var dbContext = new XbooxLibraryDBContext())
             {
-                TimeCheckerService timecheck = new TimeCheckerService();
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var userId = httpContext.User.Identity.GetUserId();
@@ -92,7 +91,7 @@ namespace Xboox.Services
                                  {
                                      OrderId = o.OrderId,
                                      EcpayOrderNumber = o.EcpayOrderNumber,
-                                     OrderDate = timecheck.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
@@ -101,6 +100,7 @@ namespace Xboox.Services
                                      Road = o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Paid = o.Paid,
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
@@ -118,7 +118,6 @@ namespace Xboox.Services
         {
             using (var dbContext = new XbooxLibraryDBContext())
             {
-                TimeCheckerService timecheck = new TimeCheckerService();
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var orderList = (from o in orderRepo.GetAll().AsEnumerable()
@@ -127,7 +126,7 @@ namespace Xboox.Services
                                  select new OrderViewModel
                                  {
                                      OrderId = o.OrderId,
-                                     OrderDate = timecheck.GetTaipeiTime(o.OrderDate),
+                                     OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
@@ -135,6 +134,7 @@ namespace Xboox.Services
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
                                      Paid = o.Paid,
+                                     PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                      Build = o.Build
                                  }).OrderBy(item => item.OrderDate).ToList();
                 return orderList;
@@ -155,13 +155,14 @@ namespace Xboox.Services
                 var orderDetailRepo = new GeneralRepository<OrderDetails>(dbContext);
                 var productRepo = new GeneralRepository<Product>(dbContext);
                 var imgRepo = new GeneralRepository<ProductImgs>(dbContext);
+                var CouponRepo = new GeneralRepository<Coupons>(dbContext);
                 List<OrderDetailsViewModel> orderDetailsList = new List<OrderDetailsViewModel>();
                 // 因為多張圖片會重複產品
-                var tempList = (from od in orderDetailRepo.GetAll()
+                var tempList = (from od in orderDetailRepo.GetAll().AsEnumerable()
                                 where od.OrderId.ToString() == orderId
-                                join pd in productRepo.GetAll()
+                                join pd in productRepo.GetAll().AsEnumerable()
                                 on od.ProductId equals pd.ProductId
-                                join pi in imgRepo.GetAll()
+                                join pi in imgRepo.GetAll().AsEnumerable()
                                 on pd.ProductId equals pi.ProductId
                                 where pd.ProductId == pi.ProductId
                                 select new OrderDetailsViewModel
@@ -170,7 +171,7 @@ namespace Xboox.Services
                                     Name = pd.Name,
                                     Quantity = od.Quantity,
                                     Price = pd.Price,
-                                    Discount = od.Discount,
+                                    Coupon = CouponRepo.GetFirst(item => item.Id == od.Discount),
                                     Total = Math.Round(pd.Price * od.Quantity)
                                 }).GroupBy(item => item.Name);
                 foreach (var productList in tempList)
@@ -334,6 +335,7 @@ namespace Xboox.Services
                         if (!order.Paid)
                         {
                             order.Paid = true;
+                            order.PayDate = DateTime.UtcNow;
                         }
                         else
                         {
@@ -372,6 +374,7 @@ namespace Xboox.Services
                         if (!order.Paid)
                         {
                             order.Paid = true;
+                            order.PayDate = DateTime.UtcNow;
                         }
                         else
                         {
