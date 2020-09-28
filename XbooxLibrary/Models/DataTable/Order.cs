@@ -27,7 +27,7 @@ namespace XbooxLibrary.Models.DataTable
         public DateTime OrderDate { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(50)]
         public string PurchaserName { get; set; }
 
         [Required]

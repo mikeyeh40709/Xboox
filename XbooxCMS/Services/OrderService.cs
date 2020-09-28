@@ -34,7 +34,7 @@ namespace XbooxCMS.Services
                                 Payment = o.Payment,
                                 Paid = o.Paid,
                                 Build = o.Build
-                            }).OrderBy(item => item.OrderDate).ToList();
+                            }).OrderByDescending(item => item.OrderDate).ToList();
 
 
             return orderList;
@@ -119,7 +119,41 @@ namespace XbooxCMS.Services
             }
             return operationResult;
         }
-
+        //刪除
+        public OperationResult DeleteOrder(string id)
+        {
+            OperationResult operationResult = new OperationResult();
+            var dbContext = new XbooxLibraryDBContext();
+            using (var transaction = dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var orderRepo = new GeneralRepository<Order>(dbContext);
+                    var orderDetailRepo = new GeneralRepository<OrderDetails>(dbContext);
+                    var productRepo = new GeneralRepository<Product>(dbContext);
+                    var orderDetails = orderDetailRepo.GetAll().Where(item => item.OrderId.ToString() == id);
+                    var order = orderRepo.GetFirst(item => item.OrderId.ToString() == id);
+                    if (order != null && orderDetails != null)
+                    {
+                        foreach(var item in orderDetails)
+                        {
+                            orderDetailRepo.Delete(item);
+                        }
+                        orderRepo.Delete(order);
+                        productRepo.SaveContext();
+                        operationResult.IsSuccessful = true;
+                        transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    operationResult.IsSuccessful = false;
+                    operationResult.exception = ex;
+                    transaction.Rollback();
+                }
+            }
+            return operationResult;
+        }
     }
     
 }

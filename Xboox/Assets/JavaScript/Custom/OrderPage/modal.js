@@ -8,21 +8,38 @@
             method: "get",
             dataType: "json",
             success: function (res) {
+                let orderData = {
+                    total: 0,
+                    discount: "",
+                    couponCode: ""
+                }
                 detailsBody.text('');
                 res.forEach(item => {
                     let tr = $("<tr></tr>");
                     let OrderDetailsList = $($("#OrderDetailsList").html());
                     let values = Object.values(item);
-                    for (let i = 1; i < values.length; i++) {
-                        OrderDetailsList.eq(0).children("img").attr("src", `${values[0]}`);
-                        OrderDetailsList.eq(2 * i).text(values[i]);
-                        console.log(OrderDetailsList);
-                        console.log(values[i]);
-                    }
+                    console.log(item);
+                    OrderDetailsList.eq(0).children("img").attr("src", `${values[0]}`);
+                    OrderDetailsList.eq(2).text(item.Name);
+                    OrderDetailsList.eq(4).text(item.Price);
+                    OrderDetailsList.eq(6).text(item.Quantity);
+                    OrderDetailsList.eq(8).text(item.Total)
                     tr.append(OrderDetailsList);
+                    if (item.Coupon != null) {
+                        orderData.total += Math.round(parseFloat(item.Total * item.Coupon.Discount));
+                        orderData.discount = item.Coupon.Discount;
+                        orderData.couponCode = item.Coupon.CouponCode;
+                    } else {
+                        orderData.total += Math.round(parseFloat(item.Total));
+                    }
                     detailsBody.append(tr);
                 })
-
+                if (orderData.discount != "") {
+                    let discountRow = $(`<tr><td><span class="text-left d-inline-block font-weight-bold">折扣碼</span></td><td colspan="2"><span style="font-size: 20px" class="d-inline-block text-right text-danger font-weight-bold">${orderData.couponCode}</span></td><td><span class="text-left d-inline-block font-weight-bold">折扣</span></td><td><span style="font-size: 20px" class="d-inline-block text-right text-danger font-weight-bold">${orderData.discount}</span></td></tr>`);
+                    detailsBody.append(discountRow);
+                }
+                let endtr = $(`<tr><td colspan="4"><span class="text-left d-inline-block font-weight-bold">總價</span></td><td colspan="1"><span style="font-size: 20px" class="d-inline-block text-right text-danger font-weight-bold">${orderData.total}</span></td></tr>`);
+                detailsBody.append(endtr);
             },
             error: function (err) { console.log(err) },
         });

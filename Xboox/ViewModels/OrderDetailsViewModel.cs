@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Xboox.Models;
+using XbooxLibrary.Models.DataTable;
 
 namespace Xboox.ViewModels
 {
-    public class OrderDetailsViewModel
+    public class OrderDetailsViewModel: OrderItemsBase
     {
         public string Imagelink { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
         public decimal Total { get; set; }
-        public Guid? Discount { get; set; }
+        public Coupons Coupon { get; set; }
     }
 }
