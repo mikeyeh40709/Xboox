@@ -2,7 +2,6 @@
 
 
 @{
-    ViewBag.Title = "Books";
     int TotalPages = (int)ViewBag.Pages;
     int ActivePageNum = (int)ViewBag.Active;
     string[] url = Request.Url.Segments;
@@ -17,21 +16,25 @@
                     <a href="/"><i class="fa fa-home"></i> Home</a>
                     @if (url[1] == "Find/")
                     {
-                        //Find/MVC/1
-                        <span>搜尋 @ViewBag.Category 結果</span>
-                    }
-                    else
-                    {
-                        //Books/All/300-600/1
-                        if (url.Length > 4)
+                        if (url.Length > 4) //Find/MVC/0-300/1
                         {
-                            <a href="/Books/@ViewBag.Category"><span>@ViewBag.Category</span></a>
-                            <span>搜尋價格區間結果</span>
+                            <span>搜尋 "@ViewBag.CateOrName" 價格區間結果</span>
                         }
-                        else
+                        else //Find/MVC/1
                         {
-                            //Books/All/1
-                            <span>@ViewBag.Category</span>
+                            <span>搜尋 "@ViewBag.CateOrName" 結果</span>
+                        }
+                    }
+                    else if (url[1] == "Books/")
+                    {
+                        if (url.Length > 4) //Books/All/300-600/1
+                        {
+                            <a href="/Books/@ViewBag.CateOrName/1"><span>@ViewBag.CateOrName</span></a>
+                            <span>搜尋 "@ViewBag.CateOrName" 價格區間結果</span>
+                        }
+                        else //Books/All/1
+                        {
+                            <span>@ViewBag.CateOrName</span>
                         }
                     }
                 </div>
@@ -57,7 +60,7 @@
                     @Html.Partial("_SideBarFilter")
                     <div class="trend__content">
                         <div class="section-title">
-                            <h4>New in "@ViewBag.Category"</h4>
+                            <h4>New in "@ViewBag.CateOrName"</h4>
                         </div>
                         @foreach (var item in Model.Where(x => x.PublishedDate.Substring(0, 7) == "2020/08").Take(3))
                         {
@@ -66,7 +69,7 @@
                     </div>
                     <div class="trend__content">
                         <div class="section-title">
-                            <h4>Top Selling in "@ViewBag.Category"</h4>
+                            <h4>Top Selling in "@ViewBag.CateOrName"</h4>
                         </div>
                         @foreach (var item in Model.Where(x => x.UnitInStock <= 5).Take(3))
                         {
@@ -76,18 +79,37 @@
                 </div>
             </div>
             <div class="col-lg-9 col-md-9">
-                @if (url.Length > 4 && url[1] == "Books/") //Books/All/300-600/1
+                @if (url[1] == "Books/")
                 {
-                    string[] url3 = url[3].Split('-');
-                    <div id="ResultBar">
-                        <h4>於 @(ViewBag.Category) 類別,查詢價格區間：$@url3[0]-$@url3[1].Substring(0, url3[1].Length - 1), 搜尋結果共 @ViewBag.Result 筆, 目前在第@(ActivePageNum)/@(TotalPages)頁</h4>
-                    </div>
+                    if (url.Length > 4) //Books/All/300-600/1
+                    {
+                        string[] url3 = url[3].Split('-');
+                        <div id="ResultBar">
+                            <h4>於 "@(ViewBag.CateOrName)" 類別,查詢價格區間：$@url3[0]-$@url3[1].Substring(0, url3[1].Length - 1), 搜尋結果共 @ViewBag.TotalResult 筆, 目前在第 @(ActivePageNum)/@(TotalPages)頁</h4>
+                        </div>
+                    }
+                    else //Books/All/1
+                    {
+                        <div id="ResultBar">
+                            <h4>於 "@(ViewBag.CateOrName)" 類別, 搜尋結果共 @ViewBag.TotalResult 筆, 目前在第 @(ActivePageNum)/@(TotalPages)頁</h4>
+                        </div>
+                    }
                 }
-                else if (url[1] == "Find/") //Find/MVC/1
+                else if (url[1] == "Find/")
                 {
-                    <div id="ResultBar">
-                        <h4>查詢關鍵字: @ViewBag.Category, 搜尋結果共 @ViewBag.Result 筆, 目前在第 @(ActivePageNum)/@(TotalPages)頁</h4>
-                    </div>
+                    if (url.Length > 4) //Find/MVC/0-300/1
+                    {
+                        string[] url3 = url[3].Split('-');
+                        <div id="ResultBar">
+                            <h4>查詢關鍵字: "@ViewBag.CateOrName", 查詢價格區間：$@url3[0]-$@url3[1].Substring(0, url3[1].Length - 1), 搜尋結果共 @ViewBag.TotalResult 筆, 目前在第 @(ActivePageNum)/@(TotalPages)頁</h4>
+                        </div>
+                    }
+                    else //Find/MVC/1
+                    {
+                        <div id="ResultBar">
+                            <h4>查詢關鍵字: "@ViewBag.CateOrName", 搜尋結果共 @ViewBag.TotalResult 筆, 目前在第 @(ActivePageNum)/@(TotalPages)頁</h4>
+                        </div>
+                    }
                 }
                 <div class="row property__gallery">
                     @foreach (var Book in Model)
@@ -100,7 +122,6 @@
                             {
                                 if (url[4] == "1")
                                 {
-                                    @*<a href="/@url[1]@url[2]@(url[3])1"><i class="fa fa-angle-left"></i></a>*@
                                     <a href="javascript:void(0)" onclick="NoPrePage()"><i class="fa fa-angle-left"></i></a>
                                 }
                                 else
@@ -110,30 +131,24 @@
                             }
                             else
                             {
-                                //Books/All/1
-                                if (url[3] == "1")
+                                if (url[3] == "1") //Books/All/1
                                 {
-                                    @*<a href="/@url[1]@(url[2])1"><i class="fa fa-angle-left"></i></a>*@
                                     <a href="javascript:void(0)" onclick="NoPrePage()"><i class="fa fa-angle-left"></i></a>
                                 }
                                 else
                                 {
                                     <a href="/@url[1]@url[2]@((int.Parse(url[3])-1).ToString())"><i class="fa fa-angle-left"></i></a>
-
                                 }
                             }
                             @for (var i = 1; i <= TotalPages; i++)
                             {
                                 string active = i == ActivePageNum ? "active" : string.Empty;
-
-                                //Books/All/300-600/1 length = 5  //ToDo:Find/MVC/300-600/1
-                                if (url.Length > 4)
+                                if (url.Length > 4) //Books/All/300-600/1 /Find/MVC/300-600/1
                                 {
                                     <a href="/@url[1]@url[2]@url[3]@i" class="@active">@i</a>
                                 }
-                                else
+                                else //Books/All/1 length = 4 //Find/MVC/1   
                                 {
-                                    //Find/MVC/1  length = 4   //Books/All/1 length = 4
                                     <a href="/@url[1]@url[2]@i" class="@active">@i</a>
                                 }
                             }
@@ -141,7 +156,6 @@
                             {
                                 if (url[4] == TotalPages.ToString())
                                 {
-                                    @*<a href="/@url[1]@url[2]@url[3]@url[4]"><i class="fa fa-angle-right"></i></a>*@
                                     <a href="javascript:void(0)" onclick="NoNextPage()"><i class="fa fa-angle-right"></i></a>
                                 }
                                 else
@@ -153,7 +167,6 @@
                             {
                                 if (url[3] == TotalPages.ToString())
                                 {
-                                    @*<a href="/@url[1]@url[2]@url[3]"><i class="fa fa-angle-right"></i></a>*@
                                     <a href="javascript:void(0)" onclick="NoNextPage()"><i class="fa fa-angle-right"></i></a>
                                 }
                                 else

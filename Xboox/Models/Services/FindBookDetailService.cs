@@ -77,7 +77,7 @@ namespace Xboox.Services
         /// <param name="min_price">123</param>
         /// <param name="max_price">123</param>
         /// <returns></returns>
-        public IEnumerable<ProductDetailViewModel> FindBookByRange(string CategoryName, string min_price, string max_price)
+        public IEnumerable<ProductDetailViewModel> FindBookByCateAndRange(string CategoryName, string min_price, string max_price)
         {
             if (min_price == null || max_price == null)
             {
@@ -89,13 +89,23 @@ namespace Xboox.Services
             }
         }
         /// <summary>
-        /// 根據名稱搜尋,若有包含及回傳
+        /// 根據名稱或名稱及價格範圍搜尋,若有包含即回傳
         /// </summary>
         /// <param name="Name"></param>
+        /// <param name="min_price"></param>
+        /// <param name="max_price"></param>
         /// <returns></returns>
-        public IEnumerable<ProductDetailViewModel> FindBookByName(string Name)
+        public IEnumerable<ProductDetailViewModel> FindBookByNameAndRange(string Name, string min_price, string max_price)
         {
-            return FindBookByCategory("All").Where(x => x.Name.Contains(Name));
+            var byCategory = FindBookByCategory("All").Where(x => x.Name.Contains(Name));
+            if (min_price == null || max_price == null)
+            {
+                return byCategory;
+            }
+            else
+            {
+                return byCategory.Where(x => x.Price >= Convert.ToDecimal(min_price) && x.Price <= Convert.ToDecimal(max_price));
+            }
         }
         /// <summary>
         /// 回傳並排序標籤

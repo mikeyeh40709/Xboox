@@ -38,22 +38,5 @@
         var maxtrans = max.substring(2, max.length);
         var category = window.location.href.split('/');
         this.setAttribute("href", `/${category[3]}/${category[4]}/${mintrans}-${maxtrans}/1`);
-        //ToDo: Find價格間距route Find/MVC/300-600/1
-        //if (category[3] == "Find") {
-        //    //Find/MVC/300-600/2
-        //    if (category.length > 6) {
-        //        this.setAttribute("href", `/Find/${category[4]}/${mintrans}-${maxtrans}/${category[6]}`)
-        //    }
-        //    //Find/MVC/1
-        //    this.setAttribute("href", `/Find/${category[4]}/${mintrans}-${maxtrans}/${category[6]}`);
-        //}
-        //else {
-        //    //Books/All/300-600/2
-        //    if (category.length > 6) {
-        //        this.setAttribute("href", `/Books/${category[4]}/${mintrans}-${maxtrans}/${category[6]}`);
-        //    }
-        //    //Books/All/1
-        //    this.setAttribute("href", `/Books/${category[4]}/${mintrans}-${maxtrans}/${category[6]}`);
-        //}
     });
 </script>
