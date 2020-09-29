@@ -4,7 +4,7 @@
     let deleteBtn = $("button[data-target='#deleteOrder']");
     detailsBtn.on("click", function () {
         $.ajax({
-            url: `GetOrderDetails/${this.id}`,
+            url: `/Order/GetOrderDetails/${this.id}`,
             method: "get",
             dataType: "json",
             success: function (res) {
@@ -60,7 +60,7 @@
                 }
                 $.ajax({
                     type: "post",
-                    url: `CancelOrder?orderId=${this.id}`,
+                    url: `/Order/CancelOrder?orderId=${this.id}`,
                     data: JSON.stringify(obj),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
