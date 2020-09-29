@@ -75,7 +75,7 @@ namespace Xboox.Controllers
             ViewBag.Items = orderDetails;
             if (orderDetails.FirstOrDefault().Coupon != null)
             {
-                ViewBag.DiscountCode = orderDetails.FirstOrDefault().Coupon.CouponCode;
+                ViewBag.Coupon = orderDetails.FirstOrDefault().Coupon;
             }
             return View("CreateOrder", orderInfo);
         }
