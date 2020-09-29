@@ -4,14 +4,14 @@
     ViewBag.Title = "登入";
 }
 
-<h2>@ViewBag.Title.</h2>
+@*<h2>@ViewBag.Title</h2>*@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>使用本機帳戶進行登入。</h4>
+                <h4>Login</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -41,9 +41,9 @@
                         <input type="submit" value="登入" class="btn btn-default" />
                     </div>
                 </div>
-                <p>
+                @*<p>
                     @Html.ActionLink("以新使用者身分註冊", "Register")
-                </p>
+                </p>*@
                 @* 只要您的密碼重設功能能夠進行帳戶確認，就啟用此項
                     <p>
                         @Html.ActionLink("忘記密碼?", "ForgotPassword")
@@ -51,11 +51,11 @@
             }
         </section>
     </div>
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
-    </div>
+    </div>*@
 </div>
 
 @section Scripts {

@@ -11,6 +11,7 @@ using XbooxLibrary.Services;
 
 namespace XbooxCMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
 

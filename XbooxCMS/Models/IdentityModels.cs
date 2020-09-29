@@ -21,7 +21,7 @@ namespace XbooxCMS.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("XbooxLibraryDBContext", throwIfV1Schema: false)
         {
         }
 

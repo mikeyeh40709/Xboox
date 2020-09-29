@@ -10,6 +10,7 @@ using XbooxCMS.Models;
 
 namespace XbooxCMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CouponsController : Controller
     {
         private XbooxContext db = new XbooxContext();
