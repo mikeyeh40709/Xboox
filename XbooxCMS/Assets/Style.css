@@ -123,7 +123,14 @@ button.filepond--file-action-button {
     transition: all 0.4s ease;
     border: none;
 }
-.row-space .input-group  {
+
+.form-control.login-form-control {
+    border-radius: 0px;
+    padding: 20px 20px;
+    font-size: 14px;
+    color: #666;
+}
+.row-space .input-group {
     display: block;
 }
 .input-group .label {
@@ -303,4 +310,29 @@ span.brand-text{
 #text1{
     position:absolute;
     visibility:hidden;
+}
+.login{
+    display:flex;
+    justify-content:center;
+}
+
+.control-label-login{
+    display:inline;
+}
+
+.ln-form{
+    min-width:500px;
+}
+input:-internal-autofill-selected {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: transparent !important
+}
+input#Email.form-control.mdl-textfield__input{
+    background-color: transparent !important;
+}
+.form-control:focus {
+    border-color: seagreen !important ;
+    border:2px;
+    box-shadow: #b66d20;
 }
