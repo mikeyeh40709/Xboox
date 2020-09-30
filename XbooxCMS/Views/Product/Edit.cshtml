@@ -6,9 +6,7 @@
 <head>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+
 </head>
 
 <h2>Edit</h2>
@@ -142,8 +140,8 @@
 
                         </div>
                     </div>
-                    <div class="col-12 ">
-                        @Html.TextAreaFor(m => m.Description, new { @id = "summernote" })
+                    <div class="col-12 pd-50 " id="div1">
+                        @Html.TextAreaFor(m => m.Description, new { @id = "text1" })
                     </div>
 
 
@@ -167,7 +165,8 @@
 <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
 
 <script type="text/javascript">
 
@@ -211,9 +210,9 @@
                     },
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
                 })
-                .then((result) => {
-                    console.log("remove", source);
-                })
+                    .then((result) => {
+                        console.log("remove", source);
+                    })
 
                 error('oh my goodness');
 
@@ -232,17 +231,17 @@
 
 
         var url = `/api/product/${pId}`;
-     //   var data = { username: 'example' };
+        //   var data = { username: 'example' };
 
         fetch(url, {
-            method: 'GET', 
-          
+            method: 'GET',
+
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
         })
-           // .then(res => res.json())
-           
+            // .then(res => res.json())
+
             .then((response) => {
 
                 return response.json();
@@ -252,7 +251,7 @@
             .then(data => {
                 console.log(data.data)
                 const div = document.querySelector('.picture-group');
-             
+
                 for (var item of data) {
                     var closeBtn = this.document.createElement('Button');
                     var div_pic = this.document.createElement('div');
@@ -262,28 +261,28 @@
                     closeBtn.classList.add("closebtn");
                     closeBtn.id = item;
                     closeBtn.type = 'button';
-                  //  closeBtn.setAttribute("onclick", `removeImg(${encodeURI(item)})`);
+                    //  closeBtn.setAttribute("onclick", `removeImg(${encodeURI(item)})`);
                     var img = this.document.createElement('Img');
                     img.classList.add("pic_size");
-                   
+
                     img.src = item;
 
                     div_pic.appendChild(img);
                     div_pic.appendChild(closeBtn);
 
-                  deleteElement = document.querySelectorAll(".closebtn");
+                    deleteElement = document.querySelectorAll(".closebtn");
                     console.log(deleteElement);
                     deleteElement.forEach(x => x.addEventListener('click', function () { removeImg(this.id); }))
 
                 }
-               
+
             })
-        
+
 
         function removeImg(imgName) {
 
             fetch(`/api/img/DeleteImg?query="${imgName}"`, {
-              
+
                 method: 'DELETE',
                 body: JSON.stringify({ id: imgName }),
                 headers: new Headers({
@@ -294,7 +293,7 @@
 
                     //return response.json();
 
-                   console.log('Success:', response)
+                    console.log('Success:', response)
 
                     var removeDiv = document.querySelector(`img[src="${imgName}"`);
                     removeDiv && removeDiv.parentNode && removeDiv.parentNode.remove();
@@ -309,62 +308,58 @@
 
     });
 
-    
+
     $("form").on("submit", function (event) {
         event.preventDefault();
         //alert($(this).serialize());
+        $('form').validate();
+        if ($('input[name="PostedTagIds"]:checked').length == 0) {
+            alert("至少勾選一項tag");
 
-        $.ajax({
-            type: "PUT",
-            url: '/api/product',
-            data: $(this).serialize(),
+        }
+        else if ($("form").valid()) {
+            alert("創建成功");
+            /* Add code for Ajax post */
+            $.ajax({
+                type: "PUT",
+                url: '/api/product',
+                data: $(this).serialize(),
 
-            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 
-            success: function (data) {
-                console.log("Success create", data);
-                window.location.href = '/product';
-            },
+                success: function (data) {
+                    console.log("Success create", data);
+                    window.location.href = '/product';
+                },
 
-            error: function (xhr) {
-                alert('fails');
+                error: function (xhr) {
+                    alert('fails');
 
-            }
+                }
 
 
-        })
+            })
+        }
+
+        else {
+            alert("請輸入必要欄位");
+        }
+      
 
     });
 
-    //$('#saveBtn').click(function () {
 
-    //    $.ajax({
-    //        type: "PUT",
-    //        url: '/api/product',
-    //        body: $('#editproducts').serialize,
-    //        contentType: 'application/json; charset=utf-8',
+    //將editor客製化為textrea
+    var E = window.wangEditor
+    var editor = new E('#div1')
+    var $text1 = $('#text1')
+    editor.customConfig.onchange = function (html) {
 
-    //        success: function (data) {
-    //            console.log("Success save", data);
-    //            window.location.href = redirectUrl;
-    //        },
+        $text1.val(html)
+    }
+    editor.create()
 
-    //        error: function (xhr) {
-    //            alert('fails');
-
-    //        }
+    $text1.val(editor.txt.html())
 
 
-    //    })
-
-
-
-    //})
-
-
-    $('#summernote').summernote({
-        placeholder: 'Books Content...',
-        tabsize: 2,
-        height: 200
-    });
 </script>

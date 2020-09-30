@@ -43,6 +43,28 @@ namespace Xboox
                 url: "Details/{id}",
                 defaults: new { controller = "Home", action = "ProductDetail" }
                 );
+            //會員中心Route
+            routes.MapRoute(
+               name: "OrderUserView",
+               url: "Member/Order",
+               defaults: new { controller = "Order", action = "UserView" }
+               );
+            routes.MapRoute(
+               name: "UserData",
+               url: "Member/UserData",
+               defaults: new { controller = "Account", action = "UserDataDetails"}
+               );
+            routes.MapRoute(
+               name: "UserEdit",
+               url: "Member/UserEdit",
+               defaults: new { controller = "Account", action = "UserDataEdit"}
+               );
+            routes.MapRoute(
+               name: "ChangePassword",
+               url: "Member/ChangePassword",
+               defaults: new { controller = "Manage", action = "ChangePassword" }
+               );
+            //Default
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

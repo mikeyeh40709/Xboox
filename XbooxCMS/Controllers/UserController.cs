@@ -12,6 +12,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace XbooxCMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
 

@@ -1,4 +1,8 @@
-﻿
+﻿@{
+    ViewBag.Title = "Tag";
+
+
+}
 <div class="d-flex justify-content-between">
     <h2>Tags Management</h2>
     <button class="btn-primary border btn-lg  mb-4 createTag">建立書本標籤</button>
@@ -24,7 +28,8 @@
     <button id="createBtn" class="btn btn-primary" style="display:none;margin:10px 0 0 0">Create</button>
 </div>
 
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 @section scripts{
     <script type="text/javascript">
 

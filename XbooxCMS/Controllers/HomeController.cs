@@ -9,6 +9,7 @@ using XbooxCMS.ViewModels;
 
 namespace XbooxCMS.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class HomeController : Controller
     {
         private XbooxContext db = new XbooxContext();

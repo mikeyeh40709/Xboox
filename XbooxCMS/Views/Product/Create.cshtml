@@ -2,25 +2,22 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-  
+
 }
 <head>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 
 </head>
 
 
 <h2>Create</h2>
 
-@*@using (Html.BeginForm())
-{*@
 
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-<form id="product">
+<form id="product" novalidate >
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="col-md-12">
 
         <div class="card card-4">
@@ -32,7 +29,7 @@
                             <label class="label">Product Name</label>
                             @*<input class="input-style-4" type="text" name="first_name">*@
                             @Html.TextBoxFor(m => m.Name, new { @class = "input-style-4 l-width", placeholder = "請輸入50字以內產品名稱" })
-                            @Html.ValidationMessageFor(m => m.Name)
+                            @Html.ValidationMessageFor(m => m.Name )
                         </div>
                     </div>
                     <div class="col-6">
@@ -148,23 +145,38 @@
                         <button class="btn btn-danger pad-1" id="remove" type="button">Remove All Pictures</button>
 
                     </div>
-                    <div class="col-12 ">
-                        @Html.TextAreaFor(m => m.Description, new { @id = "summernote" })
+                    <div class="col-12 note-editor pd-50" id="div1">
+
+                        @Html.TextAreaFor(m => m.Description, new { @id = "text1" })
                     </div>
 
 
                 </div>
 
                 <div class="p-t-15">
-                    <button class="btn btn-beige" type="submit" @*onclick="createFunction()"*@ id="createBtn">Create</button>
+                    <button class="btn btn-beige" type="submit"  id="createBtn">Create</button>
                 </div>
 
             </div>
         </div>
     </div>
 </form>
-@*}*@
-@*@Scripts.Render("~/bundles/jqueryval")*@
+
+<div class="modal" tabindex="-1" role="dialog" id="myModal" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+ 
+            <div class="modal-header">
+                <p>至少勾選一項tag</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -175,8 +187,8 @@
 <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
+<script type="text/javascript" src="https://unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
 
 
 <script type="text/javascript">
@@ -185,26 +197,39 @@
     $("form").on("submit", function (event) {
         event.preventDefault();
         //alert($(this).serialize());
+        $('form').validate();
+        if ($('input[name="PostedTagIds"]:checked').length == 0) {
+            //alert("至少勾選一項tag");
+            $('#myModal').modal('show');
+        }
+        else if ($("form").valid()) {
+            alert("創建成功");
+            /* Add code for Ajax post */
+            $.ajax({
+                type: "POST",
+                url: '/api/product',
+                data: $(this).serialize(),
 
-          $.ajax({
-            type: "POST", 
-            url: '/api/product',
-            data: $(this).serialize(),
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 
-              contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                success: function (data) {
+                    console.log("Success create", data);
+                    window.location.href = '/product';
+                },
 
-            success: function (data) {
-                console.log("Success create", data);
-                window.location.href = '/product';
-            },
+                error: function (xhr) {
+                    alert('fails');
 
-            error: function (xhr) {
-                alert('fails');
-
-            }
+                }
 
 
-        })
+            })
+        }
+   
+        else {
+            $('#myModal').modal('show');
+        }
+     
 
     });
 
@@ -242,11 +267,11 @@
 
 </script>
 <script>
-  // Remove all files
+    // Remove all files
     const buttonElement = document.querySelector('#remove');
     buttonElement.addEventListener("click", () => {
         pond.removeFiles();
-        fetch('/api/img',{
+        fetch('/api/img', {
             method: 'GET'
         })
             .then((result) => {
@@ -255,8 +280,8 @@
 
     const inputElement = document.querySelector('input[type="file"]');
 
-  
-    
+
+
     FilePond.setOptions({
 
         server: {
@@ -273,9 +298,9 @@
                     },
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
                 })
-              .then((result) => {
-                    console.log("remove", source);
-                })
+                    .then((result) => {
+                        console.log("remove", source);
+                    })
 
                 // Can call the error method if something is wrong, should exit after
                 error('oh my goodness');
@@ -287,15 +312,21 @@
         }
     });
 
-    
- 
+
+
 </script>
 <script>
+    //將editor客製化為textrea
+    var E = window.wangEditor
+    var editor = new E('#div1')
+    var $text1 = $('#text1')
+    editor.customConfig.onchange = function (html) {
+      
+        $text1.val(html)
+    }
+    editor.create()
 
-    $('#summernote').summernote({
-        placeholder: 'Books Content...',
-        tabsize: 2,
-        height: 200
-    });
+    $text1.val(editor.txt.html())
+
 </script>
 

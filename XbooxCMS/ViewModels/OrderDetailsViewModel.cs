@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using XbooxLibrary.Models.DataTable;
 
 namespace XbooxCMS.ViewModels
 {
@@ -13,5 +14,6 @@ namespace XbooxCMS.ViewModels
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal Total { get; set; }
+        public Coupons Coupon { get; set; }
     }
 }

@@ -10,8 +10,10 @@ using XbooxLibrary.Services;
 
 namespace XbooxCMS.WebApi
 {
+    [System.Web.Mvc.Authorize(Roles = "Admin")]
     public class ProductController : ApiController
     {
+        
 
         [System.Web.Http.HttpGet]
         public List<ProductListViewModel> GetllProducts()

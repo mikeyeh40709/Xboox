@@ -13,6 +13,7 @@ using XbooxCMS.Services;
 
 namespace XbooxCMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TagsController : Controller
     {
        

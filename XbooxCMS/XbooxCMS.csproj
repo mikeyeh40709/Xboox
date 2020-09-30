@@ -20,9 +20,12 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44399</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -209,8 +212,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\ProductApiController.cs" />
-    <Compile Include="Api\ProductsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -264,14 +265,16 @@
     <Compile Include="ViewModels\CreateDataModel.cs" />
     <Compile Include="ViewModels\CreateImgViewModel.cs" />
     <Compile Include="ViewModels\CreateListViewModel.cs" />
-    <Compile Include="ViewModels\CreateViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ProductListViewModel.cs" />
+    <Compile Include="ViewModels\ProductUnitViewModel.cs" />
     <Compile Include="ViewModels\SalesRevenueViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
     <Compile Include="WebApi\CouponsController.cs" />
+    <Compile Include="WebApi\DashBoardController.cs" />
     <Compile Include="WebApi\ImgController.cs" />
     <Compile Include="WebApi\OrderController.cs" />
     <Compile Include="WebApi\ProductController.cs" />
@@ -483,6 +486,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\Pics\" />
+    <Folder Include="Views\TestProduct\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

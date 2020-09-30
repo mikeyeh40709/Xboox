@@ -11,6 +11,7 @@ using XbooxLibrary.Services;
 
 namespace XbooxCMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
 
@@ -43,14 +44,17 @@ namespace XbooxCMS.Controllers
         public ActionResult Create()
         {
             var service = new ProductService();
-          
+         
             var viewModels = new CreateListViewModel()
             {
                 Tags = service.GetTags(),
                 CategoryViewModels = service.GetCatecory(),
 
             };
-
+            if (!ModelState.IsValid)
+            {
+                return View(viewModels);
+            }
 
             return View(viewModels);
         }

@@ -11,7 +11,8 @@ namespace XbooxCMS.App_Start
         public static void Register(HttpConfiguration config)
         {
             // Web API 設定和服務
-
+            var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
             // Web API 路由
             config.MapHttpAttributeRoutes();
 
