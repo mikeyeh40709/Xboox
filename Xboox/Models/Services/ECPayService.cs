@@ -68,6 +68,7 @@ namespace Xboox.Models.Services
                 PostCollection.Add("ClientBackURL", "https://xboox.azurewebsites.net/Home/Index");
                 PostCollection.Add("ReturnURL", "https://xboox.azurewebsites.net/Order/ECPayResult");//廠商通知付款結果API
                 PostCollection.Add("ChoosePayment", payment);
+                PostCollection.Add("CustomField1", order.OrderId.ToString());
                 PostCollection.Add("EncryptType", "1");//固定
                 //壓碼
                 string str = string.Empty;
