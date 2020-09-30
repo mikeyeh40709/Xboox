@@ -7,9 +7,9 @@
     {
         total += Math.Round(item.Price * item.Quantity);
     }
-    if (ViewBag.DiscountCode != null)
+    if (ViewBag.Coupon != null)
     {
-        discountCode = ViewBag.DiscountCode;
+        discountCode = ViewBag.Coupon.CouponCode;
     }
     ViewBag.Total = total;
 }
@@ -209,9 +209,19 @@
                     </div>
                     <div class="checkout__order__total">
                         <ul>
-                            <li>Total<span class="cart__total">$@ViewBag.Total</span></li>
-                            <li class="d-none" id="CartDiscountRateLi">Discount Rate<span class="discounted_price" id="CartDiscountRate"></span></li>
-                            <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice"></span></li>
+                            @if (Model.OrderId != Guid.Empty && ViewBag.Coupon != null)
+                            {
+                                <li>Total<span class="cart__total">$@(ViewBag.Total)</span></li>
+                                <li id="CartDiscountRateLi">Discount Rate<span class="discounted_price" id="CartDiscountRate">@(Convert.ToDouble(ViewBag.Coupon.Discount))</span></li>
+                                <li id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice">$@(Math.Round(ViewBag.Total * ViewBag.Coupon.Discount))</span></li>
+                            }
+                            else
+                            {
+                                <li>Total<span class="cart__total">$@ViewBag.Total</span></li>
+                                <li class="d-none" id="CartDiscountRateLi">Discount Rate<span class="discounted_price" id="CartDiscountRate"></span></li>
+                                <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice"></span></li>
+                            }
+
                         </ul>
                     </div>
                     <button type="submit" class="site-btn mb-3">Place order</button>
