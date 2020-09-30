@@ -43,33 +43,37 @@ namespace XbooxCMS.Services
         }
         public List<OrderDetailsViewModel> GetOrderDeatils(string id)
         {
-           XbooxLibraryDBContext context = new XbooxLibraryDBContext();
-            var result = new List<OrderDetailsViewModel>();
-            var odrepo = new GeneralRepository<OrderDetails>(context);
-            var productrepo = new GeneralRepository<Product>(context);
-            var imgrepo = new GeneralRepository<ProductImgs>(context);
-          
-            var tempList = (from od in odrepo.GetAll()
-                            where od.OrderId.ToString()==id
-                            join pd in productrepo.GetAll()
-                            on od.ProductId equals pd.ProductId
-                            join pi in imgrepo.GetAll()
-                             on pd.ProductId equals pi.ProductId
-                             where pd.ProductId == pi.ProductId
-                             select new OrderDetailsViewModel
-                             {
-                                 Imagelink = pi.imgLink,
-                                 ProductName = pd.Name,
-                                 Quantity = od.Quantity,
-                                 UnitPrice = pd.Price,
-                                 Total = Math.Round(pd.Price * od.Quantity)
-                             }).GroupBy(item => item.ProductName);
-            foreach (var productList in tempList)
+            using (var dbContext = new XbooxLibraryDBContext())
             {
-                var firstProductItem = productList.FirstOrDefault(item => !item.Imagelink.Contains("-0"));
-                result.Add(firstProductItem);
+                var orderDetailRepo = new GeneralRepository<OrderDetails>(dbContext);
+                var productRepo = new GeneralRepository<Product>(dbContext);
+                var imgRepo = new GeneralRepository<ProductImgs>(dbContext);
+                var CouponRepo = new GeneralRepository<Coupons>(dbContext);
+                List<OrderDetailsViewModel> orderDetailsList = new List<OrderDetailsViewModel>();
+                // 因為多張圖片會重複產品
+                var tempList = (from od in orderDetailRepo.GetAll().AsEnumerable()
+                                where od.OrderId.ToString() == id
+                                join pd in productRepo.GetAll().AsEnumerable()
+                                on od.ProductId equals pd.ProductId
+                                join pi in imgRepo.GetAll().AsEnumerable()
+                                on pd.ProductId equals pi.ProductId
+                                where pd.ProductId == pi.ProductId
+                                select new OrderDetailsViewModel
+                                {
+                                    Imagelink = pi.imgLink,
+                                    ProductName = pd.Name,
+                                    Quantity = od.Quantity,
+                                    UnitPrice = pd.Price,
+                                    Coupon = CouponRepo.GetFirst(item => item.Id == od.Discount),
+                                    Total = Math.Round(pd.Price * od.Quantity)
+                                }).GroupBy(item => item.ProductName);
+                foreach (var productList in tempList)
+                {
+                    var firstProductItem = productList.FirstOrDefault(item => !item.Imagelink.Contains("-0"));
+                    orderDetailsList.Add(firstProductItem);
+                }
+                return orderDetailsList;
             }
-            return result;
         }
 
         //取消訂單
