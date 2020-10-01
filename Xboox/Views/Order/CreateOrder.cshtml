@@ -41,11 +41,11 @@
                             <p>Name <span>*</span></p>
                             @if (Model.OrderId != Guid.Empty)
                             {
-                                <input type="text" name="PurchaserName" value="@Model.PurchaserName" readonly>
+                                <input type="text" name="PurchaserName" value="@Model.PurchaserName.Trim()" readonly>
                             }
                             else
                             {
-                                <input type="text" name="PurchaserName" value="@Model.PurchaserName" required>
+                                <input type="text" name="PurchaserName" value="@Model.PurchaserName.Trim()" required>
                             }
                         </div>
                     </div>
@@ -54,11 +54,11 @@
                             <p>City <span>*</span></p>
                             @if (Model.OrderId != Guid.Empty)
                             {
-                                <input type="text" name="City" value="@Model.City" readonly>
+                                <input type="text" name="City" value="@Model.City.Trim()" readonly>
                             }
                             else
                             {
-                                <input type="text" name="City" value="@Model.City" required>
+                                <input type="text" name="City" value="@Model.City.Trim()" required>
 
                             }
                         </div>
@@ -68,11 +68,11 @@
                             <p>District <span>*</span></p>
                             @if (Model.OrderId != Guid.Empty)
                             {
-                                <input type="text" name="District" value="@Model.District" readonly>
+                                <input type="text" name="District" value="@Model.District.Trim()" readonly>
                             }
                             else
                             {
-                                <input type="text" name="District" value="@Model.District" required>
+                                <input type="text" name="District" value="@Model.District.Trim()" required>
                             }
                         </div>
                     </div>
@@ -81,11 +81,11 @@
                             <p>Road <span>*</span></p>
                             @if (Model.OrderId != Guid.Empty)
                             {
-                                <input type="text" name="Road" value="@Model.Road" readonly>
+                                <input type="text" name="Road" value="@Model.Road.Trim()" readonly>
                             }
                             else
                             {
-                                <input type="text" name="Road" value="@Model.Road" required>
+                                <input type="text" name="Road" value="@Model.Road.Trim()" required>
 
                             }
                         </div>
@@ -95,11 +95,11 @@
                             <p>Phone <span>*</span></p>
                             @if (Model.OrderId != Guid.Empty)
                             {
-                                <input type="tel" name="PurchaserPhone" value="@Model.PurchaserPhone" readonly>
+                                <input type="tel" name="PurchaserPhone" value="@Model.PurchaserPhone.Trim()" readonly>
                             }
                             else
                             {
-                                <input type="tel" name="PurchaserPhone" value="@Model.PurchaserPhone" required>
+                                <input type="tel" name="PurchaserPhone" value="@Model.PurchaserPhone.Trim()" required>
                             }
                         </div>
                     </div>
@@ -108,11 +108,11 @@
                             <p>Email <span>*</span></p>
                             @if (Model.OrderId != Guid.Empty)
                             {
-                                <input type="email" name="PurchaserEmail" value="@Model.PurchaserEmail" readonly>
+                                <input type="email" name="PurchaserEmail" value="@Model.PurchaserEmail.Trim()" readonly>
                             }
                             else
                             {
-                                <input type="email" name="PurchaserEmail" value="@Model.PurchaserEmail" required>
+                                <input type="email" name="PurchaserEmail" value="@Model.PurchaserEmail.Trim()" required>
                             }
                         </div>
                     </div>
