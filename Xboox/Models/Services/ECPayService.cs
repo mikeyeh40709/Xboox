@@ -26,6 +26,14 @@ namespace Xboox.Models.Services
             }
             return sBuilder.ToString();
         }
+        /// <summary>
+        /// 取得綠界傳送參數集合(第一個參數為泛型(傳購物車或訂單明細))
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="productItems"></param>
+        /// <param name="order"></param>
+        /// <param name="MerchantTradeNo"></param>
+        /// <returns>回傳SortedDictionary集合</returns>
         public SortedDictionary<string, string> GetPostCollection<T>(List<T> productItems, OrderViewModel order,string MerchantTradeNo) where T : OrderItemsBase { 
             using (var dbcontext = new XbooxLibraryDBContext())
             {
@@ -33,6 +41,7 @@ namespace Xboox.Models.Services
                 string HashKey = "5294y06JbISpM5x9";
                 string HashIV = "v77hoKGq4kWxNNIS";
                 decimal discount = 1m; 
+                // 取得訂單折扣
                 if(order.Discount != null)
                 {
                     var couponRepo = new GeneralRepository<Coupons>(dbcontext);

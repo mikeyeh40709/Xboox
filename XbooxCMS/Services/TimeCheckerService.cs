@@ -7,11 +7,16 @@ namespace XbooxCMS.Services
 {
     public class TimeCheckerService
     {
-        public static DateTime GetTaipeiTime(DateTime orderDate)
+        public static DateTime? GetTaipeiTime(DateTime? orderDate)
         {
             TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Taipei Standard Time");
-            DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(orderDate, cstZone);
-            return cstTime;
+            DateTime cstTime = new DateTime();
+            if (orderDate != null)
+            {
+                cstTime = TimeZoneInfo.ConvertTimeFromUtc((DateTime)orderDate, cstZone);
+                return cstTime;
+            }
+            return null;
         }
     }
 }

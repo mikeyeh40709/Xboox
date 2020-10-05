@@ -37,9 +37,9 @@
             {
                 <button class="btn-danger btn rounded-0" style="min-width: 33.33%; width: 100%" id="@Model.OrderId" data-toggle="modal" data-target="#deleteOrder">取消</button>
             }
-            @if (Model.Build && !Model.Paid && Model.Payment == "Credit")
+            @if (Model.Build && !Model.Paid && Model.Payment != "COD")
             {
-                <a class="btn bg-warning text-white rounded-0" style="min-width: 33.33%; width: 100%" href="/Order/Checkout/?orderId=@Model.OrderId">重新結帳</a>
+                <a class="btn bg-warning text-white rounded-0" style="min-width: 33.33%; width: 100%" href="/Order/PostToECPay/?orderId=@Model.OrderId">重新結帳</a>
             }
         </div>
     </div>

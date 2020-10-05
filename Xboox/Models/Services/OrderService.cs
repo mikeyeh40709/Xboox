@@ -43,7 +43,7 @@ namespace Xboox.Services
         public List<OrderViewModel> GetOrder(string userId)
         {
             using (var dbContext = new XbooxLibraryDBContext())
-            { 
+            {
                 var orderRepo = new GeneralRepository<Order>(dbContext);
                 var userRepo = new GeneralRepository<AspNetUsers>(dbContext);
                 var orderList = (from o in orderRepo.GetAll().AsEnumerable()
@@ -95,8 +95,8 @@ namespace Xboox.Services
                                      UserName = user.UserName,
                                      PurchaserName = o.PurchaserName,
                                      PurchaserEmail = o.PurchaserEmail,
-                                     City = o.City ,
-                                     District =o.District ,
+                                     City = o.City,
+                                     District = o.District,
                                      Road = o.Road,
                                      PurchaserPhone = o.PurchaserPhone,
                                      Payment = o.Payment,
@@ -203,7 +203,7 @@ namespace Xboox.Services
                     .OrderByDescending(item => item.OrderDate);
                 var order = orderList.FirstOrDefault();
                 OrderViewModel orderInfo = new OrderViewModel();
-                if ( order != null)
+                if (order != null)
                 {
                     if (order.Remember)
                     {
@@ -448,5 +448,33 @@ namespace Xboox.Services
             return operationResult;
         }
         #endregion
+    }
+    public class FilterOrderDataService
+    {
+        private static OrderService orderService = new OrderService();
+        /// <summary>
+        /// 利用年月日篩選訂單資料
+        /// 年: 輸入年分(西年)
+        /// 月: 輸入數字(期間)
+        /// 日: 輸入數字(期間)
+        /// </summary>
+        public Dictionary<string, Func<string,int,List<OrderViewModel>>> filterOrders = new Dictionary<string, Func<string, int, List<OrderViewModel>>>()
+        {
+            {"YEAR",(userId,num) => orderService.GetOrder(userId).Where(item => item.OrderDate.Year == num).ToList()  },
+            {"MONTH",(userId,num) => orderService.GetOrder(userId).Where(item => item.OrderDate >= DateTime.UtcNow.AddMonths(-num)).ToList() },
+            {"DAY",(userId,num) => orderService.GetOrder(userId).Where(item => item.OrderDate>= DateTime.UtcNow.AddDays(-num)).ToList() }
+        };
+        public List<OrderViewModel> GetOrderList(string userId, string start, string end)
+        {
+            var startDate = DateTime.Parse(start);
+            var endDate = DateTime.Parse(end);
+            var orderList = orderService.GetOrder(userId).Where(item => item.OrderDate >= startDate && item.OrderDate <= endDate).ToList();
+            return orderList;
+        }
+        public List<OrderViewModel> GetOrderList(string userId, string orderId)
+        {
+            var orderList = orderService.GetOrder(userId).Where(item => item.OrderId.ToString().Contains(orderId)).ToList();
+            return orderList;
+        }
     }
 }

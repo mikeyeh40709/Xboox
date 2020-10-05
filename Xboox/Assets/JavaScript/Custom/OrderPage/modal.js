@@ -60,7 +60,7 @@
                 }
                 $.ajax({
                     type: "post",
-                    url: `/Order/CancelOrder?orderId=${this.id}`,
+                    url: `/Order/CancelOrder`,
                     data: JSON.stringify(obj),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",

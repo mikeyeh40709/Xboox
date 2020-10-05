@@ -64,6 +64,22 @@ namespace Xboox
                url: "Member/ChangePassword",
                defaults: new { controller = "Manage", action = "ChangePassword" }
                );
+            //訂單Route
+            routes.MapRoute(
+               name: "OrderByDateNum",
+               url: "Member/Order/Time/{DateType}/{Num}",
+               defaults: new { controller = "Order", action = "FilterDataByNum",DataType = "" , Num =""}
+               );
+            routes.MapRoute(
+               name: "OrderByDateRange",
+               url: "Member/Order/Range/{startDate}/{endDate}",
+               defaults: new { controller = "Order", action = "FilterDataByRange" }
+               );
+            routes.MapRoute(
+               name: "OrderByOrderId",
+               url: "Member/Order/Id/{orderId}",
+               defaults: new { controller = "Order", action = "FilterDataByOrderId" ,orderId=""}
+               );
             //Default
             routes.MapRoute(
                 name: "Default",
