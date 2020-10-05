@@ -38,37 +38,37 @@
                         @Html.AntiForgeryToken()
                         <div class="checkout__form__input">
                             <p>Name <span>*</span></p>
-                            <input type="text" name="PurchaserName" value="@Model.PurchaserName" required>
+                            <input type="text" name="PurchaserName" value="@(Model.PurchaserName != null? Model.PurchaserName.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="checkout__form__input">
                             <p>City <span>*</span></p>
-                            <input type="text" name="City" value="@Model.City" required>
+                            <input type="text" name="City" value="@(Model.City != null ? Model.City.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="checkout__form__input">
                             <p>District <span>*</span></p>
-                            <input type="text" name="District" value="@Model.District" required>
+                            <input type="text" name="District" value="@(Model.District != null? Model.District.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="checkout__form__input">
                             <p>Road <span>*</span></p>
-                            <input type="text" name="Road" value="@Model.Road" required>
+                            <input type="text" name="Road" value="@(Model.Road != null? Model.Road.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="checkout__form__input">
                             <p>Phone <span>*</span></p>
-                            <input type="tel" name="PurchaserPhone" value="@Model.PurchaserPhone" required>
+                            <input type="tel" name="PurchaserPhone" value="@(Model.PurchaserPhone != null? Model.PurchaserPhone.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="checkout__form__input">
                             <p>Email <span>*</span></p>
-                            <input type="email" name="PurchaserEmail" value="@Model.PurchaserEmail" required>
+                            <input type="email" name="PurchaserEmail" value="@(Model.PurchaserEmail != null? Model.PurchaserEmail.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">
