@@ -83,7 +83,7 @@ namespace XbooxLibrary.Services
                     Intro = input.Intro,
                     Language = input.Language,
                     UnitInStock = input.UnitInStock,
-                    PublishedDate = input.PublishedDate,
+                    PublishedDate =  input.PublishedDate,
 
                     Description = input.Description,
                   
@@ -181,8 +181,8 @@ namespace XbooxLibrary.Services
                PublishedDate = item.PublishedDate,
                Publisher = item.Publisher,
                UnitInStock = item.UnitInStock,
-              Specification = item.Specification,
-              ProductId = item.ProductId,
+                Specification = item.Specification,
+                ProductId = item.ProductId,
                 Description = item.Description,
                 Language = item.Language
 

@@ -190,7 +190,7 @@
         checkDetails = function (id) {
             console.log('--- detail');
             $.ajax({
-                url: `/api/order/GetOrderDeatils/${id}`,
+                url: `/api/order/${id}`,
                 method: "get",
                 //dataType: "json",
                 success: function (res) {
@@ -243,7 +243,7 @@
                 preConfirm: () => {
                     console.log(orderid);
                     $.ajax({
-                        type: "post",
+                        type: "put",
                         url: `/api/order/CancelOrder`,
                         data: { OrderId: orderid },
                         success: function (response) {
@@ -268,7 +268,7 @@
                 preConfirm: () => {
                     console.log(orderid);
                     $.ajax({
-                        type: "post",
+                        type: "delete",
                         url: `/api/order/DeleteOrder`,
                         data: { OrderId: orderid},
                         success: function (response) {

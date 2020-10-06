@@ -13,7 +13,7 @@ using XbooxLibrary.Services;
 
 namespace XbooxCMS.WebApi
 {
-    [System.Web.Http.RoutePrefix("api/{controller}/{action}")]
+    //[System.Web.Http.RoutePrefix("api/{controller}/{action}")]
     public class ImgController : ApiController
     {
         /// <summary>
