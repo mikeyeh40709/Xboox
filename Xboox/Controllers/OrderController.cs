@@ -82,16 +82,6 @@ namespace Xboox.Controllers
             }
         }
         /// <summary>
-        /// 已存在的訂單結帳
-        /// </summary>
-        /// <param name="orderId"></param>
-        /// <returns></returns>
-        public ActionResult Checkout(string orderId)
-        {
-            var order = orderservice.GetOrder(this.HttpContext, orderId).FirstOrDefault();
-            return RedirectToAction("PostToECPay", order);
-        }
-        /// <summary>
         /// 建立訂單View
         /// </summary>
         /// <returns></returns>
@@ -240,14 +230,6 @@ namespace Xboox.Controllers
             Response.Write("1|OK");
             this.Response.Flush();
             this.Response.End();
-            return View();
-        }
-        public ActionResult Success()
-        {
-            return View();
-        }
-        public ActionResult Fail()
-        {
             return View();
         }
         public ActionResult FilterDataByNum(string DateType, string Num)

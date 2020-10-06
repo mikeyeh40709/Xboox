@@ -464,13 +464,26 @@ namespace Xboox.Services
             {"MONTH",(userId,num) => orderService.GetOrder(userId).Where(item => item.OrderDate >= DateTime.UtcNow.AddMonths(-num)).ToList() },
             {"DAY",(userId,num) => orderService.GetOrder(userId).Where(item => item.OrderDate>= DateTime.UtcNow.AddDays(-num)).ToList() }
         };
+        /// <summary>
+        /// 用日期區間取得訂單,格式範例: 2020-10-10
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="start">格式: 2020-10-10</param>
+        /// <param name="end">格式: 2020-10-10</param>
+        /// <returns></returns>
         public List<OrderViewModel> GetOrderList(string userId, string start, string end)
         {
             var startDate = DateTime.Parse(start);
             var endDate = DateTime.Parse(end);
-            var orderList = orderService.GetOrder(userId).Where(item => item.OrderDate >= startDate && item.OrderDate <= endDate).ToList();
+            var orderList = orderService.GetOrder(userId).Where(item => item.OrderDate >= startDate && item.OrderDate <= endDate.AddDays(1)).ToList();
             return orderList;
         }
+        /// <summary>
+        /// 用訂單編號取得訂單(只須符合某幾個字)
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public List<OrderViewModel> GetOrderList(string userId, string orderId)
         {
             var orderList = orderService.GetOrder(userId).Where(item => item.OrderId.ToString().Contains(orderId)).ToList();
