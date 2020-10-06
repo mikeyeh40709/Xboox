@@ -271,6 +271,8 @@
     <Content Include="Assets\Image\LogInPage\pic_08.jpg" />
     <Content Include="Assets\Image\Origin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\Image\Origin\favicon.ico" />
+    <Content Include="Assets\Image\PayStatus\fail.png" />
+    <Content Include="Assets\Image\PayStatus\success.png" />
     <Content Include="Assets\Image\Pics\adpic01.jpg" />
     <Content Include="Assets\Image\Pics\cn01-invest01-comic01-02.jpg" />
     <Content Include="Assets\Image\Pics\cn01-invest01-comic01-03.jpg" />
@@ -323,6 +325,7 @@
     <Content Include="Assets\JavaScript\Custom\CartPage\clearStorage.js" />
     <Content Include="Assets\JavaScript\Custom\CartPage\set_to_local_storage.js" />
     <Content Include="Assets\JavaScript\Custom\HomePage\HomePage.js" />
+    <Content Include="Assets\JavaScript\Custom\OrderPage\filterOrder.js" />
     <Content Include="Assets\JavaScript\Custom\OrderPage\modal.js" />
     <Content Include="Assets\JavaScript\Custom\LogInPage\main.js" />
     <Content Include="Assets\TemplateCSS\bootstrap.min.css" />

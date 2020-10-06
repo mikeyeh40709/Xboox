@@ -109,7 +109,11 @@
 .shop__sidebar {
     height: 900px;
 }
-
+.custom-select:focus {
+    border-color: #ca1515;
+    outline: 0;
+    box-shadow: 0 0 0 0;
+}
 
 @media (min-width: 576px) {
     .modal-dialog {

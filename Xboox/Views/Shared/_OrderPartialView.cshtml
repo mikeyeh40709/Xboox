@@ -1,45 +1,46 @@
-﻿@model Xboox.ViewModels.OrderViewModel
+﻿@model OrderViewModel
 <div class="col-lg-4 col-12 mb-4 position-relative">
-    <div class="card" style="min-height: 300px; height:100%;">
-        <div class="card-body p-2 d-flex justify-content-between flex-column" >
-            <div class="card-top p-1">
-                <span class="badge badge-danger p-1 w-100">@Model.OrderId</span>
-                <div class="card-title">
-                    <p class="m-0"><span class="font-weight-bold">建立日期:</span><span class="ml-2">@Model.OrderDate</span></p>
-                    <p class="m-0"><span class="font-weight-bold">收件人:</span><span class="ml-2">@Model.PurchaserName</span></p>
-                    <p class="m-0"><span class="font-weight-bold">地址:</span><span class="ml-2">@Model.PurchaserAddress</span></p>
-                    <p class="m-0"><span class="font-weight-bold">Email:</span><span class="ml-2">@Model.PurchaserEmail</span></p>
-                    <p class="m-0"><span class="font-weight-bold">電話:</span><span class="ml-2">@Model.PurchaserPhone</span></p>
-                    <p class="m-0"><span class="font-weight-bold">付款方式: </span><span class="ml-2">@Model.Payment</span></p>
-                    @if (Model.PayDate != null)
+    <div class="card rounded-0" style="min-height: 300px; height:100%;">
+        <div class="card-title m-0">
+            <span class="badge badge-danger py-2 w-100 rounded-0">@Model.OrderId</span>
+        </div>
+        <div class="card-body">
+            <div class="card-content">
+                <p class="m-0"><span class="font-weight-bold">建立日期:</span><span class="ml-2">@Model.OrderDate</span></p>
+                <p class="m-0"><span class="font-weight-bold">收件人:</span><span class="ml-2">@Model.PurchaserName</span></p>
+                <p class="m-0"><span class="font-weight-bold">地址:</span><span class="ml-2">@Model.PurchaserAddress</span></p>
+                <p class="m-0"><span class="font-weight-bold">Email:</span><span class="ml-2">@Model.PurchaserEmail</span></p>
+                <p class="m-0"><span class="font-weight-bold">電話:</span><span class="ml-2">@Model.PurchaserPhone</span></p>
+                <p class="m-0"><span class="font-weight-bold">付款方式: </span><span class="ml-2">@Model.Payment</span></p>
+                @if (Model.PayDate != null)
+                {
+                    <p class="m-0"><span class="font-weight-bold">付款時間: </span><span class="ml-2 text-success">@Model.PayDate</span></p>
+                }
+                <p>
+                    狀態:
+                    @if (!Model.Paid)
                     {
-                        <p class="m-0"><span class="font-weight-bold">付款時間: </span><span class="ml-2 text-success">@Model.PayDate</span></p>
+                        <span class="text-danger">未付款</span>
                     }
-                    <p>
-                        狀態:
-                        @if (!Model.Paid)
-                        {
-                            <span class="text-danger">未付款</span>
-                        }
-                        else
-                        {
-                            <span class="text-success">已付款</span>
-                        }
-                    </p>
+                    else
+                    {
+                        <span class="text-success">已付款</span>
+                    }
+                </p>
 
-                </div>
             </div>
-            <div class="card-end">
-                <button class="btn bg-secondary mx-1 text-white" id="@Model.OrderId" data-toggle="modal" data-target="#orderDetails">查看明細</button>
-                @if (Model.Build && !Model.Paid)
-                {
-                    <button class="btn btn-danger mx-1" id="@Model.OrderId" data-toggle="modal" data-target="#deleteOrder">取消訂單</button>
-                }
-                @if (Model.Build && !Model.Paid && Model.Payment == "Credit")
-                {
-                    <a class="btn btn-warning text-white" href="/Order/Checkout/?orderId=@Model.OrderId">重新結帳</a>
-                }
-            </div>
+        </div>
+
+        <div class="d-flex">
+            <button class="btn btn-secondary text-white rounded-0" style="min-width:33.33%; width: 100%" id="@Model.OrderId" data-toggle="modal" data-target="#orderDetails">明細</button>
+            @if (Model.Build && !Model.Paid)
+            {
+                <button class="btn-danger btn rounded-0" style="min-width: 33.33%; width: 100%" id="@Model.OrderId" data-toggle="modal" data-target="#deleteOrder">取消</button>
+            }
+            @if (Model.Build && !Model.Paid && Model.Payment != "COD")
+            {
+                <a class="btn bg-warning text-white rounded-0" style="min-width: 33.33%; width: 100%" href="/Order/PostToECPay/?orderId=@Model.OrderId">重新結帳</a>
+            }
         </div>
     </div>
 </div>

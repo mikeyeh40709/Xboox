@@ -12,14 +12,12 @@
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
             </ul>*@
        
-        <a href="#"></a>
-        <i class="far fa-user"> @User.Identity.GetUserName() </i>
+        <i class="far fa-user"></i>
         <ul class="headerdropdown">
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
+            <li><a class="text-white"> @User.Identity.GetUserName() </a></li>
             <li>@Html.ActionLink("會員專區", "UserDataDetails","Account")</li>
-            @*<li>@Html.ActionLink("修改測試", "UserDataEdit", "Account")</li>*@
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
         </ul>
-
     }
 }
 else

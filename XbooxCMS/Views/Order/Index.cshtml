@@ -100,16 +100,20 @@
                 },
                 {
                     data: 'OrderDate',
-                    width: '10%'
+                    width: '10%',
+                    render: function (data) {
+                        return data.replace(/T/, ' ').replace(/\..+/, '').replace(/-/g,'/')
+                    }
                 },
 
                 {
                     data: 'PayDate',
                     render: function (data) {
+                        console.log(data);
                         if (!data) {
                             return '<div class="text-danger">未有付款日期</div>'
                         }
-                        return data
+                        return data.replace(/T/, ' ').replace(/\..+/, '').replace(/-/g, '/');
                     }
                     ,
                     width: '10%'

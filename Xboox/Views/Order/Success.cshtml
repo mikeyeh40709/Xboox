@@ -1,10 +1,10 @@
-﻿<section class="h-50 d-flex flex-column justify-content-center align-items-center">
-    <h3>訂單已經建立成功</h3>
-    <div class="d-flex justify-content-around">
+﻿<section class="vh-100 d-flex flex-column justify-content-center align-items-center">
+    <h5 style="letter-spacing: 5px">訂單已經建立成功</h5>
+    <img  class="my-5" style="width: 90px; height: 90px" src="~/Assets/Image/PayStatus/success.png" alt="paySuccess" />
+    <div class="w-100 text-center">
         <button class="btn btn-danger text-white">@Html.ActionLink("回到首頁", "Index", "Home")</button>
         <button class="btn btn-danger text-white">@Html.ActionLink("我的訂單", "UserView", "Order")</button>
     </div>
-    
 </section>
 @section dealWithCart {
     <script src="~/Assets/JavaScript/Custom/CartPage/clearStorage.js"></script>   

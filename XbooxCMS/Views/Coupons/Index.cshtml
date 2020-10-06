@@ -74,11 +74,16 @@
         });
 
         function getDate(data) {
-            let date = new Date(data);
-            let day = ("0" + date.getDate()).slice(-2);
-            let month = ("0" + (date.getMonth() + 1)).slice(-2);
-            let year = date.getFullYear();
-            return `${year}/${month}/${day}`;
+            //1.
+            //let date = new Date(data);
+            //let day = ("0" + date.getDate()).slice(-2);
+            //let month = ("0" + (date.getMonth() + 1)).slice(-2);
+            //let year = date.getFullYear();
+            //return `${year}/${month}/${day}`;
+            //2.
+            //console.log(data.split('-').join('/'));
+            //3.
+            return data.substring(0, 10).replace(/-/g, '/');
         }
 
         function formSet(coupounset, edit, createSave, index, wrapper, title, create) {
