@@ -47,7 +47,7 @@ namespace XbooxCMS.WebApi
 
         [System.Web.Http.HttpPost]
      
-        public HttpResponseMessage CreateProduct(CreateDataModel createDataModel)
+        public HttpResponseMessage CreateProduct([FromBody] CreateDataModel createDataModel)
         {
 
             var service = new ProductService();

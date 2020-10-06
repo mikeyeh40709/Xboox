@@ -8,13 +8,12 @@ namespace XbooxCMS.ViewModels
 {
     public class TestViewModel:ProductUnitViewModel
     {
-     
-        public string TagName { get; set; }
+        //CreateDataModel
+        public List<Guid> PostedTagIds { get; set; }
 
+        public XbooxLibrary.Models.DataTable.ProductTags ProductTags { get; set; }
+        public string ProductImgId { get; set; }
 
-        public Guid TagId { get; set; }
-
-        [Required]
-        public Guid ProductId { get; set; }
+        public Guid? ProductId { get; set; }
     }
 }

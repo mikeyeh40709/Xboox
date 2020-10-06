@@ -264,14 +264,15 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateDataModel.cs" />
     <Compile Include="ViewModels\CreateImgViewModel.cs" />
-    <Compile Include="ViewModels\CreateListViewModel.cs" />
+    <Compile Include="ViewModels\CreateListViewModel02.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
-    <Compile Include="ViewModels\ProductListViewModel.cs" />
     <Compile Include="ViewModels\ProductUnitViewModel.cs" />
     <Compile Include="ViewModels\SalesRevenueViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
+    <Compile Include="ViewModels\CreateListViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="ViewModels\ProductListViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
     <Compile Include="WebApi\CouponsController.cs" />
     <Compile Include="WebApi\DashBoardController.cs" />
@@ -486,7 +487,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Pics\" />
     <Folder Include="Views\TestProduct\" />
   </ItemGroup>
   <ItemGroup>
