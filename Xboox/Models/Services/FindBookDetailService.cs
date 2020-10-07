@@ -13,8 +13,15 @@ namespace Xboox.Services
 {
     public class FindBookDetailService
     {
-        private static XbooxLibraryDBContext _context = new XbooxLibraryDBContext();
-
+        private static XbooxLibraryDBContext _context;
+        public FindBookDetailService()
+        {
+            _context = new XbooxLibraryDBContext();
+        }
+        /// <summary>
+        /// Transform All books' type to ProductDetailViewModel type
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<ProductDetailViewModel> FindBookDetail()
         {
             var ProductRepo = new GeneralRepository<Product>(_context);
@@ -46,7 +53,7 @@ namespace Xboox.Services
             return Products;
         }
         /// <summary>
-        /// 依據ProductId(GUID)搜尋產品
+        /// Search books by ProductId(GUID)
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -55,7 +62,7 @@ namespace Xboox.Services
             return FindBookDetail().FirstOrDefault(x => x.ProductId == id);
         }
         /// <summary>
-        /// 根據種類搜尋,若是ALL則回傳全部
+        /// Search books by category, if it's "All" then return all books
         /// </summary>
         /// <param name="CategoryName"></param>
         /// <returns></returns>
@@ -71,7 +78,7 @@ namespace Xboox.Services
             }
         }
         /// <summary>
-        /// 根據種類,價格搜尋產品
+        /// Search books by category and price range
         /// </summary>
         /// <param name="CategoryName">123</param>
         /// <param name="min_price">123</param>
@@ -89,7 +96,7 @@ namespace Xboox.Services
             }
         }
         /// <summary>
-        /// 根據名稱或名稱及價格範圍搜尋,若有包含即回傳
+        /// Search books by name and price range
         /// </summary>
         /// <param name="Name"></param>
         /// <param name="min_price"></param>
@@ -108,7 +115,7 @@ namespace Xboox.Services
             }
         }
         /// <summary>
-        /// 回傳並排序標籤
+        /// Search all Tags and Order by first letter
         /// </summary>
         /// <returns></returns>
         public IEnumerable<string> FindTag()
@@ -117,7 +124,7 @@ namespace Xboox.Services
             return TagsRepo.GetAll().Select(x => x.TagName).OrderBy(y => y.Substring(0, 1)).ToList();
         }
         /// <summary>
-        /// 搜尋Tags,略過All
+        /// Search all Tags, except "All"
         /// </summary>
         /// <returns></returns>
         public IEnumerable<string> FindTagSkipFirst()
@@ -125,7 +132,7 @@ namespace Xboox.Services
             return FindTag().Skip(1);
         }
         /// <summary>
-        /// 搜尋所有種類
+        /// Search All Categories
         /// </summary>
         /// <param name="CategoryName"></param>
         /// <returns></returns>
@@ -133,6 +140,65 @@ namespace Xboox.Services
         {
             var CategoryRepo = new GeneralRepository<Category>(_context);
             return CategoryRepo.GetFirst(x => x.Name == CategoryName);
+        }
+        /// <summary>
+        /// Paging total books with category
+        /// </summary>
+        /// <param name="CategoryName"></param>
+        /// <param name="min_price"></param>
+        /// <param name="max_price"></param>
+        /// <param name="ActivePageNum"></param>
+        /// <returns></returns>
+        public IEnumerable<ProductDetailViewModel> PagingTotalBooksWithCate(string CategoryName, string min_price, string max_price, int ActivePageNum = 1)
+        {
+            //products per page
+            int pageRows = 12;
+            //decide last book from last page, start next page with one after that 
+            int startRow = (ActivePageNum - 1) * pageRows;
+            //show products after paging
+            var resultWithPaging = FindBookByCateAndRange(CategoryName, min_price, max_price).OrderBy(x => x.Name.Substring(0, 1)).Skip(startRow).Take(pageRows);
+            return resultWithPaging;
+        }
+        /// <summary>
+        /// Count total pages with category
+        /// </summary>
+        /// <param name="CategoryName"></param>
+        /// <param name="min_price"></param>
+        /// <param name="max_price"></param>
+        /// <returns></returns>
+        public int CountTotalPagesWithCate(string CategoryName, string min_price, string max_price)
+        {
+            int pageRows = 12;
+            int totalRows = FindBookByCateAndRange(CategoryName, min_price, max_price).Count();
+            return totalRows % pageRows == 0 ? totalRows / pageRows : totalRows / pageRows + 1;
+        }
+        /// <summary>
+        /// paging total books with name
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="min_price"></param>
+        /// <param name="max_price"></param>
+        /// <param name="ActivePageNum"></param>
+        /// <returns></returns>
+        public IEnumerable<ProductDetailViewModel> PagingTotalBooksWithName(string Name, string min_price, string max_price, int ActivePageNum = 1)
+        {
+            int pageRows = 12;
+            int startRow = (ActivePageNum - 1) * pageRows;
+            var resultWithPaging = FindBookByNameAndRange(Name, min_price, max_price).OrderBy(x => x.Name.Substring(0, 1)).Skip(startRow).Take(pageRows);
+            return resultWithPaging;
+        }
+        /// <summary>
+        /// Count total pages with name
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="min_price"></param>
+        /// <param name="max_price"></param>
+        /// <returns></returns>
+        public int CountTotalPagesWithName(string Name, string min_price, string max_price)
+        {
+            int pageRows = 12;
+            int totalRows = FindBookByNameAndRange(Name, min_price, max_price).Count();
+            return totalRows % pageRows == 0 ? totalRows / pageRows : totalRows / pageRows + 1;
         }
     }
 }

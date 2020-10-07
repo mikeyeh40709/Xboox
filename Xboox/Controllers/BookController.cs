@@ -21,18 +21,11 @@ namespace Xboox.Controllers
         {
             ViewBag.Tags = FindBook.FindTag();
             ViewBag.CateOrName = FindBook.FindCategory(CategoryName).Name;
-            var TotalResult = FindBook.FindBookByCateAndRange(CategoryName, min_price, max_price);
-            ViewBag.TotalResult = TotalResult.Count();
-
-            int pageRows = 12;
-            int totalRows = TotalResult.Count();
-            int TotalPages = totalRows % pageRows == 0 ? totalRows / pageRows : totalRows / pageRows + 1;
-            int startRow = (ActivePageNum - 1) * pageRows;
-            var ResultWithPaging = TotalResult.OrderBy(x => x.Name.Substring(0, 1)).Skip(startRow).Take(pageRows);
-
+            ViewBag.TotalResult = FindBook.FindBookByCateAndRange(CategoryName, min_price, max_price).Count();
             ViewBag.Active = ActivePageNum;
-            ViewBag.Pages = TotalPages;
-            return View(ResultWithPaging);
+            ViewBag.Pages = FindBook.CountTotalPagesWithCate(CategoryName, min_price, max_price);
+
+            return View(FindBook.PagingTotalBooksWithCate(CategoryName, min_price, max_price, ActivePageNum));
         }
 
         [OutputCache(Duration = 60)]
@@ -40,18 +33,11 @@ namespace Xboox.Controllers
         {
             ViewBag.Tags = FindBook.FindTag();
             ViewBag.CateOrName = Name;
-            var TotalResult = FindBook.FindBookByNameAndRange(Name, min_price, max_price);
-            ViewBag.TotalResult = TotalResult.Count();
-
-            int pageRows = 12;
-            int totalRows = TotalResult.Count();
-            int TotalPages = totalRows % pageRows == 0 ? totalRows / pageRows : totalRows / pageRows + 1;
-            int startRow = (ActivePageNum - 1) * pageRows;
-            var ResultWithPaging = TotalResult.OrderBy(x => x.Name.Substring(0, 1)).Skip(startRow).Take(pageRows);
-
+            ViewBag.TotalResult = FindBook.FindBookByNameAndRange(Name, min_price, max_price).Count();
             ViewBag.Active = ActivePageNum;
-            ViewBag.Pages = TotalPages;
-            return View("Books", ResultWithPaging);
+            ViewBag.Pages = FindBook.CountTotalPagesWithName(Name, min_price, max_price);
+
+            return View("Books", FindBook.PagingTotalBooksWithName(Name, min_price, max_price, ActivePageNum));
         }
     }
 }

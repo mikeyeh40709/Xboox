@@ -671,6 +671,7 @@
     <Content Include="Views\Shared\_BannerPartial.cshtml" />
     <Content Include="Views\Shared\_NavBarPartial.cshtml" />
     <Content Include="Views\Shared\_HomePageTagsPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial_phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
