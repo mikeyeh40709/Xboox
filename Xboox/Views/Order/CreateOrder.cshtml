@@ -34,141 +34,82 @@
             <div class="col-lg-6">
                 <h5>Billing detail</h5>
                 <div class="row">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" name="OrderId" value="@Model.OrderId">
                     <div class="col-lg-12">
+                        @Html.AntiForgeryToken()
                         <div class="checkout__form__input">
                             <p>Name <span>*</span></p>
-                            @if (Model.OrderId != Guid.Empty)
-                            {
-                                <input type="text" name="PurchaserName" value="@Model.PurchaserName.Trim()" readonly>
-                            }
-                            else
-                            {
-                                <input type="text" name="PurchaserName" value="@Model.PurchaserName.Trim()" required>
-                            }
+                            <input type="text" name="PurchaserName" value="@(Model.PurchaserName != null? Model.PurchaserName.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="checkout__form__input">
                             <p>City <span>*</span></p>
-                            @if (Model.OrderId != Guid.Empty)
-                            {
-                                <input type="text" name="City" value="@Model.City.Trim()" readonly>
-                            }
-                            else
-                            {
-                                <input type="text" name="City" value="@Model.City.Trim()" required>
-
-                            }
+                            <input type="text" name="City" value="@(Model.City != null ? Model.City.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="checkout__form__input">
                             <p>District <span>*</span></p>
-                            @if (Model.OrderId != Guid.Empty)
-                            {
-                                <input type="text" name="District" value="@Model.District.Trim()" readonly>
-                            }
-                            else
-                            {
-                                <input type="text" name="District" value="@Model.District.Trim()" required>
-                            }
+                            <input type="text" name="District" value="@(Model.District != null? Model.District.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="checkout__form__input">
                             <p>Road <span>*</span></p>
-                            @if (Model.OrderId != Guid.Empty)
-                            {
-                                <input type="text" name="Road" value="@Model.Road.Trim()" readonly>
-                            }
-                            else
-                            {
-                                <input type="text" name="Road" value="@Model.Road.Trim()" required>
-
-                            }
+                            <input type="text" name="Road" value="@(Model.Road != null? Model.Road.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="checkout__form__input">
                             <p>Phone <span>*</span></p>
-                            @if (Model.OrderId != Guid.Empty)
-                            {
-                                <input type="tel" name="PurchaserPhone" value="@Model.PurchaserPhone.Trim()" readonly>
-                            }
-                            else
-                            {
-                                <input type="tel" name="PurchaserPhone" value="@Model.PurchaserPhone.Trim()" required>
-                            }
+                            <input type="tel" name="PurchaserPhone" value="@(Model.PurchaserPhone != null? Model.PurchaserPhone.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="checkout__form__input">
                             <p>Email <span>*</span></p>
-                            @if (Model.OrderId != Guid.Empty)
-                            {
-                                <input type="email" name="PurchaserEmail" value="@Model.PurchaserEmail.Trim()" readonly>
-                            }
-                            else
-                            {
-                                <input type="email" name="PurchaserEmail" value="@Model.PurchaserEmail.Trim()" required>
-                            }
+                            <input type="email" name="PurchaserEmail" value="@(Model.PurchaserEmail != null? Model.PurchaserEmail.Trim(): "")" required>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="checkout__form__checkbox">
                             <p class="pb-2 mb-2" style="border-bottom: 1px solid #e1e1e1;">選擇付款方式 <span class="text-danger">*</span></p>
                             <div>
-                                @if (Model.OrderId == Guid.Empty)
-                                {
-                                    <label for="COD">
-                                        貨到付款
-                                        <input type="radio" id="COD" name="Payment" value="COD" required>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label for="Credit">
-                                        信用卡
-                                        <input type="radio" id="Credit" name="Payment" value="Credit" required>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label for="BarCode">
-                                        超商條碼
-                                        <input type="radio" id="BarCode" name="Payment" value="BarCode" required>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label for="CVS">
-                                        超商繳費
-                                        <input type="radio" id="CVS" name="Payment" value="CVS" required>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                }
-                                else
-                                {
-                                    <label for="Credit">
-                                        信用卡
-                                        <input type="radio" id="Credit" name="Payment" value="Credit" checked readonly>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                }
+                                <label for="COD">
+                                    貨到付款
+                                    <input type="radio" id="COD" name="Payment" value="COD" required>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="Credit">
+                                    信用卡
+                                    <input type="radio" id="Credit" name="Payment" value="Credit" required>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="BarCode">
+                                    超商條碼
+                                    <input type="radio" id="BarCode" name="Payment" value="BarCode" required>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="CVS">
+                                    超商繳費
+                                    <input type="radio" id="CVS" name="Payment" value="CVS" required>
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                     </div>
-                    @if (Model.OrderId == Guid.Empty)
-                    {
-                        <div class="col-lg-6 col-12">
-                            <div class="checkout__form__checkbox">
-                                <p class="pb-2 mb-2" style="border-bottom: 1px solid #e1e1e1;">是否要記住訂單資訊 ? <span class="text-danger">*</span></p>
-                                <div>
-                                    <label for="Remember">
-                                        記住訂單資訊
-                                        <input type="checkbox" id="Remember" name="Remember" value="true">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="checkout__form__checkbox">
+                            <p class="pb-2 mb-2" style="border-bottom: 1px solid #e1e1e1;">是否要記住訂單資訊 ? <span class="text-danger">*</span></p>
+                            <div>
+                                <label for="Remember">
+                                    記住訂單資訊
+                                    <input type="checkbox" id="Remember" name="Remember" value="true">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
-                    }
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6 position-relative">
@@ -193,35 +134,18 @@
                     </div>
                     <h5 class="pt-4">Discount codes</h5>
                     <div class="w-100" id="codesection">
-                        @if (Model.OrderId != Guid.Empty)
-                        {
-                            <input type="text" placeholder="Enter your coupon code" id="discountCode" name="Discount" value="@discountCode" readonly>
-                        }
-                        else
-                        {
-                            <input type="text" placeholder="Enter your coupon code" id="discountCode" name="Discount" value="@discountCode">
-                            <input type="text" placeholder="Discount Rate:" id="discountRate" class="d-none">
-                            <button class="site-btn" onclick="compareCode()" id="codebtn">Apply</button>
-                            <div class="cart__btn update__btn" id="ordercheckcodebtns">
-                                <a class="text-left" href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Discount Code</a>
-                            </div>
-                        }
+                        <input type="text" placeholder="Enter your coupon code" id="discountCode" name="Discount" value="@discountCode">
+                        <input type="text" placeholder="Discount Rate:" id="discountRate" class="d-none">
+                        <button class="site-btn" onclick="compareCode()" id="codebtn">Apply</button>
+                        <div class="cart__btn update__btn" id="ordercheckcodebtns">
+                            <a class="text-left" href="Javascript:void(0)" data-toggle="modal" data-target="#couponModalCenter"><span class="icon_gift"></span>Discount Code</a>
+                        </div>
                     </div>
                     <div class="checkout__order__total">
                         <ul>
-                            @if (Model.OrderId != Guid.Empty && ViewBag.Coupon != null)
-                            {
-                                <li>Total<span class="cart__total">$@(ViewBag.Total)</span></li>
-                                <li id="CartDiscountRateLi">Discount Rate<span class="discounted_price" id="CartDiscountRate">@(Convert.ToDouble(ViewBag.Coupon.Discount))</span></li>
-                                <li id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice">$@(Math.Round(ViewBag.Total * ViewBag.Coupon.Discount))</span></li>
-                            }
-                            else
-                            {
-                                <li>Total<span class="cart__total">$@ViewBag.Total</span></li>
-                                <li class="d-none" id="CartDiscountRateLi">Discount Rate<span class="discounted_price" id="CartDiscountRate"></span></li>
-                                <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice"></span></li>
-                            }
-
+                            <li>Total<span class="cart__total">$@ViewBag.Total</span></li>
+                            <li class="d-none" id="CartDiscountRateLi">Discount Rate<span class="discounted_price" id="CartDiscountRate"></span></li>
+                            <li class="d-none" id="CartDiscountPriceLi">Discounted Price<span class="discounted_price" id="CartDiscountPrice"></span></li>
                         </ul>
                     </div>
                     <button type="submit" class="site-btn mb-3">Place order</button>
@@ -287,10 +211,7 @@
         }
         let form = $("form.checkout__form");
         let state = $("input[name='Payment']");
-        let remember = $("#Remember")
-        if (state.val() !== "COD") {
-            form.attr('action', "/Order/PostToECPay")
-        }
+        let remember = $("#Remember");
         state.on("change", function () {
             if ($(this).val() == "COD") {
                 form.attr('action', "/Order/CreateOrder")

@@ -52,7 +52,7 @@ namespace XbooxLibrary.Repository
 
         public T GetFirst(Expression<Func<T, bool>> entity)
         {
-            return context.Set<T>().FirstOrDefault<T>(entity); ;
+            return context.Set<T>().FirstOrDefault<T>(entity); 
         }
 
     }

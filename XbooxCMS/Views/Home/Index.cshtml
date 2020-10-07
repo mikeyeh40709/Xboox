@@ -96,20 +96,20 @@
                     <div class="chart tab-pane active" id="productpie-chart"
                          style="position: relative; height: 550px;">
                         <div class="row justify-content-around">
-                            <a class="select">一月</a>
-                            <a class="select">二月</a>
-                            <a class="select">三月</a>
-                            <a class="select">四月</a>
-                            <a class="select">五月</a>
-                            <a class="select">六月</a>
+                            <a class="select bg-primary text-white px-3">Jan</a>
+                            <a class="select bg-primary text-white px-3">Feb</a>
+                            <a class="select bg-primary text-white px-3">Mar</a>
+                            <a class="select bg-primary text-white px-3">Apr</a>
+                            <a class="select bg-primary text-white px-3">May</a>
+                            <a class="select bg-primary text-white px-3">Jun</a>
                         </div>
-                        <div class="row justify-content-around">
-                            <a class="select">七月</a>
-                            <a class="select">八月</a>
-                            <a class="select">九月</a>
-                            <a class="select">十月</a>
-                            <a class="select">十一月</a>
-                            <a class="select">十二月</a>
+                        <div class="row justify-content-around mt-2">
+                            <a class="select bg-primary text-white px-3">Jul</a>
+                            <a class="select bg-primary text-white px-3">Aug</a>
+                            <a class="select bg-primary text-white px-3">Sep</a>
+                            <a class="select bg-primary text-white px-3">Oct</a>
+                            <a class="select bg-primary text-white px-3">Nov</a>
+                            <a class="select bg-primary text-white px-3">Dec</a>
                         </div>
 
                         <canvas id="pie-chart" height="300" style="height: 300px;"></canvas>
@@ -129,8 +129,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script>
-$(document).ready(function () {  
-    // titaldata ajax
+    $(document).ready(function () {
+        // titaldata ajax
         $.ajax({
             url: "/TitleData/GetTitleData",
             type: "GEt",
@@ -197,9 +197,9 @@ $(document).ready(function () {
 
             }
         });
-    
-});
-    
+
+    });
+
     // sales revenue chartjs
     var ctx = document.querySelector("#revenue-linechart");
     var chart1 = new Chart(ctx, {
@@ -262,7 +262,7 @@ $(document).ready(function () {
             }
         }
     });
-    
+
 
     // top5product chartjs
     var ctxPie = document.querySelector("#pie-chart");
@@ -293,6 +293,6 @@ $(document).ready(function () {
                 duration: 2000
             }
         }
-    });    
+    });
 
 </script>

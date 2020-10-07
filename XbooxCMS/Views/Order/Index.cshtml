@@ -87,29 +87,6 @@
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 <script type="text/javascript">
-    $.fn.dataTable.render.moment = function (from, to, locale) {
-        // Argument shifting
-        if (arguments.length === 1) {
-            locale = 'en';
-            to = from;
-            from = 'yyyy-MM-dd HH:mm:ss';
-        }
-        else if (arguments.length === 2) {
-            locale = 'en';
-        }
-
-        return function (d, type, row) {
-            if (!d) {
-                return type === 'sort' || type === 'type' ? 0 : d;
-            }
-
-            var m = window.moment(d, from, locale, true);
-
-            // Order and type get a number value from Moment, everything else
-            // sees the rendered value
-            return m.format(type === 'sort' || type === 'type' ? 'x' : to);
-        };
-    };
     $(document).ready(function () {
         var table = $('#ordertable').DataTable({
             ajax: {
@@ -217,7 +194,7 @@
         checkDetails = function (id) {
             console.log('--- detail');
             $.ajax({
-                url: `/api/order/GetOrderDeatils/${id}`,
+                url: `/api/order/${id}`,
                 method: "get",
                 //dataType: "json",
                 success: function (res) {
@@ -270,7 +247,7 @@
                 preConfirm: () => {
                     console.log(orderid);
                     $.ajax({
-                        type: "post",
+                        type: "put",
                         url: `/api/order/CancelOrder`,
                         data: { OrderId: orderid },
                         success: function (response) {
@@ -295,7 +272,7 @@
                 preConfirm: () => {
                     console.log(orderid);
                     $.ajax({
-                        type: "post",
+                        type: "delete",
                         url: `/api/order/DeleteOrder`,
                         data: { OrderId: orderid},
                         success: function (response) {

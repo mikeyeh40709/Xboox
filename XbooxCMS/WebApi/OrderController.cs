@@ -10,11 +10,11 @@ using XbooxCMS.Services;
 
 namespace XbooxCMS.WebApi
 {
-    [RoutePrefix("api/[Controller]/[Action]")]
+    // [RoutePrefix("api/[Controller]/[Action]")]
     public class OrderController : ApiController
     {
 
-       //所有訂單
+        //所有訂單
         [HttpGet]
         public List<OrderViewModel> GetAllOrders()
         {
@@ -25,7 +25,6 @@ namespace XbooxCMS.WebApi
 
         //訂單產品內容
         [HttpGet]
-     
         public List<OrderDetailsViewModel> GetOrderDeatils(string id)
         {
             var service = new OrderService();
@@ -34,7 +33,7 @@ namespace XbooxCMS.WebApi
         }
 
         //取消訂單
-        [HttpPost]
+        [HttpPut]
         public IHttpActionResult CancelOrder([FromBody]OrderViewModel order)
         {
             var service = new OrderService();
@@ -42,7 +41,7 @@ namespace XbooxCMS.WebApi
             return Json(new { redirectToUrl = "/Order/Index" });
         }
         //刪除訂單
-        [HttpPost]
+        [HttpDelete]
         public IHttpActionResult DeleteOrder([FromBody]OrderViewModel order)
         {
             var service = new OrderService();

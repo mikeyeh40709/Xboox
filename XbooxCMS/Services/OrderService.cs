@@ -26,13 +26,13 @@ namespace XbooxCMS.Services
                             select new OrderViewModel
                             {
                                 OrderId = o.OrderId,
-                                OrderDate = TimeCheckerService.GetTaipeiTime(o.OrderDate),
+                                OrderDate = (DateTime)TimeCheckerService.GetTaipeiTime(o.OrderDate),
                                 UserName = user.UserName,
                                 PurchaserName = o.PurchaserName,
                                 PurchaserEmail = o.PurchaserEmail,
                                 PurchaserAddress = o.City + o.District + o.Road,
                                 PurchaserPhone = o.PurchaserPhone,
-                                PayDate = o.PayDate,
+                                PayDate = TimeCheckerService.GetTaipeiTime(o.PayDate),
                                 Payment = o.Payment,
                                 Paid = o.Paid,
                                 Build = o.Build

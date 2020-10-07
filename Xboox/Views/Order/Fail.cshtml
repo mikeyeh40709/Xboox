@@ -1,4 +1,6 @@
-﻿<section class="h-50 d-flex flex-column justify-content-center align-items-center">
-    <h5>@ViewBag.Fail 訂單建立失敗</h5>
-    <button class="btn btn-danger">@Html.ActionLink("首頁", "Index", "Home")</button>
+﻿<section class="vh-100 d-flex flex-column justify-content-center align-items-center">
+    <h5 style="letter-spacing: 5px">訂單建立失敗</h5>
+    <p>@ViewBag.Fail</p>
+    <img class="my-5" style="width: 90px; height: 90px" src="~/Assets/Image/PayStatus/Fail.png" alt="paySuccess" />
+    <button class="btn btn-danger text-white">@Html.ActionLink("首頁", "Index", "Home")</button>
 </section>

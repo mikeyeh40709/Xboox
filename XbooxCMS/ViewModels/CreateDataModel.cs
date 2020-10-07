@@ -25,7 +25,7 @@ namespace XbooxCMS.ViewModels
         public string Intro { get; set; }
 
         public Guid CategoryId { get; set; }
-        public Guid ProductId { get; set; }
+        public Guid? ProductId { get; set; }
         public string Language { get; set; }
 
         public string Specification { get; set; }

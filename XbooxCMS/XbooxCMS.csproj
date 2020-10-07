@@ -264,14 +264,13 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CreateDataModel.cs" />
     <Compile Include="ViewModels\CreateImgViewModel.cs" />
-    <Compile Include="ViewModels\CreateListViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
-    <Compile Include="ViewModels\ProductListViewModel.cs" />
     <Compile Include="ViewModels\ProductUnitViewModel.cs" />
     <Compile Include="ViewModels\SalesRevenueViewModel.cs" />
     <Compile Include="ViewModels\TagViewModel.cs" />
-    <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="ViewModels\CreateListViewModel.cs" />
+    <Compile Include="ViewModels\ProductListViewModel.cs" />
     <Compile Include="ViewModels\UserListViewModel.cs" />
     <Compile Include="WebApi\CouponsController.cs" />
     <Compile Include="WebApi\DashBoardController.cs" />
@@ -470,11 +469,6 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Scripts\moment.min.js.map" />
     <Content Include="Scripts\moment-with-locales.min.js.map" />
-    <Content Include="Views\ProductImgs\Create.cshtml" />
-    <Content Include="Views\ProductImgs\Delete.cshtml" />
-    <Content Include="Views\ProductImgs\Details.cshtml" />
-    <Content Include="Views\ProductImgs\Edit.cshtml" />
-    <Content Include="Views\ProductImgs\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
@@ -486,8 +480,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Pics\" />
-    <Folder Include="Views\TestProduct\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

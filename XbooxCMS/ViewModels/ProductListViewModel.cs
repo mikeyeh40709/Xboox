@@ -6,51 +6,17 @@ using System.Web;
 
 namespace XbooxCMS.ViewModels
 {
-    public class ProductListViewModel
+    public class ProductListViewModel:ProductUnitViewModel
     {
-
-        [Required]
-        public Guid ProductId { get; set; }
-  
-
-        [StringLength(50)]
-        public string Name { get; set; }
-
-        public int UnitInStock { get; set; }
-
-        public decimal Price { get; set; }
-
-        [StringLength(50)]
-        public string ISBN { get; set; }
-
-        public int ProductImgId { get; set; }
-
-        [StringLength(50)]
-        public string Author { get; set; }
-
-        [StringLength(50)]
-        public string Publisher { get; set; }
-
-        [StringLength(10)]
-        public DateTime PublishedDate { get; set; }
-
-        public string Intro { get; set; }
-        public string Language{ get; set; }
-
-        public Guid CategoryId { get; set; }
-
- 
-        [StringLength(50)]
-        public string CategorName { get; set; }
-
-        public string Specification { get; set; }
-
-        public string Description { get; set; }
+        //productListViewModel
         [StringLength(50)]
         public string TagName { get; set; }
-        
+
 
         public Guid TagId { get; set; }
 
+        [Required]
+        public Guid ProductId { get; set; }
+        public string ProductImgId { get; set; }
     }
 }
