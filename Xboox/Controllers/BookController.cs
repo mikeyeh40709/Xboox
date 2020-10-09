@@ -20,8 +20,8 @@ namespace Xboox.Controllers
         public ActionResult Books(string CategoryName, string min_price, string max_price, int ActivePageNum = 1)
         {
             ViewBag.Tags = FindBook.FindTag();
-            ViewBag.CateOrName = FindBook.FindCategory(CategoryName).Name;
-            ViewBag.TotalResult = FindBook.FindBookByCateAndRange(CategoryName, min_price, max_price).Count();
+            ViewBag.CateOrName = FindBook.FindCategoryName(CategoryName);
+            ViewBag.TotalResult = FindBook.TotolBooksByCateAndRange(CategoryName, min_price, max_price);
             ViewBag.Active = ActivePageNum;
             ViewBag.Pages = FindBook.CountTotalPagesWithCate(CategoryName, min_price, max_price);
 
@@ -33,7 +33,7 @@ namespace Xboox.Controllers
         {
             ViewBag.Tags = FindBook.FindTag();
             ViewBag.CateOrName = Name;
-            ViewBag.TotalResult = FindBook.FindBookByNameAndRange(Name, min_price, max_price).Count();
+            ViewBag.TotalResult = FindBook.TotolBooksByNameAndRange(Name, min_price, max_price);
             ViewBag.Active = ActivePageNum;
             ViewBag.Pages = FindBook.CountTotalPagesWithName(Name, min_price, max_price);
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using Xboox.Models.DataTable;
+using XbooxLibrary.Models.DataTable;
 
 namespace Xboox.Models.ViewModels
 {

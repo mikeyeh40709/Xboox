@@ -71,3 +71,19 @@
     background-color: #e9ecef;
     padding: 10px;
 }
+
+.nav.nav-tabs {
+    justify-content: center;
+}
+
+    .nav.nav-tabs::after, .nav.nav-tabs:before {
+        width: 335px;
+    }
+
+    .nav.nav-tabs .nav-item {
+        margin-right: 46px;
+    }
+
+        .nav.nav-tabs .nav-item:last-child {
+            margin-right: 0px;
+        }

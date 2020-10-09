@@ -96,6 +96,17 @@ namespace Xboox.Services
             }
         }
         /// <summary>
+        /// Total of books by category and range
+        /// </summary>
+        /// <param name="CategoryName"></param>
+        /// <param name="min_price"></param>
+        /// <param name="max_price"></param>
+        /// <returns></returns>
+        public int TotolBooksByCateAndRange(string CategoryName, string min_price, string max_price)
+        {
+            return FindBookByCateAndRange(CategoryName, min_price, max_price).Count();
+        }
+        /// <summary>
         /// Search books by name and price range
         /// </summary>
         /// <param name="Name"></param>
@@ -113,6 +124,17 @@ namespace Xboox.Services
             {
                 return byCategory.Where(x => x.Price >= Convert.ToDecimal(min_price) && x.Price <= Convert.ToDecimal(max_price));
             }
+        }
+        /// <summary>
+        /// Total of books by name and range
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="min_price"></param>
+        /// <param name="max_price"></param>
+        /// <returns></returns>
+        public int TotolBooksByNameAndRange(string Name, string min_price, string max_price)
+        {
+            return FindBookByNameAndRange(Name, min_price, max_price).Count();
         }
         /// <summary>
         /// Search all Tags and Order by first letter
@@ -136,10 +158,10 @@ namespace Xboox.Services
         /// </summary>
         /// <param name="CategoryName"></param>
         /// <returns></returns>
-        public Category FindCategory(string CategoryName)
+        public string FindCategoryName(string CategoryName)
         {
             var CategoryRepo = new GeneralRepository<Category>(_context);
-            return CategoryRepo.GetFirst(x => x.Name == CategoryName);
+            return CategoryRepo.GetFirst(x => x.Name == CategoryName).Name;
         }
         /// <summary>
         /// Paging total books with category

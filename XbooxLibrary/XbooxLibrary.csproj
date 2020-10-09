@@ -68,7 +68,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Models\DataTable\AspNetRoles.cs" />
     <Compile Include="Models\DataTable\AspNetUserClaims.cs" />
     <Compile Include="Models\DataTable\AspNetUserLogins.cs" />
