@@ -196,22 +196,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\NavBarHelper.cs" />
-    <Compile Include="Models\DataTable\AspNetRoles.cs" />
-    <Compile Include="Models\DataTable\AspNetUserClaims.cs" />
-    <Compile Include="Models\DataTable\AspNetUserLogins.cs" />
-    <Compile Include="Models\DataTable\AspNetUsers.cs" />
-    <Compile Include="Models\DataTable\Cart.cs" />
-    <Compile Include="Models\DataTable\CartItems.cs" />
-    <Compile Include="Models\DataTable\Category.cs" />
-    <Compile Include="Models\DataTable\Coupons.cs" />
-    <Compile Include="Models\DataTable\XbooxContext.cs" />
-    <Compile Include="Models\DataTable\Order.cs" />
-    <Compile Include="Models\DataTable\OrderDetails.cs" />
-    <Compile Include="Models\DataTable\Product.cs" />
-    <Compile Include="Models\DataTable\ProductImgs.cs" />
-    <Compile Include="Models\DataTable\ProductTags.cs" />
-    <Compile Include="Models\DataTable\Tags.cs" />
-    <Compile Include="Models\DataTable\WishList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\OrderItemsBase.cs" />
     <Compile Include="Models\Services\AspNetUserManage.cs" />
@@ -674,6 +658,8 @@
     <Content Include="Views\Shared\_BannerPartial.cshtml" />
     <Content Include="Views\Shared\_NavBarPartial.cshtml" />
     <Content Include="Views\Shared\_HomePageTagsPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial_phone.cshtml" />
+    <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

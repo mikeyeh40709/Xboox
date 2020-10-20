@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 using Xboox.Models;
-using Xboox.Models.DataTable;
 using Xboox.Models.Services;
 using Xboox.ViewModels;
 using Xboox.Services;

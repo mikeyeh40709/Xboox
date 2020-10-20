@@ -2,7 +2,7 @@
 let AddBtnGroup = $(".addCartBtn");
 
 //navbar dom
-let tip = document.querySelector('.cart_count');
+let tip = document.querySelectorAll('.cart_count');
 let headerdropdown = document.querySelector('span.icon_bag_alt~ul.headerdropdown');
 // Cartpage dom
 let cart_close_group = document.querySelectorAll(".cart__close");
@@ -134,12 +134,13 @@ function renewNavbar() {
         });
         var arrayFromStroage = JSON.parse(localStorage.getItem("CartItems"));
         var arrayLength = arrayFromStroage.length;
-        tip.textContent = arrayLength;
+        tip.forEach(x => x.textContent = arrayLength);
     }
 }
 //1.  .header span.icon_bag_alt    /Cart/AddToCart
 //ajax  post type 
 ajaxFun('.header span.icon_bag_alt', '/Cart/AddToCart');
+ajaxFun('#phoneCart', '/Cart/AddToCart');
 
 function ajaxFun(clickName, ajaxUrl) {
     $(clickName).click(function (e) {
