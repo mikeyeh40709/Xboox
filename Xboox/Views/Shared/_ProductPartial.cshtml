@@ -9,7 +9,7 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i> Home</a>
-                    <a href="/Books/@Model.CategoryName">@Model.CategoryName</a>
+                    <a href="/Books/@Model.CategoryName/1">@Model.CategoryName</a>
                     <span>@Model.Name</span>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="product__details__text">
-                    <h3>@Model.Name <span>@Model.Publisher 出版社</span></h3>
+                    <h3>@Model.Name <span>@Model.Publisher Publish House</span></h3>
                     <div class="rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -68,29 +68,29 @@
                         </div>
                         <a href="#" class="cart-btn" data-img="@(Model.ImgLink)" id="@Model.ProductId" data-target="@Model.Name"><span class="icon_bag_alt"></span> Add to cart</a>
                         <ul>
-                            <li><a href="#"><span class="fa fa-heart"></span></a></li>
+                            <li><a href="javascript:void(0)"><span class="fa fa-heart"></span></a></li>
                         </ul>
                     </div>
                     <div class="product__details__widget">
                         <ul>
                             <li>
-                                <span>庫存:</span>
+                                <span>Units In stock:</span>
                                 <p>@Model.UnitInStock</p>
                             </li>
                             <li>
-                                <span>作者:</span>
+                                <span>Author:</span>
                                 <p>@Model.Author</p>
                             </li>
                             <li>
-                                <span>出版社:</span>
+                                <span>Publisher:</span>
                                 <p>@Model.Publisher</p>
                             </li>
                             <li>
-                                <span>出版日期:</span>
+                                <span>Publish Date:</span>
                                 <p>@Model.PublishedDate</p>
                             </li>
                             <li>
-                                <span>語言:</span>
+                                <span>Language:</span>
                                 <p>@Model.Language</p>
                             </li>
                         </ul>
@@ -112,18 +112,18 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                            <h6>內容介紹</h6>
+                            <h6>Content Introduction</h6>
                             <p>
                                 @Model.Description
                             </p>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
-                            <h6>詳細產品資料</h6>
+                            <h6>Detailed product information</h6>
                             <p class="isbn_number">
                                 ISBN： @Model.ISBN
                             </p>
                             <p>
-                                規格：@Model.Specification
+                                Specification：@Model.Specification
                             </p>
 
                         </div>

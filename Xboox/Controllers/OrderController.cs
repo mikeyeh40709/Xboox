@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
-using Xboox.Models.DataTable;
 using Xboox.Models.Services;
 using Xboox.Services;
 using Xboox.ViewModels;
