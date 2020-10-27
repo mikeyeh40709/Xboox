@@ -117,6 +117,7 @@ namespace XbooxCMS.Services
                         }
                     }
                 }
+
                 catch (Exception ex)
                 {
                     operationResult.IsSuccessful = false;
